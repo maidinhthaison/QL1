@@ -9,7 +9,7 @@ Public Class IKhuVucControllerImpl
 
     Private View As IKhuVucView
 
-    Private dataTable As DataTable
+    'Private dataTable As DataTable
 
     Private listKhuVuc As BindingList(Of KhuVuc)
     Private Sub New()
@@ -22,15 +22,6 @@ Public Class IKhuVucControllerImpl
         End Get
         Set(ByVal value As BindingList(Of KhuVuc))
             listKhuVuc = value
-        End Set
-    End Property
-
-    Public Property DTable() As DataTable
-        Get
-            Return dataTable
-        End Get
-        Set(ByVal value As DataTable)
-            dataTable = value
         End Set
     End Property
 
@@ -50,42 +41,27 @@ Public Class IKhuVucControllerImpl
         View.SetController(Me)
     End Sub
 
-
-    Public Sub ProcessLoadData() Implements IKhuVucController.ProcessLoadData
+    Public Function ProcessLoadData() As DataTable Implements IKhuVucController.ProcessLoadData
         Dim sql As String = "SELECT * FROM KhuVuc WHERE kv_xoa = false"
-        dataTable = XL_DuLieu.DocDuLieu(sql)
-        listKhuVuc = DataMapper.MapDataTableToList(dataTable)
-        View.BindingToGridView(listKhuVuc)
-        'View.BindingToGridView(dataTable)
-    End Sub
+        Dim dataTable As DataTable = XL_DuLieu.DocDuLieu(sql)
+        View.BindingToGridView(dataTable)
+        Return dataTable
+    End Function
 
-
-    Public Sub ProcessCapNhatKhuVuc(Index As Integer, Code As String,
-                             Ten As String, Mota As String) Implements IKhuVucController.ProcessCapNhatKhuVuc
-        Dim row As DataRow = dataTable.Rows(2)
-        MessageBox.Show($"{row("kv_mo_ta").ToString()}- {dataTable.Rows.Count}", "asd")
+    Public Sub ProcessCapNhatKhuVuc(dataTable As DataTable) Implements IKhuVucController.ProcessCapNhatKhuVuc
         XL_DuLieu.GhiDuLieu("KhuVuc", dataTable)
-        Dim updatedItem = Items(Index)
-        updatedItem.Code = Code
-        updatedItem.Ten = Ten
-        updatedItem.Mota = Mota
-        View.BindingToGridView(Items)
-        'View.BindingToGridView(dataTable)
-        View.ShowMessageBox("Thông báo", "Cập nhật thành công")
+        View.ShowMessageBox("Thông báo", "Cập nhật khu vực thành công!")
     End Sub
 
-    Public Sub ProcessThemKhuVuc() Implements IKhuVucController.ProcessThemKhuVuc
+    Public Sub ProcessThemKhuVuc(dataTable As DataTable) Implements IKhuVucController.ProcessThemKhuVuc
         XL_DuLieu.GhiDuLieu("KhuVuc", dataTable)
-        View.ShowMessageBox("Thông báo", "Thêm Khu vực mới thành công")
+        View.ShowMessageBox("Thông báo", "Thêm Khu vực thành công!")
+        View.ClearFields()
     End Sub
 
-    Public Sub ProcessXoaKhuVuc() Implements IKhuVucController.ProcessXoaKhuVuc
+    Public Sub ProcessXoaKhuVuc(dataTable As DataTable) Implements IKhuVucController.ProcessXoaKhuVuc
         XL_DuLieu.GhiDuLieu("KhuVuc", dataTable)
-        View.ShowMessageBox("Thông báo", "Xoá khu vực thành công")
-    End Sub
-
-    Public Sub ProcessClickOnCellGridView(index As Integer) Implements IKhuVucController.ProcessClickOnCellGridView
-        Dim kv = Items(index)
-        View.BindingToTextBox(kv)
+        View.ShowMessageBox("Thông báo", "Xoá thành công!")
+        View.ClearFields()
     End Sub
 End Class
