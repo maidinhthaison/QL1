@@ -21,6 +21,7 @@ Partial Class FormKhuVuc
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
         Panel1 = New Panel()
         btnXoa = New Button()
@@ -33,9 +34,11 @@ Partial Class FormKhuVuc
         tbMaKv = New TextBox()
         Label1 = New Label()
         dgvKhuVuc = New DataGridView()
+        BindingSource1 = New BindingSource(components)
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvKhuVuc, ComponentModel.ISupportInitialize).BeginInit()
+        CType(BindingSource1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' GroupBox1
@@ -145,25 +148,28 @@ Partial Class FormKhuVuc
         ' 
         dgvKhuVuc.AllowUserToAddRows = False
         dgvKhuVuc.AllowUserToDeleteRows = False
+        dgvKhuVuc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvKhuVuc.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvKhuVuc.Location = New Point(6, 22)
         dgvKhuVuc.Name = "dgvKhuVuc"
         dgvKhuVuc.ReadOnly = True
+        dgvKhuVuc.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvKhuVuc.Size = New Size(404, 398)
         dgvKhuVuc.TabIndex = 1
         ' 
-        ' frmKhuVuc
+        ' FormKhuVuc
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
         Controls.Add(GroupBox1)
-        Name = "frmKhuVuc"
+        Name = "FormKhuVuc"
         Text = "Khu Vực"
         GroupBox1.ResumeLayout(False)
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         CType(dgvKhuVuc, ComponentModel.ISupportInitialize).EndInit()
+        CType(BindingSource1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -179,4 +185,5 @@ Partial Class FormKhuVuc
     Friend WithEvents btnThem As Button
     Friend WithEvents tbMaKv As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents BindingSource1 As BindingSource
 End Class
