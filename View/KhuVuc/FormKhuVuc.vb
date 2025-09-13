@@ -18,7 +18,12 @@ Public Class FormKhuVuc
 
     Public Sub BindingListToGridView(list As List(Of KhuVuc)) Implements IKhuVucView.BindingListToGridView
         dgvKhuVuc.DataSource = Nothing
-        dgvKhuVuc.DataSource = list
+        'dgvKhuVuc.DataSource = list
+
+        BindingSource1.DataSource = list
+
+        dgvKhuVuc.DataSource = BindingSource1
+
         ConfigureGridView()
 
     End Sub
@@ -31,7 +36,6 @@ Public Class FormKhuVuc
         dgvKhuVuc.Columns("Ten").HeaderText = "Tên KV"
         dgvKhuVuc.Columns("Mota").HeaderText = "Mô tả"
         dgvKhuVuc.Columns("Code").HeaderText = "Code"
-
 
     End Sub
 
@@ -63,8 +67,10 @@ Public Class FormKhuVuc
 
     Private Sub XoaKhuVuc()
         If dgvKhuVuc.SelectedCells.Count > 0 Then
+            BindingSource1.Filter = "IsXoa = False"
             khuVucController.XulyXoaKhuVuc()
         End If
+
     End Sub
 
     Private Sub ThemKhuVuc()

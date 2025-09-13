@@ -21,6 +21,7 @@ Partial Class FormKhuVuc
     'Do not modify it using the code editor.
     <System.Diagnostics.DebuggerStepThrough()>
     Private Sub InitializeComponent()
+        components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
         Panel1 = New Panel()
         btnXoa = New Button()
@@ -33,9 +34,11 @@ Partial Class FormKhuVuc
         tbMaKv = New TextBox()
         Label1 = New Label()
         dgvKhuVuc = New DataGridView()
+        BindingSource1 = New BindingSource(components)
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvKhuVuc, ComponentModel.ISupportInitialize).BeginInit()
+        CType(BindingSource1, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' GroupBox1
@@ -166,6 +169,7 @@ Partial Class FormKhuVuc
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         CType(dgvKhuVuc, ComponentModel.ISupportInitialize).EndInit()
+        CType(BindingSource1, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -181,4 +185,5 @@ Partial Class FormKhuVuc
     Friend WithEvents btnThem As Button
     Friend WithEvents tbMaKv As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents BindingSource1 As BindingSource
 End Class

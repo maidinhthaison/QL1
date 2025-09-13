@@ -9,16 +9,11 @@ Public Class IKhuVucControllerImpl
 
     Private View As IKhuVucView
 
-    'Private dataTable As DataTable
-
-    'Private listKhuVuc As BindingList(Of KhuVuc)
-
     Private listKhuVuc As List(Of KhuVuc)
 
     Private selectedIndex As Integer
 
     Private Sub New()
-        'listKhuVuc = New BindingList(Of KhuVuc)
         listKhuVuc = New List(Of KhuVuc)
         khuVucDao = New KhuVucDao()
 
@@ -65,7 +60,6 @@ Public Class IKhuVucControllerImpl
         Dim khuVucToSave As New List(Of KhuVuc) From {addedKhuVuc}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Thêm Khu vực thành công!")
-            'XulyLoadData()
             View.ClearFields()
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Thêm Khu vực thất bại!")
@@ -98,7 +92,7 @@ Public Class IKhuVucControllerImpl
         Dim khuVucToSave As New List(Of KhuVuc) From {kv}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Xoá khu vực thành công!")
-            View.BindingListToGridView(listKhuVuc)
+            XulyLoadData()
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Xoá khu vực thất bại!")
         End If
