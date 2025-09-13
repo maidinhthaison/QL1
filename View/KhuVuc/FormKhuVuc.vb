@@ -7,27 +7,38 @@ Public Class FormKhuVuc
 
     Private khuVucController As IKhuVucControllerImpl
 
-    Private dsKhuVuc As DataTable
 
     Public Sub SetController(Controller As IKhuVucControllerImpl) Implements IKhuVucView.SetController
         khuVucController = Controller
     End Sub
 
-
-
     Public Sub LoadData() Implements IKhuVucView.LoadData
-        dsKhuVuc = khuVucController.ProcessLoadData()
+        khuVucController.XulyLoadData()
     End Sub
 
-    Public Sub BindingToGridView(dataTable As DataTable) Implements IKhuVucView.BindingToGridView
-        dgvKhuVuc.DataSource = dataTable
+    Public Sub BindingListToGridView(list As List(Of KhuVuc)) Implements IKhuVucView.BindingListToGridView
+        dgvKhuVuc.DataSource = Nothing
+        dgvKhuVuc.DataSource = list
+        ConfigureGridView()
 
-        dgvKhuVuc.Columns("kv_ma").Visible = False
-        dgvKhuVuc.Columns("kv_xoa").Visible = False
+    End Sub
 
-        dgvKhuVuc.Columns("kv_code").HeaderText = "Mã KV"
-        dgvKhuVuc.Columns("kv_ten").HeaderText = "Tên KV"
-        dgvKhuVuc.Columns("kv_mo_ta").HeaderText = "Mô tả"
+    Public Sub ConfigureGridView() Implements IKhuVucView.ConfigureGridView
+        dgvKhuVuc.Columns("Ma").Visible = False
+        dgvKhuVuc.Columns("IsXoa").Visible = False
+
+        ' Set custom header text for columns
+        dgvKhuVuc.Columns("Ten").HeaderText = "Tên KV"
+        dgvKhuVuc.Columns("Mota").HeaderText = "Mô tả"
+        dgvKhuVuc.Columns("Code").HeaderText = "Code"
+
+
+    End Sub
+
+    Public Sub BindingToTextBox(khuVuc As KhuVuc) Implements IKhuVucView.BindingToTextBox
+        tbMaKv.Text = khuVuc.Code
+        tbTenKv.Text = khuVuc.Ten
+        rtbMota.Text = khuVuc.Mota
     End Sub
 
     Private Sub frmKhuVuc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -52,57 +63,37 @@ Public Class FormKhuVuc
 
     Private Sub XoaKhuVuc()
         If dgvKhuVuc.SelectedCells.Count > 0 Then
-
-            Dim selectedRowIndex As Integer = dgvKhuVuc.SelectedCells(0).RowIndex
-            Dim selectedRow As DataRowView = dgvKhuVuc.Rows(selectedRowIndex).DataBoundItem
-            Dim khuVuc As DataRow = selectedRow.Row
-
-            khuVuc("kv_xoa") = True
-
-            khuVucController.ProcessXoaKhuVuc(dsKhuVuc)
-
-            dsKhuVuc.Rows.Remove(khuVuc)
-
+            khuVucController.XulyXoaKhuVuc()
         End If
     End Sub
 
     Private Sub ThemKhuVuc()
-        Dim KV As DataRow = dsKhuVuc.NewRow()
-        KV("kv_ten") = tbTenKv.Text
-        KV("kv_code") = tbMaKv.Text
-        KV("kv_mo_ta") = rtbMota.Text
-        KV("kv_xoa") = False
-
-        dsKhuVuc.Rows.Add(KV)
-
-        khuVucController.ProcessThemKhuVuc(dsKhuVuc)
+        Dim newKhuVuc As New KhuVuc() With {
+            .Ten = tbTenKv.Text,
+            .Mota = rtbMota.Text,
+            .Code = tbMaKv.Text,
+            .IsXoa = False
+        }
+        khuVucController.XulyThemKhuVuc(newKhuVuc)
 
     End Sub
 
     Private Sub dgvKhuVuc_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvKhuVuc.CellClick
-        If dgvKhuVuc.SelectedCells.Count > 0 Then
-            Dim selectedRowIndex As Integer = dgvKhuVuc.SelectedCells(0).RowIndex
-            Dim selectedRow As DataRowView = dgvKhuVuc.Rows(selectedRowIndex).DataBoundItem
-            Dim khuVuc As DataRow = selectedRow.Row
-            tbMaKv.Text = khuVuc("kv_code").ToString()
-            rtbMota.Text = khuVuc("kv_mo_ta").ToString()
-            tbTenKv.Text = khuVuc("kv_ten").ToString()
+
+        If e.RowIndex >= 0 Then
+            khuVucController.Index = e.RowIndex
+            Dim selectedRow As DataGridViewRow = dgvKhuVuc.Rows(e.RowIndex)
+            Dim selectedKhuVuc As KhuVuc = CType(selectedRow.DataBoundItem, KhuVuc)
+            If selectedKhuVuc IsNot Nothing Then
+                BindingToTextBox(selectedKhuVuc)
+            End If
         End If
     End Sub
 
     Private Sub CapNhatKhuVuc()
 
         If dgvKhuVuc.SelectedCells.Count > 0 Then
-            Dim selectedRowIndex As Integer = dgvKhuVuc.SelectedCells(0).RowIndex
-            Dim selectedRow As DataRowView = dgvKhuVuc.Rows(selectedRowIndex).DataBoundItem
-            Dim khuVuc As DataRow = selectedRow.Row
-
-            khuVuc("kv_code") = tbMaKv.Text
-            khuVuc("kv_ten") = tbTenKv.Text
-            khuVuc("kv_mo_ta") = rtbMota.Text
-
-            khuVucController.ProcessCapNhatKhuVuc(dsKhuVuc)
-
+            khuVucController.XulyCapNhatKhuVuc(tbTenKv.Text, rtbMota.Text, tbMaKv.Text)
         End If
     End Sub
 
@@ -113,8 +104,14 @@ Public Class FormKhuVuc
         AddHandler btnXoa.Click, AddressOf OnButtonClick
     End Sub
 
-    Private Sub ShowMessageBox(Title As String, Message As String) Implements IKhuVucView.ShowMessageBox
-        MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+    Private Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IKhuVucView.ShowMessageBox
+        Select Case MessageBoxType
+            Case EnumMessageBox.Infomation
+                MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Case EnumMessageBox.Errors
+                MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
+        End Select
+
     End Sub
 
     Private Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IKhuVucView.ShowConfirmMessageBox

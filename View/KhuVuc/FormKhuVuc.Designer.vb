@@ -145,20 +145,22 @@ Partial Class FormKhuVuc
         ' 
         dgvKhuVuc.AllowUserToAddRows = False
         dgvKhuVuc.AllowUserToDeleteRows = False
+        dgvKhuVuc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvKhuVuc.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
         dgvKhuVuc.Location = New Point(6, 22)
         dgvKhuVuc.Name = "dgvKhuVuc"
         dgvKhuVuc.ReadOnly = True
+        dgvKhuVuc.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvKhuVuc.Size = New Size(404, 398)
         dgvKhuVuc.TabIndex = 1
         ' 
-        ' frmKhuVuc
+        ' FormKhuVuc
         ' 
-        AutoScaleDimensions = New SizeF(7.0F, 15.0F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
         Controls.Add(GroupBox1)
-        Name = "frmKhuVuc"
+        Name = "FormKhuVuc"
         Text = "Khu Vực"
         GroupBox1.ResumeLayout(False)
         Panel1.ResumeLayout(False)

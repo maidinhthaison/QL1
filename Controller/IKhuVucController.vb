@@ -1,14 +1,6 @@
 ﻿Public Interface IKhuVucController
-    Function ProcessLoadData() As DataTable
-
-    'Sub ProcessCapNhatKhuVuc(Index As Integer, Code As String,
-    '                         Ten As String, Mota As String)
-
-    Sub ProcessCapNhatKhuVuc(dataTable As DataTable)
-
-    Sub ProcessThemKhuVuc(dataTable As DataTable)
-
-    Sub ProcessXoaKhuVuc(dataTable As DataTable)
-
-    'Sub ProcessClickOnCellGridView(index As Integer)
+    Sub XulyThemKhuVuc(addedKhuVuc As KhuVuc)
+    Sub XulyXoaKhuVuc()
+    Sub XulyCapNhatKhuVuc(ten As String, mota As String, code As String)
+    Sub XulyLoadData()
 End Interface
