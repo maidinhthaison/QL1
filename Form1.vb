@@ -63,13 +63,13 @@ Public Class Form1
     End Sub
 
     Private Sub DSSanPhamMenuItem_Click(sender As Object, e As EventArgs) Handles DSSanPhamMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmQLSanPham))
+        Dim frm As Form = TimForm(GetType(FormQLSanPham))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim frmSanPham As New frmQLSanPham()
+        Dim frmSanPham As New FormQLSanPham()
         frmSanPham.MdiParent = Me
         frmSanPham.WindowState = FormWindowState.Maximized
         frmSanPham.Show()

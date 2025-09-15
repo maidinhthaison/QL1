@@ -1,6 +1,7 @@
 ﻿Module StringResources
     Public Const MSG_BOX_INFO_TITLE As String = "Thông Báo"
     Public Const MSG_BOX_CONFIRM_TITLE As String = "Xác Nhận"
+    Public Const MSG_BOX_CONFIRM_MESSAGE As String = "Bạn có muốn xoá"
     Public Const MSG_BOX_ERROR_TITLE As String = "Lỗi"
 
     Public MSG_BOX_INSERT_SUCCESS_MESSAGE As String = "Thêm {0} thành công"
