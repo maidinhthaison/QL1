@@ -57,7 +57,17 @@
 
 
     Public Sub XulyXoaLoaiSanPham() Implements ILoaiSanPhamController.XulyXoaLoaiSanPham
-        Throw New NotImplementedException()
+        Dim lsp As LoaiSanPham = listLoaiSp(selectedIndex)
+        lsp.IsXoa = True
+        Dim loaiSpToSave As New List(Of LoaiSanPham) From {lsp}
+        If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
+            View.BindingListToGridView(listLoaiSp)
+            View.ShowMessageBox(EnumMessageBox.Infomation, StringResources.MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_DELETE_SUCCESS_MESSAGE, "loại sản phẩm"))
+        Else
+            View.ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE,
+                                String.Format(MSG_BOX_DELETE_ERROR_MESSAGE, "loại sản phẩm"))
+        End If
     End Sub
 
 
@@ -82,10 +92,11 @@
         View.BindingListToGridView(listLoaiSp)
         Dim loaiSpToSave As New List(Of LoaiSanPham) From {addedLoaiSp}
         If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Thêm Loại sản phẩm thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "loại sản phẩm"))
             View.ClearFields()
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Thêm Loại sản phẩm thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "loại sản phẩm"))
         End If
     End Sub
 
@@ -98,10 +109,11 @@
         selectedLoaiSp.Kv = editedLoaiSp.Kv
         Dim loaiSpToSave As New List(Of LoaiSanPham) From {selectedLoaiSp}
         If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Cập nhật loại sản phẩm thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "loại sản phẩm"))
             View.BindingListToGridView(listLoaiSp)
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Cập nhật loại sản phẩm thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "loại sản phẩm"))
         End If
     End Sub
 End Class

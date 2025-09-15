@@ -55,10 +55,12 @@
         View.BindingListToGridView(listNhaCc)
         Dim nhaCcToSave As New List(Of NhaCungCap) From {addedNhacc}
         If nhaCcDAO.SaveNhaCungCap(nhaCcToSave) Then
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Thêm Nhà cung cấp thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, StringResources.MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "Nhà cung cấp"))
             View.ClearFields()
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Thêm Nhà cung cấp thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE,
+                                String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "Nhà cung cấp"))
         End If
     End Sub
 
@@ -68,9 +70,9 @@
         Dim nhaCcToSave As New List(Of NhaCungCap) From {ncc}
         If nhaCcDAO.SaveNhaCungCap(nhaCcToSave) Then
             View.BindingListToGridView(listNhaCc)
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Xoá nhà cung cấp thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, StringResources.MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_DELETE_SUCCESS_MESSAGE, "Nhà cung cấp"))
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Xoá nhà cung cấp thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_DELETE_ERROR_MESSAGE, "Nhà cung cấp"))
         End If
     End Sub
 
@@ -83,10 +85,10 @@
         selectedNhaCc.Code = editedNhacc.Code
         Dim nhaCcToSave As New List(Of NhaCungCap) From {selectedNhaCc}
         If nhaCcDAO.SaveNhaCungCap(nhaCcToSave) Then
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Cập nhật khu vực thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, StringResources.MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "Nhà cung cấp"))
             View.BindingListToGridView(listNhaCc)
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Cập nhật khu vực thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "Nhà cung cấp"))
         End If
     End Sub
 

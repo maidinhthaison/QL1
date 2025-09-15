@@ -64,7 +64,12 @@
 
 
     Private Sub XoaLoaiSanPham()
-        Throw New NotImplementedException()
+        If dgvLoaiSp.SelectedCells.Count > 0 Then
+
+            loaiSanPhamController.XulyXoaLoaiSanPham()
+            bsLoaiSp.RemoveAt(loaiSanPhamController.Index)
+
+        End If
     End Sub
 
     Private Sub FormLoaiSanPham_Load(sender As Object, e As EventArgs) Handles MyBase.Load

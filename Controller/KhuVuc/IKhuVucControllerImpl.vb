@@ -59,10 +59,12 @@ Public Class IKhuVucControllerImpl
         View.BindingListToGridView(listKhuVuc)
         Dim khuVucToSave As New List(Of KhuVuc) From {addedKhuVuc}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Thêm Khu vực thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "khu vực"))
             View.ClearFields()
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Thêm Khu vực thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE,
+                                String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "khu vực"))
         End If
     End Sub
 
@@ -79,10 +81,13 @@ Public Class IKhuVucControllerImpl
         kv.Code = code
         Dim khuVucToSave As New List(Of KhuVuc) From {kv}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Cập nhật khu vực thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "khu vực"))
+            View.ClearFields()
             View.BindingListToGridView(listKhuVuc)
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Cập nhật khu vực thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE,
+                                String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "khu vực"))
         End If
     End Sub
 
@@ -92,9 +97,11 @@ Public Class IKhuVucControllerImpl
         Dim khuVucToSave As New List(Of KhuVuc) From {kv}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
             View.BindingListToGridView(listKhuVuc)
-            View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Xoá khu vực thành công!")
+            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_DELETE_SUCCESS_MESSAGE, "khu vực"))
         Else
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Xoá khu vực thất bại!")
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_DELETE_ERROR_MESSAGE, "khu vực"))
         End If
     End Sub
 End Class
