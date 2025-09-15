@@ -18,7 +18,6 @@ Public Class FormKhuVuc
 
     Public Sub BindingListToGridView(list As List(Of KhuVuc)) Implements IKhuVucView.BindingListToGridView
         dgvKhuVuc.DataSource = Nothing
-        'dgvKhuVuc.DataSource = list
 
         BindingSource1.DataSource = list
 
@@ -67,8 +66,10 @@ Public Class FormKhuVuc
 
     Private Sub XoaKhuVuc()
         If dgvKhuVuc.SelectedCells.Count > 0 Then
-            BindingSource1.Filter = "IsXoa = False"
+
             khuVucController.XulyXoaKhuVuc()
+            BindingSource1.RemoveAt(khuVucController.Index)
+
         End If
 
     End Sub
@@ -110,17 +111,22 @@ Public Class FormKhuVuc
         AddHandler btnXoa.Click, AddressOf OnButtonClick
     End Sub
 
-    Private Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IKhuVucView.ShowMessageBox
+    Private Sub ClearFields() Implements IKhuVucView.ClearFields
+        tbMaKv.Text = ""
+        tbTenKv.Text = ""
+        rtbMota.Text = ""
+    End Sub
+
+    Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IKhuVucView.ShowMessageBox
         Select Case MessageBoxType
             Case EnumMessageBox.Infomation
                 MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
             Case EnumMessageBox.Errors
                 MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Select
-
     End Sub
 
-    Private Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IKhuVucView.ShowConfirmMessageBox
+    Public Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IKhuVucView.ShowConfirmMessageBox
         Dim result As DialogResult
         result = MessageBox.Show(Message, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         If result = DialogResult.Yes Then
@@ -130,11 +136,5 @@ Public Class FormKhuVuc
             End Select
 
         End If
-    End Sub
-
-    Private Sub ClearFields() Implements IKhuVucView.ClearFields
-        tbMaKv.Text = ""
-        tbTenKv.Text = ""
-        rtbMota.Text = ""
     End Sub
 End Class

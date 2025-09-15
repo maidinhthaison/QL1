@@ -1,9 +1,11 @@
-﻿Public Class KhuVuc
-    Private _ma As Integer
-    Private _ten As String
-    Private _mota As String
-    Private _xoa As Boolean
-    Private _code As String
+﻿Public Class LoaiSanPham
+    Private _lsp_ma As Integer
+    Private _lsp_ten As String
+    Private _lsp_mota As String
+    Private _lsp_xoa As Boolean
+    Private _lsp_code As String
+    Private _lsp_ncc As String
+    Private _lsp_khu_vuc As KhuVuc
 
     Public Sub New()
         Me.Ma = 0
@@ -11,47 +13,46 @@
 
     Public Property Ma() As Integer
         Get
-            Return _ma
+            Return _lsp_ma
         End Get
         Set(ByVal value As Integer)
-            _ma = value
+            _lsp_ma = value
         End Set
     End Property
 
     Public Property Ten() As String
         Get
-            Return _ten
+            Return _lsp_ten
         End Get
         Set(ByVal value As String)
-            _ten = value
+            _lsp_ten = value
         End Set
     End Property
 
     Public Property Mota() As String
         Get
-            Return _mota
+            Return _lsp_mota
         End Get
         Set(ByVal value As String)
-            _mota = value
+            _lsp_mota = value
         End Set
     End Property
 
     Public Property Code() As String
         Get
-            Return _code
+            Return _lsp_code
         End Get
         Set(ByVal value As String)
-            _code = value
+            _lsp_code = value
         End Set
     End Property
 
     Public Property IsXoa() As Boolean
         Get
-            Return _xoa
+            Return _lsp_xoa
         End Get
         Set(ByVal value As Boolean)
-            _xoa = value
+            _lsp_xoa = value
         End Set
     End Property
-
 End Class

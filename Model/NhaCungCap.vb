@@ -1,7 +1,9 @@
-﻿Public Class KhuVuc
+﻿Public Class NhaCungCap
     Private _ma As Integer
     Private _ten As String
-    Private _mota As String
+    Private _diachi As String
+    Private _dienthoai As String
+    Private _ghichu As String
     Private _xoa As Boolean
     Private _code As String
 
@@ -27,12 +29,30 @@
         End Set
     End Property
 
-    Public Property Mota() As String
+    Public Property DiaChi() As String
         Get
-            Return _mota
+            Return _diachi
         End Get
         Set(ByVal value As String)
-            _mota = value
+            _diachi = value
+        End Set
+    End Property
+
+    Public Property DienThoai() As String
+        Get
+            Return _dienthoai
+        End Get
+        Set(ByVal value As String)
+            _dienthoai = value
+        End Set
+    End Property
+
+    Public Property GhiChu() As String
+        Get
+            Return _ghichu
+        End Get
+        Set(ByVal value As String)
+            _ghichu = value
         End Set
     End Property
 
@@ -53,5 +73,4 @@
             _xoa = value
         End Set
     End Property
-
 End Class

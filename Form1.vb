@@ -77,13 +77,13 @@ Public Class Form1
     End Sub
 
     Private Sub NhaCCMenuItem_Click(sender As Object, e As EventArgs) Handles NhaCCMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmNhaCungCap))
+        Dim frm As Form = TimForm(GetType(FormNhaCungCap))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim frmNCC As New frmNhaCungCap()
+        Dim frmNCC As New FormNhaCungCap()
         frmNCC.MdiParent = Me
         frmNCC.WindowState = FormWindowState.Maximized
         frmNCC.Show()
