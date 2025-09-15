@@ -13,6 +13,8 @@ Public Class IKhuVucControllerImpl
 
     Private selectedIndex As Integer
 
+    Private khuVucDao As KhuVucDao
+
     Private Sub New()
         listKhuVuc = New List(Of KhuVuc)
         khuVucDao = New KhuVucDao()
@@ -46,8 +48,6 @@ Public Class IKhuVucControllerImpl
             Return _instance
         End Get
     End Property
-
-    Private khuVucDao As KhuVucDao
 
     Public Sub Init(ByVal khuVucView As IKhuVucView)
         View = khuVucView
@@ -91,8 +91,8 @@ Public Class IKhuVucControllerImpl
         kv.IsXoa = True
         Dim khuVucToSave As New List(Of KhuVuc) From {kv}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
+            View.BindingListToGridView(listKhuVuc)
             View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Xoá khu vực thành công!")
-            XulyLoadData()
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Xoá khu vực thất bại!")
         End If
