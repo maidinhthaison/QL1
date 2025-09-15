@@ -2,7 +2,6 @@
 Imports System.Runtime.CompilerServices
 
 Public Class KhuVuc
-    'Implements INotifyPropertyChanged
     Private _ma As Integer
     Private _ten As String
     Private _mota As String
@@ -10,7 +9,6 @@ Public Class KhuVuc
     Private _code As String
 
     Public Sub New()
-        ' Set ID to 0 to indicate it's a new, unsaved record
         Me.Ma = 0
     End Sub
 
@@ -29,7 +27,6 @@ Public Class KhuVuc
         End Get
         Set(ByVal value As String)
             _ten = value
-            'OnPropertyChanged()
         End Set
     End Property
 
@@ -39,7 +36,6 @@ Public Class KhuVuc
         End Get
         Set(ByVal value As String)
             _mota = value
-            'OnPropertyChanged()
         End Set
     End Property
 
@@ -49,7 +45,6 @@ Public Class KhuVuc
         End Get
         Set(ByVal value As String)
             _code = value
-            'OnPropertyChanged()
         End Set
     End Property
 
@@ -62,9 +57,4 @@ Public Class KhuVuc
         End Set
     End Property
 
-    'Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
-
-    'Protected Sub OnPropertyChanged(<CallerMemberName> Optional ByVal propertyName As String = Nothing)
-    '    RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(propertyName))
-    'End Sub
 End Class
