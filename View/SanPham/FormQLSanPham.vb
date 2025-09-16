@@ -11,13 +11,13 @@
     Public Sub LoadData() Implements ISanPhamView.LoadData
         sanPhamController.XulyLoadLoaiSanPham()
         sanPhamController.XulyLoadData()
+        sanPhamController.XulyGetLoaiSanPhamByNhaCCKhuVuc()
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
-        AddHandler btnTaoCode.Click, AddressOf OnButtonClick
     End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements ISanPhamView.ShowMessageBox
@@ -42,7 +42,11 @@
     End Sub
 
     Private Sub XoaSanPham()
-        Throw New NotImplementedException()
+        If dgvSanPham.SelectedCells.Count > 0 Then
+            sanPhamController.XulyXoaSanPham()
+            bsSanPham.RemoveAt(sanPhamController.Index)
+
+        End If
     End Sub
 
     Public Sub BindingListToGridView(list As List(Of SanPham)) Implements ISanPhamView.BindingListToGridView
@@ -55,8 +59,25 @@
         ConfigureGridView()
     End Sub
 
-    Public Sub BindingToTextBox(loaiSp As SanPham) Implements ISanPhamView.BindingToTextBox
-        Throw New NotImplementedException()
+    Public Sub BindingToLabel(list As List(Of LoaiSanPham)) Implements ISanPhamView.BindingToLabel
+        Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
+
+        Dim loaiSpFounded As LoaiSanPham = list.FirstOrDefault(Function(p) p.Ma = selectedLoaiSp.Ma)
+        If loaiSpFounded IsNot Nothing Then
+            lbKhuVuc.Text = loaiSpFounded.Kv_Ten
+            lbNhacc.Text = loaiSpFounded.Ncc_Ten
+        Else
+            ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE, "Không tìm thấy")
+        End If
+    End Sub
+
+    Public Sub BindingToTextBox(sp As SanPham) Implements ISanPhamView.BindingToTextBox
+        tbSanpham.Text = sp.Ten
+        tbGia.Text = sp.Gia
+        rtbMota.Text = sp.Mota
+        lbCode.Text = sp.Code
+        cbLoaiSp.SelectedValue = sp.Loai
+
     End Sub
 
     Public Sub ConfigureGridView() Implements ISanPhamView.ConfigureGridView
@@ -76,6 +97,9 @@
         tbGia.Text = ""
         tbTukhoa.Text = ""
         rtbMota.Text = ""
+        lbCode.Text = ""
+        lbNhacc.Text = ""
+        lbKhuVuc.Text = ""
     End Sub
 
     Public Sub BindingListToComBoBoxLoaiSp(list As List(Of LoaiSanPham)) Implements ISanPhamView.BindingListToComBoBoxLoaiSp
@@ -92,30 +116,52 @@
                 ThemSanPham()
             Case "btnCapNhat"
                 CapNhatSanPham()
-            Case "btnTaoCode"
-                TaoCodeSp()
             Case "btnXoa"
                 ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 
-    Private Sub TaoCodeSp()
-        Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
-        Dim str1 As String = GetRandomString(6)
-        lbCode.Text = $"{selectedLoaiSp.Code}-{str1}"
-
-    End Sub
+    Private Function TaoCodeSp() As String
+        Return GetRandomString(6)
+    End Function
 
     Private Sub CapNhatSanPham()
-        Throw New NotImplementedException()
+        If dgvSanPham.SelectedCells.Count > 0 Then
+            Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
+            Dim editedSp As New SanPham() With {
+                .Ten = tbSanpham.Text,
+                .Mota = rtbMota.Text,
+                .Gia = tbGia.Text,
+                .Loai = selectedLoaiSp.Ma
+            }
+            sanPhamController.XulyCapNhatSanPham(editedSp)
+        End If
     End Sub
 
     Private Sub ThemSanPham()
-        Throw New NotImplementedException()
+        Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
+        MessageBox.Show(selectedLoaiSp.Ma)
+        Dim newSp As New SanPham() With {
+            .Ten = tbSanpham.Text,
+            .Mota = rtbMota.Text,
+            .Loai = selectedLoaiSp.Ma,
+            .Gia = tbGia.Text,
+            .IsXoa = False,
+            .Code = $"{selectedLoaiSp.Code} - {TaoCodeSp()}"
+        }
+        sanPhamController.XulyThemSanPham(newSp)
     End Sub
 
     Private Sub dgvSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSanPham.CellClick
-
+        If e.RowIndex >= 0 Then
+            sanPhamController.Index = e.RowIndex
+            Dim selectedRow As DataGridViewRow = dgvSanPham.Rows(e.RowIndex)
+            Dim selectedSp As SanPham = CType(selectedRow.DataBoundItem, SanPham)
+            If selectedSp IsNot Nothing Then
+                BindingToTextBox(selectedSp)
+                BindingToLabel(sanPhamController.LoaiSPItems)
+            End If
+        End If
     End Sub
 
     Private Sub FormQLSanPham_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -124,5 +170,6 @@
         InitViews()
         LoadData()
     End Sub
+
 
 End Class

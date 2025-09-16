@@ -40,10 +40,11 @@ Public Class SanPhamDAO
         Return sanPhamList
     End Function
 
+
     '========================================================================
     '   FUNCTION TO SAVE A LIST OF OBJECTS TO THE DATABASE
     '========================================================================
-    Public Function SaveLoaiSanPham(ByVal loaiSpToSave As List(Of LoaiSanPham)) As Boolean
+    Public Function SaveSanPham(ByVal spToSave As List(Of SanPham)) As Boolean
         ' Use a transaction to ensure that all records are saved successfully,
         ' or none are. This prevents partial data updates.
         Dim transaction As OleDbTransaction = Nothing
@@ -53,13 +54,13 @@ Public Class SanPhamDAO
                 conn.Open()
                 transaction = conn.BeginTransaction()
 
-                For Each lsp In loaiSpToSave
-                    If lsp.Ma = 0 Then
+                For Each sp In spToSave
+                    If sp.Ma = 0 Then
                         ' This is a new record, perform an INSERT
-                        InsertLoaiSanPham(lsp, conn, transaction)
+                        InsertSanPham(sp, conn, transaction)
                     Else
                         ' This is an existing record, perform an UPDATE
-                        UpdateLoaiSanPham(lsp, conn, transaction)
+                        UpdateSanPham(sp, conn, transaction)
                     End If
                 Next
 
@@ -82,40 +83,42 @@ Public Class SanPhamDAO
 
     ' --- Helper methods for Insert and Update ---
 
-    Private Shared Sub InsertLoaiSanPham(ByVal lsp As LoaiSanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+    Private Shared Sub InsertSanPham(ByVal sp As SanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
-        Dim sql As String = "INSERT INTO LoaiSanPham (lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code,
-                lsp_ncc, lsp_khu_vuc) VALUES (?, ?, ?, ?, ?, ?)"
+        Dim sql As String = "INSERT INTO SanPham (sp_ten, sp_mo_ta, sp_loai, 
+                sp_gia, sp_xoa, sp_code) VALUES (?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
-            cmd.Parameters.AddWithValue("pTen", lsp.Ten)
-            cmd.Parameters.AddWithValue("pMota", lsp.Mota)
-            cmd.Parameters.AddWithValue("pXoa", lsp.IsXoa)
-            cmd.Parameters.AddWithValue("pCode", lsp.Code)
-            cmd.Parameters.AddWithValue("pNcc", lsp.NhaCc)
-            cmd.Parameters.AddWithValue("pKv", lsp.Kv)
+            cmd.Parameters.AddWithValue("pTen", sp.Ten)
+            cmd.Parameters.AddWithValue("pMota", sp.Mota)
+            cmd.Parameters.AddWithValue("pLoai", sp.Loai)
+            cmd.Parameters.AddWithValue("pGia", sp.Gia)
+            cmd.Parameters.AddWithValue("pXoa", sp.IsXoa)
+            cmd.Parameters.AddWithValue("pCode", sp.Code)
             cmd.ExecuteNonQuery()
 
             ' Optional: Get the new ID of the inserted record
             cmd.CommandText = "SELECT @@IDENTITY;"
-            lsp.Ma = CInt(cmd.ExecuteScalar())
+            sp.Ma = CInt(cmd.ExecuteScalar())
         End Using
     End Sub
 
-    Private Shared Sub UpdateLoaiSanPham(ByVal lsp As LoaiSanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
-        Dim sql As String = "UPDATE LoaiSanPham SET lsp_ten = ?, lsp_mo_ta = ?, lsp_xoa = ?, lsp_code = ?,
-            lsp_ncc = ?, lsp_khu_vuc = ? WHERE lsp_ma = ?"
+    Private Shared Sub UpdateSanPham(ByVal sp As SanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+        Dim sql As String = "UPDATE SanPham SET sp_ten = ?, sp_mo_ta = ?, sp_loai = ?,
+            sp_gia = ?, sp_xoa = ? WHERE sp_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
-            cmd.Parameters.AddWithValue("pTen", lsp.Ten)
-            cmd.Parameters.AddWithValue("pMota", lsp.Mota)
-            cmd.Parameters.AddWithValue("pXoa", lsp.IsXoa)
-            cmd.Parameters.AddWithValue("pCode", lsp.Code)
-            cmd.Parameters.AddWithValue("pNcc", lsp.NhaCc)
-            cmd.Parameters.AddWithValue("pKv", lsp.Kv)
-            cmd.Parameters.AddWithValue("pMa", lsp.Ma)
+            cmd.Parameters.AddWithValue("pTen", sp.Ten)
+            cmd.Parameters.AddWithValue("pMota", sp.Mota)
+            cmd.Parameters.AddWithValue("pLoai", sp.Loai)
+            cmd.Parameters.AddWithValue("pGia", sp.Gia)
+            cmd.Parameters.AddWithValue("pXoa", sp.IsXoa)
+            cmd.Parameters.AddWithValue("pMa", sp.Ma)
             cmd.ExecuteNonQuery()
         End Using
     End Sub
+
+
+
 End Class

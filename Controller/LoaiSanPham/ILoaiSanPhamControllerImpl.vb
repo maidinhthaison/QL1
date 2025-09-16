@@ -62,6 +62,7 @@
         Dim loaiSpToSave As New List(Of LoaiSanPham) From {lsp}
         If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
             View.BindingListToGridView(listLoaiSp)
+            View.ClearFields()
             View.ShowMessageBox(EnumMessageBox.Infomation, StringResources.MSG_BOX_INFO_TITLE,
                                 String.Format(MSG_BOX_DELETE_SUCCESS_MESSAGE, "loại sản phẩm"))
         Else

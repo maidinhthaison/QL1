@@ -8,6 +8,8 @@
 
     Sub BindingListToGridView(list As List(Of SanPham))
 
+    Sub BindingToLabel(list As List(Of LoaiSanPham))
+
     Sub BindingToTextBox(loaiSp As SanPham)
 
     Sub ConfigureGridView()

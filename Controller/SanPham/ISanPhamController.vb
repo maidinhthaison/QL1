@@ -7,4 +7,6 @@
 
     Sub XulyLoadLoaiSanPham()
 
+    Sub XulyGetLoaiSanPhamByNhaCCKhuVuc()
+
 End Interface
