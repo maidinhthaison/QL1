@@ -40,6 +40,48 @@ Public Class LoaiSanPhamDao
         Return loaiSanPhamList
     End Function
 
+    Public Function GetKhuVucNccByLoaiSP() As List(Of LoaiSanPham)
+        Dim loaiSanPhamList As New List(Of LoaiSanPham)()
+        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc,
+                ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, 
+                kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten
+                FROM (LoaiSanPham AS lsp
+                INNER JOIN NhaCungCap AS ncc ON ncc.ncc_ma = lsp.lsp_ncc)
+                INNER JOIN KhuVuc AS kv ON kv.kv_ma = lsp.lsp_khu_vuc
+                WHERE lsp.lsp_xoa = False ORDER BY lsp.lsp_ma"
+
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim lsp As New LoaiSanPham() With {
+                                .Ma = CInt(reader("lsp_ma")),
+                                .Ten = CStr(reader("lsp_ten")),
+                                .Mota = CStr(reader("lsp_mo_ta")),
+                                .IsXoa = CBool(reader("lsp_xoa")),
+                                .Code = CStr(reader("lsp_code")),
+                                .NhaCc = CInt(reader("lsp_ncc")),
+                                .Kv = CInt(reader("lsp_khu_vuc")),
+                                .Ncc_Ma = CInt(reader("ncc_ma")),
+                                .Kv_Ma = CInt(reader("kv_ma")),
+                                .Ncc_Ten = CStr(reader("ncc_ten")),
+                                .Kv_Ten = CStr(reader("kv_ten"))
+                        }
+                        loaiSanPhamList.Add(lsp)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return loaiSanPhamList
+    End Function
+
     '========================================================================
     '   FUNCTION TO SAVE A LIST OF OBJECTS TO THE DATABASE
     '========================================================================

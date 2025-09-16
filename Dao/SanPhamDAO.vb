@@ -1,0 +1,124 @@
+﻿Imports System.Data.OleDb
+
+Public Class SanPhamDAO
+    ' --- DATABASE CONNECTION STRING ---
+    Private ReadOnly ConnectionString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=20810229_taphoa_db.accdb"
+
+    '========================================================================
+    '   FUNCTION TO LOAD DATA FROM DATABASE INTO A LIST OF OBJECTS
+    '========================================================================
+    Public Function LoadSanPham() As List(Of SanPham)
+        Dim sanPhamList As New List(Of SanPham)()
+        Dim sql As String = "SELECT sp_ma, sp_ten, sp_mo_ta, sp_loai, sp_gia, sp_xoa, sp_code
+                FROM SanPham WHERE sp_xoa = False ORDER BY sp_ma"
+
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim sp As New SanPham() With {
+                                .Ma = CInt(reader("sp_ma")),
+                                .Ten = CStr(reader("sp_ten")),
+                                .Mota = CStr(reader("sp_mo_ta")),
+                                .Loai = CInt(reader("sp_loai")),
+                                .Gia = CDbl(reader("sp_gia")),
+                                .IsXoa = CBool(reader("sp_xoa")),
+                                .Code = CStr(reader("sp_code"))
+                        }
+                        sanPhamList.Add(sp)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return sanPhamList
+    End Function
+
+
+    '========================================================================
+    '   FUNCTION TO SAVE A LIST OF OBJECTS TO THE DATABASE
+    '========================================================================
+    Public Function SaveSanPham(ByVal spToSave As List(Of SanPham)) As Boolean
+        ' Use a transaction to ensure that all records are saved successfully,
+        ' or none are. This prevents partial data updates.
+        Dim transaction As OleDbTransaction = Nothing
+
+        Using conn As New OleDbConnection(ConnectionString)
+            Try
+                conn.Open()
+                transaction = conn.BeginTransaction()
+
+                For Each sp In spToSave
+                    If sp.Ma = 0 Then
+                        ' This is a new record, perform an INSERT
+                        InsertSanPham(sp, conn, transaction)
+                    Else
+                        ' This is an existing record, perform an UPDATE
+                        UpdateSanPham(sp, conn, transaction)
+                    End If
+                Next
+
+                ' If all commands succeeded, commit the transaction
+                transaction.Commit()
+                Return True
+
+            Catch ex As Exception
+                ' An error occurred. Roll back all changes in the transaction.
+                Console.WriteLine("Error saving data: " & ex.Message)
+                Try
+                    transaction?.Rollback()
+                Catch rollbackEx As Exception
+                    Console.WriteLine("Error during rollback: " & rollbackEx.Message)
+                End Try
+                Return False
+            End Try
+        End Using
+    End Function
+
+    ' --- Helper methods for Insert and Update ---
+
+    Private Shared Sub InsertSanPham(ByVal sp As SanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+        ' Note: We don't insert the ID because it's an AutoNumber field.
+        Dim sql As String = "INSERT INTO SanPham (sp_ten, sp_mo_ta, sp_loai, 
+                sp_gia, sp_xoa, sp_code) VALUES (?, ?, ?, ?, ?, ?)"
+
+        Using cmd As New OleDbCommand(sql, conn, transaction)
+            ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
+            cmd.Parameters.AddWithValue("pTen", sp.Ten)
+            cmd.Parameters.AddWithValue("pMota", sp.Mota)
+            cmd.Parameters.AddWithValue("pLoai", sp.Loai)
+            cmd.Parameters.AddWithValue("pGia", sp.Gia)
+            cmd.Parameters.AddWithValue("pXoa", sp.IsXoa)
+            cmd.Parameters.AddWithValue("pCode", sp.Code)
+            cmd.ExecuteNonQuery()
+
+            ' Optional: Get the new ID of the inserted record
+            cmd.CommandText = "SELECT @@IDENTITY;"
+            sp.Ma = CInt(cmd.ExecuteScalar())
+        End Using
+    End Sub
+
+    Private Shared Sub UpdateSanPham(ByVal sp As SanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+        Dim sql As String = "UPDATE SanPham SET sp_ten = ?, sp_mo_ta = ?, sp_loai = ?,
+            sp_gia = ?, sp_xoa = ? WHERE sp_ma = ?"
+
+        Using cmd As New OleDbCommand(sql, conn, transaction)
+            cmd.Parameters.AddWithValue("pTen", sp.Ten)
+            cmd.Parameters.AddWithValue("pMota", sp.Mota)
+            cmd.Parameters.AddWithValue("pLoai", sp.Loai)
+            cmd.Parameters.AddWithValue("pGia", sp.Gia)
+            cmd.Parameters.AddWithValue("pXoa", sp.IsXoa)
+            cmd.Parameters.AddWithValue("pMa", sp.Ma)
+            cmd.ExecuteNonQuery()
+        End Using
+    End Sub
+
+
+
+End Class

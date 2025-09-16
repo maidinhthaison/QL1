@@ -28,7 +28,7 @@
             Case "btnCapNhat"
                 CapNhatLoaiSanPham()
             Case "btnXoa"
-                ShowConfirmMessageBox("Xác nhận", "Bạn có muốn xoá", "btnXoa")
+                ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 
@@ -134,6 +134,11 @@
         dgvLoaiSp.Columns("Ma").Visible = False
         dgvLoaiSp.Columns("IsXoa").Visible = False
         dgvLoaiSp.Columns("Mota").Visible = False
+
+        dgvLoaiSp.Columns("Ncc_Ma").Visible = False
+        dgvLoaiSp.Columns("Kv_Ma").Visible = False
+        dgvLoaiSp.Columns("Ncc_Ten").Visible = False
+        dgvLoaiSp.Columns("Kv_Ten").Visible = False
 
         ' Set custom header text for columns
         dgvLoaiSp.Columns("Ten").HeaderText = "Loại SP"

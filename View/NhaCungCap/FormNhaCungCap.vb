@@ -95,7 +95,7 @@
             Case "btnCapNhat"
                 CapNhatNhaCungCap()
             Case "btnXoa"
-                ShowConfirmMessageBox("Xác nhận", "Bạn có muốn xoá", "btnXoa")
+                ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 

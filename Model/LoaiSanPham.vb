@@ -7,6 +7,14 @@
     Private _lsp_ncc As Integer
     Private _lsp_khu_vuc As Integer
 
+    'Ref table
+    Private _ncc_ma As Integer
+    Private _ncc_ten As String
+
+    'Ref table
+    Private _kv_ma As Integer
+    Private _kv_ten As String
+
     Public Sub New()
         Me.Ma = 0
     End Sub
@@ -71,6 +79,44 @@
         End Get
         Set(ByVal value As Integer)
             _lsp_khu_vuc = value
+        End Set
+    End Property
+    ''' <summary>
+    ''' </summary>
+    ''' <returns></returns>
+    Public Property Ncc_Ma() As Integer
+        Get
+            Return _ncc_ma
+        End Get
+        Set(ByVal value As Integer)
+            _ncc_ma = value
+        End Set
+    End Property
+
+    Public Property Kv_Ma() As Integer
+        Get
+            Return _kv_ma
+        End Get
+        Set(ByVal value As Integer)
+            _kv_ma = value
+        End Set
+    End Property
+
+    Public Property Ncc_Ten() As String
+        Get
+            Return _ncc_ten
+        End Get
+        Set(ByVal value As String)
+            _ncc_ten = value
+        End Set
+    End Property
+
+    Public Property Kv_Ten() As String
+        Get
+            Return _kv_ten
+        End Get
+        Set(ByVal value As String)
+            _kv_ten = value
         End Set
     End Property
 End Class
