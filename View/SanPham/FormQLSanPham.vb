@@ -11,7 +11,6 @@
     Public Sub LoadData() Implements ISanPhamView.LoadData
         sanPhamController.XulyLoadLoaiSanPham()
         sanPhamController.XulyLoadData()
-        sanPhamController.XulyGetLoaiSanPhamByNhaCCKhuVuc()
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -59,24 +58,15 @@
         ConfigureGridView()
     End Sub
 
-    Public Sub BindingToLabel(list As List(Of LoaiSanPham)) Implements ISanPhamView.BindingToLabel
-        Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
-
-        Dim loaiSpFounded As LoaiSanPham = list.FirstOrDefault(Function(p) p.Ma = selectedLoaiSp.Ma)
-        If loaiSpFounded IsNot Nothing Then
-            lbKhuVuc.Text = loaiSpFounded.Kv_Ten
-            lbNhacc.Text = loaiSpFounded.Ncc_Ten
-        Else
-            ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE, "Không tìm thấy")
-        End If
-    End Sub
-
-    Public Sub BindingToTextBox(sp As SanPham) Implements ISanPhamView.BindingToTextBox
+    Public Sub BindingTolabelTextBox(sp As SanPham) Implements ISanPhamView.BindingTolabelTextBox
         tbSanpham.Text = sp.Ten
         tbGia.Text = sp.Gia
         rtbMota.Text = sp.Mota
         lbCode.Text = sp.Code
         cbLoaiSp.SelectedValue = sp.Loai
+
+        lbKhuVuc.Text = sp.Kv_Ten
+        lbNhacc.Text = sp.NCC_Ten
 
     End Sub
 
@@ -85,11 +75,21 @@
         dgvSanPham.Columns("IsXoa").Visible = False
         dgvSanPham.Columns("Mota").Visible = False
 
+        dgvSanPham.Columns("Loai").Visible = False
+        dgvSanPham.Columns("LoaiSp_Ma").Visible = False
+        dgvSanPham.Columns("LoaiSp_Ncc_Ma").Visible = False
+        dgvSanPham.Columns("LoaiSp_Kv_Ma").Visible = False
+        dgvSanPham.Columns("NCC_Ma").Visible = False
+        dgvSanPham.Columns("Kv_Ma").Visible = False
+
+
         ' Set custom header text for columns
-        dgvSanPham.Columns("Ten").HeaderText = "Tên SP"
-        dgvSanPham.Columns("Loai").HeaderText = "Loại SP"
-        dgvSanPham.Columns("Gia").HeaderText = "Giá SP"
-        dgvSanPham.Columns("Code").HeaderText = "Code Sp"
+        dgvSanPham.Columns("Ten").HeaderText = "SP"
+        dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
+        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("Code").HeaderText = "Code"
+        dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
+        dgvSanPham.Columns("Kv_Ten").HeaderText = "Kv_Ten"
     End Sub
 
     Public Sub ClearFields() Implements ISanPhamView.ClearFields
@@ -158,8 +158,7 @@
             Dim selectedRow As DataGridViewRow = dgvSanPham.Rows(e.RowIndex)
             Dim selectedSp As SanPham = CType(selectedRow.DataBoundItem, SanPham)
             If selectedSp IsNot Nothing Then
-                BindingToTextBox(selectedSp)
-                BindingToLabel(sanPhamController.LoaiSPItems)
+                BindingTolabelTextBox(selectedSp)
             End If
         End If
     End Sub
@@ -171,5 +170,9 @@
         LoadData()
     End Sub
 
-
+    Private Sub tbTukhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTukhoa.TextChanged
+        Dim tukhoa = tbTukhoa.Text.Trim.ToString()
+        Dim result As List(Of SanPham) = sanPhamController.XulyTimKiemSanPham(tukhoa)
+        BindingListToGridView(result)
+    End Sub
 End Class

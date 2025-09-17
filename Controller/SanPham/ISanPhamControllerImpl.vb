@@ -1,4 +1,6 @@
-﻿Public Class ISanPhamControllerImpl
+﻿Imports System.Text.RegularExpressions
+
+Public Class ISanPhamControllerImpl
     Implements ISanPhamController
 
     Private Shared _instance As ISanPhamControllerImpl
@@ -103,27 +105,36 @@
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
                                 String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "sản phẩm"))
             View.BindingListToGridView(listSanPham)
-            View.BindingToTextBox(selectedSp)
+            View.BindingTolabelTextBox(selectedSp)
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "sản phẩm"))
         End If
     End Sub
 
     Public Sub XulyLoadData() Implements ISanPhamController.XulyLoadData
-        listSanPham = sanPhamDAO.LoadSanPham()
+        listSanPham = sanPhamDAO.GetSP_By_LoaiSP_NhaCC_KhuVuc()
         View.BindingListToGridView(listSanPham)
     End Sub
 
-    Public Sub XulyTimKiemSanPham(tukhoa As String) Implements ISanPhamController.XulyTimKiemSanPham
-        Throw New NotImplementedException()
-    End Sub
+    Public Function XulyTimKiemSanPham(tukhoa As String) As List(Of SanPham) Implements ISanPhamController.XulyTimKiemSanPham
+        If String.IsNullOrWhiteSpace(tukhoa) Then
+            Return listSanPham
+        Else
+            Dim searchResult As List(Of SanPham) = listSanPham.Where(
+                Function(sp) sp.Ten.ToLower().Contains(tukhoa.ToLower()) OrElse
+                        sp.Gia.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Code.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.LoaiSp_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.NCC_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Kv_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
+               ).ToList()
+            Return searchResult
+        End If
+    End Function
 
     Public Sub XulyLoadLoaiSanPham() Implements ISanPhamController.XulyLoadLoaiSanPham
         Dim list As List(Of LoaiSanPham) = loaiSanphamDAO.LoadLoaiSanPham()
         View.BindingListToComBoBoxLoaiSp(list)
     End Sub
 
-    Public Sub XulyGetLoaiSanPhamByNhaCCKhuVuc() Implements ISanPhamController.XulyGetLoaiSanPhamByNhaCCKhuVuc
-        listLoaiSanPham = loaiSanphamDAO.GetKhuVucNccByLoaiSP()
-    End Sub
 End Class

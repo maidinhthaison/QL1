@@ -119,6 +119,53 @@ Public Class SanPhamDAO
         End Using
     End Sub
 
+    Public Function GetSP_By_LoaiSP_NhaCC_KhuVuc() As List(Of SanPham)
+        Dim spList As New List(Of SanPham)()
 
+        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc,
+                ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, 
+                kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten,
+                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code
+                FROM (
+                    (SanPham As sp
+                    INNER JOIN LoaiSanPham AS lsp ON sp.sp_loai = lsp.lsp_ma)
+                    INNER JOIN NhaCungCap AS ncc ON lsp.lsp_ncc = ncc.ncc_ma)
+                    INNER JOIN KhuVuc AS kv ON lsp.lsp_khu_vuc = kv.kv_ma"
+
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim sp As New SanPham() With {
+                                .Ma = CInt(reader("sp_ma")),
+                                .Ten = CStr(reader("sp_ten")),
+                                .Mota = CStr(reader("sp_mo_ta")),
+                                .Loai = CInt(reader("sp_loai")),
+                                .Gia = CDbl(reader("sp_gia")),
+                                .IsXoa = CBool(reader("sp_xoa")),
+                                .Code = CStr(reader("sp_code")),
+                                .LoaiSp_Ma = CInt(reader("lsp_ma")),
+                                .LoaiSp_Ten = CStr(reader("lsp_ten")),
+                                .LoaiSp_Ncc_Ma = CInt(reader("lsp_ncc")),
+                                .LoaiSp_Kv_Ma = CInt(reader("lsp_khu_vuc")),
+                                .NCC_Ma = CInt(reader("ncc_ma")),
+                                .NCC_Ten = CStr(reader("ncc_ten")),
+                                .Kv_Ma = CInt(reader("kv_ma")),
+                                .Kv_Ten = CStr(reader("kv_ten"))
+                        }
+                        spList.Add(sp)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return spList
+    End Function
 
 End Class
