@@ -7,6 +7,95 @@
     Private _sp_xoa As Boolean
     Private _sp_code As String
 
+    ' Ref
+    Private _lsp_ma As Integer
+    Private _lsp_ten As String
+
+    Private _lsp_ncc_ma As Integer
+    Private _lsp_kv_ma As Integer
+
+    Private _ncc_ma As Integer
+    Private _ncc_ten As String
+
+    Private _kv_ma As Integer
+    Private _kv_ten As String
+
+    Public Property LoaiSp_Ma() As Integer
+        Get
+            Return _lsp_ma
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_ma = value
+        End Set
+    End Property
+
+    Public Property LoaiSp_Ten() As String
+        Get
+            Return _lsp_ten
+        End Get
+        Set(ByVal value As String)
+            _lsp_ten = value
+        End Set
+    End Property
+
+    ''
+    Public Property LoaiSp_Ncc_Ma() As Integer
+        Get
+            Return _lsp_ncc_ma
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_ncc_ma = value
+        End Set
+    End Property
+
+    Public Property LoaiSp_Kv_Ma() As Integer
+        Get
+            Return _lsp_kv_ma
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_kv_ma = value
+        End Set
+    End Property
+    ''
+
+    Public Property NCC_Ma() As Integer
+        Get
+            Return _ncc_ma
+        End Get
+        Set(ByVal value As Integer)
+            _ncc_ma = value
+        End Set
+    End Property
+
+    Public Property NCC_Ten() As String
+        Get
+            Return _ncc_ten
+        End Get
+        Set(ByVal value As String)
+            _ncc_ten = value
+        End Set
+    End Property
+    ''
+    Public Property Kv_Ma() As Integer
+        Get
+            Return _kv_ma
+        End Get
+        Set(ByVal value As Integer)
+            _kv_ma = value
+        End Set
+    End Property
+
+    Public Property Kv_Ten() As String
+        Get
+            Return _kv_ten
+        End Get
+        Set(ByVal value As String)
+            _kv_ten = value
+        End Set
+    End Property
+
+    ''
+
     Public Sub New()
         Me.Ma = 0
     End Sub

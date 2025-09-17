@@ -24,7 +24,6 @@ Partial Class FormQLSanPham
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
-        btnTimKiem = New Button()
         Label1 = New Label()
         tbTukhoa = New TextBox()
         Panel1 = New Panel()
@@ -55,7 +54,6 @@ Partial Class FormQLSanPham
         ' 
         ' GroupBox1
         ' 
-        GroupBox1.Controls.Add(btnTimKiem)
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Controls.Add(tbTukhoa)
         GroupBox1.Controls.Add(Panel1)
@@ -66,15 +64,6 @@ Partial Class FormQLSanPham
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý sản phẩm"
-        ' 
-        ' btnTimKiem
-        ' 
-        btnTimKiem.Location = New Point(261, 25)
-        btnTimKiem.Name = "btnTimKiem"
-        btnTimKiem.Size = New Size(75, 23)
-        btnTimKiem.TabIndex = 8
-        btnTimKiem.Text = "Tìm"
-        btnTimKiem.UseVisualStyleBackColor = True
         ' 
         ' Label1
         ' 
@@ -89,7 +78,7 @@ Partial Class FormQLSanPham
         ' 
         tbTukhoa.Location = New Point(77, 25)
         tbTukhoa.Name = "tbTukhoa"
-        tbTukhoa.Size = New Size(162, 23)
+        tbTukhoa.Size = New Size(240, 23)
         tbTukhoa.TabIndex = 5
         ' 
         ' Panel1
@@ -301,7 +290,6 @@ Partial Class FormQLSanPham
     Friend WithEvents bsSanPham As BindingSource
     Friend WithEvents tbTukhoa As TextBox
     Friend WithEvents Label1 As Label
-    Friend WithEvents btnTimKiem As Button
     Friend WithEvents tbSanpham As TextBox
     Friend WithEvents Label2 As Label
     Friend WithEvents cbLoaiSp As ComboBox

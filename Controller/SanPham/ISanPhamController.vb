@@ -3,10 +3,8 @@
     Sub XulyXoaSanPham()
     Sub XulyCapNhatSanPham(editedSanPham As SanPham)
     Sub XulyLoadData()
-    Sub XulyTimKiemSanPham(tukhoa As String)
+    Function XulyTimKiemSanPham(tukhoa As String) As List(Of SanPham)
 
     Sub XulyLoadLoaiSanPham()
-
-    Sub XulyGetLoaiSanPhamByNhaCCKhuVuc()
 
 End Interface
