@@ -1,5 +1,6 @@
 ﻿Imports System.Security.Cryptography
 Imports System.Text
+Imports BCrypt.Net.BCrypt
 
 Module Util
     Public Function getHash(ByVal str As String) As String
@@ -27,5 +28,18 @@ Module Util
         Next
 
         Return result.ToString()
+    End Function
+
+    Public Function HashPwd(ByVal plainTextPassword As String) As String
+        Dim hashedPassword As String = HashPassword(plainTextPassword, GenerateSalt(12))
+
+        Return hashedPassword
+    End Function
+
+    Public Function VerifyPassword(ByVal plainTextPassword As String, ByVal storedHash As String) As Boolean
+
+        Dim isPasswordCorrect As Boolean = Verify(plainTextPassword, storedHash)
+
+        Return isPasswordCorrect
     End Function
 End Module
