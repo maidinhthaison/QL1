@@ -133,13 +133,13 @@ Public Class Form1
     End Sub
 
     Private Sub NhanVienMenuItem_Click(sender As Object, e As EventArgs) Handles NhanVienMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmQLNhanVien))
+        Dim frm As Form = TimForm(GetType(FormQLNhanVien))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim frmNhanVien As New frmQLNhanVien()
+        Dim frmNhanVien As New FormQLNhanVien()
         frmNhanVien.MdiParent = Me
         frmNhanVien.WindowState = FormWindowState.Maximized
         frmNhanVien.Show()
