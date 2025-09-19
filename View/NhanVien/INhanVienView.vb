@@ -10,6 +10,8 @@
 
     Sub BindingToTextBox(taiKhoan As TaiKhoan)
 
+    Sub BindingTolabelTextBox(nhanViewn As NhanVien)
+
     Sub ConfigureGridView()
 
     Sub ClearFields()

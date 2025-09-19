@@ -84,14 +84,13 @@ Public Class NhanVienDAO
 
     Private Shared Sub InsertNhanVien(ByVal nv As NhanVien, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
-        Dim sql As String = "INSERT INTO NhanVien (nv_ten, nv_diachi, nv_gioi_tinh, nv_xoa, nv_dien_thoai, nv_tk_ma)
-                            VALUES (?, ?, ?, ?, ?, ?)"
+        Dim sql As String = "INSERT INTO NhanVien (nv_ten, nv_diachi, nv_xoa, nv_dien_thoai, nv_tk_ma)
+                            VALUES (?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
             cmd.Parameters.AddWithValue("pTen", nv.Ten)
             cmd.Parameters.AddWithValue("pDc", nv.DiaChi)
-            cmd.Parameters.AddWithValue("pGT", nv.GioiTinh)
             cmd.Parameters.AddWithValue("pXoa", nv.IsXoa)
             cmd.Parameters.AddWithValue("pDT", nv.DienThoai)
             cmd.Parameters.AddWithValue("pTkMa", nv.TaiKhoan.Ma)
@@ -105,7 +104,7 @@ Public Class NhanVienDAO
 
     Private Shared Sub UpdateNhanVien(ByVal nv As NhanVien, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE NhanVien SET nv_ten = ?, nv_diachi = ?,
-            sp_dien_thoai = ?, sp_xoa = ? WHERE nv_ma = ?"
+            nv_dien_thoai = ?, nv_xoa = ? WHERE nv_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pTen", nv.Ten)
@@ -120,7 +119,8 @@ Public Class NhanVienDAO
     Public Function Get_NV_By_MaTK() As List(Of NhanVien)
         Dim nvList As New List(Of NhanVien)()
 
-        Dim sql As String = "SELECT nv.nv_ma, nv.nv_ten, nv.nv_diachi, nv.nv_gioi_tinh, nv.nv_xoa, nv.nv_dien_thoai, nv.nv_tk_ma,
+        Dim sql As String = "SELECT nv.nv_ma, nv.nv_ten, nv.nv_diachi, nv.nv_gioi_tinh, nv.nv_xoa, 
+                nv.nv_dien_thoai, nv.nv_tk_ma,
                 tk.tk_tai_khoan AS tk_tai_khoan, tk.tk_mat_khau AS tk_mat_khau , tk.tk_xoa AS tk_xoa, tk.tk_ma AS tk_ma
                 FROM
                     (NhanVien As nv
@@ -140,10 +140,12 @@ Public Class NhanVienDAO
                                 .GioiTinh = CBool(reader("nv_gioi_tinh")),
                                 .IsXoa = CBool(reader("nv_xoa")),
                                 .DienThoai = CStr(reader("nv_dien_thoai")),
+                                .TaiKhoanTen = CStr(reader("tk_tai_khoan")),
                                 .TaiKhoan = New TaiKhoan() With {
                                     .TaiKhoan = CStr(reader("tk_tai_khoan")),
                                     .MatKhau = CStr(reader("tk_mat_khau")),
-                                    .IsXoa = CStr(reader("tk_xoa"))
+                                    .IsXoa = CStr(reader("tk_xoa")),
+                                    .Ma = CInt(reader("nv_tk_ma"))
                                 }
                         }
                         nvList.Add(nv)

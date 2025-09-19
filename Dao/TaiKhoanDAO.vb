@@ -65,9 +65,10 @@ Public Class TaiKhoanDAO
     End Sub
 
     Private Shared Sub UpdateTaiKhoan(ByVal tk As TaiKhoan, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
-        Dim sql As String = "UPDATE TaiKhoan SET tk_mat_khau = ?, tk_xoa = ? WHERE nv_ma = ?"
+        Dim sql As String = "UPDATE TaiKhoan SET tk_tai_khoan = ?, tk_mat_khau = ?, tk_xoa = ? WHERE tk_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
+            cmd.Parameters.AddWithValue("pTk", tk.TaiKhoan)
             cmd.Parameters.AddWithValue("pMk", tk.MatKhau)
             cmd.Parameters.AddWithValue("pXoa", tk.IsXoa)
             cmd.Parameters.AddWithValue("pMa", tk.Ma)

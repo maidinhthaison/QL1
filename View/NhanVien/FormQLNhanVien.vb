@@ -1,5 +1,7 @@
 ﻿
 
+Imports System.Reflection.Emit
+
 Public Class FormQLNhanVien
     Implements INhanVienView, IBaseForm
 
@@ -45,16 +47,37 @@ Public Class FormQLNhanVien
                 ThemNhanVien()
             Case "btnCapNhat"
                 CapNhatNhanVien()
+            Case "btnTatCa"
+                tbTuKhoa.Text = ""
+                cbIsXoa.Checked = False
+                LoadData()
             Case "btnXoa"
                 ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 
     Private Sub CapNhatNhanVien()
-        Throw New NotImplementedException()
+        If dgvNhanVien.SelectedCells.Count > 0 Then
+
+            Dim nvParam As New NhanVien() With {
+                .Ten = tbTen.Text,
+                .DiaChi = tbDiaChi.Text,
+                .DienThoai = tbDienThoai.Text,
+                .IsXoa = cbStatus.Checked,
+                .TaiKhoanTen = tbTaiKhoan.Text,
+                .TaiKhoan = New TaiKhoan() With {
+                      .TaiKhoan = tbTaiKhoan.Text,
+                      .MatKhau = HashPwd(tbMatKhau.Text),
+                      .IsXoa = cbStatus.Checked
+                 }
+            }
+
+            nhanVienController.XulyCapNhatNhanVienTK(nvParam)
+        End If
     End Sub
 
     Private Sub ThemNhanVien()
+
         Dim newTk As New TaiKhoan() With {
             .TaiKhoan = tbTaiKhoan.Text,
             .MatKhau = HashPwd(tbMatKhau.Text),
@@ -68,6 +91,7 @@ Public Class FormQLNhanVien
             .GioiTinh = isMan,
             .DienThoai = tbDienThoai.Text,
             .IsXoa = False,
+            .TaiKhoanTen = newTk.TaiKhoan,
             .TaiKhoan = newTk
         }
         nhanVienController.XulyThemTaiKhoan(newTk, newNv)
@@ -88,16 +112,19 @@ Public Class FormQLNhanVien
     End Sub
 
     Public Sub ConfigureGridView() Implements INhanVienView.ConfigureGridView
+
         dgvNhanVien.Columns("Ma").Visible = False
         dgvNhanVien.Columns("DiaChi").Visible = False
+        dgvNhanVien.Columns("TaiKhoan").Visible = False
 
 
         ' Set custom header text for columns
-        dgvNhanVien.Columns("TaiKhoan").HeaderText = "Tài khoản"
+        dgvNhanVien.Columns("TaiKhoanTen").HeaderText = "Tài khoản"
         dgvNhanVien.Columns("Ten").HeaderText = "Tên"
         dgvNhanVien.Columns("DienThoai").HeaderText = "Điện thoại"
         dgvNhanVien.Columns("GioiTinh").HeaderText = "Là nam"
         dgvNhanVien.Columns("IsXoa").HeaderText = "Đã nghỉ"
+
     End Sub
 
     Public Sub ClearFields() Implements INhanVienView.ClearFields
@@ -114,6 +141,7 @@ Public Class FormQLNhanVien
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
+        AddHandler btnTatCa.Click, AddressOf OnButtonClick
     End Sub
 
     Private Sub FormNhanVien_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -124,10 +152,40 @@ Public Class FormQLNhanVien
     End Sub
 
     Private Sub tbTuKhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTuKhoa.TextChanged
-
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
+        Dim result As List(Of NhanVien) = nhanVienController.XulyTimKiemNhanVien(tukhoa, cbIsXoa.Checked)
+        BindingListToGridView(result)
     End Sub
 
     Private Sub cbIsXoa_CheckedChanged(sender As Object, e As EventArgs) Handles cbIsXoa.CheckedChanged
-
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
+        Dim result As List(Of NhanVien) = nhanVienController.XulyTimKiemNhanVien(tukhoa, cbIsXoa.Checked)
+        BindingListToGridView(result)
     End Sub
+
+    Private Sub dgvNhanVien_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvNhanVien.CellClick
+        If e.RowIndex >= 0 Then
+            nhanVienController.Index = e.RowIndex
+            Dim selectedRow As DataGridViewRow = dgvNhanVien.Rows(e.RowIndex)
+            Dim selectedNv As NhanVien = CType(selectedRow.DataBoundItem, NhanVien)
+            If selectedNv IsNot Nothing Then
+                BindingTolabelTextBox(selectedNv)
+            End If
+        End If
+    End Sub
+
+    Public Sub BindingTolabelTextBox(nhanVien As NhanVien) Implements INhanVienView.BindingTolabelTextBox
+        tbTaiKhoan.Text = nhanVien.TaiKhoan.TaiKhoan
+        tbMatKhau.Text = nhanVien.TaiKhoan.MatKhau
+        tbTen.Text = nhanVien.Ten
+        tbDienThoai.Text = nhanVien.DienThoai
+        tbDiaChi.Text = nhanVien.DiaChi
+        cbStatus.Checked = nhanVien.IsXoa
+        If nhanVien.GioiTinh Then
+            rbNam.Checked = True
+        Else
+            rbNu.Checked = True
+        End If
+    End Sub
+
 End Class

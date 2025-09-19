@@ -94,4 +94,52 @@
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "tài khoản"))
         End If
     End Sub
+
+    Public Function XulyTimKiemNhanVien(tukhoa As String, isXoa As Boolean) As List(Of NhanVien) Implements INhanVienController.XulyTimKiemNhanVien
+        If String.IsNullOrWhiteSpace(tukhoa) Then
+            Return listNhanVien.Where(Function(nv) nv.IsXoa = isXoa).ToList()
+        Else
+            Dim searchResult As List(Of NhanVien) = listNhanVien.Where(
+                Function(nv) nv.IsXoa = isXoa And (nv.Ten.Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        nv.TaiKhoanTen.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        nv.DiaChi.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        nv.DienThoai.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase))
+               ).ToList()
+
+            Return searchResult
+
+        End If
+    End Function
+
+    Public Sub XulyCapNhatNhanVienTK(nvParam As NhanVien) Implements INhanVienController.XulyCapNhatNhanVienTK
+        Dim selectedNv As NhanVien = listNhanVien(selectedIndex)
+        ' Update TaiKhoan info
+        Dim tk As TaiKhoan = selectedNv.TaiKhoan
+        tk.Ma = selectedNv.TaiKhoan.Ma
+        tk.TaiKhoan = nvParam.TaiKhoanTen
+        tk.MatKhau = nvParam.TaiKhoan.MatKhau
+        tk.IsXoa = nvParam.IsXoa
+
+
+        selectedNv.Ten = nvParam.Ten
+        selectedNv.DiaChi = nvParam.DiaChi
+        selectedNv.IsXoa = nvParam.IsXoa
+        selectedNv.DienThoai = nvParam.DienThoai
+        selectedNv.TaiKhoanTen = nvParam.TaiKhoanTen
+        selectedNv.TaiKhoan = tk
+        Dim nvToSave As New List(Of NhanVien) From {selectedNv}
+        If nhanVienDao.SaveNhanVien(nvToSave) Then
+            Dim tkToSave As New List(Of TaiKhoan) From {tk}
+            If taiKhoanDao.SaveTaiKhoan(tkToSave) Then
+                View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "tài khoản"))
+                View.BindingListToGridView(listNhanVien)
+                View.BindingTolabelTextBox(nvParam)
+            Else
+                View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "tài khoản"))
+            End If
+        Else
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "nhân viên"))
+        End If
+    End Sub
 End Class

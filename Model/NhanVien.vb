@@ -8,6 +8,7 @@
 
     'Ref
     Private _taiKhoan As TaiKhoan
+    Private _taiKhoanTen As String
 
     Public Sub New()
         Me.Ma = 0
@@ -73,6 +74,15 @@
         End Get
         Set(ByVal value As TaiKhoan)
             _taiKhoan = value
+        End Set
+    End Property
+
+    Public Property TaiKhoanTen() As String
+        Get
+            Return _taiKhoanTen
+        End Get
+        Set(ByVal value As String)
+            _taiKhoanTen = value
         End Set
     End Property
 End Class
