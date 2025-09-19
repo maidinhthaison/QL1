@@ -142,4 +142,25 @@
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "nhân viên"))
         End If
     End Sub
+
+    Public Sub XulyXoaNhanVien() Implements INhanVienController.XulyXoaNhanVien
+        Dim nv As NhanVien = listNhanVien(selectedIndex)
+        nv.IsXoa = True
+        Dim nvToSave As New List(Of NhanVien) From {nv}
+        If nhanVienDao.SaveNhanVien(nvToSave) Then
+            Dim tk As TaiKhoan = nv.TaiKhoan
+            tk.IsXoa = True
+            Dim tkToSave As New List(Of TaiKhoan) From {tk}
+            If taiKhoanDao.SaveTaiKhoan(tkToSave) Then
+                View.BindingListToGridView(listNhanVien)
+                View.ClearFields()
+                View.ShowMessageBox(EnumMessageBox.Infomation, StringResources.MSG_BOX_INFO_TITLE,
+                                String.Format(MSG_BOX_DELETE_SUCCESS_MESSAGE, "tài khoản"))
+            Else
+                View.ShowMessageBox(EnumMessageBox.Errors, StringResources.MSG_BOX_ERROR_TITLE,
+                                String.Format(MSG_BOX_DELETE_ERROR_MESSAGE, "tài khoản"))
+            End If
+        End If
+
+    End Sub
 End Class

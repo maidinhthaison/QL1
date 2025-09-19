@@ -7,4 +7,6 @@
     Function XulyTimKiemNhanVien(tukhoa As String, isXoa As Boolean) As List(Of NhanVien)
 
     Sub XulyCapNhatNhanVienTK(editedNhanVien As NhanVien)
+
+    Sub XulyXoaNhanVien()
 End Interface

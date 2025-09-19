@@ -30,14 +30,18 @@ Public Class FormQLNhanVien
         If result = DialogResult.Yes Then
             Select Case Action
                 Case "btnXoa"
-                    XoaSanPham()
+                    XoaNhanVien()
             End Select
 
         End If
     End Sub
 
-    Private Sub XoaSanPham()
-        Throw New NotImplementedException()
+    Private Sub XoaNhanVien()
+        If dgvNhanVien.SelectedCells.Count > 0 Then
+            nhanVienController.XulyXoaNhanVien()
+            bsNhanVien.RemoveAt(nhanVienController.Index)
+
+        End If
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
