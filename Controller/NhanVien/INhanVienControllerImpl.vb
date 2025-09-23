@@ -9,17 +9,23 @@
 
     Private listTaiKhoan As List(Of TaiKhoan)
 
+    Private listChiNhanh As List(Of ChiNhanh)
+
     Private selectedIndex As Integer
 
     Private nhanVienDao As NhanVienDAO
 
     Private taiKhoanDao As TaiKhoanDAO
 
+    Private chiNhanhDao As ChiNhanhDAO
+
     Private Sub New()
         listNhanVien = New List(Of NhanVien)
         listTaiKhoan = New List(Of TaiKhoan)
+        listChiNhanh = New List(Of ChiNhanh)
         nhanVienDao = New NhanVienDAO()
         taiKhoanDao = New TaiKhoanDAO()
+        chiNhanhDao = New ChiNhanhDAO()
     End Sub
 
 
@@ -80,7 +86,7 @@
     End Sub
 
     Public Sub XulyLoadData() Implements INhanVienController.XulyLoadData
-        listNhanVien = nhanVienDao.Get_NV_By_MaTK()
+        listNhanVien = nhanVienDao.Get_NV_By_MaTK_ChiNhanh()
         View.BindingListToGridView(listNhanVien)
     End Sub
 
@@ -95,12 +101,13 @@
         End If
     End Sub
 
-    Public Function XulyTimKiemNhanVien(tukhoa As String, isXoa As Boolean) As List(Of NhanVien) Implements INhanVienController.XulyTimKiemNhanVien
+    Public Function XulyTimKiemNhanVien(tukhoa As String) As List(Of NhanVien) Implements INhanVienController.XulyTimKiemNhanVien
         If String.IsNullOrWhiteSpace(tukhoa) Then
-            Return listNhanVien.Where(Function(nv) nv.IsXoa = isXoa).ToList()
+            Return listNhanVien
         Else
             Dim searchResult As List(Of NhanVien) = listNhanVien.Where(
-                Function(nv) nv.IsXoa = isXoa And (nv.Ten.Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                Function(nv) (
+                        nv.Ten.Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.TaiKhoanTen.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.DiaChi.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.DienThoai.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase))
@@ -120,6 +127,10 @@
         tk.MatKhau = nvParam.TaiKhoan.MatKhau
         tk.IsXoa = nvParam.IsXoa
 
+        Dim cn As ChiNhanh = selectedNv.ChiNhanh
+        cn.Ma = nvParam.ChiNhanh.Ma
+        cn.Ten = nvParam.ChiNhanh.Ten
+        cn.DiaChi = nvParam.ChiNhanh.DiaChi
 
         selectedNv.Ten = nvParam.Ten
         selectedNv.DiaChi = nvParam.DiaChi
@@ -127,6 +138,8 @@
         selectedNv.DienThoai = nvParam.DienThoai
         selectedNv.TaiKhoanTen = nvParam.TaiKhoanTen
         selectedNv.TaiKhoan = tk
+        selectedNv.ChiNhanh = cn
+
         Dim nvToSave As New List(Of NhanVien) From {selectedNv}
         If nhanVienDao.SaveNhanVien(nvToSave) Then
             Dim tkToSave As New List(Of TaiKhoan) From {tk}
@@ -162,5 +175,10 @@
             End If
         End If
 
+    End Sub
+
+    Public Sub XulyGetAllChiNhanh() Implements INhanVienController.XulyGetAllChiNhanh
+        listChiNhanh = chiNhanhDao.GetAllChiNhanh()
+        View.BindingChiNhanhCombobox(listChiNhanh)
     End Sub
 End Class

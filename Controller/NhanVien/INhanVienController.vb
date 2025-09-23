@@ -4,9 +4,11 @@
     Sub XulyThemTaiKhoan(newTaiKhoan As TaiKhoan, newNhanVien As NhanVien)
     Sub XulyLoadData()
 
-    Function XulyTimKiemNhanVien(tukhoa As String, isXoa As Boolean) As List(Of NhanVien)
+    Function XulyTimKiemNhanVien(tukhoa As String) As List(Of NhanVien)
 
     Sub XulyCapNhatNhanVienTK(editedNhanVien As NhanVien)
+
+    Sub XulyGetAllChiNhanh()
 
     Sub XulyXoaNhanVien()
 End Interface

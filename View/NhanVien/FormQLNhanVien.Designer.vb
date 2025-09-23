@@ -24,10 +24,11 @@ Partial Class FormQLNhanVien
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
-        btnTatCa = New Button()
         Label1 = New Label()
         tbTuKhoa = New TextBox()
         Panel1 = New Panel()
+        cbChiNhanh = New ComboBox()
+        Label8 = New Label()
         cbStatus = New CheckBox()
         Label6 = New Label()
         rbNu = New RadioButton()
@@ -47,7 +48,6 @@ Partial Class FormQLNhanVien
         tbTen = New TextBox()
         Label2 = New Label()
         dgvNhanVien = New DataGridView()
-        cbIsXoa = New CheckBox()
         bsNhanVien = New BindingSource(components)
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
@@ -57,27 +57,16 @@ Partial Class FormQLNhanVien
         ' 
         ' GroupBox1
         ' 
-        GroupBox1.Controls.Add(btnTatCa)
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Controls.Add(tbTuKhoa)
         GroupBox1.Controls.Add(Panel1)
         GroupBox1.Controls.Add(dgvNhanVien)
-        GroupBox1.Controls.Add(cbIsXoa)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(776, 426)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản Lý Nhân Viên"
-        ' 
-        ' btnTatCa
-        ' 
-        btnTatCa.Location = New Point(434, 30)
-        btnTatCa.Name = "btnTatCa"
-        btnTatCa.Size = New Size(75, 23)
-        btnTatCa.TabIndex = 19
-        btnTatCa.Text = "Tất cả"
-        btnTatCa.UseVisualStyleBackColor = True
         ' 
         ' Label1
         ' 
@@ -97,6 +86,8 @@ Partial Class FormQLNhanVien
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(cbChiNhanh)
+        Panel1.Controls.Add(Label8)
         Panel1.Controls.Add(cbStatus)
         Panel1.Controls.Add(Label6)
         Panel1.Controls.Add(rbNu)
@@ -120,10 +111,27 @@ Partial Class FormQLNhanVien
         Panel1.Size = New Size(238, 398)
         Panel1.TabIndex = 5
         ' 
+        ' cbChiNhanh
+        ' 
+        cbChiNhanh.FormattingEnabled = True
+        cbChiNhanh.Location = New Point(77, 13)
+        cbChiNhanh.Name = "cbChiNhanh"
+        cbChiNhanh.Size = New Size(146, 23)
+        cbChiNhanh.TabIndex = 32
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Location = New Point(7, 16)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(62, 15)
+        Label8.TabIndex = 31
+        Label8.Text = "Chi nhánh"
+        ' 
         ' cbStatus
         ' 
         cbStatus.AutoSize = True
-        cbStatus.Location = New Point(75, 260)
+        cbStatus.Location = New Point(77, 285)
         cbStatus.Name = "cbStatus"
         cbStatus.Size = New Size(15, 14)
         cbStatus.TabIndex = 30
@@ -132,7 +140,7 @@ Partial Class FormQLNhanVien
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(6, 259)
+        Label6.Location = New Point(8, 284)
         Label6.Name = "Label6"
         Label6.Size = New Size(32, 15)
         Label6.TabIndex = 29
@@ -141,7 +149,7 @@ Partial Class FormQLNhanVien
         ' rbNu
         ' 
         rbNu.AutoSize = True
-        rbNu.Location = New Point(132, 216)
+        rbNu.Location = New Point(134, 241)
         rbNu.Name = "rbNu"
         rbNu.Size = New Size(41, 19)
         rbNu.TabIndex = 28
@@ -152,7 +160,7 @@ Partial Class FormQLNhanVien
         ' 
         rbNam.AutoSize = True
         rbNam.Checked = True
-        rbNam.Location = New Point(75, 216)
+        rbNam.Location = New Point(77, 241)
         rbNam.Name = "rbNam"
         rbNam.Size = New Size(51, 19)
         rbNam.TabIndex = 27
@@ -162,14 +170,14 @@ Partial Class FormQLNhanVien
         ' 
         ' tbTaiKhoan
         ' 
-        tbTaiKhoan.Location = New Point(75, 29)
+        tbTaiKhoan.Location = New Point(77, 54)
         tbTaiKhoan.Name = "tbTaiKhoan"
         tbTaiKhoan.Size = New Size(146, 23)
         tbTaiKhoan.TabIndex = 26
         ' 
         ' tbMatKhau
         ' 
-        tbMatKhau.Location = New Point(75, 63)
+        tbMatKhau.Location = New Point(77, 88)
         tbMatKhau.Name = "tbMatKhau"
         tbMatKhau.PasswordChar = "*"c
         tbMatKhau.Size = New Size(146, 23)
@@ -178,7 +186,7 @@ Partial Class FormQLNhanVien
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(6, 66)
+        Label10.Location = New Point(8, 91)
         Label10.Name = "Label10"
         Label10.Size = New Size(57, 15)
         Label10.TabIndex = 24
@@ -186,16 +194,16 @@ Partial Class FormQLNhanVien
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(6, 346)
+        btnXoa.Location = New Point(99, 363)
         btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(75, 23)
+        btnXoa.Size = New Size(53, 23)
         btnXoa.TabIndex = 21
         btnXoa.Text = "Xoá"
         btnXoa.UseVisualStyleBackColor = True
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(87, 346)
+        btnCapNhat.Location = New Point(160, 363)
         btnCapNhat.Name = "btnCapNhat"
         btnCapNhat.Size = New Size(75, 23)
         btnCapNhat.TabIndex = 20
@@ -204,7 +212,7 @@ Partial Class FormQLNhanVien
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(6, 303)
+        btnThem.Location = New Point(8, 363)
         btnThem.Name = "btnThem"
         btnThem.Size = New Size(75, 23)
         btnThem.TabIndex = 19
@@ -213,7 +221,7 @@ Partial Class FormQLNhanVien
         ' 
         ' tbDienThoai
         ' 
-        tbDienThoai.Location = New Point(75, 169)
+        tbDienThoai.Location = New Point(77, 194)
         tbDienThoai.Name = "tbDienThoai"
         tbDienThoai.Size = New Size(146, 23)
         tbDienThoai.TabIndex = 16
@@ -221,7 +229,7 @@ Partial Class FormQLNhanVien
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(6, 177)
+        Label7.Location = New Point(8, 202)
         Label7.Name = "Label7"
         Label7.Size = New Size(61, 15)
         Label7.TabIndex = 15
@@ -230,7 +238,7 @@ Partial Class FormQLNhanVien
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(6, 32)
+        Label5.Location = New Point(8, 57)
         Label5.Name = "Label5"
         Label5.Size = New Size(57, 15)
         Label5.TabIndex = 13
@@ -239,7 +247,7 @@ Partial Class FormQLNhanVien
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(6, 218)
+        Label4.Location = New Point(8, 243)
         Label4.Name = "Label4"
         Label4.Size = New Size(52, 15)
         Label4.TabIndex = 11
@@ -247,7 +255,7 @@ Partial Class FormQLNhanVien
         ' 
         ' tbDiaChi
         ' 
-        tbDiaChi.Location = New Point(75, 136)
+        tbDiaChi.Location = New Point(77, 161)
         tbDiaChi.Name = "tbDiaChi"
         tbDiaChi.Size = New Size(146, 23)
         tbDiaChi.TabIndex = 10
@@ -255,7 +263,7 @@ Partial Class FormQLNhanVien
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(6, 139)
+        Label3.Location = New Point(8, 164)
         Label3.Name = "Label3"
         Label3.Size = New Size(43, 15)
         Label3.TabIndex = 9
@@ -263,7 +271,7 @@ Partial Class FormQLNhanVien
         ' 
         ' tbTen
         ' 
-        tbTen.Location = New Point(75, 101)
+        tbTen.Location = New Point(77, 126)
         tbTen.Name = "tbTen"
         tbTen.Size = New Size(146, 23)
         tbTen.TabIndex = 8
@@ -271,7 +279,7 @@ Partial Class FormQLNhanVien
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(6, 104)
+        Label2.Location = New Point(8, 129)
         Label2.Name = "Label2"
         Label2.Size = New Size(25, 15)
         Label2.TabIndex = 8
@@ -291,16 +299,6 @@ Partial Class FormQLNhanVien
         dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvNhanVien.Size = New Size(520, 361)
         dgvNhanVien.TabIndex = 4
-        ' 
-        ' cbIsXoa
-        ' 
-        cbIsXoa.AutoSize = True
-        cbIsXoa.Location = New Point(337, 33)
-        cbIsXoa.Name = "cbIsXoa"
-        cbIsXoa.Size = New Size(91, 19)
-        cbIsXoa.TabIndex = 18
-        cbIsXoa.Text = "Đã nghỉ việc"
-        cbIsXoa.UseVisualStyleBackColor = True
         ' 
         ' FormQLNhanVien
         ' 
@@ -332,7 +330,6 @@ Partial Class FormQLNhanVien
     Friend WithEvents Label5 As Label
     Friend WithEvents tbDienThoai As TextBox
     Friend WithEvents Label7 As Label
-    Friend WithEvents cbIsXoa As CheckBox
     Friend WithEvents btnThem As Button
     Friend WithEvents btnCapNhat As Button
     Friend WithEvents btnXoa As Button
@@ -342,7 +339,8 @@ Partial Class FormQLNhanVien
     Friend WithEvents rbNu As RadioButton
     Friend WithEvents tbTaiKhoan As TextBox
     Friend WithEvents tbMatKhau As TextBox
-    Friend WithEvents btnTatCa As Button
     Friend WithEvents cbStatus As CheckBox
     Friend WithEvents Label6 As Label
+    Friend WithEvents cbChiNhanh As ComboBox
+    Friend WithEvents Label8 As Label
 End Class

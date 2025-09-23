@@ -1,7 +1,5 @@
 ﻿
 
-Imports System.Reflection.Emit
-
 Public Class FormQLNhanVien
     Implements INhanVienView, IBaseForm
 
@@ -13,6 +11,7 @@ Public Class FormQLNhanVien
 
     Public Sub LoadData() Implements INhanVienView.LoadData
         nhanVienController.XulyLoadData()
+        nhanVienController.XulyGetAllChiNhanh()
     End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements INhanVienView.ShowMessageBox
@@ -51,10 +50,6 @@ Public Class FormQLNhanVien
                 ThemNhanVien()
             Case "btnCapNhat"
                 CapNhatNhanVien()
-            Case "btnTatCa"
-                tbTuKhoa.Text = ""
-                cbIsXoa.Checked = False
-                LoadData()
             Case "btnXoa"
                 ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
@@ -62,7 +57,8 @@ Public Class FormQLNhanVien
 
     Private Sub CapNhatNhanVien()
         If dgvNhanVien.SelectedCells.Count > 0 Then
-
+            Dim selectedChiNhanh As ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh)
+            'MessageBox.Show($"{selectedChiNhanh.Ma} - {selectedChiNhanh.Ten} - {selectedChiNhanh.DiaChi}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Dim nvParam As New NhanVien() With {
                 .Ten = tbTen.Text,
                 .DiaChi = tbDiaChi.Text,
@@ -73,6 +69,11 @@ Public Class FormQLNhanVien
                       .TaiKhoan = tbTaiKhoan.Text,
                       .MatKhau = HashPwd(tbMatKhau.Text),
                       .IsXoa = cbStatus.Checked
+                 },
+                 .ChiNhanh = New ChiNhanh() With {
+                      .Ma = selectedChiNhanh.Ma,
+                      .Ten = selectedChiNhanh.Ten,
+                      .DiaChi = selectedChiNhanh.DiaChi
                  }
             }
 
@@ -102,6 +103,7 @@ Public Class FormQLNhanVien
     End Sub
 
     Public Sub BindingListToGridView(list As List(Of NhanVien)) Implements INhanVienView.BindingListToGridView
+
         dgvNhanVien.DataSource = Nothing
 
         bsNhanVien.DataSource = list
@@ -111,15 +113,12 @@ Public Class FormQLNhanVien
         ConfigureGridView()
     End Sub
 
-    Public Sub BindingToTextBox(taikhoan As TaiKhoan) Implements INhanVienView.BindingToTextBox
-        Throw New NotImplementedException()
-    End Sub
-
     Public Sub ConfigureGridView() Implements INhanVienView.ConfigureGridView
 
         dgvNhanVien.Columns("Ma").Visible = False
         dgvNhanVien.Columns("DiaChi").Visible = False
         dgvNhanVien.Columns("TaiKhoan").Visible = False
+        dgvNhanVien.Columns("ChiNhanh").Visible = False
 
 
         ' Set custom header text for columns
@@ -145,7 +144,7 @@ Public Class FormQLNhanVien
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
-        AddHandler btnTatCa.Click, AddressOf OnButtonClick
+
     End Sub
 
     Private Sub FormNhanVien_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -157,13 +156,13 @@ Public Class FormQLNhanVien
 
     Private Sub tbTuKhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTuKhoa.TextChanged
         Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
-        Dim result As List(Of NhanVien) = nhanVienController.XulyTimKiemNhanVien(tukhoa, cbIsXoa.Checked)
+        Dim result As List(Of NhanVien) = nhanVienController.XulyTimKiemNhanVien(tukhoa)
         BindingListToGridView(result)
     End Sub
 
-    Private Sub cbIsXoa_CheckedChanged(sender As Object, e As EventArgs) Handles cbIsXoa.CheckedChanged
-        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
-        Dim result As List(Of NhanVien) = nhanVienController.XulyTimKiemNhanVien(tukhoa, cbIsXoa.Checked)
+    Private Sub cbIsXoa_CheckedChanged(sender As Object, e As EventArgs)
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString
+        Dim result = nhanVienController.XulyTimKiemNhanVien(tukhoa)
         BindingListToGridView(result)
     End Sub
 
@@ -190,6 +189,13 @@ Public Class FormQLNhanVien
         Else
             rbNu.Checked = True
         End If
+        cbChiNhanh.SelectedValue = nhanVien.ChiNhanh.Ma
     End Sub
 
+    Public Sub BindingChiNhanhCombobox(list As List(Of ChiNhanh)) Implements INhanVienView.BindingChiNhanhCombobox
+        cbChiNhanh.DataSource = Nothing
+        cbChiNhanh.DataSource = list
+        cbChiNhanh.DisplayMember = "Ten"
+        cbChiNhanh.ValueMember = "Ma"
+    End Sub
 End Class

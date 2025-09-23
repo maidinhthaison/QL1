@@ -10,6 +10,8 @@
     Private _taiKhoan As TaiKhoan
     Private _taiKhoanTen As String
 
+    Private _chiNhanh As ChiNhanh
+
     Public Sub New()
         Me.Ma = 0
     End Sub
@@ -83,6 +85,15 @@
         End Get
         Set(ByVal value As String)
             _taiKhoanTen = value
+        End Set
+    End Property
+
+    Public Property ChiNhanh() As ChiNhanh
+        Get
+            Return _chiNhanh
+        End Get
+        Set(ByVal value As ChiNhanh)
+            _chiNhanh = value
         End Set
     End Property
 End Class
