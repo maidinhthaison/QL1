@@ -104,27 +104,29 @@ Public Class NhanVienDAO
 
     Private Shared Sub UpdateNhanVien(ByVal nv As NhanVien, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE NhanVien SET nv_ten = ?, nv_diachi = ?,
-            nv_dien_thoai = ?, nv_xoa = ? WHERE nv_ma = ?"
+            nv_dien_thoai = ?, nv_xoa = ?, nv_chi_nhanh = ? WHERE nv_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pTen", nv.Ten)
             cmd.Parameters.AddWithValue("pDc", nv.DiaChi)
             cmd.Parameters.AddWithValue("pDT", nv.DienThoai)
             cmd.Parameters.AddWithValue("pXoa", nv.IsXoa)
+            cmd.Parameters.AddWithValue("pCn", nv.ChiNhanh.Ma)
             cmd.Parameters.AddWithValue("pMa", nv.Ma)
             cmd.ExecuteNonQuery()
         End Using
     End Sub
-
-    Public Function Get_NV_By_MaTK() As List(Of NhanVien)
+    Public Function Get_NV_By_MaTK_ChiNhanh() As List(Of NhanVien)
         Dim nvList As New List(Of NhanVien)()
 
         Dim sql As String = "SELECT nv.nv_ma, nv.nv_ten, nv.nv_diachi, nv.nv_gioi_tinh, nv.nv_xoa, 
                 nv.nv_dien_thoai, nv.nv_tk_ma,
-                tk.tk_tai_khoan AS tk_tai_khoan, tk.tk_mat_khau AS tk_mat_khau , tk.tk_xoa AS tk_xoa, tk.tk_ma AS tk_ma
-                FROM
+                tk.tk_tai_khoan AS tk_tai_khoan, tk.tk_mat_khau AS tk_mat_khau , tk.tk_xoa AS tk_xoa, tk.tk_ma AS tk_ma,
+                cn.cn_ma, cn.cn_ten, cn.cn_dia_chi
+                FROM(
                     (NhanVien As nv
-                    INNER JOIN TaiKhoan AS tk ON nv.nv_tk_ma = tk.tk_ma)"
+                    INNER JOIN TaiKhoan AS tk ON nv.nv_tk_ma = tk.tk_ma)
+                    INNER JOIN ChiNhanh AS cn ON nv.nv_chi_nhanh = cn.cn_ma )"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
@@ -146,6 +148,11 @@ Public Class NhanVienDAO
                                     .MatKhau = CStr(reader("tk_mat_khau")),
                                     .IsXoa = CStr(reader("tk_xoa")),
                                     .Ma = CInt(reader("nv_tk_ma"))
+                                },
+                                .ChiNhanh = New ChiNhanh() With {
+                                    .Ten = CStr(reader("cn_ten")),
+                                    .DiaChi = CStr(reader("cn_dia_chi")),
+                                    .Ma = CInt(reader("cn_ma"))
                                 }
                         }
                         nvList.Add(nv)

@@ -1,4 +1,4 @@
-﻿Public Interface INhanVienView
+﻿Public Interface IBanHanqView
     Sub SetController(Controller As INhanVienControllerImpl)
     Sub LoadData()
 
@@ -6,14 +6,15 @@
 
     Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String)
 
-    Sub BindingListToGridView(list As List(Of NhanVien))
+    Sub BindingListSanPhamToGridView(list As List(Of SanPham))
 
-    Sub BindingTolabelTextBox(nhanView As NhanVien)
+    Sub BindingListBanHangToGridView(list As List(Of SanPham))
 
-    Sub BindingChiNhanhCombobox(list As List(Of ChiNhanh))
+    Sub BindingToTextBox(taiKhoan As TaiKhoan)
+
+    Sub BindingTolabelTextBox(nhanViewn As NhanVien)
 
     Sub ConfigureGridView()
 
     Sub ClearFields()
-
 End Interface
