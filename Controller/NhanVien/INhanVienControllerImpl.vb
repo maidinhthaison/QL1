@@ -108,7 +108,7 @@
             Dim searchResult As List(Of NhanVien) = listNhanVien.Where(
                 Function(nv) (
                         nv.Ten.Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
-                        nv.TaiKhoanTen.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        nv.TaiKhoan.TaiKhoan.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.DiaChi.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.DienThoai.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase))
                ).ToList()
@@ -123,7 +123,7 @@
         ' Update TaiKhoan info
         Dim tk As TaiKhoan = selectedNv.TaiKhoan
         tk.Ma = selectedNv.TaiKhoan.Ma
-        tk.TaiKhoan = nvParam.TaiKhoanTen
+        tk.TaiKhoan = nvParam.TaiKhoan.TaiKhoan
         tk.MatKhau = nvParam.TaiKhoan.MatKhau
         tk.IsXoa = nvParam.IsXoa
 
@@ -136,7 +136,6 @@
         selectedNv.DiaChi = nvParam.DiaChi
         selectedNv.IsXoa = nvParam.IsXoa
         selectedNv.DienThoai = nvParam.DienThoai
-        selectedNv.TaiKhoanTen = nvParam.TaiKhoanTen
         selectedNv.TaiKhoan = tk
         selectedNv.ChiNhanh = cn
 

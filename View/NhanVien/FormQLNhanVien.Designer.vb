@@ -81,6 +81,7 @@ Partial Class FormQLNhanVien
         ' 
         tbTuKhoa.Location = New Point(76, 30)
         tbTuKhoa.Name = "tbTuKhoa"
+        tbTuKhoa.PlaceholderText = "Tên, Địa chỉ, Sdt, Chi nhánh..."
         tbTuKhoa.Size = New Size(246, 23)
         tbTuKhoa.TabIndex = 6
         ' 
