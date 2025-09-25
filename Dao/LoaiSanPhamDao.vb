@@ -24,9 +24,7 @@ Public Class LoaiSanPhamDao
                                 .Ten = CStr(reader("lsp_ten")),
                                 .Mota = CStr(reader("lsp_mo_ta")),
                                 .IsXoa = CBool(reader("lsp_xoa")),
-                                .Code = CStr(reader("lsp_code")),
-                                .NhaCc = CInt(reader("lsp_ncc")),
-                                .Kv = CInt(reader("lsp_khu_vuc"))
+                                .Code = CStr(reader("lsp_code"))
                         }
                         loaiSanPhamList.Add(lsp)
                     End While
@@ -93,8 +91,8 @@ Public Class LoaiSanPhamDao
             cmd.Parameters.AddWithValue("pMota", lsp.Mota)
             cmd.Parameters.AddWithValue("pXoa", lsp.IsXoa)
             cmd.Parameters.AddWithValue("pCode", lsp.Code)
-            cmd.Parameters.AddWithValue("pNcc", lsp.NhaCc)
-            cmd.Parameters.AddWithValue("pKv", lsp.Kv)
+            cmd.Parameters.AddWithValue("pNcc", lsp.Lsp_Ncc.Ma)
+            cmd.Parameters.AddWithValue("pKv", lsp.Lsp_Kv.Ma)
             cmd.ExecuteNonQuery()
 
             ' Optional: Get the new ID of the inserted record
@@ -112,18 +110,20 @@ Public Class LoaiSanPhamDao
             cmd.Parameters.AddWithValue("pMota", lsp.Mota)
             cmd.Parameters.AddWithValue("pXoa", lsp.IsXoa)
             cmd.Parameters.AddWithValue("pCode", lsp.Code)
-            cmd.Parameters.AddWithValue("pNcc", lsp.NhaCc)
-            cmd.Parameters.AddWithValue("pKv", lsp.Kv)
+            cmd.Parameters.AddWithValue("pNcc", lsp.Lsp_Ncc.Ma)
+            cmd.Parameters.AddWithValue("pKv", lsp.Lsp_Kv.Ma)
             cmd.Parameters.AddWithValue("pMa", lsp.Ma)
             cmd.ExecuteNonQuery()
         End Using
     End Sub
 
-    Public Function GetKhuVucNccByLoaiSP() As List(Of LoaiSanPham)
+    Public Function GetLoaiSPByKhuVucNCC() As List(Of LoaiSanPham)
         Dim loaiSanPhamList As New List(Of LoaiSanPham)()
         Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc,
-                ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, 
-                kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten
+                ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, ncc.ncc_diachi AS ncc_diachi, 
+                ncc.ncc_dien_thoai AS ncc_dien_thoai, ncc.ncc_ghi_chu AS ncc_ghi_chu, ncc.ncc_xoa AS ncc_xoa, 
+                ncc.ncc_code AS ncc_code, 
+                kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten, kv.kv_mo_ta AS kv_kv_mo_ta, kv.kv_xoa AS kv_xoa, kv.kv_code AS kv_code
                 FROM (LoaiSanPham AS lsp
                 INNER JOIN NhaCungCap AS ncc ON ncc.ncc_ma = lsp.lsp_ncc)
                 INNER JOIN KhuVuc AS kv ON kv.kv_ma = lsp.lsp_khu_vuc
@@ -142,12 +142,22 @@ Public Class LoaiSanPhamDao
                                 .Mota = CStr(reader("lsp_mo_ta")),
                                 .IsXoa = CBool(reader("lsp_xoa")),
                                 .Code = CStr(reader("lsp_code")),
-                                .NhaCc = CInt(reader("lsp_ncc")),
-                                .Kv = CInt(reader("lsp_khu_vuc")),
-                                .Ncc_Ma = CInt(reader("ncc_ma")),
-                                .Kv_Ma = CInt(reader("kv_ma")),
-                                .Ncc_Ten = CStr(reader("ncc_ten")),
-                                .Kv_Ten = CStr(reader("kv_ten"))
+                                .Lsp_Ncc = New NhaCungCap With {
+                                    .Ma = CStr(reader("ncc_ma")),
+                                    .Ten = CStr(reader("ncc_ten")),
+                                    .DiaChi = CStr(reader("ncc_diachi")),
+                                    .DienThoai = CInt(reader("ncc_dien_thoai")),
+                                    .GhiChu = CInt(reader("ncc_ghi_chu")),
+                                    .Code = CInt(reader("ncc_code")),
+                                    .IsXoa = CInt(reader("ncc_xoa"))
+                                },
+                                .Lsp_Kv = New KhuVuc With {
+                                    .Ma = CStr(reader("kv_ma")),
+                                    .Ten = CStr(reader("kv_ten")),
+                                    .Mota = CStr(reader("kv_mo_ta")),
+                                    .Code = CInt(reader("kv_code")),
+                                    .IsXoa = CInt(reader("kv_xoa"))
+                                }
                         }
                         loaiSanPhamList.Add(lsp)
                     End While

@@ -81,15 +81,25 @@
         dgvSanPham.Columns("LoaiSp_Kv_Ma").Visible = False
         dgvSanPham.Columns("NCC_Ma").Visible = False
         dgvSanPham.Columns("Kv_Ma").Visible = False
-
+        dgvSanPham.Columns("Kv_Ten").Visible = False
 
         ' Set custom header text for columns
-        dgvSanPham.Columns("Ten").HeaderText = "SP"
-        dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
-        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+
         dgvSanPham.Columns("Code").HeaderText = "Code"
+        dgvSanPham.Columns("Code").DisplayIndex = 0
+
+        dgvSanPham.Columns("Ten").HeaderText = "SP"
+        dgvSanPham.Columns("Ten").DisplayIndex = 1
+
+        dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
+        dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 2
+
+        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("Gia").DisplayIndex = 3
+
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
-        dgvSanPham.Columns("Kv_Ten").HeaderText = "Kv_Ten"
+        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
+
     End Sub
 
     Public Sub ClearFields() Implements ISanPhamView.ClearFields
@@ -140,7 +150,6 @@
 
     Private Sub ThemSanPham()
         Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
-        MessageBox.Show(selectedLoaiSp.Ma)
         Dim newSp As New SanPham() With {
             .Ten = tbSanpham.Text,
             .Mota = rtbMota.Text,

@@ -39,9 +39,7 @@
             Dim editedLoaiSp As New LoaiSanPham() With {
                 .Ten = tbTen.Text,
                 .Mota = rtbMota.Text,
-                .Code = tbCode.Text,
-                .NhaCc = selectedNhaCc.Ma,
-                .Kv = selectedKhuVuc.Ma
+                .Code = tbCode.Text
             }
             loaiSanPhamController.XulyCapNhatLoaiSanPham(editedLoaiSp)
         End If
@@ -53,10 +51,10 @@
         Dim newLoaiSp As New LoaiSanPham() With {
             .Ten = tbTen.Text,
             .Mota = rtbMota.Text,
-            .NhaCc = selectedNhaCc.Ma,
-            .Kv = selectedKhuVuc.Ma,
+            .IsXoa = False,
             .Code = tbCode.Text,
-            .IsXoa = False
+            .Lsp_Ncc = selectedNhaCc,
+            .Lsp_Kv = selectedKhuVuc
         }
         loaiSanPhamController.XulyThemLoaiSanPham(newLoaiSp)
     End Sub
@@ -126,8 +124,8 @@
         tbCode.Text = loaiSp.Code
         rtbMota.Text = loaiSp.Mota
 
-        cbNhaCc.SelectedValue = loaiSp.NhaCc
-        cbKhuVuc.SelectedValue = loaiSp.Kv
+        'cbNhaCc.SelectedValue = loaiSp.NhaCc
+        'cbKhuVuc.SelectedValue = loaiSp.Kv
     End Sub
 
     Public Sub ConfigureGridView() Implements ILoaiSanPhamView.ConfigureGridView

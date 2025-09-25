@@ -16,6 +16,7 @@
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
+        AddHandler btnHuy.Click, AddressOf OnButtonClick
     End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements INhaCungCapView.ShowMessageBox
@@ -63,7 +64,7 @@
         tbDiachi.Text = nhaCc.DiaChi
         tbDienThoai.Text = nhaCc.DienThoai
         rtbGhichu.Text = nhaCc.GhiChu
-        tbCode.Text = nhaCc.Code
+        lbCode.Text = nhaCc.Code
     End Sub
 
     Public Sub ConfigureGridView() Implements INhaCungCapView.ConfigureGridView
@@ -84,7 +85,7 @@
         tbDiachi.Text = ""
         tbDienThoai.Text = ""
         rtbGhichu.Text = ""
-        tbCode.Text = ""
+        lbCode.Text = ""
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
@@ -94,6 +95,8 @@
                 ThemNhaCungCap()
             Case "btnCapNhat"
                 CapNhatNhaCungCap()
+            Case "btnHuy"
+                ClearFields()
             Case "btnXoa"
                 ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
@@ -106,7 +109,7 @@
                 .DiaChi = tbDiachi.Text,
                 .DienThoai = tbDienThoai.Text,
                 .GhiChu = rtbGhichu.Text,
-                .Code = tbCode.Text
+                .Code = lbCode.Text
             }
             nhaCungCapController.XulyCapNhatNhaCungCap(editedNhaCc)
         End If
@@ -118,7 +121,7 @@
             .DiaChi = tbDiachi.Text,
             .DienThoai = tbDienThoai.Text,
             .GhiChu = rtbGhichu.Text,
-            .Code = tbCode.Text,
+            .Code = Gen_6Chars_UUID(),
             .IsXoa = False
         }
         nhaCungCapController.XulyThemNhaCungCap(newNhaCc)

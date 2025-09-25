@@ -26,13 +26,13 @@ Partial Class FormNhaCungCap
         bsNhaCc = New BindingSource(components)
         GroupBox1 = New GroupBox()
         Panel1 = New Panel()
+        lbCode = New Label()
+        Label4 = New Label()
         btnXoa = New Button()
         btnCapNhat = New Button()
         btnThem = New Button()
         rtbGhichu = New RichTextBox()
         Label5 = New Label()
-        tbCode = New TextBox()
-        Label4 = New Label()
         tbDienThoai = New TextBox()
         Label3 = New Label()
         tbDiachi = New TextBox()
@@ -40,6 +40,7 @@ Partial Class FormNhaCungCap
         tbTen = New TextBox()
         Label1 = New Label()
         dgvNhaCc = New DataGridView()
+        btnHuy = New Button()
         CType(bsNhaCc, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
@@ -59,13 +60,14 @@ Partial Class FormNhaCungCap
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(btnHuy)
+        Panel1.Controls.Add(lbCode)
+        Panel1.Controls.Add(Label4)
         Panel1.Controls.Add(btnXoa)
         Panel1.Controls.Add(btnCapNhat)
         Panel1.Controls.Add(btnThem)
         Panel1.Controls.Add(rtbGhichu)
         Panel1.Controls.Add(Label5)
-        Panel1.Controls.Add(tbCode)
-        Panel1.Controls.Add(Label4)
         Panel1.Controls.Add(tbDienThoai)
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(tbDiachi)
@@ -77,9 +79,26 @@ Partial Class FormNhaCungCap
         Panel1.Size = New Size(354, 398)
         Panel1.TabIndex = 3
         ' 
+        ' lbCode
+        ' 
+        lbCode.AutoSize = True
+        lbCode.Location = New Point(122, 15)
+        lbCode.Name = "lbCode"
+        lbCode.Size = New Size(0, 15)
+        lbCode.TabIndex = 14
+        ' 
+        ' Label4
+        ' 
+        Label4.AutoSize = True
+        Label4.Location = New Point(13, 15)
+        Label4.Name = "Label4"
+        Label4.Size = New Size(35, 15)
+        Label4.TabIndex = 13
+        Label4.Text = "Code"
+        ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(226, 309)
+        btnXoa.Location = New Point(265, 310)
         btnXoa.Name = "btnXoa"
         btnXoa.Size = New Size(75, 23)
         btnXoa.TabIndex = 12
@@ -88,7 +107,7 @@ Partial Class FormNhaCungCap
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(122, 309)
+        btnCapNhat.Location = New Point(143, 310)
         btnCapNhat.Name = "btnCapNhat"
         btnCapNhat.Size = New Size(75, 23)
         btnCapNhat.TabIndex = 11
@@ -97,7 +116,7 @@ Partial Class FormNhaCungCap
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(18, 309)
+        btnThem.Location = New Point(13, 310)
         btnThem.Name = "btnThem"
         btnThem.Size = New Size(75, 23)
         btnThem.TabIndex = 10
@@ -121,25 +140,9 @@ Partial Class FormNhaCungCap
         Label5.TabIndex = 8
         Label5.Text = "Ghi chú"
         ' 
-        ' tbCode
-        ' 
-        tbCode.Location = New Point(122, 147)
-        tbCode.Name = "tbCode"
-        tbCode.Size = New Size(164, 23)
-        tbCode.TabIndex = 7
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Location = New Point(13, 155)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(35, 15)
-        Label4.TabIndex = 6
-        Label4.Text = "Code"
-        ' 
         ' tbDienThoai
         ' 
-        tbDienThoai.Location = New Point(122, 99)
+        tbDienThoai.Location = New Point(122, 146)
         tbDienThoai.Name = "tbDienThoai"
         tbDienThoai.Size = New Size(164, 23)
         tbDienThoai.TabIndex = 5
@@ -147,7 +150,7 @@ Partial Class FormNhaCungCap
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(13, 107)
+        Label3.Location = New Point(13, 154)
         Label3.Name = "Label3"
         Label3.Size = New Size(61, 15)
         Label3.TabIndex = 4
@@ -155,7 +158,7 @@ Partial Class FormNhaCungCap
         ' 
         ' tbDiachi
         ' 
-        tbDiachi.Location = New Point(122, 50)
+        tbDiachi.Location = New Point(122, 97)
         tbDiachi.Name = "tbDiachi"
         tbDiachi.Size = New Size(164, 23)
         tbDiachi.TabIndex = 3
@@ -163,7 +166,7 @@ Partial Class FormNhaCungCap
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(13, 58)
+        Label2.Location = New Point(13, 105)
         Label2.Name = "Label2"
         Label2.Size = New Size(43, 15)
         Label2.TabIndex = 2
@@ -171,7 +174,7 @@ Partial Class FormNhaCungCap
         ' 
         ' tbTen
         ' 
-        tbTen.Location = New Point(122, 7)
+        tbTen.Location = New Point(122, 54)
         tbTen.Name = "tbTen"
         tbTen.Size = New Size(164, 23)
         tbTen.TabIndex = 1
@@ -179,7 +182,7 @@ Partial Class FormNhaCungCap
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(13, 10)
+        Label1.Location = New Point(13, 57)
         Label1.Name = "Label1"
         Label1.Size = New Size(85, 15)
         Label1.TabIndex = 0
@@ -197,6 +200,15 @@ Partial Class FormNhaCungCap
         dgvNhaCc.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvNhaCc.Size = New Size(404, 398)
         dgvNhaCc.TabIndex = 2
+        ' 
+        ' btnHuy
+        ' 
+        btnHuy.Location = New Point(13, 358)
+        btnHuy.Name = "btnHuy"
+        btnHuy.Size = New Size(75, 23)
+        btnHuy.TabIndex = 15
+        btnHuy.Text = "Huỷ"
+        btnHuy.UseVisualStyleBackColor = True
         ' 
         ' FormNhaCungCap
         ' 
@@ -220,8 +232,6 @@ Partial Class FormNhaCungCap
     Friend WithEvents dgvNhaCc As DataGridView
     Friend WithEvents rtbGhichu As RichTextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents tbCode As TextBox
-    Friend WithEvents Label4 As Label
     Friend WithEvents tbDienThoai As TextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents tbDiachi As TextBox
@@ -231,4 +241,7 @@ Partial Class FormNhaCungCap
     Friend WithEvents btnXoa As Button
     Friend WithEvents btnCapNhat As Button
     Friend WithEvents btnThem As Button
+    Friend WithEvents Label4 As Label
+    Friend WithEvents lbCode As Label
+    Friend WithEvents btnHuy As Button
 End Class
