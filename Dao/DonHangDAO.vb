@@ -1,13 +1,13 @@
 ﻿Imports System.Data.OleDb
 
-Public Class PhieuBanHangDAO
+Public Class DonHangDAO
     ' --- DATABASE CONNECTION STRING ---
     Private ReadOnly ConnectionString As String = "Provider=Microsoft.ACE.OLEDB.12.0;Data Source=20810229_taphoa_db.accdb"
 
     '========================================================================
     '   FUNCTION TO SAVE A LIST OF OBJECTS TO THE DATABASE
     '========================================================================
-    Public Function SaveNhanVien(ByVal pbhToSave As List(Of PhieuBanHang)) As Boolean
+    Public Function SaveDonHang(ByVal pbhToSave As List(Of DonHang)) As Boolean
         ' Use a transaction to ensure that all records are saved successfully,
         ' or none are. This prevents partial data updates.
         Dim transaction As OleDbTransaction = Nothing
@@ -20,10 +20,10 @@ Public Class PhieuBanHangDAO
                 For Each pbh In pbhToSave
                     If pbh.Ma = 0 Then
                         ' This is a new record, perform an INSERT
-                        InsertPhieuBanHang(pbh, conn, transaction)
+                        InsertDonHang(pbh, conn, transaction)
                     Else
                         ' This is an existing record, perform an UPDATE
-                        UpdatePhieuBanHang(pbh, conn, transaction)
+                        UpdateDonHang(pbh, conn, transaction)
                     End If
                 Next
 
@@ -46,10 +46,10 @@ Public Class PhieuBanHangDAO
 
     ' --- Helper methods for Insert and Update ---
 
-    Private Shared Sub InsertPhieuBanHang(ByVal pbh As PhieuBanHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+    Private Shared Sub InsertDonHang(ByVal pbh As DonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
-        Dim sql As String = "INSERT INTO PhieuBanHang (pbh_code, pbh_ngay, pbh_tong_san_pham, pbh_tong_khuyen_mai,
-                        pbh_tong_tien, pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh)
+        Dim sql As String = "INSERT INTO PhieuBanHang (pbh_code, pbh_ngay,  pbh_tong_san_pham, pbh_tong_khuyen_mai, 
+                pbh_tong_tien, pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh)
                             VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
@@ -72,22 +72,22 @@ Public Class PhieuBanHangDAO
         End Using
     End Sub
 
-    Private Shared Sub UpdatePhieuBanHang(ByVal pbh As PhieuBanHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+    Private Shared Sub UpdateDonHang(ByVal pbh As DonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE PhieuBanHang SET pbh_ngay = ?, pbh_ghi_chu = ?,
             pbh_khach_hang = ?, pbh_xoa = ?, pbh_chi_nhanh = ? WHERE pbh_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pNgay", pbh.Ngay)
-            cmd.Parameters.AddWithValue("pGhichu", pbh.GhiChu)
+            cmd.Parameters.AddWithValue("pGhiChu", pbh.GhiChu)
             cmd.Parameters.AddWithValue("pKHMa", pbh.BanHangKhachHang.Ma)
             cmd.Parameters.AddWithValue("pXoa", pbh.IsXoa)
-            cmd.Parameters.AddWithValue("pCNMa", pbh.ChiNhanh.Ma)
+            cmd.Parameters.AddWithValue("pChiNhanhMa", pbh.ChiNhanh.Ma)
             cmd.Parameters.AddWithValue("pMa", pbh.Ma)
             cmd.ExecuteNonQuery()
         End Using
     End Sub
-    Public Function Get_Pbh_By_ChiNhanh_KH() As List(Of PhieuBanHang)
-        Dim pbhList As New List(Of PhieuBanHang)()
+    Public Function Get_Pbh_By_ChiNhanh_KH() As List(Of DonHang)
+        Dim pbhList As New List(Of DonHang)()
 
         Dim sql As String = "SELECT pbh_ma, pbh_code, pbh_ngay, pbh_tong_san_pham, pbh_tong_khuyen_mai, pbh_tong_tien,
                 pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh,
@@ -105,7 +105,7 @@ Public Class PhieuBanHangDAO
                     conn.Open()
                     Dim reader As OleDbDataReader = cmd.ExecuteReader()
                     While reader.Read()
-                        Dim pbh As New PhieuBanHang() With {
+                        Dim pbh As New DonHang() With {
                                 .Ma = CInt(reader("pbh_ma")),
                                 .Code = CStr(reader("pbh_code")),
                                 .Ngay = CStr(reader("pbh_ngay")),

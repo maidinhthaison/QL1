@@ -38,7 +38,6 @@
         End Set
     End Property
 
-    ''
     Public Property LoaiSp_Ncc_Ma() As Integer
         Get
             Return _lsp_ncc_ma
@@ -93,8 +92,6 @@
             _kv_ten = value
         End Set
     End Property
-
-    ''
 
     Public Sub New()
         Me.Ma = 0

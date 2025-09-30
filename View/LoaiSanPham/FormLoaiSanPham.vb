@@ -18,6 +18,7 @@
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
+        AddHandler btnHuy.Click, AddressOf OnButtonClick
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
@@ -27,6 +28,8 @@
                 ThemLoaiSanPham()
             Case "btnCapNhat"
                 CapNhatLoaiSanPham()
+            Case "btnHuy"
+                ClearFields()
             Case "btnXoa"
                 ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
@@ -39,7 +42,10 @@
             Dim editedLoaiSp As New LoaiSanPham() With {
                 .Ten = tbTen.Text,
                 .Mota = rtbMota.Text,
-                .Code = tbCode.Text
+                .Lsp_Ncc = selectedNhaCc,
+                .Lsp_Kv = selectedKhuVuc,
+                .Lsp_Ncc_Ma = If(selectedNhaCc IsNot Nothing, selectedNhaCc.Ma, 0),
+                .Lsp_Kv_Ma = If(selectedKhuVuc IsNot Nothing, selectedKhuVuc.Ma, 0)
             }
             loaiSanPhamController.XulyCapNhatLoaiSanPham(editedLoaiSp)
         End If
@@ -52,9 +58,11 @@
             .Ten = tbTen.Text,
             .Mota = rtbMota.Text,
             .IsXoa = False,
-            .Code = tbCode.Text,
+            .Code = Gen_6Chars_UUID(),
             .Lsp_Ncc = selectedNhaCc,
-            .Lsp_Kv = selectedKhuVuc
+            .Lsp_Kv = selectedKhuVuc,
+            .Lsp_Kv_Ma = If(selectedKhuVuc IsNot Nothing, selectedKhuVuc.Ma, 0),
+            .Lsp_Ncc_Ma = If(selectedNhaCc IsNot Nothing, selectedNhaCc.Ma, 0)
         }
         loaiSanPhamController.XulyThemLoaiSanPham(newLoaiSp)
     End Sub
@@ -121,36 +129,32 @@
 
     Public Sub BindingToTextBox(loaiSp As LoaiSanPham) Implements ILoaiSanPhamView.BindingToTextBox
         tbTen.Text = loaiSp.Ten
-        tbCode.Text = loaiSp.Code
+        lbCode.Text = loaiSp.Code
         rtbMota.Text = loaiSp.Mota
 
-        'cbNhaCc.SelectedValue = loaiSp.NhaCc
-        'cbKhuVuc.SelectedValue = loaiSp.Kv
+        cbNhaCc.SelectedValue = loaiSp.Lsp_Ncc_Ma
+        cbKhuVuc.SelectedValue = loaiSp.Lsp_Kv_Ma
     End Sub
 
     Public Sub ConfigureGridView() Implements ILoaiSanPhamView.ConfigureGridView
         dgvLoaiSp.Columns("Ma").Visible = False
         dgvLoaiSp.Columns("IsXoa").Visible = False
         dgvLoaiSp.Columns("Mota").Visible = False
-
-        dgvLoaiSp.Columns("Ncc_Ma").Visible = False
-        dgvLoaiSp.Columns("Kv_Ma").Visible = False
-        dgvLoaiSp.Columns("Ncc_Ten").Visible = False
-        dgvLoaiSp.Columns("Kv_Ten").Visible = False
+        dgvLoaiSp.Columns("Lsp_Ncc").Visible = False
+        dgvLoaiSp.Columns("Lsp_Kv").Visible = False
 
         ' Set custom header text for columns
         dgvLoaiSp.Columns("Ten").HeaderText = "Loại SP"
         dgvLoaiSp.Columns("Code").HeaderText = "Code"
-        dgvLoaiSp.Columns("NhaCc").HeaderText = "Mã Nhà CC"
-        dgvLoaiSp.Columns("Kv").HeaderText = "Mã Khu vực"
-
+        dgvLoaiSp.Columns("Lsp_Ncc_Ma").HeaderText = "Nhà CC"
+        dgvLoaiSp.Columns("Lsp_Kv_Ma").HeaderText = "Khu vực"
 
     End Sub
 
     Public Sub ClearFields() Implements ILoaiSanPhamView.ClearFields
         tbTen.Text = ""
         rtbMota.Text = ""
-        tbCode.Text = ""
+        lbCode.Text = ""
     End Sub
 
 

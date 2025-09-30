@@ -60,7 +60,7 @@ Partial Class FormQLSanPham
         GroupBox1.Controls.Add(dgvSanPham)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(776, 426)
+        GroupBox1.Size = New Size(1118, 448)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý sản phẩm"
@@ -100,9 +100,9 @@ Partial Class FormQLSanPham
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(tbSanpham)
         Panel1.Controls.Add(Label2)
-        Panel1.Location = New Point(504, 22)
+        Panel1.Location = New Point(846, 22)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(266, 398)
+        Panel1.Size = New Size(266, 420)
         Panel1.TabIndex = 4
         ' 
         ' lbKhuVuc
@@ -264,14 +264,14 @@ Partial Class FormQLSanPham
         dgvSanPham.Name = "dgvSanPham"
         dgvSanPham.ReadOnly = True
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSanPham.Size = New Size(492, 362)
+        dgvSanPham.Size = New Size(834, 362)
         dgvSanPham.TabIndex = 3
         ' 
         ' FormQLSanPham
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1142, 472)
         Controls.Add(GroupBox1)
         Name = "FormQLSanPham"
         Text = "Sản Phẩm"

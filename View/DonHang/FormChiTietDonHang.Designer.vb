@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class FormTaoDonHang
+Partial Class FormChiTietDonHang
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -32,29 +32,27 @@ Partial Class FormTaoDonHang
         btnXoa = New Button()
         GroupBox2 = New GroupBox()
         Panel1 = New Panel()
+        tbGhiChu = New TextBox()
+        Label6 = New Label()
         tbKhuyenMai = New TextBox()
         Label8 = New Label()
         tbSoluong = New TextBox()
         Label7 = New Label()
+        dgvDonHang = New DataGridView()
         lbTongtien = New Label()
         lbtt = New Label()
         btnHuy = New Button()
         btnXacNhan = New Button()
-        tbDiachiKh = New TextBox()
-        Label5 = New Label()
-        tbDienThoaiKh = New TextBox()
-        Label4 = New Label()
-        Label3 = New Label()
-        tbTenKh = New TextBox()
-        dgvDonHang = New DataGridView()
         lbDateTime = New Label()
         SP_BindingSource = New BindingSource(components)
+        CTDH_BindingSource = New BindingSource(components)
         GroupBox1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox2.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvDonHang, ComponentModel.ISupportInitialize).BeginInit()
         CType(SP_BindingSource, ComponentModel.ISupportInitialize).BeginInit()
+        CType(CTDH_BindingSource, ComponentModel.ISupportInitialize).BeginInit()
         SuspendLayout()
         ' 
         ' GroupBox1
@@ -75,11 +73,11 @@ Partial Class FormTaoDonHang
         dgvSanPham.AllowUserToResizeRows = False
         dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvSanPham.Location = New Point(6, 34)
+        dgvSanPham.Location = New Point(6, 22)
         dgvSanPham.Name = "dgvSanPham"
         dgvSanPham.ReadOnly = True
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSanPham.Size = New Size(487, 459)
+        dgvSanPham.Size = New Size(487, 471)
         dgvSanPham.TabIndex = 7
         ' 
         ' tbTuKhoa
@@ -138,36 +136,46 @@ Partial Class FormTaoDonHang
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(tbGhiChu)
+        Panel1.Controls.Add(Label6)
         Panel1.Controls.Add(tbKhuyenMai)
         Panel1.Controls.Add(Label8)
         Panel1.Controls.Add(tbSoluong)
         Panel1.Controls.Add(Label7)
-        Panel1.Controls.Add(lbTongtien)
-        Panel1.Controls.Add(lbtt)
-        Panel1.Controls.Add(btnHuy)
-        Panel1.Controls.Add(btnXacNhan)
-        Panel1.Controls.Add(tbDiachiKh)
-        Panel1.Controls.Add(Label5)
-        Panel1.Controls.Add(tbDienThoaiKh)
-        Panel1.Controls.Add(Label4)
-        Panel1.Controls.Add(Label3)
-        Panel1.Controls.Add(tbTenKh)
         Panel1.Location = New Point(6, 22)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(528, 128)
+        Panel1.Size = New Size(528, 84)
         Panel1.TabIndex = 11
+        ' 
+        ' tbGhiChu
+        ' 
+        tbGhiChu.Location = New Point(64, 49)
+        tbGhiChu.Name = "tbGhiChu"
+        tbGhiChu.Size = New Size(460, 23)
+        tbGhiChu.TabIndex = 22
+        tbGhiChu.Text = "abc"
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Location = New Point(4, 57)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(48, 15)
+        Label6.TabIndex = 21
+        Label6.Text = "Ghi chú"
         ' 
         ' tbKhuyenMai
         ' 
-        tbKhuyenMai.Location = New Point(461, 54)
+        tbKhuyenMai.Location = New Point(236, 9)
         tbKhuyenMai.Name = "tbKhuyenMai"
         tbKhuyenMai.Size = New Size(61, 23)
         tbKhuyenMai.TabIndex = 20
+        tbKhuyenMai.Text = "1"
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(364, 59)
+        Label8.Location = New Point(139, 12)
         Label8.Name = "Label8"
         Label8.Size = New Size(91, 15)
         Label8.TabIndex = 19
@@ -175,104 +183,20 @@ Partial Class FormTaoDonHang
         ' 
         ' tbSoluong
         ' 
-        tbSoluong.Location = New Point(295, 54)
+        tbSoluong.Location = New Point(64, 9)
         tbSoluong.Name = "tbSoluong"
-        tbSoluong.Size = New Size(63, 23)
+        tbSoluong.Size = New Size(60, 23)
         tbSoluong.TabIndex = 18
+        tbSoluong.Text = "1"
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(228, 59)
+        Label7.Location = New Point(4, 12)
         Label7.Name = "Label7"
         Label7.Size = New Size(54, 15)
         Label7.TabIndex = 17
         Label7.Text = "Số lượng"
-        ' 
-        ' lbTongtien
-        ' 
-        lbTongtien.AutoSize = True
-        lbTongtien.ForeColor = Color.Red
-        lbTongtien.Location = New Point(70, 98)
-        lbTongtien.Name = "lbTongtien"
-        lbTongtien.Size = New Size(57, 15)
-        lbTongtien.TabIndex = 16
-        lbTongtien.Text = "Tổng tiền"
-        ' 
-        ' lbtt
-        ' 
-        lbtt.AutoSize = True
-        lbtt.Location = New Point(7, 98)
-        lbtt.Name = "lbtt"
-        lbtt.Size = New Size(57, 15)
-        lbtt.TabIndex = 9
-        lbtt.Text = "Tổng tiền"
-        ' 
-        ' btnHuy
-        ' 
-        btnHuy.Location = New Point(255, 94)
-        btnHuy.Name = "btnHuy"
-        btnHuy.Size = New Size(75, 23)
-        btnHuy.TabIndex = 15
-        btnHuy.Text = "Huỷ"
-        btnHuy.UseVisualStyleBackColor = True
-        ' 
-        ' btnXacNhan
-        ' 
-        btnXacNhan.Location = New Point(157, 94)
-        btnXacNhan.Name = "btnXacNhan"
-        btnXacNhan.Size = New Size(75, 23)
-        btnXacNhan.TabIndex = 14
-        btnXacNhan.Text = "Xác nhận"
-        btnXacNhan.UseVisualStyleBackColor = True
-        ' 
-        ' tbDiachiKh
-        ' 
-        tbDiachiKh.Location = New Point(53, 51)
-        tbDiachiKh.Name = "tbDiachiKh"
-        tbDiachiKh.Size = New Size(169, 23)
-        tbDiachiKh.TabIndex = 13
-        ' 
-        ' Label5
-        ' 
-        Label5.AutoSize = True
-        Label5.Location = New Point(4, 54)
-        Label5.Name = "Label5"
-        Label5.Size = New Size(43, 15)
-        Label5.TabIndex = 12
-        Label5.Text = "Địa chỉ"
-        ' 
-        ' tbDienThoaiKh
-        ' 
-        tbDienThoaiKh.Location = New Point(295, 13)
-        tbDienThoaiKh.Name = "tbDienThoaiKh"
-        tbDienThoaiKh.Size = New Size(169, 23)
-        tbDienThoaiKh.TabIndex = 11
-        ' 
-        ' Label4
-        ' 
-        Label4.AutoSize = True
-        Label4.Location = New Point(228, 15)
-        Label4.Name = "Label4"
-        Label4.Size = New Size(61, 15)
-        Label4.TabIndex = 10
-        Label4.Text = "Điện thoại"
-        ' 
-        ' Label3
-        ' 
-        Label3.AutoSize = True
-        Label3.Location = New Point(3, 16)
-        Label3.Name = "Label3"
-        Label3.Size = New Size(44, 15)
-        Label3.TabIndex = 8
-        Label3.Text = "Tên KH"
-        ' 
-        ' tbTenKh
-        ' 
-        tbTenKh.Location = New Point(53, 12)
-        tbTenKh.Name = "tbTenKh"
-        tbTenKh.Size = New Size(169, 23)
-        tbTenKh.TabIndex = 9
         ' 
         ' dgvDonHang
         ' 
@@ -282,12 +206,49 @@ Partial Class FormTaoDonHang
         dgvDonHang.AllowUserToResizeRows = False
         dgvDonHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvDonHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvDonHang.Location = New Point(6, 156)
+        dgvDonHang.Location = New Point(6, 112)
         dgvDonHang.Name = "dgvDonHang"
         dgvDonHang.ReadOnly = True
         dgvDonHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvDonHang.Size = New Size(528, 337)
+        dgvDonHang.Size = New Size(528, 381)
         dgvDonHang.TabIndex = 7
+        ' 
+        ' lbTongtien
+        ' 
+        lbTongtien.AutoSize = True
+        lbTongtien.ForeColor = Color.Red
+        lbTongtien.Location = New Point(682, 23)
+        lbTongtien.Name = "lbTongtien"
+        lbTongtien.Size = New Size(57, 15)
+        lbTongtien.TabIndex = 16
+        lbTongtien.Text = "Tổng tiền"
+        ' 
+        ' lbtt
+        ' 
+        lbtt.AutoSize = True
+        lbtt.Location = New Point(619, 23)
+        lbtt.Name = "lbtt"
+        lbtt.Size = New Size(57, 15)
+        lbtt.TabIndex = 9
+        lbtt.Text = "Tổng tiền"
+        ' 
+        ' btnHuy
+        ' 
+        btnHuy.Location = New Point(893, 23)
+        btnHuy.Name = "btnHuy"
+        btnHuy.Size = New Size(75, 23)
+        btnHuy.TabIndex = 15
+        btnHuy.Text = "Huỷ"
+        btnHuy.UseVisualStyleBackColor = True
+        ' 
+        ' btnXacNhan
+        ' 
+        btnXacNhan.Location = New Point(796, 23)
+        btnXacNhan.Name = "btnXacNhan"
+        btnXacNhan.Size = New Size(75, 23)
+        btnXacNhan.TabIndex = 14
+        btnXacNhan.Text = "Xác nhận"
+        btnXacNhan.UseVisualStyleBackColor = True
         ' 
         ' lbDateTime
         ' 
@@ -307,7 +268,11 @@ Partial Class FormTaoDonHang
         Controls.Add(GroupBox2)
         Controls.Add(btnXoa)
         Controls.Add(btnThem)
+        Controls.Add(btnHuy)
+        Controls.Add(lbTongtien)
+        Controls.Add(btnXacNhan)
         Controls.Add(Label2)
+        Controls.Add(lbtt)
         Controls.Add(Label1)
         Controls.Add(tbTuKhoa)
         Controls.Add(GroupBox1)
@@ -320,6 +285,7 @@ Partial Class FormTaoDonHang
         Panel1.PerformLayout()
         CType(dgvDonHang, ComponentModel.ISupportInitialize).EndInit()
         CType(SP_BindingSource, ComponentModel.ISupportInitialize).EndInit()
+        CType(CTDH_BindingSource, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
         PerformLayout()
     End Sub
@@ -334,13 +300,7 @@ Partial Class FormTaoDonHang
     Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents dgvDonHang As DataGridView
     Friend WithEvents lbtt As Label
-    Friend WithEvents tbTenKh As TextBox
-    Friend WithEvents Label3 As Label
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents tbDiachiKh As TextBox
-    Friend WithEvents Label5 As Label
-    Friend WithEvents tbDienThoaiKh As TextBox
-    Friend WithEvents Label4 As Label
     Friend WithEvents lbTongtien As Label
     Friend WithEvents btnHuy As Button
     Friend WithEvents btnXacNhan As Button
@@ -350,4 +310,7 @@ Partial Class FormTaoDonHang
     Friend WithEvents Label7 As Label
     Friend WithEvents lbDateTime As Label
     Friend WithEvents SP_BindingSource As BindingSource
+    Friend WithEvents tbGhiChu As TextBox
+    Friend WithEvents Label6 As Label
+    Friend WithEvents CTDH_BindingSource As BindingSource
 End Class

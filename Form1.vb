@@ -21,13 +21,13 @@ Public Class Form1
     End Function
     Private Sub BanHangMenuItem_Click(sender As Object, e As EventArgs) Handles BanHangMenuItem.Click
 
-        Dim frm As Form = TimForm(GetType(FormQLBanHang))
+        Dim frm As Form = TimForm(GetType(FormQLDonHang))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim frmBanHang As New FormQLBanHang()
+        Dim frmBanHang As New FormQLDonHang()
         frmBanHang.MdiParent = Me
         frmBanHang.WindowState = FormWindowState.Maximized
         frmBanHang.Show()

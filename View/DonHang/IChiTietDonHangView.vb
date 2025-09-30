@@ -1,10 +1,10 @@
-﻿Public Interface ITaoDonHangView
-    Sub SetController(Controller As IDonHangControllerImpl)
+﻿Public Interface IChiTietDonHangView
+    Sub SetController(Controller As IChiTietDHControllerImpl)
     Sub LoadData()
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)
 
-    Sub BindingTolabelTextBox(phieuBh As PhieuBanHang)
+    Sub BindingTolabelTextBox(phieuBh As DonHang)
 
     Sub BindingListSanPhamToGridView(list As List(Of SanPham))
 

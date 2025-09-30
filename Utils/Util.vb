@@ -48,7 +48,11 @@ Module Util
     End Function
 
     Public Function Gen_6Chars_UUID() As String
-        Return Guid.NewGuid.ToString("N").Substring(0, 6).ToUpper()
+        Return GenUUID.Substring(0, 6).ToUpper()
+    End Function
+
+    Public Function Gen_12Chars_UUID() As String
+        Return GenUUID.Substring(0, 12).ToUpper()
     End Function
 
     Function TimForm(type As Type, dsForm As List(Of Form))

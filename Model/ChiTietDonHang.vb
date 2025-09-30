@@ -1,5 +1,7 @@
-﻿Public Class ChiTietPhieuBanHang
+﻿Public Class ChiTietDonHang
     Private _ma As Integer
+    Private _ctpbh_pbh_ma As Integer
+    Private _ctpbh_sp_ma As Integer
     Private _so_luong As Integer
     Private _gia As Double
     Private _khuyen_mai As Double
@@ -20,6 +22,24 @@
         End Get
         Set(ByVal value As Integer)
             _ma = value
+        End Set
+    End Property
+
+    Public Property Pbh_Ma() As Integer
+        Get
+            Return _ctpbh_pbh_ma
+        End Get
+        Set(ByVal value As Integer)
+            _ctpbh_pbh_ma = value
+        End Set
+    End Property
+
+    Public Property Sp_Ma() As Integer
+        Get
+            Return _ctpbh_sp_ma
+        End Get
+        Set(ByVal value As Integer)
+            _ctpbh_sp_ma = value
         End Set
     End Property
 
@@ -77,7 +97,7 @@
         End Set
     End Property
 
-    Public Property SanPham() As SanPham
+    Public Property SanPhamInfo() As SanPham
         Get
             Return _sanPham
         End Get
