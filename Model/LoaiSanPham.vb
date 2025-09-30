@@ -4,16 +4,12 @@
     Private _lsp_mota As String
     Private _lsp_xoa As Boolean
     Private _lsp_code As String
-    Private _lsp_ncc As Integer
-    Private _lsp_khu_vuc As Integer
+    Private _lsp_ncc_ma As Integer
+    Private _lsp_kv_ma As Integer
 
     'Ref table
-    Private _ncc_ma As Integer
-    Private _ncc_ten As String
-
-    'Ref table
-    Private _kv_ma As Integer
-    Private _kv_ten As String
+    Private _lsp_ncc As NhaCungCap
+    Private _lsp_khu_vuc As KhuVuc
 
     Public Sub New()
         Me.Ma = 0
@@ -64,59 +60,40 @@
         End Set
     End Property
 
-    Public Property NhaCc() As Integer
+
+    Public Property Lsp_Ncc_Ma() As Integer
+        Get
+            Return _lsp_ncc_ma
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_ncc_ma = value
+        End Set
+    End Property
+
+    Public Property Lsp_Kv_Ma() As Integer
+        Get
+            Return _lsp_kv_ma
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_kv_ma = value
+        End Set
+    End Property
+
+    Public Property Lsp_Ncc() As NhaCungCap
         Get
             Return _lsp_ncc
         End Get
-        Set(ByVal value As Integer)
+        Set(ByVal value As NhaCungCap)
             _lsp_ncc = value
         End Set
     End Property
 
-    Public Property Kv() As Integer
+    Public Property Lsp_Kv() As KhuVuc
         Get
             Return _lsp_khu_vuc
         End Get
-        Set(ByVal value As Integer)
+        Set(ByVal value As KhuVuc)
             _lsp_khu_vuc = value
-        End Set
-    End Property
-    ''' <summary>
-    ''' </summary>
-    ''' <returns></returns>
-    Public Property Ncc_Ma() As Integer
-        Get
-            Return _ncc_ma
-        End Get
-        Set(ByVal value As Integer)
-            _ncc_ma = value
-        End Set
-    End Property
-
-    Public Property Kv_Ma() As Integer
-        Get
-            Return _kv_ma
-        End Get
-        Set(ByVal value As Integer)
-            _kv_ma = value
-        End Set
-    End Property
-
-    Public Property Ncc_Ten() As String
-        Get
-            Return _ncc_ten
-        End Get
-        Set(ByVal value As String)
-            _ncc_ten = value
-        End Set
-    End Property
-
-    Public Property Kv_Ten() As String
-        Get
-            Return _kv_ten
-        End Get
-        Set(ByVal value As String)
-            _kv_ten = value
         End Set
     End Property
 End Class

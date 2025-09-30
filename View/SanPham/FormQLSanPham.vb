@@ -81,15 +81,25 @@
         dgvSanPham.Columns("LoaiSp_Kv_Ma").Visible = False
         dgvSanPham.Columns("NCC_Ma").Visible = False
         dgvSanPham.Columns("Kv_Ma").Visible = False
-
+        dgvSanPham.Columns("Kv_Ten").Visible = False
 
         ' Set custom header text for columns
-        dgvSanPham.Columns("Ten").HeaderText = "SP"
-        dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
-        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+
         dgvSanPham.Columns("Code").HeaderText = "Code"
+        dgvSanPham.Columns("Code").DisplayIndex = 0
+
+        dgvSanPham.Columns("Ten").HeaderText = "Tên"
+        dgvSanPham.Columns("Ten").DisplayIndex = 1
+
+        dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
+        dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 2
+
+        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("Gia").DisplayIndex = 3
+
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
-        dgvSanPham.Columns("Kv_Ten").HeaderText = "Kv_Ten"
+        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
+
     End Sub
 
     Public Sub ClearFields() Implements ISanPhamView.ClearFields
@@ -121,10 +131,6 @@
         End Select
     End Sub
 
-    Private Function TaoCodeSp() As String
-        Return GetRandomString(6)
-    End Function
-
     Private Sub CapNhatSanPham()
         If dgvSanPham.SelectedCells.Count > 0 Then
             Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
@@ -140,17 +146,30 @@
 
     Private Sub ThemSanPham()
         Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
-        MessageBox.Show(selectedLoaiSp.Ma)
+        Dim list As List(Of LoaiSanPham) = sanPhamController.Xuly_Get_KhuVucNCC_By_LoaiSP_Ma(selectedLoaiSp.Ma)
+        Dim loaiSP As LoaiSanPham = list(0)
+        'MessageBox.Show($"{loaiSP.Ma} - {loaiSP.Ten} - {loaiSP.Lsp_Ncc.Ma} - {loaiSP.Lsp_Kv.Ma} -
+        '    {loaiSP.Lsp_Ncc.Ma} - {loaiSP.Lsp_Ncc.Ten} - {loaiSP.Lsp_Kv.Ma} - {loaiSP.Lsp_Kv.Ten}")
         Dim newSp As New SanPham() With {
             .Ten = tbSanpham.Text,
             .Mota = rtbMota.Text,
             .Loai = selectedLoaiSp.Ma,
             .Gia = tbGia.Text,
             .IsXoa = False,
-            .Code = $"{selectedLoaiSp.Code} - {TaoCodeSp()}"
+            .Code = Gen_12Chars_UUID(),
+            .LoaiSp_Ma = loaiSP.Ma,
+            .LoaiSp_Ten = loaiSP.Ten,
+            .LoaiSp_Ncc_Ma = loaiSP.Lsp_Ncc.Ma,
+            .LoaiSp_Kv_Ma = loaiSP.Lsp_Kv.Ma,
+            .NCC_Ma = loaiSP.Lsp_Ncc_Ma,
+            .NCC_Ten = loaiSP.Lsp_Ncc.Ten,
+            .Kv_Ma = loaiSP.Lsp_Kv.Ma,
+            .Kv_Ten = loaiSP.Lsp_Kv.Ten
         }
         sanPhamController.XulyThemSanPham(newSp)
+
     End Sub
+
 
     Private Sub dgvSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSanPham.CellClick
         If e.RowIndex >= 0 Then

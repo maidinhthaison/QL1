@@ -64,7 +64,6 @@ Public Class FormQLNhanVien
                 .DiaChi = tbDiaChi.Text,
                 .DienThoai = tbDienThoai.Text,
                 .IsXoa = cbStatus.Checked,
-                .TaiKhoanTen = tbTaiKhoan.Text,
                 .TaiKhoan = New TaiKhoan() With {
                       .TaiKhoan = tbTaiKhoan.Text,
                       .MatKhau = HashPwd(tbMatKhau.Text),
@@ -96,7 +95,6 @@ Public Class FormQLNhanVien
             .GioiTinh = isMan,
             .DienThoai = tbDienThoai.Text,
             .IsXoa = False,
-            .TaiKhoanTen = newTk.TaiKhoan,
             .TaiKhoan = newTk
         }
         nhanVienController.XulyThemTaiKhoan(newTk, newNv)
@@ -111,22 +109,45 @@ Public Class FormQLNhanVien
         dgvNhanVien.DataSource = bsNhanVien
 
         ConfigureGridView()
+
     End Sub
 
     Public Sub ConfigureGridView() Implements INhanVienView.ConfigureGridView
 
         dgvNhanVien.Columns("Ma").Visible = False
-        dgvNhanVien.Columns("DiaChi").Visible = False
-        dgvNhanVien.Columns("TaiKhoan").Visible = False
         dgvNhanVien.Columns("ChiNhanh").Visible = False
-
+        dgvNhanVien.Columns("GioiTinh").Visible = False
+        dgvNhanVien.Columns("TaiKhoan").Visible = False
 
         ' Set custom header text for columns
-        dgvNhanVien.Columns("TaiKhoanTen").HeaderText = "Tài khoản"
+
         dgvNhanVien.Columns("Ten").HeaderText = "Tên"
+        dgvNhanVien.Columns("Ten").DisplayIndex = 0
+
         dgvNhanVien.Columns("DienThoai").HeaderText = "Điện thoại"
-        dgvNhanVien.Columns("GioiTinh").HeaderText = "Là nam"
+        dgvNhanVien.Columns("DienThoai").DisplayIndex = 1
+
+        dgvNhanVien.Columns("DiaChi").HeaderText = "Địa chỉ"
+        dgvNhanVien.Columns("DiaChi").DisplayIndex = 2
+
+
         dgvNhanVien.Columns("IsXoa").HeaderText = "Đã nghỉ"
+        dgvNhanVien.Columns("IsXoa").DisplayIndex = 3
+        dgvNhanVien.Columns("IsXoa").Width = 50
+
+
+        ''MessageBox.Show(chiNhanhTen)
+        'For index As Integer = 0 To bsNhanVien.Count - 1
+        '    Dim currentObject As NhanVien = CType(bsNhanVien(index), NhanVien)
+        '    dgvNhanVien.Rows(index).Cells(2).Value = currentObject.ChiNhanh.Ten
+        '    MessageBox.Show(currentObject.ChiNhanh.Ten)
+        'Next
+        'dgvNhanVien.Refresh()
+        'For Each item As NhanVien In bsNhanVien.List
+        '    Dim currentObject As NhanVien = CType(item, NhanVien)
+        '    Dim chiNhanhTen As String = currentObject.ChiNhanh.Ten
+        '    dgvNhanVien.Columns("ChiNhanh").DataPropertyName = chiNhanhTen
+        'Next
 
     End Sub
 

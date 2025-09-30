@@ -8,7 +8,6 @@
 
     'Ref
     Private _taiKhoan As TaiKhoan
-    Private _taiKhoanTen As String
 
     Private _chiNhanh As ChiNhanh
 
@@ -76,15 +75,6 @@
         End Get
         Set(ByVal value As TaiKhoan)
             _taiKhoan = value
-        End Set
-    End Property
-
-    Public Property TaiKhoanTen() As String
-        Get
-            Return _taiKhoanTen
-        End Get
-        Set(ByVal value As String)
-            _taiKhoanTen = value
         End Set
     End Property
 

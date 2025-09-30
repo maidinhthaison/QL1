@@ -67,10 +67,12 @@ Public Class ISanPhamControllerImpl
     End Sub
 
     Public Sub XulyThemSanPham(addedSanPham As SanPham) Implements ISanPhamController.XulyThemSanPham
-        listSanPham.Add(addedSanPham)
-        View.BindingListToGridView(listSanPham)
+
         Dim spToSave As New List(Of SanPham) From {addedSanPham}
         If sanPhamDAO.SaveSanPham(spToSave) Then
+            listSanPham.Add(addedSanPham)
+            View.BindingListToGridView(listSanPham)
+
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
                                 String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "sản phẩm"))
             View.ClearFields()
@@ -137,4 +139,8 @@ Public Class ISanPhamControllerImpl
         View.BindingListToComBoBoxLoaiSp(list)
     End Sub
 
+    Public Function Xuly_Get_KhuVucNCC_By_LoaiSP_Ma(loaiSp As Integer) As List(Of LoaiSanPham) Implements ISanPhamController.Xuly_Get_KhuVucNCC_By_LoaiSP_Ma
+        Dim khuVuc_Ncc As List(Of LoaiSanPham) = loaiSanphamDAO.Get_KhuVucNCC_By_LoaiSP_Ma(loaiSp)
+        Return khuVuc_Ncc
+    End Function
 End Class

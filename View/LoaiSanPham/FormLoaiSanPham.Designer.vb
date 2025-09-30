@@ -25,7 +25,9 @@ Partial Class FormLoaiSanPham
         components = New ComponentModel.Container()
         bsLoaiSp = New BindingSource(components)
         GroupBox1 = New GroupBox()
+        dgvLoaiSp = New DataGridView()
         Panel1 = New Panel()
+        lbCode = New Label()
         cbKhuVuc = New ComboBox()
         cbNhaCc = New ComboBox()
         btnXoa = New Button()
@@ -33,32 +35,47 @@ Partial Class FormLoaiSanPham
         btnThem = New Button()
         rtbMota = New RichTextBox()
         Label5 = New Label()
-        tbCode = New TextBox()
         Label4 = New Label()
         Label3 = New Label()
         Label2 = New Label()
         tbTen = New TextBox()
         Label1 = New Label()
-        dgvLoaiSp = New DataGridView()
+        btnHuy = New Button()
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
-        Panel1.SuspendLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
+        Panel1.SuspendLayout()
         SuspendLayout()
         ' 
         ' GroupBox1
         ' 
-        GroupBox1.Controls.Add(Panel1)
         GroupBox1.Controls.Add(dgvLoaiSp)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(776, 426)
+        GroupBox1.Size = New Size(776, 450)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Loại sản phẩm"
         ' 
+        ' dgvLoaiSp
+        ' 
+        dgvLoaiSp.AllowUserToAddRows = False
+        dgvLoaiSp.AllowUserToDeleteRows = False
+        dgvLoaiSp.AllowUserToResizeColumns = False
+        dgvLoaiSp.AllowUserToResizeRows = False
+        dgvLoaiSp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvLoaiSp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvLoaiSp.Location = New Point(6, 22)
+        dgvLoaiSp.Name = "dgvLoaiSp"
+        dgvLoaiSp.ReadOnly = True
+        dgvLoaiSp.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvLoaiSp.Size = New Size(764, 422)
+        dgvLoaiSp.TabIndex = 2
+        ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(btnHuy)
+        Panel1.Controls.Add(lbCode)
         Panel1.Controls.Add(cbKhuVuc)
         Panel1.Controls.Add(cbNhaCc)
         Panel1.Controls.Add(btnXoa)
@@ -66,16 +83,23 @@ Partial Class FormLoaiSanPham
         Panel1.Controls.Add(btnThem)
         Panel1.Controls.Add(rtbMota)
         Panel1.Controls.Add(Label5)
-        Panel1.Controls.Add(tbCode)
         Panel1.Controls.Add(Label4)
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(tbTen)
         Panel1.Controls.Add(Label1)
-        Panel1.Location = New Point(422, 22)
+        Panel1.Location = New Point(792, 12)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(354, 398)
+        Panel1.Size = New Size(354, 450)
         Panel1.TabIndex = 4
+        ' 
+        ' lbCode
+        ' 
+        lbCode.AutoSize = True
+        lbCode.Location = New Point(122, 155)
+        lbCode.Name = "lbCode"
+        lbCode.Size = New Size(0, 15)
+        lbCode.TabIndex = 15
         ' 
         ' cbKhuVuc
         ' 
@@ -95,7 +119,7 @@ Partial Class FormLoaiSanPham
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(226, 309)
+        btnXoa.Location = New Point(202, 309)
         btnXoa.Name = "btnXoa"
         btnXoa.Size = New Size(75, 23)
         btnXoa.TabIndex = 12
@@ -104,7 +128,7 @@ Partial Class FormLoaiSanPham
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(122, 309)
+        btnCapNhat.Location = New Point(112, 309)
         btnCapNhat.Name = "btnCapNhat"
         btnCapNhat.Size = New Size(75, 23)
         btnCapNhat.TabIndex = 11
@@ -136,13 +160,6 @@ Partial Class FormLoaiSanPham
         Label5.Size = New Size(38, 15)
         Label5.TabIndex = 8
         Label5.Text = "Mô tả"
-        ' 
-        ' tbCode
-        ' 
-        tbCode.Location = New Point(122, 147)
-        tbCode.Name = "tbCode"
-        tbCode.Size = New Size(164, 23)
-        tbCode.TabIndex = 7
         ' 
         ' Label4
         ' 
@@ -187,34 +204,29 @@ Partial Class FormLoaiSanPham
         Label1.TabIndex = 0
         Label1.Text = "Loại sản phẩm"
         ' 
-        ' dgvLoaiSp
+        ' btnHuy
         ' 
-        dgvLoaiSp.AllowUserToAddRows = False
-        dgvLoaiSp.AllowUserToDeleteRows = False
-        dgvLoaiSp.AllowUserToResizeColumns = False
-        dgvLoaiSp.AllowUserToResizeRows = False
-        dgvLoaiSp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvLoaiSp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvLoaiSp.Location = New Point(6, 22)
-        dgvLoaiSp.Name = "dgvLoaiSp"
-        dgvLoaiSp.ReadOnly = True
-        dgvLoaiSp.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvLoaiSp.Size = New Size(404, 398)
-        dgvLoaiSp.TabIndex = 2
+        btnHuy.Location = New Point(19, 354)
+        btnHuy.Name = "btnHuy"
+        btnHuy.Size = New Size(75, 23)
+        btnHuy.TabIndex = 16
+        btnHuy.Text = "Huỷ"
+        btnHuy.UseVisualStyleBackColor = True
         ' 
         ' FormLoaiSanPham
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1158, 474)
+        Controls.Add(Panel1)
         Controls.Add(GroupBox1)
         Name = "FormLoaiSanPham"
         Text = "Loại Sản Phẩm"
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).EndInit()
         GroupBox1.ResumeLayout(False)
+        CType(dgvLoaiSp, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        CType(dgvLoaiSp, ComponentModel.ISupportInitialize).EndInit()
         ResumeLayout(False)
     End Sub
 
@@ -227,7 +239,6 @@ Partial Class FormLoaiSanPham
     Friend WithEvents btnThem As Button
     Friend WithEvents rtbMota As RichTextBox
     Friend WithEvents Label5 As Label
-    Friend WithEvents tbCode As TextBox
     Friend WithEvents Label4 As Label
     Friend WithEvents Label3 As Label
     Friend WithEvents Label2 As Label
@@ -235,4 +246,6 @@ Partial Class FormLoaiSanPham
     Friend WithEvents Label1 As Label
     Friend WithEvents cbKhuVuc As ComboBox
     Friend WithEvents cbNhaCc As ComboBox
+    Friend WithEvents lbCode As Label
+    Friend WithEvents btnHuy As Button
 End Class

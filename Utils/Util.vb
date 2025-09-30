@@ -42,4 +42,30 @@ Module Util
 
         Return isPasswordCorrect
     End Function
+
+    Public Function GenUUID() As String
+        Return Guid.NewGuid.ToString("N")
+    End Function
+
+    Public Function Gen_6Chars_UUID() As String
+        Return GenUUID.Substring(0, 6).ToUpper()
+    End Function
+
+    Public Function Gen_12Chars_UUID() As String
+        Return GenUUID.Substring(0, 12).ToUpper()
+    End Function
+
+    Function TimForm(type As Type, dsForm As List(Of Form))
+        For Each frm As Form In dsForm
+            If frm.GetType() Is type Then
+                If frm.IsDisposed Then
+                    dsForm.Remove(frm)
+                    frm = Nothing
+
+                End If
+                Return frm
+            End If
+        Next
+        Return Nothing
+    End Function
 End Module

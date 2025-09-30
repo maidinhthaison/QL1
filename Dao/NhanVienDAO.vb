@@ -142,7 +142,6 @@ Public Class NhanVienDAO
                                 .GioiTinh = CBool(reader("nv_gioi_tinh")),
                                 .IsXoa = CBool(reader("nv_xoa")),
                                 .DienThoai = CStr(reader("nv_dien_thoai")),
-                                .TaiKhoanTen = CStr(reader("tk_tai_khoan")),
                                 .TaiKhoan = New TaiKhoan() With {
                                     .TaiKhoan = CStr(reader("tk_tai_khoan")),
                                     .MatKhau = CStr(reader("tk_mat_khau")),

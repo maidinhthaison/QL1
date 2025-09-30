@@ -105,9 +105,10 @@
         Dim selectedLoaiSp As LoaiSanPham = listLoaiSp(selectedIndex)
         selectedLoaiSp.Ten = editedLoaiSp.Ten
         selectedLoaiSp.Mota = editedLoaiSp.Mota
-        selectedLoaiSp.Code = editedLoaiSp.Code
-        selectedLoaiSp.NhaCc = editedLoaiSp.NhaCc
-        selectedLoaiSp.Kv = editedLoaiSp.Kv
+        selectedLoaiSp.Lsp_Kv = editedLoaiSp.Lsp_Kv
+        selectedLoaiSp.Lsp_Ncc = editedLoaiSp.Lsp_Ncc
+        selectedLoaiSp.Lsp_Kv_Ma = editedLoaiSp.Lsp_Kv_Ma
+        selectedLoaiSp.Lsp_Ncc_Ma = editedLoaiSp.Lsp_Ncc_Ma
         Dim loaiSpToSave As New List(Of LoaiSanPham) From {selectedLoaiSp}
         If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,

@@ -1,4 +1,4 @@
-﻿Public Class PhieuBanHang
+﻿Public Class DonHang
     Private _ma As Integer
     Private _code As String
     Private _ngay As DateTime
@@ -11,7 +11,7 @@
 
     'Ref
     Private _khach_hang As KhachHang
-    Private _chitiet_banhang As ChiTietPhieuBanHang
+    Private _chitiet_banhang As ChiTietDonHang
     Private _chi_nhanh As ChiNhanh
 
     Public Sub New()
@@ -99,11 +99,11 @@
         End Set
     End Property
 
-    Public Property ChiTietBanHang() As ChiTietPhieuBanHang
+    Public Property ChiTietBanHang() As ChiTietDonHang
         Get
             Return _chitiet_banhang
         End Get
-        Set(ByVal value As ChiTietPhieuBanHang)
+        Set(ByVal value As ChiTietDonHang)
             _chitiet_banhang = value
         End Set
     End Property
