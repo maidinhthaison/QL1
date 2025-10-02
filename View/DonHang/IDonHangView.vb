@@ -16,5 +16,5 @@
 
     Sub ClearFields()
 
-    Sub GotoChiTietDonHangForm()
+    Sub GotoChiTietDonHangForm(pDhId As Integer)
 End Interface

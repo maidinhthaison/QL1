@@ -15,11 +15,13 @@
 
     Private chiNhanhDao As ChiNhanhDAO
 
+    Private khachHangDao As KhachHangDAO
     Private Sub New()
         listDonhang = New List(Of DonHang)
         listChiNhanh = New List(Of ChiNhanh)
         donHangDao = New DonHangDAO()
         chiNhanhDao = New ChiNhanhDAO()
+        khachHangDao = New KhachHangDAO()
 
     End Sub
 
@@ -73,14 +75,15 @@
     Public Sub XulyThemPhieuBanHang(addedDonHang As DonHang) Implements IDonHangController.XulyThemPhieuBanHang
         Dim newDonHang As New List(Of DonHang) From {addedDonHang}
         If donHangDao.SaveDonHang(newDonHang) Then
-            listDonhang.Add(addedDonHang)
-            View.BindingListDonHangToGridView(listDonhang)
 
-            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
-                                String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "đơn hàng"))
-
-            View.ClearFields()
-            View.GotoChiTietDonHangForm()
+            If khachHangDao.SaveKhachHang(New List(Of KhachHang) From {addedDonHang.BanHangKhachHang}) Then
+                listDonhang.Add(addedDonHang)
+                View.BindingListDonHangToGridView(listDonhang)
+                View.ClearFields()
+                View.GotoChiTietDonHangForm(addedDonHang.Ma)
+            Else
+                View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "khách hàng"))
+            End If
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
         End If
