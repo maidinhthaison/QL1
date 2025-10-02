@@ -7,7 +7,7 @@ Public Class ChiTietDonHangDAO
     '========================================================================
     '   FUNCTION TO SAVE A LIST OF OBJECTS TO THE DATABASE
     '========================================================================
-    Public Function SaveChiTietPbh(ByVal chiTietPbh As List(Of ChiTietDonHang)) As Boolean
+    Public Function SaveChiTietDonHang(ByVal chiTietPbh As List(Of ChiTietDonHang)) As Boolean
         ' Use a transaction to ensure that all records are saved successfully,
         ' or none are. This prevents partial data updates.
         Dim transaction As OleDbTransaction = Nothing
@@ -20,10 +20,10 @@ Public Class ChiTietDonHangDAO
                 For Each ctPbh In chiTietPbh
                     If ctPbh.Ma = 0 Then
                         ' This is a new record, perform an INSERT
-                        InsertCTPhieuBanHang(ctPbh, conn, transaction)
+                        InsertCTDonHang(ctPbh, conn, transaction)
                     Else
                         ' This is an existing record, perform an UPDATE
-                        UpdateCTPhieuBanHang(ctPbh, conn, transaction)
+                        UpdateCTDonHang(ctPbh, conn, transaction)
                     End If
                 Next
 
@@ -46,7 +46,7 @@ Public Class ChiTietDonHangDAO
 
     ' --- Helper methods for Insert and Update ---
 
-    Private Shared Sub InsertCTPhieuBanHang(ByVal ctpbh As ChiTietDonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+    Private Shared Sub InsertCTDonHang(ByVal ctpbh As ChiTietDonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
         Dim sql As String = "INSERT INTO ChiTietPhieuBanHang (ctpbh_pbh_ma, ctpbh_ma_san_pham, ctpbh_so_luong,
             ctpbh_gia, ctpbh_khuyen_mai, ctpbh_thanh_tien, ctpbh_xoa, ctpbh_ghi_chu)
@@ -70,7 +70,7 @@ Public Class ChiTietDonHangDAO
         End Using
     End Sub
 
-    Private Shared Sub UpdateCTPhieuBanHang(ByVal ctpbh As ChiTietDonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
+    Private Shared Sub UpdateCTDonHang(ByVal ctpbh As ChiTietDonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE ChiTietPhieuBanHang SET ctpbh_so_luong = ?,
             ctpbh_khuyen_mai = ?, ctpbh_thanh_tien = ?, ctpbh_ghi_chu = ? WHERE ctpbh_ma = ?"
 

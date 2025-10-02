@@ -69,6 +69,10 @@
     End Sub
 
     Public Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang)) Implements IChiTietDHController.XuLySaveChiTietDonHang
-        Throw New NotImplementedException()
+        If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_INSERT_SUCCESS_MESSAGE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "chi tiết đơn hàng"))
+        Else
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "chi tiết đơn hàng"))
+        End If
     End Sub
 End Class

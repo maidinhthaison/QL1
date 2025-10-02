@@ -5,6 +5,7 @@
 
     Private listForms As List(Of Form)
 
+
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnTaoDon.Click, AddressOf OnButtonClick
 
@@ -86,17 +87,7 @@
                 ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
-    Private _ma As Integer
-    Private _code As String
-    Private _ten As String
-    Private _dien_thoai As String
-    Private _dia_chi As String
-    Private _isXoa As Boolean
 
-    'Ref
-    Private _khach_hang As KhachHang
-    Private _chitiet_banhang As ChiTietDonHang
-    Private _chi_nhanh As ChiNhanh
     Private Sub TaoDon()
         Dim newPhieuBanHang As New DonHang() With {
                  .Code = Gen_12Chars_UUID(),
@@ -129,18 +120,22 @@
 
     End Sub
 
-    Public Sub GotoChiTietDonHangForm() Implements IDonHangView.GotoChiTietDonHangForm
+    Public Sub GotoChiTietDonHangForm(pBhId As Integer) Implements IDonHangView.GotoChiTietDonHangForm
         Dim frm As Form = TimForm(GetType(FormChiTietDonHang), listForms)
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim formTaoDonHang As New FormChiTietDonHang()
+        Dim formTaoDonHang As New FormChiTietDonHang(pBhId)
 
         formTaoDonHang.MdiParent = Me.MdiParent
         formTaoDonHang.WindowState = FormWindowState.Maximized
         formTaoDonHang.Show()
         listForms.Add(formTaoDonHang)
+    End Sub
+
+    Private Sub dgvDonHang_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDonHang.CellClick
+
     End Sub
 End Class

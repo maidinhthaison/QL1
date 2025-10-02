@@ -4,7 +4,16 @@ Imports System.Runtime
 Public Class FormChiTietDonHang
     Implements IBaseForm, IChiTietDonHangView
 
+    Private pBHId As Integer
+
     Private donHangControllerImpl As IChiTietDHControllerImpl
+
+    Public Sub New(ByVal message As String)
+        InitializeComponent()
+        Me.pBHId = Convert.ToInt32(message)
+        MessageBox.Show(Me.pBHId)
+    End Sub
+
 
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnThem.Click, AddressOf OnButtonClick
@@ -35,12 +44,7 @@ Public Class FormChiTietDonHang
             ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Chưa có sản phẩm trong đơn hàng")
             Return
         Else
-            'donHangControllerImpl.XuLySaveDonHang(listChiTietPbh)
-            ClearFields()
-            donHangControllerImpl.GetChiTietPbh.Clear()
-            RefreshDonHangGridView(donHangControllerImpl.GetChiTietPbh)
-            ConfigureDonHangGridView()
-            ShowMessageBox(EnumMessageBox.Infomation, "Thành công", "Tạo đơn hàng thành công")
+            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh)
         End If
     End Sub
 
@@ -64,9 +68,9 @@ Public Class FormChiTietDonHang
             Dim pbhCode As String = Gen_12Chars_UUID()
             Dim thanhtien As Double = Double.Parse(selectedSp.Gia) * Integer.Parse(tbSoluong.Text)
             Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
-            MessageBox.Show($"{thanhtien} - {khuyenmai}")
+
             Dim newChiTietDonHang As New ChiTietDonHang() With {
-                 .Pbh_Ma = 1,
+                 .Pbh_Ma = Me.pBHId,
                  .Sp_Ma = selectedSp.Ma,
                  .SoLuong = Integer.Parse(tbSoluong.Text),
                  .Gia = selectedSp.Gia,
@@ -109,7 +113,7 @@ Public Class FormChiTietDonHang
         dgvDonHang.Columns("SoLuong").DisplayIndex = 1
         dgvDonHang.Columns("SoLuong").Width = 50
 
-        dgvDonHang.Columns("Gia").HeaderText = "Giá"
+        dgvDonHang.Columns("Gia").HeaderText = "Đơn Giá"
         dgvDonHang.Columns("Gia").DisplayIndex = 2
         dgvDonHang.Columns("Gia").Width = 100
 

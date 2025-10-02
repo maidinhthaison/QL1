@@ -24,11 +24,11 @@ Partial Class FormQLDonHang
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
-        btnTaoDon = New Button()
         dtPicker = New DateTimePicker()
         Label1 = New Label()
         tbTuKhoa = New TextBox()
         dgvDonHang = New DataGridView()
+        btnTaoDon = New Button()
         Panel1 = New Panel()
         GroupBox2 = New GroupBox()
         Label3 = New Label()
@@ -68,15 +68,6 @@ Partial Class FormQLDonHang
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý Đơn Hàng"
         ' 
-        ' btnTaoDon
-        ' 
-        btnTaoDon.Location = New Point(8, 162)
-        btnTaoDon.Name = "btnTaoDon"
-        btnTaoDon.Size = New Size(75, 23)
-        btnTaoDon.TabIndex = 9
-        btnTaoDon.Text = "Tạo Đơn"
-        btnTaoDon.UseVisualStyleBackColor = True
-        ' 
         ' dtPicker
         ' 
         dtPicker.Location = New Point(347, 30)
@@ -115,6 +106,15 @@ Partial Class FormQLDonHang
         dgvDonHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvDonHang.Size = New Size(781, 382)
         dgvDonHang.TabIndex = 4
+        ' 
+        ' btnTaoDon
+        ' 
+        btnTaoDon.Location = New Point(8, 162)
+        btnTaoDon.Name = "btnTaoDon"
+        btnTaoDon.Size = New Size(75, 23)
+        btnTaoDon.TabIndex = 9
+        btnTaoDon.Text = "Tạo Đơn"
+        btnTaoDon.UseVisualStyleBackColor = True
         ' 
         ' Panel1
         ' 
@@ -287,14 +287,14 @@ Partial Class FormQLDonHang
         Label8.TabIndex = 31
         Label8.Text = "Chi nhánh"
         ' 
-        ' FormQLBanHang
+        ' FormQLDonHang
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(1162, 471)
         Controls.Add(GroupBox1)
         Controls.Add(Panel1)
-        Name = "FormQLBanHang"
+        Name = "FormQLDonHang"
         Text = "FormQLBanHang"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
