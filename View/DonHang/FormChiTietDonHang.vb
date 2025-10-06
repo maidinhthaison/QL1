@@ -4,14 +4,15 @@ Imports System.Runtime
 Public Class FormChiTietDonHang
     Implements IBaseForm, IChiTietDonHangView
 
-    Private pBHId As Integer
+    Private chiNhanh As ChiNhanh
+    Private ngayThang As String
 
     Private donHangControllerImpl As IChiTietDHControllerImpl
 
-    Public Sub New(ByVal message As String)
+    Public Sub New(cNhanh As ChiNhanh, ngayThang As String)
         InitializeComponent()
-        Me.pBHId = Convert.ToInt32(message)
-        MessageBox.Show(Me.pBHId)
+        Me.ngayThang = ngayThang
+        Me.chiNhanh = cNhanh
     End Sub
 
 
@@ -22,7 +23,8 @@ Public Class FormChiTietDonHang
         AddHandler btnHuy.Click, AddressOf OnButtonClick
 
 
-        lbDateTime.Text = DateTime.Now.ToString(DATETIME_FORMAT)
+        lbNgayThang.Text = ngayThang.ToString()
+        lbChiNhanh.Text = chiNhanh.Ten
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
@@ -39,19 +41,44 @@ Public Class FormChiTietDonHang
     End Sub
 
     Private Sub XacNhanDonHang()
-        Dim listChiTietPbh As List(Of ChiTietDonHang) = donHangControllerImpl.GetChiTietPbh
+        Dim listChiTietPbh As List(Of ChiTietDonHang) = donHangControllerImpl.GetDSChiTietPbh
         If listChiTietPbh Is Nothing OrElse listChiTietPbh.Count = 0 Then
             ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Chưa có sản phẩm trong đơn hàng")
             Return
         Else
-            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh)
+
+            Dim newPhieuBanHang As New DonHang() With {
+                 .Code = Gen_12Chars_UUID(),
+                 .Ngay = lbNgayThang.Text,
+                 .TongSanPham = 0,
+                 .TongKhuyenMai = 0,
+                 .TongTien = 0,
+                 .GhiChu = tbGhiChu.Text,
+                 .IsXoa = False,
+                 .BanHangKhachHang = New KhachHang() With {
+                      .Code = Gen_6Chars_UUID(),
+                      .Ten = tbTenKh.Text,
+                      .DienThoai = tbDienthoaiKh.Text,
+                      .DiaChi = tbDiaChi.Text,
+                      .IsXoa = False
+                 },
+                 .ChiNhanh = New ChiNhanh() With {
+                      .Ma = chiNhanh.Ma,
+                      .Ten = chiNhanh.Ten
+                 }
+            }
+
+
+            'Dim result As String = newPhieuBanHang.ToString
+            'MessageBox.Show(result, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh, newPhieuBanHang)
         End If
     End Sub
 
     Private Sub TaoDonHang()
         Dim index As Integer = donHangControllerImpl.Index
         Dim selectedSp As SanPham = donHangControllerImpl.ListSp(index)
-        Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
+        Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
 
         If foundProduct IsNot Nothing Then
             'Cập nhật số lượng
@@ -61,7 +88,8 @@ Public Class FormChiTietDonHang
             Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
             foundProduct.ThanhTien = thanhtien - khuyenmai
             foundProduct.KhuyenMai = khuyenmai
-            RefreshDonHangGridView(donHangControllerImpl.GetChiTietPbh)
+            TinhTongTien()
+            RefreshDonHangGridView(donHangControllerImpl.GetDSChiTietPbh)
             ConfigureDonHangGridView()
         Else
             'Thêm mới
@@ -70,7 +98,6 @@ Public Class FormChiTietDonHang
             Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
 
             Dim newChiTietDonHang As New ChiTietDonHang() With {
-                 .Pbh_Ma = Me.pBHId,
                  .Sp_Ma = selectedSp.Ma,
                  .SoLuong = Integer.Parse(tbSoluong.Text),
                  .Gia = selectedSp.Gia,
@@ -81,13 +108,27 @@ Public Class FormChiTietDonHang
                  .SanPhamInfo = selectedSp
              }
 
-            donHangControllerImpl.GetChiTietPbh.Add(newChiTietDonHang)
+            donHangControllerImpl.GetDSChiTietPbh.Add(newChiTietDonHang)
 
-            RefreshDonHangGridView(donHangControllerImpl.GetChiTietPbh)
+            TinhTongTien()
+
+            RefreshDonHangGridView(donHangControllerImpl.GetDSChiTietPbh)
 
             ConfigureDonHangGridView()
         End If
 
+    End Sub
+
+    Private Sub TinhTongTien()
+        Dim listChiTietPbh As List(Of ChiTietDonHang) = donHangControllerImpl.GetDSChiTietPbh
+        If listChiTietPbh IsNot Nothing AndAlso listChiTietPbh.Count > 0 Then
+            Dim tongTien As Double = listChiTietPbh.Sum(Function(ct) ct.ThanhTien)
+            Dim tongKhuyenMai As Double = listChiTietPbh.Sum(Function(ct) ct.KhuyenMai)
+            Dim tongSoLuong As Integer = listChiTietPbh.Sum(Function(ct) ct.SoLuong)
+            lbTongtien.Text = FormatCurrency(tongTien, 0)
+        Else
+            lbTongtien.Text = "0"
+        End If
     End Sub
 
     Private Sub RefreshDonHangGridView(list As List(Of ChiTietDonHang))
@@ -230,5 +271,15 @@ Public Class FormChiTietDonHang
                 End If
             End If
         End If
+    End Sub
+
+    Private Sub FormChiTietDonHang_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
+
+        ngayThang = Nothing
+    End Sub
+
+    Private Sub FormChiTietDonHang_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+
+        ngayThang = Nothing
     End Sub
 End Class

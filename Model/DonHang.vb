@@ -11,7 +11,6 @@
 
     'Ref
     Private _khach_hang As KhachHang
-    Private _chitiet_banhang As ChiTietDonHang
     Private _chi_nhanh As ChiNhanh
 
     Public Sub New()
@@ -99,14 +98,6 @@
         End Set
     End Property
 
-    Public Property ChiTietBanHang() As ChiTietDonHang
-        Get
-            Return _chitiet_banhang
-        End Get
-        Set(ByVal value As ChiTietDonHang)
-            _chitiet_banhang = value
-        End Set
-    End Property
 
     Public Property ChiNhanh() As ChiNhanh
         Get
@@ -116,4 +107,17 @@
             _chi_nhanh = value
         End Set
     End Property
+
+    Public Function ToString() As String
+        Dim result As String = "Mã đơn hàng: " & Me.Code & Environment.NewLine &
+                               "Ngày: " & Me.Ngay.ToString("dd/MM/yyyy") & Environment.NewLine &
+                               "Tổng số sản phẩm: " & Me.TongSanPham & Environment.NewLine &
+                               "Tổng khuyến mãi: " & Me.TongKhuyenMai.ToString("C2") & Environment.NewLine &
+                               "Tổng tiền: " & Me.TongTien.ToString("C2") & Environment.NewLine &
+                               "Ghi chú: " & Me.GhiChu & Environment.NewLine &
+                               "Khách hàng Tên : " & Me.BanHangKhachHang.Ten & Environment.NewLine &
+                               "Chi nhánh Mã " & Me.ChiNhanh.Ma & Environment.NewLine &
+                               "Chi nhánh Tên: " & Me.ChiNhanh.Ten & Environment.NewLine
+        Return result
+    End Function
 End Class

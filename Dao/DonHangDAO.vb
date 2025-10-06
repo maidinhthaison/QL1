@@ -65,10 +65,10 @@ Public Class DonHangDAO
             cmd.Parameters.AddWithValue("pChiNhanhMa", pbh.ChiNhanh.Ma)
 
             cmd.ExecuteNonQuery()
-
-            ' Optional: Get the new ID of the inserted record
             cmd.CommandText = "SELECT @@IDENTITY;"
-            pbh.Ma = CInt(cmd.ExecuteScalar())
+            Dim newId As Integer = CInt(cmd.ExecuteScalar())
+            pbh.Ma = newId
+
         End Using
     End Sub
 

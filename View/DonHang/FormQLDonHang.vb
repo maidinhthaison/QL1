@@ -89,26 +89,30 @@
     End Sub
 
     Private Sub TaoDon()
-        Dim newPhieuBanHang As New DonHang() With {
-                 .Code = Gen_12Chars_UUID(),
-                 .Ngay = dtPicker.Value.ToString(DATETIME_FORMAT),
-                 .TongSanPham = 0,
-                 .TongKhuyenMai = 0,
-                 .TongTien = 0,
-                 .GhiChu = rtbGhiChu.Text,
-                 .IsXoa = False,
-                 .BanHangKhachHang = New KhachHang() With {
-                      .Code = Gen_6Chars_UUID(),
-                      .Ten = tbTenKh.Text,
-                      .DienThoai = tbDienthoaiKh.Text,
-                      .DiaChi = tbDiaChi.Text,
-                      .IsXoa = False
-                 },
-                 .ChiNhanh = New ChiNhanh() With {
-                      .Ma = Convert.ToInt32(cbChiNhanh.SelectedValue)
-                 }
-        }
-        donHangController.XulyThemPhieuBanHang(newPhieuBanHang)
+        'Dim newPhieuBanHang As New DonHang() With {
+        '         .Code = Gen_12Chars_UUID(),
+        '         .Ngay = dtPicker.Value.ToString(DATETIME_FORMAT),
+        '         .TongSanPham = 0,
+        '         .TongKhuyenMai = 0,
+        '         .TongTien = 0,
+        '         .GhiChu = rtbGhiChu.Text,
+        '         .IsXoa = False,
+        '         .BanHangKhachHang = New KhachHang() With {
+        '              .Code = Gen_6Chars_UUID(),
+        '              .Ten = tbTenKh.Text,
+        '              .DienThoai = tbDienthoaiKh.Text,
+        '              .DiaChi = tbDiaChi.Text,
+        '              .IsXoa = False
+        '         },
+        '         .ChiNhanh = New ChiNhanh() With {
+        '              .Ma = Convert.ToInt32(cbChiNhanh.SelectedValue),
+        '              .Ten = cbChiNhanh.SelectedItem.Ten
+        '         }
+        '}
+        'MessageBox.Show(newPhieuBanHang.ToString())
+        'donHangController.XulyThemPhieuBanHang(newPhieuBanHang)
+        Dim chiNhanh As ChiNhanh = CType(cbChiNhanh.SelectedItem, ChiNhanh)
+        GotoChiTietDonHangForm(chiNhanh, dtPicker.Value.ToString(DATETIME_FORMAT))
 
     End Sub
 
@@ -120,14 +124,14 @@
 
     End Sub
 
-    Public Sub GotoChiTietDonHangForm(pBhId As Integer) Implements IDonHangView.GotoChiTietDonHangForm
+    Public Sub GotoChiTietDonHangForm(chiNhanh As ChiNhanh, ngayThang As String) Implements IDonHangView.GotoChiTietDonHangForm
         Dim frm As Form = TimForm(GetType(FormChiTietDonHang), listForms)
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim formTaoDonHang As New FormChiTietDonHang(pBhId)
+        Dim formTaoDonHang As New FormChiTietDonHang(chiNhanh, ngayThang)
 
         formTaoDonHang.MdiParent = Me.MdiParent
         formTaoDonHang.WindowState = FormWindowState.Maximized

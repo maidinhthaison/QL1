@@ -30,6 +30,10 @@ Partial Class FormQLDonHang
         dgvDonHang = New DataGridView()
         btnTaoDon = New Button()
         Panel1 = New Panel()
+        Label11 = New Label()
+        lbDienThoai = New Label()
+        lbTenKh = New Label()
+        lbChiNhanh = New Label()
         GroupBox2 = New GroupBox()
         Label3 = New Label()
         Label7 = New Label()
@@ -39,15 +43,14 @@ Partial Class FormQLDonHang
         lbTongTien = New Label()
         Label5 = New Label()
         Label2 = New Label()
-        tbDiaChi = New TextBox()
         Label9 = New Label()
-        tbDienthoaiKh = New TextBox()
         Label6 = New Label()
-        tbTenKh = New TextBox()
         Label4 = New Label()
-        cbChiNhanh = New ComboBox()
         Label8 = New Label()
         bsPhieuBanHang = New BindingSource(components)
+        cbChiNhanh = New ComboBox()
+        Label12 = New Label()
+        Label13 = New Label()
         GroupBox1.SuspendLayout()
         CType(dgvDonHang, ComponentModel.ISupportInitialize).BeginInit()
         Panel1.SuspendLayout()
@@ -57,10 +60,14 @@ Partial Class FormQLDonHang
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(Label13)
+        GroupBox1.Controls.Add(cbChiNhanh)
+        GroupBox1.Controls.Add(Label12)
         GroupBox1.Controls.Add(dtPicker)
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Controls.Add(tbTuKhoa)
         GroupBox1.Controls.Add(dgvDonHang)
+        GroupBox1.Controls.Add(btnTaoDon)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Size = New Size(793, 447)
@@ -70,7 +77,7 @@ Partial Class FormQLDonHang
         ' 
         ' dtPicker
         ' 
-        dtPicker.Location = New Point(347, 30)
+        dtPicker.Location = New Point(379, 25)
         dtPicker.Name = "dtPicker"
         dtPicker.Size = New Size(98, 23)
         dtPicker.TabIndex = 8
@@ -78,7 +85,7 @@ Partial Class FormQLDonHang
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(6, 33)
+        Label1.Location = New Point(6, 28)
         Label1.Name = "Label1"
         Label1.Size = New Size(49, 15)
         Label1.TabIndex = 7
@@ -86,10 +93,10 @@ Partial Class FormQLDonHang
         ' 
         ' tbTuKhoa
         ' 
-        tbTuKhoa.Location = New Point(61, 30)
+        tbTuKhoa.Location = New Point(61, 25)
         tbTuKhoa.Name = "tbTuKhoa"
         tbTuKhoa.PlaceholderText = "Khách Hàng, sản phẩm, chi nhánh, số tiền"
-        tbTuKhoa.Size = New Size(280, 23)
+        tbTuKhoa.Size = New Size(237, 23)
         tbTuKhoa.TabIndex = 6
         ' 
         ' dgvDonHang
@@ -109,7 +116,7 @@ Partial Class FormQLDonHang
         ' 
         ' btnTaoDon
         ' 
-        btnTaoDon.Location = New Point(8, 162)
+        btnTaoDon.Location = New Point(712, 26)
         btnTaoDon.Name = "btnTaoDon"
         btnTaoDon.Size = New Size(75, 23)
         btnTaoDon.TabIndex = 9
@@ -118,20 +125,55 @@ Partial Class FormQLDonHang
         ' 
         ' Panel1
         ' 
-        Panel1.Controls.Add(btnTaoDon)
+        Panel1.Controls.Add(Label11)
+        Panel1.Controls.Add(lbDienThoai)
+        Panel1.Controls.Add(lbTenKh)
+        Panel1.Controls.Add(lbChiNhanh)
         Panel1.Controls.Add(GroupBox2)
-        Panel1.Controls.Add(tbDiaChi)
         Panel1.Controls.Add(Label9)
-        Panel1.Controls.Add(tbDienthoaiKh)
         Panel1.Controls.Add(Label6)
-        Panel1.Controls.Add(tbTenKh)
         Panel1.Controls.Add(Label4)
-        Panel1.Controls.Add(cbChiNhanh)
         Panel1.Controls.Add(Label8)
         Panel1.Location = New Point(811, 12)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(339, 441)
+        Panel1.Size = New Size(339, 447)
         Panel1.TabIndex = 5
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(110, 133)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(29, 15)
+        Label11.TabIndex = 48
+        Label11.Text = "N/A"
+        ' 
+        ' lbDienThoai
+        ' 
+        lbDienThoai.AutoSize = True
+        lbDienThoai.Location = New Point(110, 92)
+        lbDienThoai.Name = "lbDienThoai"
+        lbDienThoai.Size = New Size(29, 15)
+        lbDienThoai.TabIndex = 47
+        lbDienThoai.Text = "N/A"
+        ' 
+        ' lbTenKh
+        ' 
+        lbTenKh.AutoSize = True
+        lbTenKh.Location = New Point(110, 52)
+        lbTenKh.Name = "lbTenKh"
+        lbTenKh.Size = New Size(29, 15)
+        lbTenKh.TabIndex = 46
+        lbTenKh.Text = "N/A"
+        ' 
+        ' lbChiNhanh
+        ' 
+        lbChiNhanh.AutoSize = True
+        lbChiNhanh.Location = New Point(110, 16)
+        lbChiNhanh.Name = "lbChiNhanh"
+        lbChiNhanh.Size = New Size(29, 15)
+        lbChiNhanh.TabIndex = 45
+        lbChiNhanh.Text = "N/A"
         ' 
         ' GroupBox2
         ' 
@@ -143,9 +185,9 @@ Partial Class FormQLDonHang
         GroupBox2.Controls.Add(lbTongTien)
         GroupBox2.Controls.Add(Label5)
         GroupBox2.Controls.Add(Label2)
-        GroupBox2.Location = New Point(8, 200)
+        GroupBox2.Location = New Point(8, 167)
         GroupBox2.Name = "GroupBox2"
-        GroupBox2.Size = New Size(328, 238)
+        GroupBox2.Size = New Size(328, 274)
         GroupBox2.TabIndex = 44
         GroupBox2.TabStop = False
         GroupBox2.Text = "Thông tin đơn hàng"
@@ -162,7 +204,7 @@ Partial Class FormQLDonHang
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(6, 174)
+        Label7.Location = New Point(6, 222)
         Label7.Name = "Label7"
         Label7.Size = New Size(48, 15)
         Label7.TabIndex = 15
@@ -179,7 +221,7 @@ Partial Class FormQLDonHang
         ' 
         ' rtbGhiChu
         ' 
-        rtbGhiChu.Location = New Point(89, 162)
+        rtbGhiChu.Location = New Point(89, 208)
         rtbGhiChu.Name = "rtbGhiChu"
         rtbGhiChu.Size = New Size(233, 60)
         rtbGhiChu.TabIndex = 33
@@ -189,7 +231,7 @@ Partial Class FormQLDonHang
         ' 
         lvSanPham.Location = New Point(89, 61)
         lvSanPham.Name = "lvSanPham"
-        lvSanPham.Size = New Size(233, 95)
+        lvSanPham.Size = New Size(233, 141)
         lvSanPham.TabIndex = 38
         lvSanPham.UseCompatibleStateImageBehavior = False
         ' 
@@ -222,13 +264,6 @@ Partial Class FormQLDonHang
         Label2.TabIndex = 8
         Label2.Text = "Khuyến mãi"
         ' 
-        ' tbDiaChi
-        ' 
-        tbDiaChi.Location = New Point(105, 130)
-        tbDiaChi.Name = "tbDiaChi"
-        tbDiaChi.Size = New Size(221, 23)
-        tbDiaChi.TabIndex = 43
-        ' 
         ' Label9
         ' 
         Label9.AutoSize = True
@@ -237,13 +272,6 @@ Partial Class FormQLDonHang
         Label9.Size = New Size(43, 15)
         Label9.TabIndex = 42
         Label9.Text = "Địa chỉ"
-        ' 
-        ' tbDienthoaiKh
-        ' 
-        tbDienthoaiKh.Location = New Point(105, 89)
-        tbDienthoaiKh.Name = "tbDienthoaiKh"
-        tbDienthoaiKh.Size = New Size(221, 23)
-        tbDienthoaiKh.TabIndex = 41
         ' 
         ' Label6
         ' 
@@ -254,13 +282,6 @@ Partial Class FormQLDonHang
         Label6.TabIndex = 40
         Label6.Text = "Điện thoại"
         ' 
-        ' tbTenKh
-        ' 
-        tbTenKh.Location = New Point(105, 49)
-        tbTenKh.Name = "tbTenKh"
-        tbTenKh.Size = New Size(221, 23)
-        tbTenKh.TabIndex = 39
-        ' 
         ' Label4
         ' 
         Label4.AutoSize = True
@@ -270,14 +291,6 @@ Partial Class FormQLDonHang
         Label4.TabIndex = 34
         Label4.Text = "Tên Khách hàng"
         ' 
-        ' cbChiNhanh
-        ' 
-        cbChiNhanh.FormattingEnabled = True
-        cbChiNhanh.Location = New Point(105, 13)
-        cbChiNhanh.Name = "cbChiNhanh"
-        cbChiNhanh.Size = New Size(151, 23)
-        cbChiNhanh.TabIndex = 32
-        ' 
         ' Label8
         ' 
         Label8.AutoSize = True
@@ -286,6 +299,32 @@ Partial Class FormQLDonHang
         Label8.Size = New Size(62, 15)
         Label8.TabIndex = 31
         Label8.Text = "Chi nhánh"
+        ' 
+        ' cbChiNhanh
+        ' 
+        cbChiNhanh.FormattingEnabled = True
+        cbChiNhanh.Location = New Point(551, 25)
+        cbChiNhanh.Name = "cbChiNhanh"
+        cbChiNhanh.Size = New Size(149, 23)
+        cbChiNhanh.TabIndex = 47
+        ' 
+        ' Label12
+        ' 
+        Label12.AutoSize = True
+        Label12.Location = New Point(483, 30)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(62, 15)
+        Label12.TabIndex = 46
+        Label12.Text = "Chi nhánh"
+        ' 
+        ' Label13
+        ' 
+        Label13.AutoSize = True
+        Label13.Location = New Point(304, 30)
+        Label13.Name = "Label13"
+        Label13.Size = New Size(69, 15)
+        Label13.TabIndex = 48
+        Label13.Text = "Ngày tháng"
         ' 
         ' FormQLDonHang
         ' 
@@ -311,7 +350,6 @@ Partial Class FormQLDonHang
     Friend WithEvents Label1 As Label
     Friend WithEvents tbTuKhoa As TextBox
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents cbChiNhanh As ComboBox
     Friend WithEvents Label8 As Label
     Friend WithEvents Label10 As Label
     Friend WithEvents Label7 As Label
@@ -326,10 +364,14 @@ Partial Class FormQLDonHang
     Friend WithEvents Label5 As Label
     Friend WithEvents btnTaoDon As Button
     Friend WithEvents bsPhieuBanHang As BindingSource
-    Friend WithEvents tbTenKh As TextBox
     Friend WithEvents Label6 As Label
-    Friend WithEvents tbDiaChi As TextBox
     Friend WithEvents Label9 As Label
-    Friend WithEvents tbDienthoaiKh As TextBox
     Friend WithEvents GroupBox2 As GroupBox
+    Friend WithEvents lbChiNhanh As Label
+    Friend WithEvents lbTenKh As Label
+    Friend WithEvents lbDienThoai As Label
+    Friend WithEvents Label11 As Label
+    Friend WithEvents Label13 As Label
+    Friend WithEvents cbChiNhanh As ComboBox
+    Friend WithEvents Label12 As Label
 End Class

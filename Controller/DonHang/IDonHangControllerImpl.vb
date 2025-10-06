@@ -70,24 +70,4 @@
         View.BindingListChiNhanhToCombobox(listChiNhanh)
     End Sub
 
-
-
-    Public Sub XulyThemPhieuBanHang(addedDonHang As DonHang) Implements IDonHangController.XulyThemPhieuBanHang
-        Dim newDonHang As New List(Of DonHang) From {addedDonHang}
-        If donHangDao.SaveDonHang(newDonHang) Then
-
-            If khachHangDao.SaveKhachHang(New List(Of KhachHang) From {addedDonHang.BanHangKhachHang}) Then
-                listDonhang.Add(addedDonHang)
-                View.BindingListDonHangToGridView(listDonhang)
-                View.ClearFields()
-                View.GotoChiTietDonHangForm(addedDonHang.Ma)
-            Else
-                View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "khách hàng"))
-            End If
-        Else
-            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
-        End If
-    End Sub
-
-
 End Class
