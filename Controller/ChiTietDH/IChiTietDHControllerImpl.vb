@@ -75,41 +75,60 @@
     End Sub
 
     Public Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang), addedDonHang As DonHang) Implements IChiTietDHController.XuLySaveChiTietDonHang
-        'Thêm đơn hàng
-        Dim newDonHang As New List(Of DonHang) From {addedDonHang}
-        If donHangDao.SaveDonHang(newDonHang) Then
-            'Cập nhật tổng tiền, tổng khuyến mãi, tổng số lượng vào đơn hàng
-            Dim tongSoLuong As Integer = 0
-            Dim tongKhuyenMai As Double = 0
-            Dim tongThanhTien As Double = 0
+        ' Them chi tiet don hang
+        Dim tongSoLuong As Integer = 0
+        Dim tongKhuyenMai As Double = 0
+        Dim tongThanhTien As Double = 0
 
-            For i As Integer = 0 To listChiTietDonHang.Count - 1
-                Dim ctDH As ChiTietDonHang = listChiTietDonHang(i)
-                ctDH.Pbh_Ma = addedDonHang.Ma
-                If ctDH.Pbh_Ma = addedDonHang.Ma Then
-                    tongSoLuong += ctDH.SoLuong
-                    tongKhuyenMai += ctDH.KhuyenMai
-                    tongThanhTien += ctDH.ThanhTien
+        For i As Integer = 0 To listChiTietDonHang.Count - 1
+            Dim ctDH As ChiTietDonHang = listChiTietDonHang(i)
+            ctDH.Pbh_Ma = addedDonHang.Ma
+            tongSoLuong += ctDH.SoLuong
+            tongKhuyenMai += ctDH.KhuyenMai
+            tongThanhTien += ctDH.ThanhTien
+        Next
+        ' Cap nhat tong tien, tong khuyen mai, tong so luong vao don hang
+        addedDonHang.TongSanPham = tongSoLuong
+        addedDonHang.TongKhuyenMai = tongKhuyenMai
+        addedDonHang.TongTien = tongThanhTien
+        Dim khachHang = New List(Of KhachHang) From {addedDonHang.BanHangKhachHang}
+
+        If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
+            'Them khach hang
+            If khachHangDao.SaveKhachHang(khachHang) Then
+                MessageBox.Show($"{khachHang(0).Ma.ToString()} - {addedDonHang.BanHangKhachHang.Ma}")
+                addedDonHang.BanHangKhachHang.Ma = khachHang(0).Ma
+                Dim updatedDonHang = New List(Of DonHang) From {addedDonHang}
+                If donHangDao.SaveDonHang(updatedDonHang) Then
+                    View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "đơn hàng"))
+                Else
+                    View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
                 End If
-            Next
-
-            addedDonHang.TongSanPham = tongSoLuong
-            addedDonHang.TongKhuyenMai = tongKhuyenMai
-            addedDonHang.TongTien = tongThanhTien
-
-            donHangDao.SaveDonHang(New List(Of DonHang) From {addedDonHang})
-
-            If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
-                'Thêm khách hàng
-                khachHangDao.SaveKhachHang(New List(Of KhachHang) From {addedDonHang.BanHangKhachHang})
-                View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "đơn hàng"))
-            Else
-                View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
             End If
-
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
         End If
+
+        'If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
+        '    'Them khach hang
+        '    addedDonHang.BanHangKhachHang.Ma = khachHang(0).Ma
+
+        '    If khachHang(0).Ma = 0 Then
+        '        khachHang(0).Ma = khachHangDao.GetNewMaKhachHang()
+        '    End If
+        '    If khachHangDao.SaveKhachHang(khachHang) Then
+        '        'addedDonHang.BanHangKhachHang.Ma = khachHang(0).Ma
+        '        Dim updatedDonHang = New List(Of DonHang) From {addedDonHang}
+        '        If donHangDao.SaveDonHang(updatedDonHang) Then
+        '            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "đơn hàng"))
+        '        Else
+        '            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
+        '        End If
+        '    End If
+
+        'Else
+        '    View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
+        'End If
 
     End Sub
 

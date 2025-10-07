@@ -14,7 +14,5 @@
 
     Sub ConfigureGridView()
 
-    Sub ClearFields()
-
-    Sub GotoChiTietDonHangForm(chiNhanh As ChiNhanh, ngayThang As String)
+    Sub GotoChiTietDonHangForm(tempDonHang As DonHang)
 End Interface

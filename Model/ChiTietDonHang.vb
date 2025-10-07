@@ -7,7 +7,6 @@
     Private _khuyen_mai As Double
     Private _thanh_tien As Double
     Private _isXoa As Boolean
-    Private _ghichu As String
 
     'Ref
     Private _sanPham As SanPham
@@ -78,16 +77,6 @@
             _thanh_tien = value
         End Set
     End Property
-
-    Public Property GhiChu() As String
-        Get
-            Return _ghichu
-        End Get
-        Set(ByVal value As String)
-            _ghichu = value
-        End Set
-    End Property
-
     Public Property IsXoa() As Boolean
         Get
             Return _isXoa

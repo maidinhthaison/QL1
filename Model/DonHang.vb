@@ -115,6 +115,7 @@
                                "Tổng khuyến mãi: " & Me.TongKhuyenMai.ToString("C2") & Environment.NewLine &
                                "Tổng tiền: " & Me.TongTien.ToString("C2") & Environment.NewLine &
                                "Ghi chú: " & Me.GhiChu & Environment.NewLine &
+                               "Khách hàng Ma : " & Me.BanHangKhachHang.Ma & Environment.NewLine &
                                "Khách hàng Tên : " & Me.BanHangKhachHang.Ten & Environment.NewLine &
                                "Chi nhánh Mã " & Me.ChiNhanh.Ma & Environment.NewLine &
                                "Chi nhánh Tên: " & Me.ChiNhanh.Ten & Environment.NewLine

@@ -92,11 +92,11 @@ Public Class KhachHangDAO
             cmd.Parameters.AddWithValue("pDt", kh.DienThoai)
             cmd.Parameters.AddWithValue("pDc", kh.DiaChi)
             cmd.Parameters.AddWithValue("pXoa", kh.IsXoa)
-            cmd.ExecuteNonQuery()
 
-            ' Optional: Get the new ID of the inserted record
+            cmd.ExecuteNonQuery()
             cmd.CommandText = "SELECT @@IDENTITY;"
-            kh.Ma = CInt(cmd.ExecuteScalar())
+            Dim newId As Integer = CInt(cmd.ExecuteScalar())
+            kh.Ma = newId
         End Using
     End Sub
 

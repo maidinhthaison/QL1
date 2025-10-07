@@ -4,15 +4,13 @@ Imports System.Runtime
 Public Class FormChiTietDonHang
     Implements IBaseForm, IChiTietDonHangView
 
-    Private chiNhanh As ChiNhanh
-    Private ngayThang As String
+    Private tempDonHang As DonHang
 
     Private donHangControllerImpl As IChiTietDHControllerImpl
 
-    Public Sub New(cNhanh As ChiNhanh, ngayThang As String)
+    Public Sub New(donHang As DonHang)
         InitializeComponent()
-        Me.ngayThang = ngayThang
-        Me.chiNhanh = cNhanh
+        Me.tempDonHang = donHang
     End Sub
 
 
@@ -23,8 +21,8 @@ Public Class FormChiTietDonHang
         AddHandler btnHuy.Click, AddressOf OnButtonClick
 
 
-        lbNgayThang.Text = ngayThang.ToString()
-        lbChiNhanh.Text = chiNhanh.Ten
+        lbNgayThang.Text = tempDonHang.Ngay
+        lbChiNhanh.Text = tempDonHang.ChiNhanh.Ten
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
@@ -47,15 +45,17 @@ Public Class FormChiTietDonHang
             Return
         Else
 
-            Dim newPhieuBanHang As New DonHang() With {
+            Dim updatedDonHang As New DonHang() With {
+                 .Ma = tempDonHang.Ma,
                  .Code = Gen_12Chars_UUID(),
-                 .Ngay = lbNgayThang.Text,
+                 .Ngay = tempDonHang.Ngay,
                  .TongSanPham = 0,
                  .TongKhuyenMai = 0,
                  .TongTien = 0,
                  .GhiChu = tbGhiChu.Text,
                  .IsXoa = False,
                  .BanHangKhachHang = New KhachHang() With {
+                      .Ma = tempDonHang.BanHangKhachHang.Ma,
                       .Code = Gen_6Chars_UUID(),
                       .Ten = tbTenKh.Text,
                       .DienThoai = tbDienthoaiKh.Text,
@@ -63,15 +63,13 @@ Public Class FormChiTietDonHang
                       .IsXoa = False
                  },
                  .ChiNhanh = New ChiNhanh() With {
-                      .Ma = chiNhanh.Ma,
-                      .Ten = chiNhanh.Ten
+                      .Ma = tempDonHang.ChiNhanh.Ma,
+                      .Ten = tempDonHang.ChiNhanh.Ten
                  }
             }
-
-
-            'Dim result As String = newPhieuBanHang.ToString
-            'MessageBox.Show(result, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh, newPhieuBanHang)
+            Dim result As String = updatedDonHang.ToString
+            MessageBox.Show(result, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh, updatedDonHang)
         End If
     End Sub
 
@@ -104,7 +102,6 @@ Public Class FormChiTietDonHang
                  .ThanhTien = thanhtien - khuyenmai,
                  .KhuyenMai = khuyenmai,
                  .IsXoa = False,
-                 .GhiChu = tbGhiChu.Text,
                  .SanPhamInfo = selectedSp
              }
 
@@ -142,7 +139,6 @@ Public Class FormChiTietDonHang
         dgvDonHang.Columns("Ma").Visible = False
         dgvDonHang.Columns("Pbh_Ma").Visible = False
         dgvDonHang.Columns("Sp_Ma").Visible = False
-        dgvDonHang.Columns("GhiChu").Visible = False
         dgvDonHang.Columns("IsXoa").Visible = False
 
         ' Set custom header text for columns
@@ -274,12 +270,10 @@ Public Class FormChiTietDonHang
     End Sub
 
     Private Sub FormChiTietDonHang_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
-
-        ngayThang = Nothing
+        tempDonHang = Nothing
     End Sub
 
     Private Sub FormChiTietDonHang_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
-
-        ngayThang = Nothing
+        tempDonHang = Nothing
     End Sub
 End Class

@@ -70,4 +70,13 @@
         View.BindingListChiNhanhToCombobox(listChiNhanh)
     End Sub
 
+    Public Sub XulyTaoDonHang(tempDonHang As DonHang) Implements IDonHangController.XulyTaoDonHang
+        Dim newDonHang As New List(Of DonHang) From {tempDonHang}
+        If donHangDao.SaveDonHang(newDonHang) Then
+            View.GotoChiTietDonHangForm(tempDonHang)
+        Else
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
+        End If
+
+    End Sub
 End Class
