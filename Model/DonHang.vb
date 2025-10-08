@@ -108,7 +108,7 @@
         End Set
     End Property
 
-    Public Function ToString() As String
+    Public Overrides Function ToString() As String
         Dim result As String = "Mã đơn hàng: " & Me.Code & Environment.NewLine &
                                "Ngày: " & Me.Ngay.ToString("dd/MM/yyyy") & Environment.NewLine &
                                "Tổng số sản phẩm: " & Me.TongSanPham & Environment.NewLine &

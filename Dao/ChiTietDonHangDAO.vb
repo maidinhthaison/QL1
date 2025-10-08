@@ -63,7 +63,6 @@ Public Class ChiTietDonHangDAO
             cmd.Parameters.AddWithValue("pXoa", ctpbh.IsXoa)
             cmd.ExecuteNonQuery()
 
-            ' Optional: Get the new ID of the inserted record
             cmd.CommandText = "SELECT @@IDENTITY;"
             ctpbh.Ma = CInt(cmd.ExecuteScalar())
         End Using

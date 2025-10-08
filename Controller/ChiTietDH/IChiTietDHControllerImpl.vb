@@ -4,31 +4,38 @@
 
     Private View As IChiTietDonHangView
 
-    Private listSanPham As List(Of SanPham)
 
-    Private listChiTietPBH As List(Of ChiTietDonHang)
-
-    Private selectedSanPhamIndex As Integer
-
+    ''' <summary>
+    ''' 
+    ''' </summary>
     Private sanPhamDao As SanPhamDAO
-
+    Private listSanPham As List(Of SanPham)
+    Private selectedSanPhamIndex As Integer
+    ''' <summary>
+    ''' DAO ChiTietPhieuBanHang
+    ''' </summary>
     Private chiTietPhieuBanHangDao As ChiTietDonHangDAO
-
+    Private listChiTietPBH As List(Of ChiTietDonHang)
+    ''' <summary>
+    ''' DAO DonHang
+    ''' </summary>
     Private donHangDao As DonHangDAO
 
-    Private khachHangDao As KhachHangDAO
+
+
     Private Sub New()
         listSanPham = New List(Of SanPham)
         listChiTietPBH = New List(Of ChiTietDonHang)
 
+
         sanPhamDao = New SanPhamDAO()
         chiTietPhieuBanHangDao = New ChiTietDonHangDAO()
         donHangDao = New DonHangDAO()
-        khachHangDao = New KhachHangDAO()
+
     End Sub
 
 
-    Public Property Index() As Integer
+    Public Property CurrentSPIndex() As Integer
         Get
             Return selectedSanPhamIndex
         End Get
@@ -55,6 +62,7 @@
         End Set
     End Property
 
+
     Public Shared ReadOnly Property Instance() As IChiTietDHControllerImpl
         Get
             If _instance Is Nothing Then
@@ -74,7 +82,7 @@
         View.BindingListSanPhamToGridView(listSanPham)
     End Sub
 
-    Public Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang), addedDonHang As DonHang) Implements IChiTietDHController.XuLySaveChiTietDonHang
+    Public Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang), addedDonHang As DonHang, khachHang As KhachHang) Implements IChiTietDHController.XuLySaveChiTietDonHang
         ' Them chi tiet don hang
         Dim tongSoLuong As Integer = 0
         Dim tongKhuyenMai As Double = 0
@@ -87,50 +95,28 @@
             tongKhuyenMai += ctDH.KhuyenMai
             tongThanhTien += ctDH.ThanhTien
         Next
-        ' Cap nhat tong tien, tong khuyen mai, tong so luong vao don hang
+
         addedDonHang.TongSanPham = tongSoLuong
         addedDonHang.TongKhuyenMai = tongKhuyenMai
         addedDonHang.TongTien = tongThanhTien
-        Dim khachHang = New List(Of KhachHang) From {addedDonHang.BanHangKhachHang}
 
+        If khachHang IsNot Nothing Then
+            addedDonHang.BanHangKhachHang.Ma = khachHang.Ma
+        End If
+        ' Save chi tiet don hang
         If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
-            'Them khach hang
-            If khachHangDao.SaveKhachHang(khachHang) Then
-                MessageBox.Show($"{khachHang(0).Ma.ToString()} - {addedDonHang.BanHangKhachHang.Ma}")
-                addedDonHang.BanHangKhachHang.Ma = khachHang(0).Ma
-                Dim updatedDonHang = New List(Of DonHang) From {addedDonHang}
-                If donHangDao.SaveDonHang(updatedDonHang) Then
-                    View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "đơn hàng"))
-                Else
-                    View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
-                End If
+            Dim updatedDonHang = New List(Of DonHang) From {addedDonHang}
+            ' Cap nhat lai don hang
+            If donHangDao.SaveDonHang(updatedDonHang) Then
+                View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "đơn hàng"))
+            Else
+                View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "đơn hàng"))
             End If
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
         End If
 
-        'If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
-        '    'Them khach hang
-        '    addedDonHang.BanHangKhachHang.Ma = khachHang(0).Ma
-
-        '    If khachHang(0).Ma = 0 Then
-        '        khachHang(0).Ma = khachHangDao.GetNewMaKhachHang()
-        '    End If
-        '    If khachHangDao.SaveKhachHang(khachHang) Then
-        '        'addedDonHang.BanHangKhachHang.Ma = khachHang(0).Ma
-        '        Dim updatedDonHang = New List(Of DonHang) From {addedDonHang}
-        '        If donHangDao.SaveDonHang(updatedDonHang) Then
-        '            View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "đơn hàng"))
-        '        Else
-        '            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
-        '        End If
-        '    End If
-
-        'Else
-        '    View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "đơn hàng"))
-        'End If
 
     End Sub
-
 
 End Class

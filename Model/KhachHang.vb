@@ -6,7 +6,6 @@
     Private _dia_chi As String
     Private _isXoa As Boolean
 
-
     Public Sub New()
         Me.Ma = 0
     End Sub
@@ -64,4 +63,13 @@
             _isXoa = value
         End Set
     End Property
+    Public Overrides Function ToString() As String
+        Dim result As String = "Mã  " & Me.Ma & Environment.NewLine &
+                               "Code: " & Me.Code & Environment.NewLine &
+                               "Ten: " & Me.Ten & Environment.NewLine &
+                               "Dia chi: " & Me.DiaChi & Environment.NewLine &
+                               "Dien Thoai: " & Me.DienThoai
+
+        Return result
+    End Function
 End Class

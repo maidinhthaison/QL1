@@ -107,9 +107,8 @@
                       .Ten = cbChiNhanh.SelectedItem.Ten
                  }
         }
-        MessageBox.Show(newPhieuBanHang.ToString())
         donHangController.XulyTaoDonHang(newPhieuBanHang)
-
+        GotoChiTietDonHangForm(newPhieuBanHang)
     End Sub
 
     Private Sub FormQLBanHang_Load(sender As Object, e As EventArgs) Handles MyBase.Load

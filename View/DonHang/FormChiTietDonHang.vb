@@ -8,6 +8,7 @@ Public Class FormChiTietDonHang
 
     Private donHangControllerImpl As IChiTietDHControllerImpl
 
+    Private khachHangControllerImpl As IKhachHangControllerImpl
     Public Sub New(donHang As DonHang)
         InitializeComponent()
         Me.tempDonHang = donHang
@@ -18,8 +19,9 @@ Public Class FormChiTietDonHang
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
         AddHandler btnXacNhan.Click, AddressOf OnButtonClick
-        AddHandler btnHuy.Click, AddressOf OnButtonClick
-
+        AddHandler btnClearDH.Click, AddressOf OnButtonClick
+        AddHandler btnTimKH.Click, AddressOf OnButtonClick
+        AddHandler btnCapNhatKH.Click, AddressOf OnButtonClick
 
         lbNgayThang.Text = tempDonHang.Ngay
         lbChiNhanh.Text = tempDonHang.ChiNhanh.Ten
@@ -33,15 +35,70 @@ Public Class FormChiTietDonHang
             Case "btnXoa"
             Case "btnXacNhan"
                 XacNhanDonHang()
-            Case "btnXoa"
+            Case "btnClearDH"
                 ClearFields()
+            Case "btnTimKH"
+                TimKiemKhachHang()
+            Case "btnCapNhatKH"
+                CapNhatKH()
+
         End Select
+    End Sub
+
+    Private Sub CapNhatKH()
+        If khachHangControllerImpl.ListKh.Count > 0 Then
+
+            Dim selectedKhachHang = khachHangControllerImpl.GetSelectedKH
+            ' Cap nhat khach hang vao don hang
+            If khachHangControllerImpl.XulySaveKhachHang(selectedKhachHang) Then
+                ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "khách hàng"))
+            Else
+                ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "khách hàng"))
+            End If
+        Else
+            ' Tao moi khach hang
+            Dim newKhachHang As New KhachHang() With {
+                 .Code = Gen_6Chars_UUID(),
+                 .Ten = tbTenKh.Text,
+                 .DienThoai = tbDienthoaiKh.Text,
+                 .DiaChi = tbDiaChi.Text,
+                 .IsXoa = False
+             }
+            If khachHangControllerImpl.XulySaveKhachHang(newKhachHang) Then
+                khachHangControllerImpl.GetSelectedKH = newKhachHang
+                khachHangControllerImpl.GetSelectedKH.Ma = newKhachHang.Ma
+                ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "khách hàng"))
+            Else
+                ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "khách hàng"))
+            End If
+
+        End If
+
+    End Sub
+
+
+    Private Sub TimKiemKhachHang()
+        Dim tukhoa = tbDienthoaiKh.Text.Trim.ToString()
+        If String.IsNullOrWhiteSpace(tukhoa) Then
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Vui lòng nhập tên khách hàng để tìm kiếm.")
+            Return
+        End If
+
+        khachHangControllerImpl.XulyTimKiemKhachHangBySDT(tukhoa)
+
+        Dim result = khachHangControllerImpl.ListKh
+        If result Is Nothing OrElse result.Count = 0 Then
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Không tìm thấy khách hàng nào với số điện thoại đã nhập.")
+            Return
+        End If
+
+        BindingListKhachHangToGridView(result)
     End Sub
 
     Private Sub XacNhanDonHang()
         Dim listChiTietPbh As List(Of ChiTietDonHang) = donHangControllerImpl.GetDSChiTietPbh
         If listChiTietPbh Is Nothing OrElse listChiTietPbh.Count = 0 Then
-            ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Chưa có sản phẩm trong đơn hàng")
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Chưa có sản phẩm trong đơn hàng")
             Return
         Else
 
@@ -67,14 +124,14 @@ Public Class FormChiTietDonHang
                       .Ten = tempDonHang.ChiNhanh.Ten
                  }
             }
-            Dim result As String = updatedDonHang.ToString
-            MessageBox.Show(result, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh, updatedDonHang)
+            'Dim result As String = updatedDonHang.ToString
+            'MessageBox.Show(result, "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+            donHangControllerImpl.XuLySaveChiTietDonHang(listChiTietPbh, updatedDonHang, khachHangControllerImpl.GetSelectedKH)
         End If
     End Sub
 
     Private Sub TaoDonHang()
-        Dim index As Integer = donHangControllerImpl.Index
+        Dim index As Integer = donHangControllerImpl.CurrentSPIndex
         Dim selectedSp As SanPham = donHangControllerImpl.ListSp(index)
         Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
 
@@ -225,11 +282,14 @@ Public Class FormChiTietDonHang
     Public Sub ClearFields() Implements IChiTietDonHangView.ClearFields
         tbSoluong.Text = ""
         tbKhuyenMai.Text = ""
+        tbGhiChu.Text = ""
     End Sub
 
     Private Sub FormTaoDonHang_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         donHangControllerImpl = IChiTietDHControllerImpl.Instance
         donHangControllerImpl.Init(Me)
+
+        khachHangControllerImpl = IKhachHangControllerImpl.Instance
         InitViews()
         LoadData()
     End Sub
@@ -240,17 +300,14 @@ Public Class FormChiTietDonHang
 
     Private Sub dgvSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSanPham.CellClick
         If e.RowIndex >= 0 Then
-            donHangControllerImpl.Index = e.RowIndex
-            Dim selectedRow As DataGridViewRow = dgvSanPham.Rows(e.RowIndex)
-            Dim selectedSp As SanPham = CType(selectedRow.DataBoundItem, SanPham)
-            If selectedSp IsNot Nothing Then
-                'BindingToTextBox(selectedLoaiSp)
-            End If
+            donHangControllerImpl.CurrentSPIndex = e.RowIndex
         End If
     End Sub
 
-    Private Sub BindingToTextBox(selectedLoaiSp As Object)
-        Throw New NotImplementedException()
+    Private Sub BindingToTextBoxKhachHang(selectedKH As Object)
+        tbTenKh.Text = CType(selectedKH, KhachHang).Ten
+        tbDienthoaiKh.Text = CType(selectedKH, KhachHang).DienThoai
+        tbDiaChi.Text = CType(selectedKH, KhachHang).DiaChi
     End Sub
 
     Private Sub dgvDonHang_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvDonHang.CellFormatting
@@ -259,7 +316,7 @@ Public Class FormChiTietDonHang
 
             ' e.Value contains the whole ProductInfo object
             If e.Value IsNot Nothing Then
-                Dim product As SanPham = TryCast(e.Value, SanPham)
+                Dim product = TryCast(e.Value, SanPham)
                 If product IsNot Nothing Then
                     ' Set the display value to the property you want
                     e.Value = product.Ten
@@ -275,5 +332,36 @@ Public Class FormChiTietDonHang
 
     Private Sub FormChiTietDonHang_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         tempDonHang = Nothing
+    End Sub
+
+    Public Sub BindingListKhachHangToGridView(list As List(Of KhachHang)) Implements IChiTietDonHangView.BindingListKhachHangToGridView
+        dgvKhachHang.DataSource = Nothing
+
+        Bs_KhachHang.DataSource = list
+
+        dgvKhachHang.DataSource = Bs_KhachHang
+
+        ConfigureListBox()
+    End Sub
+
+    Private Sub ConfigureListBox()
+        dgvKhachHang.Columns("Ma").Visible = False
+        dgvKhachHang.Columns("Code").Visible = False
+        dgvKhachHang.Columns("DiaChi").Visible = False
+        dgvKhachHang.Columns("IsXoa").Visible = False
+        dgvKhachHang.Columns("DienThoai").Visible = False
+
+        dgvKhachHang.Columns("Ten").HeaderText = "Khách Hàng"
+    End Sub
+
+    Private Sub dgvKhachHang_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvKhachHang.CellClick
+        If e.RowIndex >= 0 Then
+            khachHangControllerImpl.GetSelectedKH = khachHangControllerImpl.ListKh(e.RowIndex)
+            Dim selectedRow As DataGridViewRow = dgvKhachHang.Rows(e.RowIndex)
+            Dim selectedKh As KhachHang = CType(selectedRow.DataBoundItem, KhachHang)
+            If selectedKh IsNot Nothing Then
+                BindingToTextBoxKhachHang(selectedKh)
+            End If
+        End If
     End Sub
 End Class

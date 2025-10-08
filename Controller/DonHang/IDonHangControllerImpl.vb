@@ -15,13 +15,11 @@
 
     Private chiNhanhDao As ChiNhanhDAO
 
-    Private khachHangDao As KhachHangDAO
     Private Sub New()
         listDonhang = New List(Of DonHang)
         listChiNhanh = New List(Of ChiNhanh)
         donHangDao = New DonHangDAO()
         chiNhanhDao = New ChiNhanhDAO()
-        khachHangDao = New KhachHangDAO()
 
     End Sub
 
