@@ -32,6 +32,7 @@ Partial Class FormChiTietDonHang
         btnXoa = New Button()
         GroupBox2 = New GroupBox()
         GroupBox4 = New GroupBox()
+        btnCapNhatKH = New Button()
         btnTimKH = New Button()
         dgvKhachHang = New DataGridView()
         cbTichDiem = New CheckBox()
@@ -60,7 +61,6 @@ Partial Class FormChiTietDonHang
         CTDH_BindingSource = New BindingSource(components)
         lbNgayThang = New Label()
         Bs_KhachHang = New BindingSource(components)
-        btnCapNhatKH = New Button()
         GroupBox1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox2.SuspendLayout()
@@ -183,6 +183,16 @@ Partial Class FormChiTietDonHang
         GroupBox4.TabStop = False
         GroupBox4.Text = "Thông tin khách hàng"
         ' 
+        ' btnCapNhatKH
+        ' 
+        btnCapNhatKH.Location = New Point(110, 173)
+        btnCapNhatKH.Margin = New Padding(3, 4, 3, 4)
+        btnCapNhatKH.Name = "btnCapNhatKH"
+        btnCapNhatKH.Size = New Size(106, 31)
+        btnCapNhatKH.TabIndex = 54
+        btnCapNhatKH.Text = "Cập nhật"
+        btnCapNhatKH.UseVisualStyleBackColor = True
+        ' 
         ' btnTimKH
         ' 
         btnTimKH.Location = New Point(9, 173)
@@ -215,9 +225,9 @@ Partial Class FormChiTietDonHang
         cbTichDiem.AutoSize = True
         cbTichDiem.Location = New Point(13, 231)
         cbTichDiem.Name = "cbTichDiem"
-        cbTichDiem.Size = New Size(98, 24)
+        cbTichDiem.Size = New Size(96, 24)
         cbTichDiem.TabIndex = 52
-        cbTichDiem.Text = "Tich Diem"
+        cbTichDiem.Text = "Tích điểm"
         cbTichDiem.UseVisualStyleBackColor = True
         ' 
         ' tbDienthoaiKh
@@ -443,16 +453,6 @@ Partial Class FormChiTietDonHang
         lbNgayThang.Size = New Size(45, 25)
         lbNgayThang.TabIndex = 10
         lbNgayThang.Text = "N/A"
-        ' 
-        ' btnCapNhatKH
-        ' 
-        btnCapNhatKH.Location = New Point(110, 173)
-        btnCapNhatKH.Margin = New Padding(3, 4, 3, 4)
-        btnCapNhatKH.Name = "btnCapNhatKH"
-        btnCapNhatKH.Size = New Size(106, 31)
-        btnCapNhatKH.TabIndex = 54
-        btnCapNhatKH.Text = "Cập nhật"
-        btnCapNhatKH.UseVisualStyleBackColor = True
         ' 
         ' FormChiTietDonHang
         ' 

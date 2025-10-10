@@ -31,8 +31,9 @@ Public Class FormChiTietDonHang
         Dim button As Button = CType(sender, Button)
         Select Case button.Name
             Case "btnThem"
-                TaoDonHang()
+                ThemSPGioHang()
             Case "btnXoa"
+                XoaSPGioHang()
             Case "btnXacNhan"
                 XacNhanDonHang()
             Case "btnClearDH"
@@ -44,6 +45,8 @@ Public Class FormChiTietDonHang
 
         End Select
     End Sub
+
+
 
     Private Sub CapNhatKH()
         If khachHangControllerImpl.ListKh.Count > 0 Then
@@ -130,7 +133,7 @@ Public Class FormChiTietDonHang
         End If
     End Sub
 
-    Private Sub TaoDonHang()
+    Private Sub ThemSPGioHang()
         Dim index As Integer = donHangControllerImpl.CurrentSPIndex
         Dim selectedSp As SanPham = donHangControllerImpl.ListSp(index)
         Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
@@ -173,13 +176,56 @@ Public Class FormChiTietDonHang
 
     End Sub
 
+    Private Sub XoaSPGioHang()
+
+
+        'Dim index As Integer = donHangControllerImpl.CurrentSPIndex
+        'Dim selectedSp As SanPham = donHangControllerImpl.ListSp(index)
+        'Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
+
+        'If foundProduct IsNot Nothing Then
+        '    'Cập nhật số lượng
+        '    'foundProduct.SoLuong += 1
+        '    foundProduct.SoLuong += Integer.Parse(tbSoluong.Text)
+        '    Dim thanhtien As Double = Double.Parse(foundProduct.Gia) * Double.Parse(foundProduct.SoLuong)
+        '    Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
+        '    foundProduct.ThanhTien = thanhtien - khuyenmai
+        '    foundProduct.KhuyenMai = khuyenmai
+        '    TinhTongTien()
+        '    RefreshDonHangGridView(donHangControllerImpl.GetDSChiTietPbh)
+        '    ConfigureDonHangGridView()
+        'Else
+        '    'Thêm mới
+        '    Dim pbhCode As String = Gen_12Chars_UUID()
+        '    Dim thanhtien As Double = Double.Parse(selectedSp.Gia) * Integer.Parse(tbSoluong.Text)
+        '    Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
+
+        '    Dim newChiTietDonHang As New ChiTietDonHang() With {
+        '         .Sp_Ma = selectedSp.Ma,
+        '         .SoLuong = Integer.Parse(tbSoluong.Text),
+        '         .Gia = selectedSp.Gia,
+        '         .ThanhTien = thanhtien - khuyenmai,
+        '         .KhuyenMai = khuyenmai,
+        '         .IsXoa = False,
+        '         .SanPhamInfo = selectedSp
+        '     }
+
+        '    donHangControllerImpl.GetDSChiTietPbh.Add(newChiTietDonHang)
+
+        '    TinhTongTien()
+
+        '    RefreshDonHangGridView(donHangControllerImpl.GetDSChiTietPbh)
+
+        '    ConfigureDonHangGridView()
+        'End If
+    End Sub
     Private Sub TinhTongTien()
         Dim listChiTietPbh As List(Of ChiTietDonHang) = donHangControllerImpl.GetDSChiTietPbh
         If listChiTietPbh IsNot Nothing AndAlso listChiTietPbh.Count > 0 Then
             Dim tongTien As Double = listChiTietPbh.Sum(Function(ct) ct.ThanhTien)
             Dim tongKhuyenMai As Double = listChiTietPbh.Sum(Function(ct) ct.KhuyenMai)
             Dim tongSoLuong As Integer = listChiTietPbh.Sum(Function(ct) ct.SoLuong)
-            lbTongtien.Text = FormatCurrency(tongTien, 0)
+            lbTongtien.Text = CurrencyFormat(tongTien)
         Else
             lbTongtien.Text = "0"
         End If
@@ -311,14 +357,10 @@ Public Class FormChiTietDonHang
     End Sub
 
     Private Sub dgvDonHang_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvDonHang.CellFormatting
-        ' Check if we are in the correct column and not in the header row
         If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "SanPhamInfo" Then
-
-            ' e.Value contains the whole ProductInfo object
             If e.Value IsNot Nothing Then
                 Dim product = TryCast(e.Value, SanPham)
                 If product IsNot Nothing Then
-                    ' Set the display value to the property you want
                     e.Value = product.Ten
                     e.FormattingApplied = True
                 End If
@@ -362,6 +404,12 @@ Public Class FormChiTietDonHang
             If selectedKh IsNot Nothing Then
                 BindingToTextBoxKhachHang(selectedKh)
             End If
+        End If
+    End Sub
+
+    Private Sub dgvDonHang_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDonHang.CellClick
+        If e.RowIndex >= 0 Then
+            donHangControllerImpl.CurrentSPIndex = e.RowIndex
         End If
     End Sub
 End Class

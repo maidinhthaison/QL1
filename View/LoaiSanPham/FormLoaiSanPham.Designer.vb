@@ -25,8 +25,15 @@ Partial Class FormLoaiSanPham
         components = New ComponentModel.Container()
         bsLoaiSp = New BindingSource(components)
         GroupBox1 = New GroupBox()
+        tbTuKhoa = New TextBox()
+        Label8 = New Label()
         dgvLoaiSp = New DataGridView()
+        Label6 = New Label()
+        cbChiNhanh = New ComboBox()
         Panel1 = New Panel()
+        btnHuy = New Button()
+        tbSoLuong = New TextBox()
+        Label7 = New Label()
         lbCode = New Label()
         cbKhuVuc = New ComboBox()
         cbNhaCc = New ComboBox()
@@ -40,7 +47,6 @@ Partial Class FormLoaiSanPham
         Label2 = New Label()
         tbTen = New TextBox()
         Label1 = New Label()
-        btnHuy = New Button()
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
@@ -49,13 +55,35 @@ Partial Class FormLoaiSanPham
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(tbTuKhoa)
+        GroupBox1.Controls.Add(Label8)
         GroupBox1.Controls.Add(dgvLoaiSp)
-        GroupBox1.Location = New Point(12, 12)
+        GroupBox1.Location = New Point(14, 16)
+        GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(776, 450)
+        GroupBox1.Padding = New Padding(3, 4, 3, 4)
+        GroupBox1.Size = New Size(964, 600)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Loại sản phẩm"
+        ' 
+        ' tbTuKhoa
+        ' 
+        tbTuKhoa.Location = New Point(83, 30)
+        tbTuKhoa.Margin = New Padding(3, 4, 3, 4)
+        tbTuKhoa.Name = "tbTuKhoa"
+        tbTuKhoa.PlaceholderText = "Loại, nhà cung cấp, khu vực, địa chỉ..."
+        tbTuKhoa.Size = New Size(317, 27)
+        tbTuKhoa.TabIndex = 22
+        ' 
+        ' Label8
+        ' 
+        Label8.AutoSize = True
+        Label8.Location = New Point(7, 33)
+        Label8.Name = "Label8"
+        Label8.Size = New Size(70, 20)
+        Label8.TabIndex = 22
+        Label8.Text = "Tìm kiếm"
         ' 
         ' dgvLoaiSp
         ' 
@@ -65,16 +93,40 @@ Partial Class FormLoaiSanPham
         dgvLoaiSp.AllowUserToResizeRows = False
         dgvLoaiSp.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvLoaiSp.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvLoaiSp.Location = New Point(6, 22)
+        dgvLoaiSp.Location = New Point(7, 70)
+        dgvLoaiSp.Margin = New Padding(3, 4, 3, 4)
         dgvLoaiSp.Name = "dgvLoaiSp"
         dgvLoaiSp.ReadOnly = True
+        dgvLoaiSp.RowHeadersWidth = 51
         dgvLoaiSp.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvLoaiSp.Size = New Size(764, 422)
+        dgvLoaiSp.Size = New Size(951, 522)
         dgvLoaiSp.TabIndex = 2
+        ' 
+        ' Label6
+        ' 
+        Label6.AutoSize = True
+        Label6.Location = New Point(15, 18)
+        Label6.Name = "Label6"
+        Label6.Size = New Size(74, 20)
+        Label6.TabIndex = 17
+        Label6.Text = "Chi nhánh"
+        ' 
+        ' cbChiNhanh
+        ' 
+        cbChiNhanh.FormattingEnabled = True
+        cbChiNhanh.Location = New Point(121, 15)
+        cbChiNhanh.Margin = New Padding(3, 4, 3, 4)
+        cbChiNhanh.Name = "cbChiNhanh"
+        cbChiNhanh.Size = New Size(187, 28)
+        cbChiNhanh.TabIndex = 18
         ' 
         ' Panel1
         ' 
         Panel1.Controls.Add(btnHuy)
+        Panel1.Controls.Add(tbSoLuong)
+        Panel1.Controls.Add(Label6)
+        Panel1.Controls.Add(Label7)
+        Panel1.Controls.Add(cbChiNhanh)
         Panel1.Controls.Add(lbCode)
         Panel1.Controls.Add(cbKhuVuc)
         Panel1.Controls.Add(cbNhaCc)
@@ -88,142 +140,172 @@ Partial Class FormLoaiSanPham
         Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(tbTen)
         Panel1.Controls.Add(Label1)
-        Panel1.Location = New Point(792, 12)
+        Panel1.Location = New Point(984, 26)
+        Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(354, 450)
+        Panel1.Size = New Size(326, 590)
         Panel1.TabIndex = 4
+        ' 
+        ' btnHuy
+        ' 
+        btnHuy.Location = New Point(15, 482)
+        btnHuy.Margin = New Padding(3, 4, 3, 4)
+        btnHuy.Name = "btnHuy"
+        btnHuy.Size = New Size(86, 31)
+        btnHuy.TabIndex = 22
+        btnHuy.Text = "Hủy"
+        btnHuy.UseVisualStyleBackColor = True
+        ' 
+        ' tbSoLuong
+        ' 
+        tbSoLuong.Location = New Point(121, 205)
+        tbSoLuong.Margin = New Padding(3, 4, 3, 4)
+        tbSoLuong.Name = "tbSoLuong"
+        tbSoLuong.Size = New Size(87, 27)
+        tbSoLuong.TabIndex = 21
+        ' 
+        ' Label7
+        ' 
+        Label7.AutoSize = True
+        Label7.Location = New Point(18, 205)
+        Label7.Name = "Label7"
+        Label7.Size = New Size(69, 20)
+        Label7.TabIndex = 20
+        Label7.Text = "Số lượng"
         ' 
         ' lbCode
         ' 
         lbCode.AutoSize = True
-        lbCode.Location = New Point(122, 155)
+        lbCode.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbCode.Location = New Point(75, 249)
         lbCode.Name = "lbCode"
-        lbCode.Size = New Size(0, 15)
-        lbCode.TabIndex = 15
+        lbCode.Size = New Size(39, 20)
+        lbCode.TabIndex = 19
+        lbCode.Text = "N/A"
         ' 
         ' cbKhuVuc
         ' 
         cbKhuVuc.FormattingEnabled = True
-        cbKhuVuc.Location = New Point(122, 104)
+        cbKhuVuc.Location = New Point(121, 159)
+        cbKhuVuc.Margin = New Padding(3, 4, 3, 4)
         cbKhuVuc.Name = "cbKhuVuc"
-        cbKhuVuc.Size = New Size(164, 23)
+        cbKhuVuc.Size = New Size(187, 28)
         cbKhuVuc.TabIndex = 14
         ' 
         ' cbNhaCc
         ' 
         cbNhaCc.FormattingEnabled = True
-        cbNhaCc.Location = New Point(122, 55)
+        cbNhaCc.Location = New Point(121, 110)
+        cbNhaCc.Margin = New Padding(3, 4, 3, 4)
         cbNhaCc.Name = "cbNhaCc"
-        cbNhaCc.Size = New Size(164, 23)
+        cbNhaCc.Size = New Size(187, 28)
         cbNhaCc.TabIndex = 13
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(202, 309)
+        btnXoa.Location = New Point(222, 411)
+        btnXoa.Margin = New Padding(3, 4, 3, 4)
         btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(75, 23)
+        btnXoa.Size = New Size(86, 31)
         btnXoa.TabIndex = 12
         btnXoa.Text = "Xoá"
         btnXoa.UseVisualStyleBackColor = True
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(112, 309)
+        btnCapNhat.Location = New Point(119, 411)
+        btnCapNhat.Margin = New Padding(3, 4, 3, 4)
         btnCapNhat.Name = "btnCapNhat"
-        btnCapNhat.Size = New Size(75, 23)
+        btnCapNhat.Size = New Size(86, 31)
         btnCapNhat.TabIndex = 11
         btnCapNhat.Text = "Cập Nhật"
         btnCapNhat.UseVisualStyleBackColor = True
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(18, 309)
+        btnThem.Location = New Point(12, 411)
+        btnThem.Margin = New Padding(3, 4, 3, 4)
         btnThem.Name = "btnThem"
-        btnThem.Size = New Size(75, 23)
+        btnThem.Size = New Size(86, 31)
         btnThem.TabIndex = 10
         btnThem.Text = "Thêm"
         btnThem.UseVisualStyleBackColor = True
         ' 
         ' rtbMota
         ' 
-        rtbMota.Location = New Point(122, 200)
+        rtbMota.Location = New Point(72, 298)
+        rtbMota.Margin = New Padding(3, 4, 3, 4)
         rtbMota.Name = "rtbMota"
-        rtbMota.Size = New Size(226, 77)
+        rtbMota.Size = New Size(236, 88)
         rtbMota.TabIndex = 9
         rtbMota.Text = ""
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(13, 203)
+        Label5.Location = New Point(18, 302)
         Label5.Name = "Label5"
-        Label5.Size = New Size(38, 15)
+        Label5.Size = New Size(48, 20)
         Label5.TabIndex = 8
         Label5.Text = "Mô tả"
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(13, 155)
+        Label4.Location = New Point(15, 249)
         Label4.Name = "Label4"
-        Label4.Size = New Size(35, 15)
+        Label4.Size = New Size(44, 20)
         Label4.TabIndex = 6
         Label4.Text = "Code"
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(13, 107)
+        Label3.Location = New Point(15, 159)
         Label3.Name = "Label3"
-        Label3.Size = New Size(50, 15)
+        Label3.Size = New Size(61, 20)
         Label3.TabIndex = 4
         Label3.Text = "Khu vực"
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(13, 58)
+        Label2.Location = New Point(15, 113)
         Label2.Name = "Label2"
-        Label2.Size = New Size(81, 15)
+        Label2.Size = New Size(100, 20)
         Label2.TabIndex = 2
         Label2.Text = "Nhà cung cấp"
         ' 
         ' tbTen
         ' 
-        tbTen.Location = New Point(122, 7)
+        tbTen.Location = New Point(121, 60)
+        tbTen.Margin = New Padding(3, 4, 3, 4)
         tbTen.Name = "tbTen"
-        tbTen.Size = New Size(164, 23)
+        tbTen.Size = New Size(187, 27)
         tbTen.TabIndex = 1
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(13, 10)
+        Label1.Location = New Point(15, 63)
         Label1.Name = "Label1"
-        Label1.Size = New Size(84, 15)
+        Label1.Size = New Size(105, 20)
         Label1.TabIndex = 0
         Label1.Text = "Loại sản phẩm"
         ' 
-        ' btnHuy
-        ' 
-        btnHuy.Location = New Point(19, 354)
-        btnHuy.Name = "btnHuy"
-        btnHuy.Size = New Size(75, 23)
-        btnHuy.TabIndex = 16
-        btnHuy.Text = "Huỷ"
-        btnHuy.UseVisualStyleBackColor = True
-        ' 
         ' FormLoaiSanPham
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1158, 474)
+        ClientSize = New Size(1323, 632)
         Controls.Add(Panel1)
         Controls.Add(GroupBox1)
+        Margin = New Padding(3, 4, 3, 4)
         Name = "FormLoaiSanPham"
         Text = "Loại Sản Phẩm"
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).EndInit()
         GroupBox1.ResumeLayout(False)
+        GroupBox1.PerformLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
@@ -246,6 +328,12 @@ Partial Class FormLoaiSanPham
     Friend WithEvents Label1 As Label
     Friend WithEvents cbKhuVuc As ComboBox
     Friend WithEvents cbNhaCc As ComboBox
+    Friend WithEvents cbChiNhanh As ComboBox
+    Friend WithEvents Label6 As Label
     Friend WithEvents lbCode As Label
+    Friend WithEvents tbSoLuong As TextBox
+    Friend WithEvents Label7 As Label
+    Friend WithEvents Label8 As Label
+    Friend WithEvents tbTuKhoa As TextBox
     Friend WithEvents btnHuy As Button
 End Class

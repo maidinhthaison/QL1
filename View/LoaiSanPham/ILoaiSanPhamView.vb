@@ -17,4 +17,6 @@
     Sub BindingListToComBoBoxKhuVuc(list As List(Of KhuVuc))
 
     Sub BindingListToComBoBoxNhaCungCap(list As List(Of NhaCungCap))
+
+    Sub BindingListToComBoBoxChiNhanh(list As List(Of ChiNhanh))
 End Interface

@@ -6,10 +6,13 @@
     Private _lsp_code As String
     Private _lsp_ncc_ma As Integer
     Private _lsp_kv_ma As Integer
+    Private _lsp_so_luong As Integer
+    Private _lsp_chi_nhanh_ma As Integer
 
     'Ref table
     Private _lsp_ncc As NhaCungCap
     Private _lsp_khu_vuc As KhuVuc
+    Private _lsp_chi_nhanh As ChiNhanh
 
     Public Sub New()
         Me.Ma = 0
@@ -94,6 +97,33 @@
         End Get
         Set(ByVal value As KhuVuc)
             _lsp_khu_vuc = value
+        End Set
+    End Property
+
+    Public Property Lsp_ChiNhanh() As ChiNhanh
+        Get
+            Return _lsp_chi_nhanh
+        End Get
+        Set(ByVal value As ChiNhanh)
+            _lsp_chi_nhanh = value
+        End Set
+    End Property
+
+    Public Property Lsp_So_Luong() As Integer
+        Get
+            Return _lsp_so_luong
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_so_luong = value
+        End Set
+    End Property
+
+    Public Property Lsp_Chi_Nhanh_Ma() As Integer
+        Get
+            Return _lsp_chi_nhanh_ma
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_chi_nhanh_ma = value
         End Set
     End Property
 End Class
