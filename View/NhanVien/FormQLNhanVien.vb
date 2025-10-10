@@ -51,7 +51,7 @@ Public Class FormQLNhanVien
             Case "btnCapNhat"
                 CapNhatNhanVien()
             Case "btnXoa"
-                ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
+                ' ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 
@@ -115,39 +115,30 @@ Public Class FormQLNhanVien
     Public Sub ConfigureGridView() Implements INhanVienView.ConfigureGridView
 
         dgvNhanVien.Columns("Ma").Visible = False
-        dgvNhanVien.Columns("ChiNhanh").Visible = False
         dgvNhanVien.Columns("GioiTinh").Visible = False
-        dgvNhanVien.Columns("TaiKhoan").Visible = False
 
         ' Set custom header text for columns
 
         dgvNhanVien.Columns("Ten").HeaderText = "Tên"
         dgvNhanVien.Columns("Ten").DisplayIndex = 0
 
+        dgvNhanVien.Columns("TaiKhoan").HeaderText = "Tài khoản"
+        dgvNhanVien.Columns("TaiKhoan").DisplayIndex = 1
+
+        dgvNhanVien.Columns("ChiNhanh").HeaderText = "Chi nhánh"
+        dgvNhanVien.Columns("ChiNhanh").DisplayIndex = 2
+
+
         dgvNhanVien.Columns("DienThoai").HeaderText = "Điện thoại"
-        dgvNhanVien.Columns("DienThoai").DisplayIndex = 1
+        dgvNhanVien.Columns("DienThoai").DisplayIndex = 3
 
         dgvNhanVien.Columns("DiaChi").HeaderText = "Địa chỉ"
-        dgvNhanVien.Columns("DiaChi").DisplayIndex = 2
+        dgvNhanVien.Columns("DiaChi").DisplayIndex = 4
 
 
         dgvNhanVien.Columns("IsXoa").HeaderText = "Đã nghỉ"
-        dgvNhanVien.Columns("IsXoa").DisplayIndex = 3
-        dgvNhanVien.Columns("IsXoa").Width = 50
+        dgvNhanVien.Columns("IsXoa").DisplayIndex = 5
 
-
-        ''MessageBox.Show(chiNhanhTen)
-        'For index As Integer = 0 To bsNhanVien.Count - 1
-        '    Dim currentObject As NhanVien = CType(bsNhanVien(index), NhanVien)
-        '    dgvNhanVien.Rows(index).Cells(2).Value = currentObject.ChiNhanh.Ten
-        '    MessageBox.Show(currentObject.ChiNhanh.Ten)
-        'Next
-        'dgvNhanVien.Refresh()
-        'For Each item As NhanVien In bsNhanVien.List
-        '    Dim currentObject As NhanVien = CType(item, NhanVien)
-        '    Dim chiNhanhTen As String = currentObject.ChiNhanh.Ten
-        '    dgvNhanVien.Columns("ChiNhanh").DataPropertyName = chiNhanhTen
-        'Next
 
     End Sub
 
@@ -165,7 +156,7 @@ Public Class FormQLNhanVien
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
-
+        btnXoa.Visible = False
     End Sub
 
     Private Sub FormNhanVien_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -218,5 +209,28 @@ Public Class FormQLNhanVien
         cbChiNhanh.DataSource = list
         cbChiNhanh.DisplayMember = "Ten"
         cbChiNhanh.ValueMember = "Ma"
+    End Sub
+
+    Private Sub dgvNhanVien_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvNhanVien.CellFormatting
+        If e.RowIndex >= 0 AndAlso dgvNhanVien.Columns(e.ColumnIndex).DataPropertyName = "TaiKhoan" Then
+            If e.Value IsNot Nothing Then
+                Dim tk = TryCast(e.Value, TaiKhoan)
+                If tk IsNot Nothing Then
+                    e.Value = tk.TaiKhoan
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvNhanVien.Columns(e.ColumnIndex).DataPropertyName = "ChiNhanh" Then
+            If e.Value IsNot Nothing Then
+                Dim cn = TryCast(e.Value, ChiNhanh)
+                If cn IsNot Nothing Then
+                    e.Value = cn.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+
     End Sub
 End Class

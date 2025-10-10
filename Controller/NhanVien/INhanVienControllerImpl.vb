@@ -110,6 +110,7 @@
                         nv.Ten.Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.TaiKhoan.TaiKhoan.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.DiaChi.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        nv.ChiNhanh.Ten.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         nv.DienThoai.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase))
                ).ToList()
 

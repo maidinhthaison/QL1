@@ -128,7 +128,6 @@ Public Class NhanVienDAO
                     INNER JOIN TaiKhoan AS tk ON nv.nv_tk_ma = tk.tk_ma)
                     INNER JOIN ChiNhanh AS cn ON nv.nv_chi_nhanh = cn.cn_ma )"
 
-        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
             Using cmd As New OleDbCommand(sql, conn)
                 Try
