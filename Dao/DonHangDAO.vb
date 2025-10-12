@@ -65,19 +65,23 @@ Public Class DonHangDAO
             cmd.Parameters.AddWithValue("pChiNhanhMa", pbh.ChiNhanh.Ma)
 
             cmd.ExecuteNonQuery()
-
-            ' Optional: Get the new ID of the inserted record
             cmd.CommandText = "SELECT @@IDENTITY;"
-            pbh.Ma = CInt(cmd.ExecuteScalar())
+            Dim newId As Integer = CInt(cmd.ExecuteScalar())
+            pbh.Ma = newId
+
         End Using
     End Sub
 
     Private Shared Sub UpdateDonHang(ByVal pbh As DonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
-        Dim sql As String = "UPDATE PhieuBanHang SET pbh_ngay = ?, pbh_ghi_chu = ?,
+        Dim sql As String = "UPDATE PhieuBanHang SET pbh_ngay = ?, pbh_tong_san_pham = ?,
+            pbh_tong_khuyen_mai = ?, pbh_tong_tien = ?, pbh_ghi_chu = ?,
             pbh_khach_hang = ?, pbh_xoa = ?, pbh_chi_nhanh = ? WHERE pbh_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pNgay", pbh.Ngay)
+            cmd.Parameters.AddWithValue("pTongSp", pbh.TongSanPham)
+            cmd.Parameters.AddWithValue("pTongKm", pbh.TongKhuyenMai)
+            cmd.Parameters.AddWithValue("pTongTien", pbh.TongTien)
             cmd.Parameters.AddWithValue("pGhiChu", pbh.GhiChu)
             cmd.Parameters.AddWithValue("pKHMa", pbh.BanHangKhachHang.Ma)
             cmd.Parameters.AddWithValue("pXoa", pbh.IsXoa)

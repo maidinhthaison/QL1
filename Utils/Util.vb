@@ -1,4 +1,5 @@
-﻿Imports System.Security.Cryptography
+﻿Imports System.Globalization
+Imports System.Security.Cryptography
 Imports System.Text
 Imports BCrypt.Net.BCrypt
 
@@ -67,5 +68,11 @@ Module Util
             End If
         Next
         Return Nothing
+    End Function
+
+    Function CurrencyFormat(amount As Double)
+        Dim vietnamCulture As New CultureInfo("vi-VN")
+        Dim formattedCurrency As String = amount.ToString("C", vietnamCulture)
+        Return formattedCurrency
     End Function
 End Module

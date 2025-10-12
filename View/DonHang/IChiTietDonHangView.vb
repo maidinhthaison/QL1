@@ -8,6 +8,8 @@
 
     Sub BindingListSanPhamToGridView(list As List(Of SanPham))
 
+    Sub BindingListKhachHangToGridView(list As List(Of KhachHang))
+
     Sub ConfigureGridView()
 
     Sub ClearFields()

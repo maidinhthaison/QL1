@@ -24,7 +24,7 @@ Public Class KhachHangDAO
                                 .Ten = CStr(reader("kh_ten")),
                                 .DienThoai = CStr(reader("kh_dien_thoai")),
                                 .DiaChi = CStr(reader("kh_dia_chi")),
-                                .IsXoa = CBool(reader("kv_xoa"))
+                                .IsXoa = CBool(reader("kh_xoa"))
                         }
                         khachHangList.Add(kh)
                     End While
@@ -92,11 +92,11 @@ Public Class KhachHangDAO
             cmd.Parameters.AddWithValue("pDt", kh.DienThoai)
             cmd.Parameters.AddWithValue("pDc", kh.DiaChi)
             cmd.Parameters.AddWithValue("pXoa", kh.IsXoa)
-            cmd.ExecuteNonQuery()
 
-            ' Optional: Get the new ID of the inserted record
+            cmd.ExecuteNonQuery()
             cmd.CommandText = "SELECT @@IDENTITY;"
-            kh.Ma = CInt(cmd.ExecuteScalar())
+            Dim newId As Integer = CInt(cmd.ExecuteScalar())
+            kh.Ma = newId
         End Using
     End Sub
 
@@ -112,4 +112,37 @@ Public Class KhachHangDAO
             cmd.ExecuteNonQuery()
         End Using
     End Sub
+
+    Public Function TimKiemKHBySDT(sdt As String) As List(Of KhachHang)
+        Dim khachHangList As New List(Of KhachHang)()
+        Dim sql As String = "SELECT kh_ma, kh_ten, kh_dia_chi, kh_dien_thoai, kh_xoa, kh_code 
+            FROM KhachHang 
+            WHERE kh_dien_thoai = ? AND kh_xoa = ?"
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    cmd.Parameters.AddWithValue("pDt", sdt)
+                    cmd.Parameters.AddWithValue("pXoa", False)
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim kh As New KhachHang() With {
+                                .Ma = CInt(reader("kh_ma")),
+                                .Code = CStr(reader("kh_code")),
+                                .Ten = CStr(reader("kh_ten")),
+                                .DienThoai = CStr(reader("kh_dien_thoai")),
+                                .DiaChi = CStr(reader("kh_dia_chi")),
+                                .IsXoa = CBool(reader("kh_xoa"))
+                        }
+                        khachHangList.Add(kh)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return khachHangList
+    End Function
 End Class

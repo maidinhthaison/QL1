@@ -65,9 +65,6 @@
 
     End Sub
 
-    Public Sub ClearFields() Implements IDonHangView.ClearFields
-        rtbGhiChu.Text = String.Empty
-    End Sub
 
     Public Sub BindingListChiNhanhToCombobox(list As List(Of ChiNhanh)) Implements IDonHangView.BindingListChiNhanhToCombobox
         cbChiNhanh.DataSource = Nothing
@@ -89,27 +86,29 @@
     End Sub
 
     Private Sub TaoDon()
+        ' Tao 1 phieu ban hang moi
         Dim newPhieuBanHang As New DonHang() With {
                  .Code = Gen_12Chars_UUID(),
                  .Ngay = dtPicker.Value.ToString(DATETIME_FORMAT),
                  .TongSanPham = 0,
                  .TongKhuyenMai = 0,
                  .TongTien = 0,
-                 .GhiChu = rtbGhiChu.Text,
+                 .GhiChu = "",
                  .IsXoa = False,
                  .BanHangKhachHang = New KhachHang() With {
                       .Code = Gen_6Chars_UUID(),
-                      .Ten = tbTenKh.Text,
-                      .DienThoai = tbDienthoaiKh.Text,
-                      .DiaChi = tbDiaChi.Text,
+                      .Ten = "",
+                      .DienThoai = "",
+                      .DiaChi = "",
                       .IsXoa = False
                  },
                  .ChiNhanh = New ChiNhanh() With {
-                      .Ma = Convert.ToInt32(cbChiNhanh.SelectedValue)
+                      .Ma = Convert.ToInt32(cbChiNhanh.SelectedValue),
+                      .Ten = cbChiNhanh.SelectedItem.Ten
                  }
         }
-        donHangController.XulyThemPhieuBanHang(newPhieuBanHang)
-
+        donHangController.XulyTaoDonHang(newPhieuBanHang)
+        GotoChiTietDonHangForm(newPhieuBanHang)
     End Sub
 
     Private Sub FormQLBanHang_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -120,14 +119,14 @@
 
     End Sub
 
-    Public Sub GotoChiTietDonHangForm(pBhId As Integer) Implements IDonHangView.GotoChiTietDonHangForm
+    Public Sub GotoChiTietDonHangForm(tempDonHang As DonHang) Implements IDonHangView.GotoChiTietDonHangForm
         Dim frm As Form = TimForm(GetType(FormChiTietDonHang), listForms)
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim formTaoDonHang As New FormChiTietDonHang(pBhId)
+        Dim formTaoDonHang As New FormChiTietDonHang(tempDonHang)
 
         formTaoDonHang.MdiParent = Me.MdiParent
         formTaoDonHang.WindowState = FormWindowState.Maximized

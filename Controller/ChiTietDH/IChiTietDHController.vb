@@ -2,5 +2,9 @@
 
     Sub XuLyGetAllSanPham()
 
-    Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang))
+    Sub XuLyGetAllSanPhamByChiNhanh(chiNhanhMa As Integer)
+
+    Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang), donHang As DonHang, khachHang As KhachHang)
+
+
 End Interface

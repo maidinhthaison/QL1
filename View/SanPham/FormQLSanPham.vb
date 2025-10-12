@@ -64,7 +64,7 @@
         rtbMota.Text = sp.Mota
         lbCode.Text = sp.Code
         cbLoaiSp.SelectedValue = sp.Loai
-
+        tbSoLuong.Text = sp.LoaiSp_SoLuong
         lbKhuVuc.Text = sp.Kv_Ten
         lbNhacc.Text = sp.NCC_Ten
 
@@ -81,24 +81,30 @@
         dgvSanPham.Columns("LoaiSp_Kv_Ma").Visible = False
         dgvSanPham.Columns("NCC_Ma").Visible = False
         dgvSanPham.Columns("Kv_Ma").Visible = False
-        dgvSanPham.Columns("Kv_Ten").Visible = False
+        dgvSanPham.Columns("Code").Visible = False
 
         ' Set custom header text for columns
 
-        dgvSanPham.Columns("Code").HeaderText = "Code"
-        dgvSanPham.Columns("Code").DisplayIndex = 0
-
         dgvSanPham.Columns("Ten").HeaderText = "Tên"
-        dgvSanPham.Columns("Ten").DisplayIndex = 1
+        dgvSanPham.Columns("Ten").DisplayIndex = 0
 
         dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
-        dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 2
+        dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 1
 
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
-        dgvSanPham.Columns("Gia").DisplayIndex = 3
+        dgvSanPham.Columns("Gia").DisplayIndex = 2
+
+        dgvSanPham.Columns("LoaiSp_SoLuong").HeaderText = "Số lượng"
+        dgvSanPham.Columns("LoaiSp_SoLuong").DisplayIndex = 3
 
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
         dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
+
+        dgvSanPham.Columns("LoaiSp_ChiNhanh").HeaderText = "Chi nhánh"
+        dgvSanPham.Columns("LoaiSp_ChiNhanh").DisplayIndex = 5
+
+        dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu vực"
+        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
 
     End Sub
 
@@ -193,5 +199,27 @@
         Dim tukhoa = tbTukhoa.Text.Trim.ToString()
         Dim result As List(Of SanPham) = sanPhamController.XulyTimKiemSanPham(tukhoa)
         BindingListToGridView(result)
+    End Sub
+
+    Private Sub dgvSanPham_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvSanPham.CellFormatting
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "LoaiSp_ChiNhanh" Then
+            If e.Value IsNot Nothing Then
+                Dim chiNhanh = TryCast(e.Value, ChiNhanh)
+                If chiNhanh IsNot Nothing Then
+                    e.Value = chiNhanh.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "NCC" Then
+            If e.Value IsNot Nothing Then
+                Dim ncc = TryCast(e.Value, NhaCungCap)
+                If ncc IsNot Nothing Then
+                    e.Value = ncc.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
     End Sub
 End Class

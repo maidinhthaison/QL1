@@ -15,11 +15,14 @@
 
     Private nhaCungCapDao As NhaCungCapDAO
 
+    Private chiNhanhDao As ChiNhanhDAO
+
     Private Sub New()
         listLoaiSp = New List(Of LoaiSanPham)
         loaiSanphamDAO = New LoaiSanPhamDao()
         khuVucDao = New KhuVucDao()
         nhaCungCapDao = New NhaCungCapDAO()
+        chiNhanhDao = New ChiNhanhDAO()
     End Sub
 
 
@@ -74,7 +77,7 @@
 
 
     Public Sub XulyLoadData() Implements ILoaiSanPhamController.XulyLoadData
-        listLoaiSp = loaiSanphamDAO.LoadLoaiSanPham()
+        listLoaiSp = loaiSanphamDAO.Get_LSP_BY_KhuVuc_ChiNhanh_NCC()
         View.BindingListToGridView(listLoaiSp)
     End Sub
 
@@ -109,6 +112,8 @@
         selectedLoaiSp.Lsp_Ncc = editedLoaiSp.Lsp_Ncc
         selectedLoaiSp.Lsp_Kv_Ma = editedLoaiSp.Lsp_Kv_Ma
         selectedLoaiSp.Lsp_Ncc_Ma = editedLoaiSp.Lsp_Ncc_Ma
+        selectedLoaiSp.Lsp_So_Luong = editedLoaiSp.Lsp_So_Luong
+        selectedLoaiSp.Lsp_Chi_Nhanh_Ma = editedLoaiSp.Lsp_Chi_Nhanh_Ma
         Dim loaiSpToSave As New List(Of LoaiSanPham) From {selectedLoaiSp}
         If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
@@ -118,4 +123,26 @@
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "loại sản phẩm"))
         End If
     End Sub
+
+    Public Sub XulyComboboxChiNhanh() Implements ILoaiSanPhamController.XulyComboboxChiNhanh
+        Dim list As List(Of ChiNhanh) = chiNhanhDao.GetAllChiNhanh()
+        View.BindingListToComBoBoxChiNhanh(list)
+    End Sub
+
+    Public Function XulyTimKiemLoaiSanPham(tuKhoa As String) As List(Of LoaiSanPham) Implements ILoaiSanPhamController.XulyTimKiemLoaiSanPham
+        If String.IsNullOrWhiteSpace(tuKhoa) Then
+            Return listLoaiSp
+        Else
+            Dim searchResult As List(Of LoaiSanPham) = listLoaiSp.Where(
+                Function(lsp) lsp.Ten.ToLower().Contains(tuKhoa.ToLower()) OrElse
+                        lsp.Mota.ToString().Contains(tuKhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        lsp.Code.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        lsp.Lsp_ChiNhanh.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        lsp.Lsp_Ncc.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        lsp.Lsp_So_Luong.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        lsp.Lsp_Kv.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
+               ).ToList()
+            Return searchResult
+        End If
+    End Function
 End Class

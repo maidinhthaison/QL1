@@ -4,5 +4,5 @@
 
     Sub XulyGetAllChiNhanh()
 
-    Sub XulyThemPhieuBanHang(addedPhieuBanHang As DonHang)
+    Sub XulyTaoDonHang(tempDonHang As DonHang)
 End Interface

@@ -14,7 +14,5 @@
 
     Sub ConfigureGridView()
 
-    Sub ClearFields()
-
-    Sub GotoChiTietDonHangForm(pDhId As Integer)
+    Sub GotoChiTietDonHangForm(tempDonHang As DonHang)
 End Interface

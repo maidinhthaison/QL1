@@ -27,10 +27,10 @@ Partial Class FormQLNhanVien
         Label1 = New Label()
         tbTuKhoa = New TextBox()
         Panel1 = New Panel()
+        cbStatus = New CheckBox()
+        Lb = New Label()
         cbChiNhanh = New ComboBox()
         Label8 = New Label()
-        cbStatus = New CheckBox()
-        Label6 = New Label()
         rbNu = New RadioButton()
         rbNam = New RadioButton()
         tbTaiKhoan = New TextBox()
@@ -59,11 +59,12 @@ Partial Class FormQLNhanVien
         ' 
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Controls.Add(tbTuKhoa)
-        GroupBox1.Controls.Add(Panel1)
         GroupBox1.Controls.Add(dgvNhanVien)
-        GroupBox1.Location = New Point(12, 12)
+        GroupBox1.Location = New Point(14, 16)
+        GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(776, 426)
+        GroupBox1.Padding = New Padding(3, 4, 3, 4)
+        GroupBox1.Size = New Size(887, 568)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản Lý Nhân Viên"
@@ -71,26 +72,27 @@ Partial Class FormQLNhanVien
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(19, 33)
+        Label1.Location = New Point(22, 44)
         Label1.Name = "Label1"
-        Label1.Size = New Size(49, 15)
+        Label1.Size = New Size(62, 20)
         Label1.TabIndex = 7
         Label1.Text = "Từ khoá"
         ' 
         ' tbTuKhoa
         ' 
-        tbTuKhoa.Location = New Point(76, 30)
+        tbTuKhoa.Location = New Point(87, 40)
+        tbTuKhoa.Margin = New Padding(3, 4, 3, 4)
         tbTuKhoa.Name = "tbTuKhoa"
         tbTuKhoa.PlaceholderText = "Tên, Địa chỉ, Sdt, Chi nhánh..."
-        tbTuKhoa.Size = New Size(246, 23)
+        tbTuKhoa.Size = New Size(281, 27)
         tbTuKhoa.TabIndex = 6
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(cbStatus)
+        Panel1.Controls.Add(Lb)
         Panel1.Controls.Add(cbChiNhanh)
         Panel1.Controls.Add(Label8)
-        Panel1.Controls.Add(cbStatus)
-        Panel1.Controls.Add(Label6)
         Panel1.Controls.Add(rbNu)
         Panel1.Controls.Add(rbNam)
         Panel1.Controls.Add(tbTaiKhoan)
@@ -107,52 +109,55 @@ Partial Class FormQLNhanVien
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(tbTen)
         Panel1.Controls.Add(Label2)
-        Panel1.Location = New Point(538, 22)
+        Panel1.Location = New Point(907, 26)
+        Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(238, 398)
+        Panel1.Size = New Size(272, 531)
         Panel1.TabIndex = 5
+        ' 
+        ' cbStatus
+        ' 
+        cbStatus.AutoSize = True
+        cbStatus.Location = New Point(88, 371)
+        cbStatus.Name = "cbStatus"
+        cbStatus.Size = New Size(18, 17)
+        cbStatus.TabIndex = 34
+        cbStatus.UseVisualStyleBackColor = True
+        ' 
+        ' Lb
+        ' 
+        Lb.AutoSize = True
+        Lb.Location = New Point(9, 372)
+        Lb.Name = "Lb"
+        Lb.Size = New Size(42, 20)
+        Lb.TabIndex = 33
+        Lb.Text = "Xóa?"
         ' 
         ' cbChiNhanh
         ' 
         cbChiNhanh.FormattingEnabled = True
-        cbChiNhanh.Location = New Point(77, 13)
+        cbChiNhanh.Location = New Point(88, 17)
+        cbChiNhanh.Margin = New Padding(3, 4, 3, 4)
         cbChiNhanh.Name = "cbChiNhanh"
-        cbChiNhanh.Size = New Size(146, 23)
+        cbChiNhanh.Size = New Size(166, 28)
         cbChiNhanh.TabIndex = 32
         ' 
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(7, 16)
+        Label8.Location = New Point(8, 21)
         Label8.Name = "Label8"
-        Label8.Size = New Size(62, 15)
+        Label8.Size = New Size(74, 20)
         Label8.TabIndex = 31
         Label8.Text = "Chi nhánh"
-        ' 
-        ' cbStatus
-        ' 
-        cbStatus.AutoSize = True
-        cbStatus.Location = New Point(77, 285)
-        cbStatus.Name = "cbStatus"
-        cbStatus.Size = New Size(15, 14)
-        cbStatus.TabIndex = 30
-        cbStatus.UseVisualStyleBackColor = True
-        ' 
-        ' Label6
-        ' 
-        Label6.AutoSize = True
-        Label6.Location = New Point(8, 284)
-        Label6.Name = "Label6"
-        Label6.Size = New Size(32, 15)
-        Label6.TabIndex = 29
-        Label6.Text = "Xoá?"
         ' 
         ' rbNu
         ' 
         rbNu.AutoSize = True
-        rbNu.Location = New Point(134, 241)
+        rbNu.Location = New Point(153, 321)
+        rbNu.Margin = New Padding(3, 4, 3, 4)
         rbNu.Name = "rbNu"
-        rbNu.Size = New Size(41, 19)
+        rbNu.Size = New Size(50, 24)
         rbNu.TabIndex = 28
         rbNu.Text = "Nữ"
         rbNu.UseVisualStyleBackColor = True
@@ -161,9 +166,10 @@ Partial Class FormQLNhanVien
         ' 
         rbNam.AutoSize = True
         rbNam.Checked = True
-        rbNam.Location = New Point(77, 241)
+        rbNam.Location = New Point(88, 321)
+        rbNam.Margin = New Padding(3, 4, 3, 4)
         rbNam.Name = "rbNam"
-        rbNam.Size = New Size(51, 19)
+        rbNam.Size = New Size(62, 24)
         rbNam.TabIndex = 27
         rbNam.TabStop = True
         rbNam.Text = "Nam"
@@ -171,118 +177,126 @@ Partial Class FormQLNhanVien
         ' 
         ' tbTaiKhoan
         ' 
-        tbTaiKhoan.Location = New Point(77, 54)
+        tbTaiKhoan.Location = New Point(88, 72)
+        tbTaiKhoan.Margin = New Padding(3, 4, 3, 4)
         tbTaiKhoan.Name = "tbTaiKhoan"
-        tbTaiKhoan.Size = New Size(146, 23)
+        tbTaiKhoan.Size = New Size(166, 27)
         tbTaiKhoan.TabIndex = 26
         ' 
         ' tbMatKhau
         ' 
-        tbMatKhau.Location = New Point(77, 88)
+        tbMatKhau.Location = New Point(88, 117)
+        tbMatKhau.Margin = New Padding(3, 4, 3, 4)
         tbMatKhau.Name = "tbMatKhau"
         tbMatKhau.PasswordChar = "*"c
-        tbMatKhau.Size = New Size(146, 23)
+        tbMatKhau.Size = New Size(166, 27)
         tbMatKhau.TabIndex = 25
         ' 
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(8, 91)
+        Label10.Location = New Point(9, 121)
         Label10.Name = "Label10"
-        Label10.Size = New Size(57, 15)
+        Label10.Size = New Size(70, 20)
         Label10.TabIndex = 24
         Label10.Text = "Mật khẩu"
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(99, 363)
+        btnXoa.Location = New Point(110, 418)
+        btnXoa.Margin = New Padding(3, 4, 3, 4)
         btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(53, 23)
+        btnXoa.Size = New Size(61, 31)
         btnXoa.TabIndex = 21
         btnXoa.Text = "Xoá"
         btnXoa.UseVisualStyleBackColor = True
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(160, 363)
+        btnCapNhat.Location = New Point(180, 418)
+        btnCapNhat.Margin = New Padding(3, 4, 3, 4)
         btnCapNhat.Name = "btnCapNhat"
-        btnCapNhat.Size = New Size(75, 23)
+        btnCapNhat.Size = New Size(86, 31)
         btnCapNhat.TabIndex = 20
         btnCapNhat.Text = "Cập Nhật"
         btnCapNhat.UseVisualStyleBackColor = True
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(8, 363)
+        btnThem.Location = New Point(6, 418)
+        btnThem.Margin = New Padding(3, 4, 3, 4)
         btnThem.Name = "btnThem"
-        btnThem.Size = New Size(75, 23)
+        btnThem.Size = New Size(86, 31)
         btnThem.TabIndex = 19
         btnThem.Text = "Thêm"
         btnThem.UseVisualStyleBackColor = True
         ' 
         ' tbDienThoai
         ' 
-        tbDienThoai.Location = New Point(77, 194)
+        tbDienThoai.Location = New Point(88, 259)
+        tbDienThoai.Margin = New Padding(3, 4, 3, 4)
         tbDienThoai.Name = "tbDienThoai"
-        tbDienThoai.Size = New Size(146, 23)
+        tbDienThoai.Size = New Size(166, 27)
         tbDienThoai.TabIndex = 16
         ' 
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(8, 202)
+        Label7.Location = New Point(9, 269)
         Label7.Name = "Label7"
-        Label7.Size = New Size(61, 15)
+        Label7.Size = New Size(78, 20)
         Label7.TabIndex = 15
         Label7.Text = "Điện thoại"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(8, 57)
+        Label5.Location = New Point(9, 76)
         Label5.Name = "Label5"
-        Label5.Size = New Size(57, 15)
+        Label5.Size = New Size(71, 20)
         Label5.TabIndex = 13
         Label5.Text = "Tài khoản"
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(8, 243)
+        Label4.Location = New Point(9, 324)
         Label4.Name = "Label4"
-        Label4.Size = New Size(52, 15)
+        Label4.Size = New Size(65, 20)
         Label4.TabIndex = 11
         Label4.Text = "Giới tính"
         ' 
         ' tbDiaChi
         ' 
-        tbDiaChi.Location = New Point(77, 161)
+        tbDiaChi.Location = New Point(88, 215)
+        tbDiaChi.Margin = New Padding(3, 4, 3, 4)
         tbDiaChi.Name = "tbDiaChi"
-        tbDiaChi.Size = New Size(146, 23)
+        tbDiaChi.Size = New Size(166, 27)
         tbDiaChi.TabIndex = 10
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(8, 164)
+        Label3.Location = New Point(9, 219)
         Label3.Name = "Label3"
-        Label3.Size = New Size(43, 15)
+        Label3.Size = New Size(55, 20)
         Label3.TabIndex = 9
         Label3.Text = "Địa chỉ"
         ' 
         ' tbTen
         ' 
-        tbTen.Location = New Point(77, 126)
+        tbTen.Location = New Point(88, 168)
+        tbTen.Margin = New Padding(3, 4, 3, 4)
         tbTen.Name = "tbTen"
-        tbTen.Size = New Size(146, 23)
+        tbTen.Size = New Size(166, 27)
         tbTen.TabIndex = 8
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(8, 129)
+        Label2.Location = New Point(9, 172)
         Label2.Name = "Label2"
-        Label2.Size = New Size(25, 15)
+        Label2.Size = New Size(32, 20)
         Label2.TabIndex = 8
         Label2.Text = "Tên"
         ' 
@@ -294,19 +308,23 @@ Partial Class FormQLNhanVien
         dgvNhanVien.AllowUserToResizeRows = False
         dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvNhanVien.Location = New Point(6, 59)
+        dgvNhanVien.Location = New Point(7, 79)
+        dgvNhanVien.Margin = New Padding(3, 4, 3, 4)
         dgvNhanVien.Name = "dgvNhanVien"
         dgvNhanVien.ReadOnly = True
+        dgvNhanVien.RowHeadersWidth = 51
         dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvNhanVien.Size = New Size(520, 361)
+        dgvNhanVien.Size = New Size(874, 481)
         dgvNhanVien.TabIndex = 4
         ' 
         ' FormQLNhanVien
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(1195, 600)
         Controls.Add(GroupBox1)
+        Controls.Add(Panel1)
+        Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLNhanVien"
         Text = "Nhân viên"
         GroupBox1.ResumeLayout(False)
@@ -340,8 +358,8 @@ Partial Class FormQLNhanVien
     Friend WithEvents rbNu As RadioButton
     Friend WithEvents tbTaiKhoan As TextBox
     Friend WithEvents tbMatKhau As TextBox
-    Friend WithEvents cbStatus As CheckBox
-    Friend WithEvents Label6 As Label
     Friend WithEvents cbChiNhanh As ComboBox
     Friend WithEvents Label8 As Label
+    Friend WithEvents Lb As Label
+    Friend WithEvents cbStatus As CheckBox
 End Class
