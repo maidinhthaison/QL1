@@ -20,6 +20,9 @@
     Private _kv_ma As Integer
     Private _kv_ten As String
 
+    Private _lsp_soluong As Integer
+    Private _lsp_chinhanh As ChiNhanh
+
     Public Property LoaiSp_Ma() As Integer
         Get
             Return _lsp_ma
@@ -157,6 +160,24 @@
         End Get
         Set(ByVal value As String)
             _sp_code = value
+        End Set
+    End Property
+
+    Public Property LoaiSp_SoLuong() As Integer
+        Get
+            Return _lsp_soluong
+        End Get
+        Set(ByVal value As Integer)
+            _lsp_soluong = value
+        End Set
+    End Property
+
+    Public Property LoaiSp_ChiNhanh() As ChiNhanh
+        Get
+            Return _lsp_chinhanh
+        End Get
+        Set(ByVal value As ChiNhanh)
+            _lsp_chinhanh = value
         End Set
     End Property
 

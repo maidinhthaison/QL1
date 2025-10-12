@@ -9,6 +9,8 @@ Public Class FormChiTietDonHang
     Private donHangControllerImpl As IChiTietDHControllerImpl
 
     Private khachHangControllerImpl As IKhachHangControllerImpl
+
+    Private sanPhamControllerImpl As ISanPhamControllerImpl
     Public Sub New(donHang As DonHang)
         InitializeComponent()
         Me.tempDonHang = donHang
@@ -178,7 +180,6 @@ Public Class FormChiTietDonHang
 
     Private Sub XoaSPGioHang()
 
-
         'Dim index As Integer = donHangControllerImpl.CurrentSPIndex
         'Dim selectedSp As SanPham = donHangControllerImpl.ListSp(index)
         'Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
@@ -268,7 +269,8 @@ Public Class FormChiTietDonHang
     End Sub
 
     Public Sub LoadData() Implements IChiTietDonHangView.LoadData
-        donHangControllerImpl.XuLyGetAllSanPham()
+        'donHangControllerImpl.XuLyGetAllSanPham()
+        donHangControllerImpl.XuLyGetAllSanPhamByChiNhanh(tempDonHang.ChiNhanh.Ma)
     End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IChiTietDonHangView.ShowMessageBox
@@ -307,21 +309,25 @@ Public Class FormChiTietDonHang
         dgvSanPham.Columns("Kv_Ma").Visible = False
 
         dgvSanPham.Columns("LoaiSp_Ten").Visible = False
-        dgvSanPham.Columns("Kv_Ten").Visible = False
+        dgvSanPham.Columns("LoaiSp_ChiNhanh").Visible = False
 
+        dgvSanPham.Columns("Code").Visible = False
         ' Set custom header text for columns
 
-        dgvSanPham.Columns("Code").HeaderText = "Code"
-        dgvSanPham.Columns("Code").DisplayIndex = 0
-
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
-        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 1
+        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 0
 
         dgvSanPham.Columns("Ten").HeaderText = "SP"
-        dgvSanPham.Columns("Ten").DisplayIndex = 2
+        dgvSanPham.Columns("Ten").DisplayIndex = 1
 
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
-        dgvSanPham.Columns("Gia").DisplayIndex = 3
+        dgvSanPham.Columns("Gia").DisplayIndex = 2
+
+        dgvSanPham.Columns("LoaiSp_SoLuong").HeaderText = "Kho hàng"
+        dgvSanPham.Columns("LoaiSp_SoLuong").DisplayIndex = 3
+
+        dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu Vực"
+        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 4
 
     End Sub
 
@@ -336,6 +342,8 @@ Public Class FormChiTietDonHang
         donHangControllerImpl.Init(Me)
 
         khachHangControllerImpl = IKhachHangControllerImpl.Instance
+        sanPhamControllerImpl = ISanPhamControllerImpl.Instance
+
         InitViews()
         LoadData()
     End Sub
@@ -411,5 +419,11 @@ Public Class FormChiTietDonHang
         If e.RowIndex >= 0 Then
             donHangControllerImpl.CurrentSPIndex = e.RowIndex
         End If
+    End Sub
+
+    Private Sub tbTuKhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTuKhoa.TextChanged
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
+        Dim result As List(Of SanPham) = sanPhamControllerImpl.XulyTimKiemSanPham(tukhoa)
+        BindingListSanPhamToGridView(result)
     End Sub
 End Class

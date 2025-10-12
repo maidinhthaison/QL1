@@ -119,4 +119,9 @@
 
     End Sub
 
+    Public Sub XuLyGetAllSanPhamByChiNhanh(chiNhanhMa As Integer) Implements IChiTietDHController.XuLyGetAllSanPhamByChiNhanh
+        listSanPham = sanPhamDao.GetSP_By_LoaiSP_NhaCC_KhuVuc_ChiNhanh(chiNhanhMa)
+        View.BindingListSanPhamToGridView(listSanPham)
+    End Sub
+
 End Class
