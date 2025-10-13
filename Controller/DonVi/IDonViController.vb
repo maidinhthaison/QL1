@@ -1,3 +1,3 @@
 ﻿Public Interface IDonViController
-    Sub XuLyGetAllDonVi()
+    Function XuLyGetAllDonVi() As List(Of DonVi)
 End Interface

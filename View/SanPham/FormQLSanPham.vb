@@ -11,8 +11,8 @@
     Public Sub LoadData() Implements ISanPhamView.LoadData
         sanPhamController.XulyLoadLoaiSanPham()
         sanPhamController.XulyLoadData()
-        donViController.XuLyGetAllDonVi()
-        BindingListDonViToComboBox(donViController.GetListDonVi)
+        Dim listDonVi = donViController.XuLyGetAllDonVi()
+        BindingListDonViToComboBox(listDonVi)
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -69,6 +69,7 @@
         tbSoLuong.Text = sp.Sp_SoLuong
         lbKhuVuc.Text = sp.Kv_Ten
         lbNhacc.Text = sp.NCC_Ten
+        cbDonVi.SelectedValue = sp.Sp_DonVi.Ma
 
     End Sub
 
@@ -90,25 +91,25 @@
         ' Set custom header text for columns
 
         dgvSanPham.Columns("Ten").HeaderText = "Tên"
-        dgvSanPham.Columns("Ten").DisplayIndex = 0
+        'dgvSanPham.Columns("Ten").DisplayIndex = 0
 
         dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
-        dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 1
+        'dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 1
 
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
-        dgvSanPham.Columns("Gia").DisplayIndex = 2
+        'dgvSanPham.Columns("Gia").DisplayIndex = 2
 
         dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Số lượng"
-        dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 3
+        'dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 3
 
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
-        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
+        'dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
 
         dgvSanPham.Columns("LoaiSp_ChiNhanh").HeaderText = "Chi nhánh"
-        dgvSanPham.Columns("LoaiSp_ChiNhanh").DisplayIndex = 5
+        'dgvSanPham.Columns("LoaiSp_ChiNhanh").DisplayIndex = 5
 
         dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu vực"
-        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
+        'dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
 
     End Sub
 
@@ -145,10 +146,11 @@
         If dgvSanPham.SelectedCells.Count > 0 Then
             Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
             Dim editedSp As New SanPham() With {
-                .Ten = tbSanpham.Text,
-                .Mota = rtbMota.Text,
-                .Gia = tbGia.Text,
-                .Loai = selectedLoaiSp.Ma
+                .Ten = tbSanpham.Text.Trim.ToString,
+                .Mota = rtbMota.Text.Trim.ToString,
+                .Gia = tbGia.Text.Trim.ToString,
+                .Loai = selectedLoaiSp.Ma,
+                .Sp_SoLuong = tbSoLuong.Text.Trim.ToString
             }
             sanPhamController.XulyCapNhatSanPham(editedSp)
         End If

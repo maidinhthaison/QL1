@@ -42,7 +42,8 @@
         End Set
     End Property
 
-    Public Sub XuLyGetAllDonVi() Implements IDonViController.XuLyGetAllDonVi
+    Public Function XuLyGetAllDonVi() As List(Of DonVi) Implements IDonViController.XuLyGetAllDonVi
         listDonVi = donViDao.GetAllDonVi()
-    End Sub
+        Return listDonVi
+    End Function
 End Class

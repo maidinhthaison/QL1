@@ -102,6 +102,7 @@ Public Class ISanPhamControllerImpl
         selectedSp.Mota = editedSanPham.Mota
         selectedSp.Loai = editedSanPham.Loai
         selectedSp.Gia = editedSanPham.Gia
+        selectedSp.Sp_SoLuong = editedSanPham.Sp_SoLuong
         Dim spToSave As New List(Of SanPham) From {selectedSp}
         If sanPhamDAO.SaveSanPham(spToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,

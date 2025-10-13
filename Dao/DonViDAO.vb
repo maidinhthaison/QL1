@@ -9,7 +9,7 @@ Public Class DonViDAO
     '========================================================================
     Public Function GetAllDonVi() As List(Of DonVi)
         Dim donViList As New List(Of DonVi)()
-        Dim sql As String = "SELECT dv_ma, dv_ten, dv_mota, dv_code, dv_xoa FROM DonVi WHERE dv_xoa = False ORDER BY dv_ma"
+        Dim sql As String = "SELECT * FROM DonVi WHERE dv_xoa = False ORDER BY dv_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)

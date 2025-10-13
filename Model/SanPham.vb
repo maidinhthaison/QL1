@@ -6,7 +6,7 @@
     Private _sp_gia As Double
     Private _sp_xoa As Boolean
     Private _sp_code As String
-    Private _sp_dv_ma As String
+    Private _sp_dv_ma As Integer
 
     ' Ref
     Private _lsp_ma As Integer
@@ -183,11 +183,11 @@
         End Set
     End Property
 
-    Public Property Sp_Dv_Ma() As String
+    Public Property Sp_Dv_Ma() As Integer
         Get
             Return _sp_dv_ma
         End Get
-        Set(ByVal value As String)
+        Set(ByVal value As Integer)
             _sp_dv_ma = value
         End Set
     End Property
