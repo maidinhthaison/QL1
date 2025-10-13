@@ -3,7 +3,7 @@
 
     Private sanPhamController As ISanPhamControllerImpl
 
-
+    Private donViController As IDonViControllerImpl
     Public Sub SetController(Controller As ISanPhamControllerImpl) Implements ISanPhamView.SetController
         sanPhamController = Controller
     End Sub
@@ -11,6 +11,8 @@
     Public Sub LoadData() Implements ISanPhamView.LoadData
         sanPhamController.XulyLoadLoaiSanPham()
         sanPhamController.XulyLoadData()
+        Dim listDonVi = donViController.XuLyGetAllDonVi()
+        BindingListDonViToComboBox(listDonVi)
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -64,9 +66,10 @@
         rtbMota.Text = sp.Mota
         lbCode.Text = sp.Code
         cbLoaiSp.SelectedValue = sp.Loai
-        tbSoLuong.Text = sp.LoaiSp_SoLuong
+        tbSoLuong.Text = sp.Sp_SoLuong
         lbKhuVuc.Text = sp.Kv_Ten
         lbNhacc.Text = sp.NCC_Ten
+        cbDonVi.SelectedValue = sp.Sp_DonVi.Ma
 
     End Sub
 
@@ -82,29 +85,31 @@
         dgvSanPham.Columns("NCC_Ma").Visible = False
         dgvSanPham.Columns("Kv_Ma").Visible = False
         dgvSanPham.Columns("Code").Visible = False
+        dgvSanPham.Columns("Sp_Dv_Ma").Visible = False
+        dgvSanPham.Columns("Sp_DonVi").Visible = False
 
         ' Set custom header text for columns
 
         dgvSanPham.Columns("Ten").HeaderText = "Tên"
-        dgvSanPham.Columns("Ten").DisplayIndex = 0
+        'dgvSanPham.Columns("Ten").DisplayIndex = 0
 
         dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
-        dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 1
+        'dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 1
 
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
-        dgvSanPham.Columns("Gia").DisplayIndex = 2
+        'dgvSanPham.Columns("Gia").DisplayIndex = 2
 
-        dgvSanPham.Columns("LoaiSp_SoLuong").HeaderText = "Số lượng"
-        dgvSanPham.Columns("LoaiSp_SoLuong").DisplayIndex = 3
+        dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Số lượng"
+        'dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 3
 
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
-        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
+        'dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
 
         dgvSanPham.Columns("LoaiSp_ChiNhanh").HeaderText = "Chi nhánh"
-        dgvSanPham.Columns("LoaiSp_ChiNhanh").DisplayIndex = 5
+        'dgvSanPham.Columns("LoaiSp_ChiNhanh").DisplayIndex = 5
 
         dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu vực"
-        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
+        'dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
 
     End Sub
 
@@ -141,10 +146,11 @@
         If dgvSanPham.SelectedCells.Count > 0 Then
             Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
             Dim editedSp As New SanPham() With {
-                .Ten = tbSanpham.Text,
-                .Mota = rtbMota.Text,
-                .Gia = tbGia.Text,
-                .Loai = selectedLoaiSp.Ma
+                .Ten = tbSanpham.Text.Trim.ToString,
+                .Mota = rtbMota.Text.Trim.ToString,
+                .Gia = tbGia.Text.Trim.ToString,
+                .Loai = selectedLoaiSp.Ma,
+                .Sp_SoLuong = tbSoLuong.Text.Trim.ToString
             }
             sanPhamController.XulyCapNhatSanPham(editedSp)
         End If
@@ -191,6 +197,7 @@
     Private Sub FormQLSanPham_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         sanPhamController = ISanPhamControllerImpl.Instance
         sanPhamController.Init(Me)
+        donViController = IDonViControllerImpl.Instance
         InitViews()
         LoadData()
     End Sub
@@ -221,5 +228,12 @@
                 End If
             End If
         End If
+    End Sub
+
+    Public Sub BindingListDonViToComboBox(list As List(Of DonVi)) Implements ISanPhamView.BindingListDonViToComboBox
+        cbDonVi.DataSource = Nothing
+        cbDonVi.DataSource = list
+        cbDonVi.DisplayMember = "Ten"
+        cbDonVi.ValueMember = "Ma"
     End Sub
 End Class

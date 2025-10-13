@@ -112,7 +112,6 @@
         selectedLoaiSp.Lsp_Ncc = editedLoaiSp.Lsp_Ncc
         selectedLoaiSp.Lsp_Kv_Ma = editedLoaiSp.Lsp_Kv_Ma
         selectedLoaiSp.Lsp_Ncc_Ma = editedLoaiSp.Lsp_Ncc_Ma
-        selectedLoaiSp.Lsp_So_Luong = editedLoaiSp.Lsp_So_Luong
         selectedLoaiSp.Lsp_Chi_Nhanh_Ma = editedLoaiSp.Lsp_Chi_Nhanh_Ma
         Dim loaiSpToSave As New List(Of LoaiSanPham) From {selectedLoaiSp}
         If loaiSanphamDAO.SaveLoaiSanPham(loaiSpToSave) Then
@@ -139,7 +138,6 @@
                         lsp.Code.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         lsp.Lsp_ChiNhanh.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         lsp.Lsp_Ncc.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
-                        lsp.Lsp_So_Luong.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         lsp.Lsp_Kv.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
                ).ToList()
             Return searchResult

@@ -48,7 +48,6 @@
                 .Lsp_Kv = selectedKhuVuc,
                 .Lsp_Ncc_Ma = If(selectedNhaCc IsNot Nothing, selectedNhaCc.Ma, 0),
                 .Lsp_Kv_Ma = If(selectedKhuVuc IsNot Nothing, selectedKhuVuc.Ma, 0),
-                .Lsp_So_Luong = Integer.Parse(tbSoLuong.Text.Trim().ToString()),
                 .Lsp_Chi_Nhanh_Ma = If(selectedChiNhanh IsNot Nothing, selectedChiNhanh.Ma, 0),
                 .Lsp_ChiNhanh = selectedChiNhanh
             }
@@ -69,7 +68,6 @@
             .Lsp_Kv = selectedKhuVuc,
             .Lsp_Kv_Ma = If(selectedKhuVuc IsNot Nothing, selectedKhuVuc.Ma, 0),
             .Lsp_Ncc_Ma = If(selectedNhaCc IsNot Nothing, selectedNhaCc.Ma, 0),
-            .Lsp_So_Luong = Integer.Parse(tbSoLuong.Text.Trim().ToString()),
             .Lsp_Chi_Nhanh_Ma = If(selectedChiNhanh IsNot Nothing, selectedChiNhanh.Ma, 0),
             .Lsp_ChiNhanh = selectedChiNhanh
         }
@@ -140,7 +138,6 @@
         tbTen.Text = loaiSp.Ten
         lbCode.Text = loaiSp.Code
         rtbMota.Text = loaiSp.Mota
-        tbSoLuong.Text = loaiSp.Lsp_So_Luong.ToString()
 
         cbChiNhanh.SelectedValue = loaiSp.Lsp_Chi_Nhanh_Ma
         cbNhaCc.SelectedValue = loaiSp.Lsp_Ncc_Ma

@@ -9,7 +9,7 @@ Public Class SanPhamDAO
     '========================================================================
     Public Function LoadSanPham() As List(Of SanPham)
         Dim sanPhamList As New List(Of SanPham)()
-        Dim sql As String = "SELECT sp_ma, sp_ten, sp_mo_ta, sp_loai, sp_gia, sp_xoa, sp_code
+        Dim sql As String = "SELECT sp_ma, sp_ten, sp_mo_ta, sp_loai, sp_gia, sp_xoa, sp_code, sp_so_luong, sp_dv_ma,
                 FROM SanPham WHERE sp_xoa = False ORDER BY sp_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
@@ -26,7 +26,9 @@ Public Class SanPhamDAO
                                 .Loai = CInt(reader("sp_loai")),
                                 .Gia = CDbl(reader("sp_gia")),
                                 .IsXoa = CBool(reader("sp_xoa")),
-                                .Code = CStr(reader("sp_code"))
+                                .Code = CStr(reader("sp_code")),
+                                .Sp_SoLuong = CInt(reader("sp_so_luong")),
+                                .Sp_Dv_Ma = CInt(reader("sp_dv_ma"))
                         }
                         sanPhamList.Add(sp)
                     End While
@@ -86,7 +88,7 @@ Public Class SanPhamDAO
     Private Shared Sub InsertSanPham(ByVal sp As SanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
         Dim sql As String = "INSERT INTO SanPham (sp_ten, sp_mo_ta, sp_loai, 
-                sp_gia, sp_xoa, sp_code) VALUES (?, ?, ?, ?, ?, ?)"
+                sp_gia, sp_xoa, sp_code, sp_so_luong, sp_dv_ma) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
@@ -96,6 +98,8 @@ Public Class SanPhamDAO
             cmd.Parameters.AddWithValue("pGia", sp.Gia)
             cmd.Parameters.AddWithValue("pXoa", sp.IsXoa)
             cmd.Parameters.AddWithValue("pCode", sp.Code)
+            cmd.Parameters.AddWithValue("pSL", sp.Sp_SoLuong)
+            cmd.Parameters.AddWithValue("pDv", sp.Sp_Dv_Ma)
             cmd.ExecuteNonQuery()
 
             ' Optional: Get the new ID of the inserted record
@@ -106,7 +110,7 @@ Public Class SanPhamDAO
 
     Private Shared Sub UpdateSanPham(ByVal sp As SanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE SanPham SET sp_ten = ?, sp_mo_ta = ?, sp_loai = ?,
-            sp_gia = ?, sp_xoa = ? WHERE sp_ma = ?"
+            sp_gia = ?, sp_xoa = ?, sp_so_luong = ?  WHERE sp_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pTen", sp.Ten)
@@ -114,6 +118,7 @@ Public Class SanPhamDAO
             cmd.Parameters.AddWithValue("pLoai", sp.Loai)
             cmd.Parameters.AddWithValue("pGia", sp.Gia)
             cmd.Parameters.AddWithValue("pXoa", sp.IsXoa)
+            cmd.Parameters.AddWithValue("pSL", sp.Sp_SoLuong)
             cmd.Parameters.AddWithValue("pMa", sp.Ma)
             cmd.ExecuteNonQuery()
         End Using
@@ -122,18 +127,21 @@ Public Class SanPhamDAO
     Public Function GetSP_By_LoaiSP_NhaCC_KhuVuc() As List(Of SanPham)
         Dim spList As New List(Of SanPham)()
 
-        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc, lsp.lsp_so_luong, lsp.lsp_cn_ma,
+        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc,  lsp.lsp_cn_ma,
                 ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, 
                 kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten,
-                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code,
-                cn.cn_ma AS cn_ma, cn.cn_ten AS cn_ten, cn.cn_dia_chi AS cn_dia_chi
+                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code, sp_so_luong, sp_dv_ma,
+                cn.cn_ma AS cn_ma, cn.cn_ten AS cn_ten, cn.cn_dia_chi AS cn_dia_chi,
+                dv.dv_ma AS dv_ma, dv.dv_ten AS dv_ten, dv.dv_mota AS dv_mota, dv.dv_xoa AS dv_xoa, dv.dv_code AS dv_code 
                 FROM (
+                    (
                     (
                     (SanPham As sp
                     INNER JOIN LoaiSanPham AS lsp ON sp.sp_loai = lsp.lsp_ma)
                     INNER JOIN NhaCungCap AS ncc ON lsp.lsp_ncc = ncc.ncc_ma)
                     INNER JOIN KhuVuc AS kv ON lsp.lsp_khu_vuc = kv.kv_ma)
-                    INNER JOIN ChiNhanh AS cn ON lsp.lsp_cn_ma = cn.cn_ma"
+                    INNER JOIN ChiNhanh AS cn ON lsp.lsp_cn_ma = cn.cn_ma)
+                    INNER JOIN DonVi AS dv ON dv.dv_ma = sp.sp_dv_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
@@ -150,6 +158,7 @@ Public Class SanPhamDAO
                                 .Gia = CDbl(reader("sp_gia")),
                                 .IsXoa = CBool(reader("sp_xoa")),
                                 .Code = CStr(reader("sp_code")),
+                                .Sp_Dv_Ma = CStr(reader("sp_dv_ma")),
                                 .LoaiSp_Ma = CInt(reader("lsp_ma")),
                                 .LoaiSp_Ten = CStr(reader("lsp_ten")),
                                 .LoaiSp_Ncc_Ma = CInt(reader("lsp_ncc")),
@@ -158,11 +167,18 @@ Public Class SanPhamDAO
                                 .NCC_Ten = CStr(reader("ncc_ten")),
                                 .Kv_Ma = CInt(reader("kv_ma")),
                                 .Kv_Ten = CStr(reader("kv_ten")),
-                                .LoaiSp_SoLuong = CInt(reader("lsp_so_luong")),
+                                .Sp_SoLuong = CInt(reader("sp_so_luong")),
                                 .LoaiSp_ChiNhanh = New ChiNhanh() With {
                                     .Ma = CStr(reader("cn_ma")),
                                     .Ten = CStr(reader("cn_ten")),
                                     .DiaChi = CStr(reader("cn_dia_chi"))
+                                },
+                                .Sp_DonVi = New DonVi() With {
+                                    .Ma = CInt(reader("dv_ma")),
+                                    .Ten = CStr(reader("dv_ten")),
+                                    .Mota = CStr(reader("dv_mota")),
+                                    .IsXoa = CBool(reader("dv_xoa")),
+                                    .Code = CStr(reader("dv_code"))
                                 }
                         }
                         spList.Add(sp)
@@ -181,10 +197,10 @@ Public Class SanPhamDAO
     Public Function GetSP_By_LoaiSP_NhaCC_KhuVuc_ChiNhanh(chiNhanhMa As Integer) As List(Of SanPham)
         Dim spList As New List(Of SanPham)()
 
-        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc, lsp.lsp_so_luong, lsp.lsp_cn_ma,
+        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc, lsp.lsp_cn_ma,
                 ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, 
                 kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten,
-                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code,
+                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code, sp_dv_ma,
                 cn.cn_ma AS cn_ma, cn.cn_ten AS cn_ten, cn.cn_dia_chi AS cn_dia_chi
                 FROM (
                     (
@@ -211,6 +227,7 @@ Public Class SanPhamDAO
                                 .Gia = CDbl(reader("sp_gia")),
                                 .IsXoa = CBool(reader("sp_xoa")),
                                 .Code = CStr(reader("sp_code")),
+                                .Sp_Dv_Ma = CStr(reader("sp_dv_ma")),
                                 .LoaiSp_Ma = CInt(reader("lsp_ma")),
                                 .LoaiSp_Ten = CStr(reader("lsp_ten")),
                                 .LoaiSp_Ncc_Ma = CInt(reader("lsp_ncc")),
@@ -219,11 +236,18 @@ Public Class SanPhamDAO
                                 .NCC_Ten = CStr(reader("ncc_ten")),
                                 .Kv_Ma = CInt(reader("kv_ma")),
                                 .Kv_Ten = CStr(reader("kv_ten")),
-                                .LoaiSp_SoLuong = CInt(reader("lsp_so_luong")),
+                                .Sp_SoLuong = CInt(reader("sp_so_luong")),
                                 .LoaiSp_ChiNhanh = New ChiNhanh() With {
-                                    .Ma = chiNhanhMa,
+                                    .Ma = CStr(reader("cn_ma")),
                                     .Ten = CStr(reader("cn_ten")),
                                     .DiaChi = CStr(reader("cn_dia_chi"))
+                                },
+                                .Sp_DonVi = New DonVi() With {
+                                    .Ma = CInt(reader("dv_ma")),
+                                    .Ten = CStr(reader("dv_ten")),
+                                    .Mota = CStr(reader("dv_mota")),
+                                    .IsXoa = CBool(reader("dv_xoa")),
+                                    .Code = CStr(reader("dv_code"))
                                 }
                         }
                         spList.Add(sp)

@@ -16,4 +16,5 @@
 
     Sub BindingListToComBoBoxLoaiSp(list As List(Of LoaiSanPham))
 
+    Sub BindingListDonViToComboBox(list As List(Of DonVi))
 End Interface

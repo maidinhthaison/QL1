@@ -102,6 +102,7 @@ Public Class ISanPhamControllerImpl
         selectedSp.Mota = editedSanPham.Mota
         selectedSp.Loai = editedSanPham.Loai
         selectedSp.Gia = editedSanPham.Gia
+        selectedSp.Sp_SoLuong = editedSanPham.Sp_SoLuong
         Dim spToSave As New List(Of SanPham) From {selectedSp}
         If sanPhamDAO.SaveSanPham(spToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
@@ -129,7 +130,7 @@ Public Class ISanPhamControllerImpl
                         sp.LoaiSp_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.NCC_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.LoaiSp_ChiNhanh.Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
-                        sp.LoaiSp_SoLuong.ToString.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Sp_SoLuong.ToString.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.Kv_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
                ).ToList()
             Return searchResult

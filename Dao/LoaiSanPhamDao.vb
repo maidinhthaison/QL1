@@ -9,7 +9,7 @@ Public Class LoaiSanPhamDao
     '========================================================================
     Public Function LoadLoaiSanPham() As List(Of LoaiSanPham)
         Dim loaiSanPhamList As New List(Of LoaiSanPham)()
-        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_so_luong, lsp_cn_ma
+        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_cn_ma
                 FROM LoaiSanPham WHERE lsp_xoa = False ORDER BY lsp_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
@@ -27,7 +27,6 @@ Public Class LoaiSanPhamDao
                                 .Code = CStr(reader("lsp_code")),
                                 .Lsp_Ncc_Ma = CInt(reader("lsp_ncc")),
                                 .Lsp_Kv_Ma = CInt(reader("lsp_khu_vuc")),
-                                .Lsp_So_Luong = CInt(reader("lsp_so_luong")),
                                 .Lsp_Chi_Nhanh_Ma = CInt(reader("lsp_cn_ma"))
                         }
                         loaiSanPhamList.Add(lsp)
@@ -87,7 +86,7 @@ Public Class LoaiSanPhamDao
     Private Shared Sub InsertLoaiSanPham(ByVal lsp As LoaiSanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
         Dim sql As String = "INSERT INTO LoaiSanPham (lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code,
-                lsp_ncc, lsp_khu_vuc, lsp_so_luong, lsp_cn_ma) VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
+                lsp_ncc, lsp_khu_vuc, lsp_cn_ma) VALUES (?, ?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
@@ -97,7 +96,6 @@ Public Class LoaiSanPhamDao
             cmd.Parameters.AddWithValue("pCode", lsp.Code)
             cmd.Parameters.AddWithValue("pNcc", lsp.Lsp_Ncc_Ma)
             cmd.Parameters.AddWithValue("pKv", lsp.Lsp_Kv_Ma)
-            cmd.Parameters.AddWithValue("pSl", lsp.Lsp_So_Luong)
             cmd.Parameters.AddWithValue("pCnMa", lsp.Lsp_Chi_Nhanh_Ma)
             cmd.ExecuteNonQuery()
 
@@ -109,7 +107,7 @@ Public Class LoaiSanPhamDao
 
     Private Shared Sub UpdateLoaiSanPham(ByVal lsp As LoaiSanPham, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE LoaiSanPham SET lsp_ten = ?, lsp_mo_ta = ?, lsp_xoa = ?,
-            lsp_ncc = ?, lsp_khu_vuc = ?, lsp_so_luong = ? WHERE lsp_ma = ?"
+            lsp_ncc = ?, lsp_khu_vuc = ? WHERE lsp_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pTen", lsp.Ten)
@@ -117,7 +115,6 @@ Public Class LoaiSanPhamDao
             cmd.Parameters.AddWithValue("pXoa", lsp.IsXoa)
             cmd.Parameters.AddWithValue("pNcc", lsp.Lsp_Ncc_Ma)
             cmd.Parameters.AddWithValue("pKv", lsp.Lsp_Kv_Ma)
-            cmd.Parameters.AddWithValue("pSl", lsp.Lsp_So_Luong)
             cmd.Parameters.AddWithValue("pMa", lsp.Ma)
             cmd.ExecuteNonQuery()
         End Using
@@ -125,7 +122,7 @@ Public Class LoaiSanPhamDao
 
     Public Function Get_LSP_BY_KhuVuc_ChiNhanh_NCC() As List(Of LoaiSanPham)
         Dim loaiSanPhamList As New List(Of LoaiSanPham)()
-        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_so_luong, lsp_cn_ma,
+        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_cn_ma,
                 ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, ncc.ncc_diachi AS ncc_diachi, 
                 ncc.ncc_dien_thoai AS ncc_dien_thoai, ncc.ncc_ghi_chu AS ncc_ghi_chu, ncc.ncc_xoa AS ncc_xoa, 
                 ncc.ncc_code AS ncc_code, 
@@ -169,7 +166,6 @@ Public Class LoaiSanPhamDao
                                     .Code = CStr(reader("kv_code")),
                                     .IsXoa = CBool(reader("kv_xoa"))
                                 },
-                                .Lsp_So_Luong = CInt(reader("lsp_so_luong")),
                                 .Lsp_Chi_Nhanh_Ma = CInt(reader("lsp_cn_ma")),
                                 .Lsp_ChiNhanh = New ChiNhanh With {
                                     .Ma = CInt(reader("lsp_cn_ma")),
@@ -249,7 +245,7 @@ Public Class LoaiSanPhamDao
 
     Public Function Get_KhuVucNCC_By_LoaiSP_Ma(loaiSpMa As Integer) As List(Of LoaiSanPham)
         Dim loaiSanPhamList As New List(Of LoaiSanPham)()
-        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_so_luong, lsp_cn_ma
+        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_cn_ma
                 ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, ncc.ncc_diachi AS ncc_diachi, 
                 ncc.ncc_dien_thoai AS ncc_dien_thoai, ncc.ncc_ghi_chu AS ncc_ghi_chu, ncc.ncc_xoa AS ncc_xoa, 
                 ncc.ncc_code AS ncc_code, 
@@ -294,7 +290,6 @@ Public Class LoaiSanPhamDao
                                     .Code = CStr(reader("kv_code")),
                                     .IsXoa = CBool(reader("kv_xoa"))
                                 },
-                                .Lsp_So_Luong = CInt(reader("lsp_so_luong")),
                                 .Lsp_Chi_Nhanh_Ma = CInt(reader("lsp_cn_ma")),
                                 .Lsp_ChiNhanh = New ChiNhanh With {
                                     .Ma = CInt(reader("lsp_cn_ma")),
