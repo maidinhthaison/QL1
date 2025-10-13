@@ -6,6 +6,7 @@
     Private _sp_gia As Double
     Private _sp_xoa As Boolean
     Private _sp_code As String
+    Private _sp_dv_ma As String
 
     ' Ref
     Private _lsp_ma As Integer
@@ -22,6 +23,7 @@
 
     Private _lsp_soluong As Integer
     Private _lsp_chinhanh As ChiNhanh
+    Private _lsp_donvi As DonVi
 
     Public Property LoaiSp_Ma() As Integer
         Get
@@ -163,7 +165,7 @@
         End Set
     End Property
 
-    Public Property LoaiSp_SoLuong() As Integer
+    Public Property Sp_SoLuong() As Integer
         Get
             Return _lsp_soluong
         End Get
@@ -181,4 +183,21 @@
         End Set
     End Property
 
+    Public Property Sp_Dv_Ma() As String
+        Get
+            Return _sp_dv_ma
+        End Get
+        Set(ByVal value As String)
+            _sp_dv_ma = value
+        End Set
+    End Property
+
+    Public Property Sp_DonVi() As DonVi
+        Get
+            Return _lsp_donvi
+        End Get
+        Set(ByVal value As DonVi)
+            _lsp_donvi = value
+        End Set
+    End Property
 End Class

@@ -3,7 +3,7 @@
 
     Private sanPhamController As ISanPhamControllerImpl
 
-
+    Private donViController As IDonViControllerImpl
     Public Sub SetController(Controller As ISanPhamControllerImpl) Implements ISanPhamView.SetController
         sanPhamController = Controller
     End Sub
@@ -11,6 +11,8 @@
     Public Sub LoadData() Implements ISanPhamView.LoadData
         sanPhamController.XulyLoadLoaiSanPham()
         sanPhamController.XulyLoadData()
+        donViController.XuLyGetAllDonVi()
+        BindingListDonViToComboBox(donViController.GetListDonVi)
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -64,7 +66,7 @@
         rtbMota.Text = sp.Mota
         lbCode.Text = sp.Code
         cbLoaiSp.SelectedValue = sp.Loai
-        tbSoLuong.Text = sp.LoaiSp_SoLuong
+        tbSoLuong.Text = sp.Sp_SoLuong
         lbKhuVuc.Text = sp.Kv_Ten
         lbNhacc.Text = sp.NCC_Ten
 
@@ -82,6 +84,8 @@
         dgvSanPham.Columns("NCC_Ma").Visible = False
         dgvSanPham.Columns("Kv_Ma").Visible = False
         dgvSanPham.Columns("Code").Visible = False
+        dgvSanPham.Columns("Sp_Dv_Ma").Visible = False
+        dgvSanPham.Columns("Sp_DonVi").Visible = False
 
         ' Set custom header text for columns
 
@@ -94,8 +98,8 @@
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
         dgvSanPham.Columns("Gia").DisplayIndex = 2
 
-        dgvSanPham.Columns("LoaiSp_SoLuong").HeaderText = "Số lượng"
-        dgvSanPham.Columns("LoaiSp_SoLuong").DisplayIndex = 3
+        dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Số lượng"
+        dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 3
 
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
         dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
@@ -191,6 +195,7 @@
     Private Sub FormQLSanPham_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         sanPhamController = ISanPhamControllerImpl.Instance
         sanPhamController.Init(Me)
+        donViController = IDonViControllerImpl.Instance
         InitViews()
         LoadData()
     End Sub
@@ -221,5 +226,12 @@
                 End If
             End If
         End If
+    End Sub
+
+    Public Sub BindingListDonViToComboBox(list As List(Of DonVi)) Implements ISanPhamView.BindingListDonViToComboBox
+        cbDonVi.DataSource = Nothing
+        cbDonVi.DataSource = list
+        cbDonVi.DisplayMember = "Ten"
+        cbDonVi.ValueMember = "Ma"
     End Sub
 End Class

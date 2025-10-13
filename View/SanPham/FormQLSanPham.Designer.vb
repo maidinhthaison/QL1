@@ -27,6 +27,8 @@ Partial Class FormQLSanPham
         Label1 = New Label()
         tbTukhoa = New TextBox()
         Panel1 = New Panel()
+        tbSoLuong = New TextBox()
+        Label9 = New Label()
         lbKhuVuc = New Label()
         Label8 = New Label()
         lbNhacc = New Label()
@@ -46,8 +48,8 @@ Partial Class FormQLSanPham
         Label2 = New Label()
         dgvSanPham = New DataGridView()
         bsSanPham = New BindingSource(components)
-        Label9 = New Label()
-        tbSoLuong = New TextBox()
+        Label10 = New Label()
+        cbDonVi = New ComboBox()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
@@ -64,7 +66,7 @@ Partial Class FormQLSanPham
         GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Padding = New Padding(3, 4, 3, 4)
-        GroupBox1.Size = New Size(1278, 597)
+        GroupBox1.Size = New Size(1278, 685)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý sản phẩm"
@@ -89,6 +91,8 @@ Partial Class FormQLSanPham
         ' 
         ' Panel1
         ' 
+        Panel1.Controls.Add(cbDonVi)
+        Panel1.Controls.Add(Label10)
         Panel1.Controls.Add(tbSoLuong)
         Panel1.Controls.Add(Label9)
         Panel1.Controls.Add(lbKhuVuc)
@@ -111,8 +115,25 @@ Partial Class FormQLSanPham
         Panel1.Location = New Point(967, 29)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(304, 560)
+        Panel1.Size = New Size(304, 644)
         Panel1.TabIndex = 4
+        ' 
+        ' tbSoLuong
+        ' 
+        tbSoLuong.Location = New Point(123, 331)
+        tbSoLuong.Margin = New Padding(3, 4, 3, 4)
+        tbSoLuong.Name = "tbSoLuong"
+        tbSoLuong.Size = New Size(103, 27)
+        tbSoLuong.TabIndex = 26
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Location = New Point(11, 334)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(69, 20)
+        Label9.TabIndex = 25
+        Label9.Text = "Số lượng"
         ' 
         ' lbKhuVuc
         ' 
@@ -152,7 +173,7 @@ Partial Class FormQLSanPham
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(6, 525)
+        btnThem.Location = New Point(9, 600)
         btnThem.Margin = New Padding(3, 4, 3, 4)
         btnThem.Name = "btnThem"
         btnThem.Size = New Size(86, 31)
@@ -162,7 +183,7 @@ Partial Class FormQLSanPham
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(114, 525)
+        btnCapNhat.Location = New Point(117, 600)
         btnCapNhat.Margin = New Padding(3, 4, 3, 4)
         btnCapNhat.Name = "btnCapNhat"
         btnCapNhat.Size = New Size(86, 31)
@@ -172,7 +193,7 @@ Partial Class FormQLSanPham
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(207, 525)
+        btnXoa.Location = New Point(210, 600)
         btnXoa.Margin = New Padding(3, 4, 3, 4)
         btnXoa.Name = "btnXoa"
         btnXoa.Size = New Size(86, 31)
@@ -183,7 +204,7 @@ Partial Class FormQLSanPham
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(12, 385)
+        Label6.Location = New Point(15, 440)
         Label6.Name = "Label6"
         Label6.Size = New Size(48, 20)
         Label6.TabIndex = 17
@@ -217,10 +238,10 @@ Partial Class FormQLSanPham
         ' 
         ' rtbMota
         ' 
-        rtbMota.Location = New Point(115, 381)
+        rtbMota.Location = New Point(123, 440)
         rtbMota.Margin = New Padding(3, 4, 3, 4)
         rtbMota.Name = "rtbMota"
-        rtbMota.Size = New Size(173, 127)
+        rtbMota.Size = New Size(167, 127)
         rtbMota.TabIndex = 12
         rtbMota.Text = ""
         ' 
@@ -282,31 +303,32 @@ Partial Class FormQLSanPham
         dgvSanPham.ReadOnly = True
         dgvSanPham.RowHeadersWidth = 51
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSanPham.Size = New Size(953, 512)
+        dgvSanPham.Size = New Size(953, 596)
         dgvSanPham.TabIndex = 3
         ' 
-        ' Label9
+        ' Label10
         ' 
-        Label9.AutoSize = True
-        Label9.Location = New Point(11, 334)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(69, 20)
-        Label9.TabIndex = 25
-        Label9.Text = "Số lượng"
+        Label10.AutoSize = True
+        Label10.Location = New Point(11, 389)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(52, 20)
+        Label10.TabIndex = 27
+        Label10.Text = "Đơn vị"
         ' 
-        ' tbSoLuong
+        ' cbDonVi
         ' 
-        tbSoLuong.Location = New Point(123, 331)
-        tbSoLuong.Margin = New Padding(3, 4, 3, 4)
-        tbSoLuong.Name = "tbSoLuong"
-        tbSoLuong.Size = New Size(103, 27)
-        tbSoLuong.TabIndex = 26
+        cbDonVi.FormattingEnabled = True
+        cbDonVi.Location = New Point(123, 381)
+        cbDonVi.Margin = New Padding(3, 4, 3, 4)
+        cbDonVi.Name = "cbDonVi"
+        cbDonVi.Size = New Size(167, 28)
+        cbDonVi.TabIndex = 28
         ' 
         ' FormQLSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1305, 629)
+        ClientSize = New Size(1305, 809)
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLSanPham"
@@ -345,4 +367,6 @@ Partial Class FormQLSanPham
     Friend WithEvents lbNhacc As Label
     Friend WithEvents tbSoLuong As TextBox
     Friend WithEvents Label9 As Label
+    Friend WithEvents cbDonVi As ComboBox
+    Friend WithEvents Label10 As Label
 End Class
