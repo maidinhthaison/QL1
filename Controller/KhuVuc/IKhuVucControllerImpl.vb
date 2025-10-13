@@ -74,11 +74,12 @@ Public Class IKhuVucControllerImpl
         View.BindingListToGridView(listKhuVuc)
     End Sub
 
-    Public Sub XulyCapNhatKhuVuc(ten As String, mota As String, code As String) Implements IKhuVucController.XulyCapNhatKhuVuc
+    Public Sub XulyCapNhatKhuVuc(edittedKhuVuc As KhuVuc) Implements IKhuVucController.XulyCapNhatKhuVuc
         Dim kv As KhuVuc = listKhuVuc(selectedIndex)
-        kv.Ten = ten
-        kv.Mota = mota
-        kv.Code = code
+        kv.Ten = edittedKhuVuc.Ten
+        kv.Mota = edittedKhuVuc.Mota
+        kv.Code = edittedKhuVuc.Code
+        kv.IsXoa = edittedKhuVuc.IsXoa
         Dim khuVucToSave As New List(Of KhuVuc) From {kv}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,

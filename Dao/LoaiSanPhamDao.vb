@@ -245,15 +245,15 @@ Public Class LoaiSanPhamDao
 
     Public Function Get_KhuVucNCC_By_LoaiSP_Ma(loaiSpMa As Integer) As List(Of LoaiSanPham)
         Dim loaiSanPhamList As New List(Of LoaiSanPham)()
-        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_cn_ma
+        Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_cn_ma,
                 ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, ncc.ncc_diachi AS ncc_diachi, 
                 ncc.ncc_dien_thoai AS ncc_dien_thoai, ncc.ncc_ghi_chu AS ncc_ghi_chu, ncc.ncc_xoa AS ncc_xoa, 
                 ncc.ncc_code AS ncc_code, 
                 kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten, kv.kv_mo_ta AS kv_mo_ta, kv.kv_xoa AS kv_xoa, kv.kv_code AS kv_code,
                 cn.cn_ma AS cn_ma, cn.cn_ten AS cn_ten, cn.cn_dia_chi AS cn_dia_chi
-                FROM (LoaiSanPham AS lsp
+                FROM ((LoaiSanPham AS lsp
                 INNER JOIN NhaCungCap AS ncc ON ncc.ncc_ma = lsp.lsp_ncc)
-                INNER JOIN KhuVuc AS kv ON kv.kv_ma = lsp.lsp_khu_vuc
+                INNER JOIN KhuVuc AS kv ON kv.kv_ma = lsp.lsp_khu_vuc)
                 INNER JOIN ChiNhanh AS cn ON cn.cn_ma = lsp.lsp_cn_ma
                 WHERE lsp_ma = ? AND lsp_xoa = ? "
 

@@ -34,12 +34,10 @@ Public Class FormKhuVuc
         ' Set custom header text for columns
         dgvKhuVuc.Columns("Ten").HeaderText = "Tên KV"
         dgvKhuVuc.Columns("Mota").HeaderText = "Mô tả"
-        dgvKhuVuc.Columns("Code").HeaderText = "Code"
 
     End Sub
 
     Public Sub BindingToTextBox(khuVuc As KhuVuc) Implements IKhuVucView.BindingToTextBox
-        tbMaKv.Text = khuVuc.Code
         tbTenKv.Text = khuVuc.Ten
         rtbMota.Text = khuVuc.Mota
     End Sub
@@ -78,7 +76,7 @@ Public Class FormKhuVuc
         Dim newKhuVuc As New KhuVuc() With {
             .Ten = tbTenKv.Text,
             .Mota = rtbMota.Text,
-            .Code = tbMaKv.Text,
+            .Code = Gen_6Chars_UUID(),
             .IsXoa = False
         }
         khuVucController.XulyThemKhuVuc(newKhuVuc)
@@ -100,7 +98,11 @@ Public Class FormKhuVuc
     Private Sub CapNhatKhuVuc()
 
         If dgvKhuVuc.SelectedCells.Count > 0 Then
-            khuVucController.XulyCapNhatKhuVuc(tbTenKv.Text, rtbMota.Text, tbMaKv.Text)
+            Dim edittedKhuVuc As New KhuVuc() With {
+                .Ten = tbTenKv.Text,
+                .Mota = rtbMota.Text
+            }
+            khuVucController.XulyCapNhatKhuVuc(edittedKhuVuc)
         End If
     End Sub
 
@@ -112,7 +114,7 @@ Public Class FormKhuVuc
     End Sub
 
     Private Sub ClearFields() Implements IKhuVucView.ClearFields
-        tbMaKv.Text = ""
+
         tbTenKv.Text = ""
         rtbMota.Text = ""
     End Sub
