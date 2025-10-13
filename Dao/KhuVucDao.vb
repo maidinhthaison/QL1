@@ -9,7 +9,7 @@ Public Class KhuVucDao
     '========================================================================
     Public Function LoadKhuVuc() As List(Of KhuVuc)
         Dim khuVucList As New List(Of KhuVuc)()
-        Dim sql As String = "SELECT kv_ma, kv_ten, kv_code, kv_mo_ta, kv_xoa FROM KhuVuc WHERE kv_xoa = False ORDER BY kv_ma"
+        Dim sql As String = "SELECT * FROM KhuVuc WHERE kv_xoa = False ORDER BY kv_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
@@ -99,11 +99,10 @@ Public Class KhuVucDao
     End Sub
 
     Private Sub UpdateKhuVuc(ByVal KV As KhuVuc, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
-        Dim sql As String = "UPDATE KhuVuc SET kv_ten = ?, kv_code = ?, kv_mo_ta = ?, kv_xoa = ? WHERE kv_ma = ?"
+        Dim sql As String = "UPDATE KhuVuc SET kv_ten = ?,  kv_mo_ta = ?, kv_xoa = ? WHERE kv_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pTen", KV.Ten)
-            cmd.Parameters.AddWithValue("pCode", KV.Code)
             cmd.Parameters.AddWithValue("pMota", KV.Mota)
             cmd.Parameters.AddWithValue("pXoa", KV.IsXoa)
             cmd.Parameters.AddWithValue("pMa", KV.Ma)

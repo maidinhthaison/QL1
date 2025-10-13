@@ -173,7 +173,7 @@
         tbTen.Text = ""
         rtbMota.Text = ""
         lbCode.Text = ""
-        tbSoLuong.Text = "0"
+
     End Sub
 
 

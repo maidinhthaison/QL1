@@ -29,9 +29,7 @@ Partial Class FormKhuVuc
         rtbMota = New RichTextBox()
         Label3 = New Label()
         tbTenKv = New TextBox()
-        Label2 = New Label()
         btnThem = New Button()
-        tbMaKv = New TextBox()
         Label1 = New Label()
         dgvKhuVuc = New DataGridView()
         BindingSource1 = New BindingSource(components)
@@ -45,9 +43,11 @@ Partial Class FormKhuVuc
         ' 
         GroupBox1.Controls.Add(Panel1)
         GroupBox1.Controls.Add(dgvKhuVuc)
-        GroupBox1.Location = New Point(12, 12)
+        GroupBox1.Location = New Point(14, 16)
+        GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(776, 426)
+        GroupBox1.Padding = New Padding(3, 4, 3, 4)
+        GroupBox1.Size = New Size(887, 568)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý khu vực"
@@ -59,88 +59,76 @@ Partial Class FormKhuVuc
         Panel1.Controls.Add(rtbMota)
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(tbTenKv)
-        Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(btnThem)
-        Panel1.Controls.Add(tbMaKv)
         Panel1.Controls.Add(Label1)
-        Panel1.Location = New Point(416, 22)
+        Panel1.Location = New Point(475, 29)
+        Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(354, 398)
+        Panel1.Size = New Size(405, 531)
         Panel1.TabIndex = 2
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(208, 221)
+        btnXoa.Location = New Point(229, 234)
+        btnXoa.Margin = New Padding(3, 4, 3, 4)
         btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(75, 23)
+        btnXoa.Size = New Size(86, 31)
         btnXoa.TabIndex = 8
         btnXoa.Text = "Xoá"
         btnXoa.UseVisualStyleBackColor = True
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(115, 221)
+        btnCapNhat.Location = New Point(122, 234)
+        btnCapNhat.Margin = New Padding(3, 4, 3, 4)
         btnCapNhat.Name = "btnCapNhat"
-        btnCapNhat.Size = New Size(75, 23)
+        btnCapNhat.Size = New Size(86, 31)
         btnCapNhat.TabIndex = 7
         btnCapNhat.Text = "Cập nhật"
         btnCapNhat.UseVisualStyleBackColor = True
         ' 
         ' rtbMota
         ' 
-        rtbMota.Location = New Point(100, 103)
+        rtbMota.Location = New Point(122, 76)
+        rtbMota.Margin = New Padding(3, 4, 3, 4)
         rtbMota.Name = "rtbMota"
-        rtbMota.Size = New Size(235, 96)
+        rtbMota.Size = New Size(251, 127)
         rtbMota.TabIndex = 6
         rtbMota.Text = ""
         ' 
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(22, 106)
+        Label3.Location = New Point(16, 80)
         Label3.Name = "Label3"
-        Label3.Size = New Size(38, 15)
+        Label3.Size = New Size(48, 20)
         Label3.TabIndex = 5
         Label3.Text = "Mô tả"
         ' 
         ' tbTenKv
         ' 
-        tbTenKv.Location = New Point(100, 55)
+        tbTenKv.Location = New Point(122, 12)
+        tbTenKv.Margin = New Padding(3, 4, 3, 4)
         tbTenKv.Name = "tbTenKv"
-        tbTenKv.Size = New Size(100, 23)
+        tbTenKv.Size = New Size(251, 27)
         tbTenKv.TabIndex = 4
-        ' 
-        ' Label2
-        ' 
-        Label2.AutoSize = True
-        Label2.Location = New Point(22, 17)
-        Label2.Name = "Label2"
-        Label2.Size = New Size(71, 15)
-        Label2.TabIndex = 3
-        Label2.Text = "Mã Khu Vực"
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(22, 221)
+        btnThem.Location = New Point(16, 234)
+        btnThem.Margin = New Padding(3, 4, 3, 4)
         btnThem.Name = "btnThem"
-        btnThem.Size = New Size(75, 23)
+        btnThem.Size = New Size(86, 31)
         btnThem.TabIndex = 2
         btnThem.Text = "Thêm"
         btnThem.UseVisualStyleBackColor = True
         ' 
-        ' tbMaKv
-        ' 
-        tbMaKv.Location = New Point(100, 14)
-        tbMaKv.Name = "tbMaKv"
-        tbMaKv.Size = New Size(100, 23)
-        tbMaKv.TabIndex = 1
-        ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(22, 58)
+        Label1.Location = New Point(16, 16)
         Label1.Name = "Label1"
-        Label1.Size = New Size(72, 15)
+        Label1.Size = New Size(90, 20)
         Label1.TabIndex = 0
         Label1.Text = "Tên Khu Vực"
         ' 
@@ -150,19 +138,22 @@ Partial Class FormKhuVuc
         dgvKhuVuc.AllowUserToDeleteRows = False
         dgvKhuVuc.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvKhuVuc.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvKhuVuc.Location = New Point(6, 22)
+        dgvKhuVuc.Location = New Point(7, 29)
+        dgvKhuVuc.Margin = New Padding(3, 4, 3, 4)
         dgvKhuVuc.Name = "dgvKhuVuc"
         dgvKhuVuc.ReadOnly = True
+        dgvKhuVuc.RowHeadersWidth = 51
         dgvKhuVuc.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvKhuVuc.Size = New Size(404, 398)
+        dgvKhuVuc.Size = New Size(462, 531)
         dgvKhuVuc.TabIndex = 1
         ' 
         ' FormKhuVuc
         ' 
-        AutoScaleDimensions = New SizeF(7F, 15F)
+        AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(800, 450)
+        ClientSize = New Size(914, 600)
         Controls.Add(GroupBox1)
+        Margin = New Padding(3, 4, 3, 4)
         Name = "FormKhuVuc"
         Text = "Khu Vực"
         GroupBox1.ResumeLayout(False)
@@ -181,9 +172,7 @@ Partial Class FormKhuVuc
     Friend WithEvents rtbMota As RichTextBox
     Friend WithEvents Label3 As Label
     Friend WithEvents tbTenKv As TextBox
-    Friend WithEvents Label2 As Label
     Friend WithEvents btnThem As Button
-    Friend WithEvents tbMaKv As TextBox
     Friend WithEvents Label1 As Label
     Friend WithEvents BindingSource1 As BindingSource
 End Class

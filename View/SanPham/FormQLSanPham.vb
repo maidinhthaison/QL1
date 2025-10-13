@@ -178,7 +178,9 @@
             .Kv_Ma = loaiSP.Lsp_Kv.Ma,
             .Kv_Ten = loaiSP.Lsp_Kv.Ten,
             .Sp_SoLuong = tbSoLuong.Text,
-            .Sp_Dv_Ma = CType(cbDonVi.SelectedItem, DonVi).Ma
+            .Sp_Dv_Ma = If(cbDonVi.SelectedValue IsNot Nothing, Convert.ToInt32(cbDonVi.SelectedValue), 0),
+            .Sp_DonVi = TryCast(cbDonVi.SelectedItem, DonVi),
+            .LoaiSp_ChiNhanh = loaiSP.Lsp_ChiNhanh
         }
         sanPhamController.XulyThemSanPham(newSp)
 
