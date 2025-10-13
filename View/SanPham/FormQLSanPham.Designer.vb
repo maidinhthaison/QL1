@@ -27,6 +27,8 @@ Partial Class FormQLSanPham
         Label1 = New Label()
         tbTukhoa = New TextBox()
         Panel1 = New Panel()
+        cbDonVi = New ComboBox()
+        Label10 = New Label()
         tbSoLuong = New TextBox()
         Label9 = New Label()
         lbKhuVuc = New Label()
@@ -48,8 +50,6 @@ Partial Class FormQLSanPham
         Label2 = New Label()
         dgvSanPham = New DataGridView()
         bsSanPham = New BindingSource(components)
-        Label10 = New Label()
-        cbDonVi = New ComboBox()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
@@ -66,7 +66,7 @@ Partial Class FormQLSanPham
         GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Padding = New Padding(3, 4, 3, 4)
-        GroupBox1.Size = New Size(1278, 685)
+        GroupBox1.Size = New Size(1278, 780)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý sản phẩm"
@@ -115,8 +115,26 @@ Partial Class FormQLSanPham
         Panel1.Location = New Point(967, 29)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(304, 644)
+        Panel1.Size = New Size(304, 743)
         Panel1.TabIndex = 4
+        ' 
+        ' cbDonVi
+        ' 
+        cbDonVi.FormattingEnabled = True
+        cbDonVi.Location = New Point(123, 381)
+        cbDonVi.Margin = New Padding(3, 4, 3, 4)
+        cbDonVi.Name = "cbDonVi"
+        cbDonVi.Size = New Size(167, 28)
+        cbDonVi.TabIndex = 28
+        ' 
+        ' Label10
+        ' 
+        Label10.AutoSize = True
+        Label10.Location = New Point(11, 389)
+        Label10.Name = "Label10"
+        Label10.Size = New Size(52, 20)
+        Label10.TabIndex = 27
+        Label10.Text = "Đơn vị"
         ' 
         ' tbSoLuong
         ' 
@@ -303,26 +321,8 @@ Partial Class FormQLSanPham
         dgvSanPham.ReadOnly = True
         dgvSanPham.RowHeadersWidth = 51
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSanPham.Size = New Size(953, 596)
+        dgvSanPham.Size = New Size(953, 695)
         dgvSanPham.TabIndex = 3
-        ' 
-        ' Label10
-        ' 
-        Label10.AutoSize = True
-        Label10.Location = New Point(11, 389)
-        Label10.Name = "Label10"
-        Label10.Size = New Size(52, 20)
-        Label10.TabIndex = 27
-        Label10.Text = "Đơn vị"
-        ' 
-        ' cbDonVi
-        ' 
-        cbDonVi.FormattingEnabled = True
-        cbDonVi.Location = New Point(123, 381)
-        cbDonVi.Margin = New Padding(3, 4, 3, 4)
-        cbDonVi.Name = "cbDonVi"
-        cbDonVi.Size = New Size(167, 28)
-        cbDonVi.TabIndex = 28
         ' 
         ' FormQLSanPham
         ' 
