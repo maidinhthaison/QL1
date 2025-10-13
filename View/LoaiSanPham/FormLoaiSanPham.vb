@@ -161,14 +161,11 @@
         dgvLoaiSp.Columns("Lsp_Ncc").HeaderText = "Nhà CC"
         dgvLoaiSp.Columns("Lsp_Ncc").DisplayIndex = 1
 
-        dgvLoaiSp.Columns("Lsp_So_Luong").HeaderText = "Số lượng"
-        dgvLoaiSp.Columns("Lsp_So_Luong").DisplayIndex = 2
-
         dgvLoaiSp.Columns("Lsp_ChiNhanh").HeaderText = "ChiNhanh"
-        dgvLoaiSp.Columns("Lsp_ChiNhanh").DisplayIndex = 3
+        dgvLoaiSp.Columns("Lsp_ChiNhanh").DisplayIndex = 2
 
         dgvLoaiSp.Columns("Lsp_Kv").HeaderText = "Khu Vực"
-        dgvLoaiSp.Columns("Lsp_Kv").DisplayIndex = 4
+        dgvLoaiSp.Columns("Lsp_Kv").DisplayIndex = 3
 
     End Sub
 
