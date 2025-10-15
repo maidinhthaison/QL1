@@ -50,6 +50,8 @@ Partial Class FormQLSanPham
         Label2 = New Label()
         dgvSanPham = New DataGridView()
         bsSanPham = New BindingSource(components)
+        Label11 = New Label()
+        cbChiNhanh = New ComboBox()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
@@ -58,6 +60,8 @@ Partial Class FormQLSanPham
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(cbChiNhanh)
+        GroupBox1.Controls.Add(Label11)
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Controls.Add(tbTukhoa)
         GroupBox1.Controls.Add(Panel1)
@@ -121,7 +125,7 @@ Partial Class FormQLSanPham
         ' cbDonVi
         ' 
         cbDonVi.FormattingEnabled = True
-        cbDonVi.Location = New Point(123, 381)
+        cbDonVi.Location = New Point(123, 360)
         cbDonVi.Margin = New Padding(3, 4, 3, 4)
         cbDonVi.Name = "cbDonVi"
         cbDonVi.Size = New Size(167, 28)
@@ -130,7 +134,7 @@ Partial Class FormQLSanPham
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(11, 389)
+        Label10.Location = New Point(11, 368)
         Label10.Name = "Label10"
         Label10.Size = New Size(52, 20)
         Label10.TabIndex = 27
@@ -138,7 +142,7 @@ Partial Class FormQLSanPham
         ' 
         ' tbSoLuong
         ' 
-        tbSoLuong.Location = New Point(123, 331)
+        tbSoLuong.Location = New Point(123, 310)
         tbSoLuong.Margin = New Padding(3, 4, 3, 4)
         tbSoLuong.Name = "tbSoLuong"
         tbSoLuong.Size = New Size(103, 27)
@@ -147,7 +151,7 @@ Partial Class FormQLSanPham
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(11, 334)
+        Label9.Location = New Point(11, 313)
         Label9.Name = "Label9"
         Label9.Size = New Size(69, 20)
         Label9.TabIndex = 25
@@ -156,7 +160,7 @@ Partial Class FormQLSanPham
         ' lbKhuVuc
         ' 
         lbKhuVuc.AutoSize = True
-        lbKhuVuc.Location = New Point(123, 132)
+        lbKhuVuc.Location = New Point(123, 165)
         lbKhuVuc.Name = "lbKhuVuc"
         lbKhuVuc.Size = New Size(36, 20)
         lbKhuVuc.TabIndex = 24
@@ -165,7 +169,7 @@ Partial Class FormQLSanPham
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(11, 132)
+        Label8.Location = New Point(12, 165)
         Label8.Name = "Label8"
         Label8.Size = New Size(61, 20)
         Label8.TabIndex = 23
@@ -174,7 +178,7 @@ Partial Class FormQLSanPham
         ' lbNhacc
         ' 
         lbNhacc.AutoSize = True
-        lbNhacc.Location = New Point(123, 93)
+        lbNhacc.Location = New Point(123, 108)
         lbNhacc.Name = "lbNhacc"
         lbNhacc.Size = New Size(36, 20)
         lbNhacc.TabIndex = 22
@@ -183,7 +187,7 @@ Partial Class FormQLSanPham
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(11, 93)
+        Label7.Location = New Point(11, 108)
         Label7.Name = "Label7"
         Label7.Size = New Size(100, 20)
         Label7.TabIndex = 21
@@ -222,7 +226,7 @@ Partial Class FormQLSanPham
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(15, 440)
+        Label6.Location = New Point(15, 419)
         Label6.Name = "Label6"
         Label6.Size = New Size(48, 20)
         Label6.TabIndex = 17
@@ -230,7 +234,7 @@ Partial Class FormQLSanPham
         ' 
         ' tbGia
         ' 
-        tbGia.Location = New Point(123, 281)
+        tbGia.Location = New Point(123, 260)
         tbGia.Margin = New Padding(3, 4, 3, 4)
         tbGia.Name = "tbGia"
         tbGia.Size = New Size(103, 27)
@@ -239,7 +243,7 @@ Partial Class FormQLSanPham
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(12, 288)
+        Label4.Location = New Point(12, 267)
         Label4.Name = "Label4"
         Label4.Size = New Size(31, 20)
         Label4.TabIndex = 15
@@ -248,7 +252,7 @@ Partial Class FormQLSanPham
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(15, 48)
+        Label5.Location = New Point(15, 11)
         Label5.Name = "Label5"
         Label5.Size = New Size(44, 20)
         Label5.TabIndex = 13
@@ -256,7 +260,7 @@ Partial Class FormQLSanPham
         ' 
         ' rtbMota
         ' 
-        rtbMota.Location = New Point(123, 440)
+        rtbMota.Location = New Point(123, 419)
         rtbMota.Margin = New Padding(3, 4, 3, 4)
         rtbMota.Name = "rtbMota"
         rtbMota.Size = New Size(167, 127)
@@ -266,7 +270,7 @@ Partial Class FormQLSanPham
         ' lbCode
         ' 
         lbCode.AutoSize = True
-        lbCode.Location = New Point(123, 48)
+        lbCode.Location = New Point(123, 11)
         lbCode.Name = "lbCode"
         lbCode.Size = New Size(36, 20)
         lbCode.TabIndex = 11
@@ -275,7 +279,7 @@ Partial Class FormQLSanPham
         ' cbLoaiSp
         ' 
         cbLoaiSp.FormattingEnabled = True
-        cbLoaiSp.Location = New Point(123, 183)
+        cbLoaiSp.Location = New Point(123, 48)
         cbLoaiSp.Margin = New Padding(3, 4, 3, 4)
         cbLoaiSp.Name = "cbLoaiSp"
         cbLoaiSp.Size = New Size(173, 28)
@@ -284,7 +288,7 @@ Partial Class FormQLSanPham
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(12, 186)
+        Label3.Location = New Point(12, 51)
         Label3.Name = "Label3"
         Label3.Size = New Size(105, 20)
         Label3.TabIndex = 9
@@ -292,7 +296,7 @@ Partial Class FormQLSanPham
         ' 
         ' tbSanpham
         ' 
-        tbSanpham.Location = New Point(123, 237)
+        tbSanpham.Location = New Point(123, 208)
         tbSanpham.Margin = New Padding(3, 4, 3, 4)
         tbSanpham.Name = "tbSanpham"
         tbSanpham.Size = New Size(173, 27)
@@ -301,7 +305,7 @@ Partial Class FormQLSanPham
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(11, 240)
+        Label2.Location = New Point(11, 211)
         Label2.Name = "Label2"
         Label2.Size = New Size(75, 20)
         Label2.TabIndex = 9
@@ -323,6 +327,24 @@ Partial Class FormQLSanPham
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvSanPham.Size = New Size(953, 695)
         dgvSanPham.TabIndex = 3
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(504, 40)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(74, 20)
+        Label11.TabIndex = 29
+        Label11.Text = "Chi nhánh"
+        ' 
+        ' cbChiNhanh
+        ' 
+        cbChiNhanh.FormattingEnabled = True
+        cbChiNhanh.Location = New Point(584, 32)
+        cbChiNhanh.Margin = New Padding(3, 4, 3, 4)
+        cbChiNhanh.Name = "cbChiNhanh"
+        cbChiNhanh.Size = New Size(173, 28)
+        cbChiNhanh.TabIndex = 29
         ' 
         ' FormQLSanPham
         ' 
@@ -369,4 +391,6 @@ Partial Class FormQLSanPham
     Friend WithEvents Label9 As Label
     Friend WithEvents cbDonVi As ComboBox
     Friend WithEvents Label10 As Label
+    Friend WithEvents cbChiNhanh As ComboBox
+    Friend WithEvents Label11 As Label
 End Class
