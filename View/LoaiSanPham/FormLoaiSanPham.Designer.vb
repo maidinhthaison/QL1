@@ -45,6 +45,8 @@ Partial Class FormLoaiSanPham
         Label2 = New Label()
         tbTen = New TextBox()
         Label1 = New Label()
+        lbChiNhanh = New Label()
+        Label9 = New Label()
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
@@ -53,7 +55,9 @@ Partial Class FormLoaiSanPham
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(lbChiNhanh)
         GroupBox1.Controls.Add(tbTuKhoa)
+        GroupBox1.Controls.Add(Label9)
         GroupBox1.Controls.Add(Label8)
         GroupBox1.Controls.Add(dgvLoaiSp)
         GroupBox1.Location = New Point(14, 16)
@@ -111,6 +115,7 @@ Partial Class FormLoaiSanPham
         ' 
         ' cbChiNhanh
         ' 
+        cbChiNhanh.Enabled = False
         cbChiNhanh.FormattingEnabled = True
         cbChiNhanh.Location = New Point(121, 15)
         cbChiNhanh.Margin = New Padding(3, 4, 3, 4)
@@ -272,6 +277,25 @@ Partial Class FormLoaiSanPham
         Label1.TabIndex = 0
         Label1.Text = "Loại sản phẩm"
         ' 
+        ' lbChiNhanh
+        ' 
+        lbChiNhanh.AutoSize = True
+        lbChiNhanh.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbChiNhanh.Location = New Point(511, 37)
+        lbChiNhanh.Name = "lbChiNhanh"
+        lbChiNhanh.Size = New Size(39, 20)
+        lbChiNhanh.TabIndex = 24
+        lbChiNhanh.Text = "N/A"
+        ' 
+        ' Label9
+        ' 
+        Label9.AutoSize = True
+        Label9.Location = New Point(423, 37)
+        Label9.Name = "Label9"
+        Label9.Size = New Size(77, 20)
+        Label9.TabIndex = 23
+        Label9.Text = "Chi Nhánh"
+        ' 
         ' FormLoaiSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -313,4 +337,6 @@ Partial Class FormLoaiSanPham
     Friend WithEvents Label8 As Label
     Friend WithEvents tbTuKhoa As TextBox
     Friend WithEvents btnHuy As Button
+    Friend WithEvents lbChiNhanh As Label
+    Friend WithEvents Label9 As Label
 End Class
