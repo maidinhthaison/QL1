@@ -31,17 +31,14 @@ Module Util
         Return result.ToString()
     End Function
 
-    Public Function HashPwd(ByVal plainTextPassword As String) As String
-        Dim hashedPassword As String = HashPassword(plainTextPassword, GenerateSalt(12))
-
-        Return hashedPassword
+    Public Function HashPwd(plainTextPassword As String) As String
+        Return BCrypt.Net.BCrypt.HashPassword(plainTextPassword, 12)
     End Function
 
-    Public Function VerifyPassword(ByVal plainTextPassword As String, ByVal storedHash As String) As Boolean
+    Public Function VerifyPassword(plainTextPassword As String, hashedPassword As String) As Boolean
 
-        Dim isPasswordCorrect As Boolean = Verify(plainTextPassword, storedHash)
+        Return BCrypt.Net.BCrypt.Verify(plainTextPassword, hashedPassword)
 
-        Return isPasswordCorrect
     End Function
 
     Public Function GenUUID() As String

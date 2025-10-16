@@ -11,4 +11,7 @@
     Sub XulyGetAllChiNhanh()
 
     Sub XulyXoaNhanVien()
+
+    Sub XulyDangNhap(taiKhoan As TaiKhoan)
+
 End Interface

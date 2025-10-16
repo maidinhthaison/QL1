@@ -181,4 +181,8 @@
         listChiNhanh = chiNhanhDao.GetAllChiNhanh()
         View.BindingChiNhanhCombobox(listChiNhanh)
     End Sub
+
+    Public Sub XulyDangNhap(taiKhoan As TaiKhoan) Implements INhanVienController.XulyDangNhap
+        Throw New NotImplementedException()
+    End Sub
 End Class

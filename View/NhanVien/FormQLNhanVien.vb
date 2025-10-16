@@ -95,7 +95,8 @@ Public Class FormQLNhanVien
             .GioiTinh = isMan,
             .DienThoai = tbDienThoai.Text,
             .IsXoa = False,
-            .TaiKhoan = newTk
+            .TaiKhoan = newTk,
+            .ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh)
         }
         nhanVienController.XulyThemTaiKhoan(newTk, newNv)
     End Sub

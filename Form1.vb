@@ -2,10 +2,16 @@
 
 Public Class Form1
     Dim DsForm As New List(Of Form)
+
+    Private nhanVien As NhanVien
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
+        MessageBox.Show("Chào mừng " & nhanVien.Ten & " đã đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
-
+    Public Sub New(nv As NhanVien)
+        InitializeComponent()
+        Me.nhanVien = nv
+    End Sub
     Function TimForm(type As Type)
         For Each frm As Form In DsForm
             If frm.GetType() Is type Then
