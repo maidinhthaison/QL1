@@ -11,4 +11,7 @@
     Sub XulyGetAllChiNhanh()
 
     Sub XulyXoaNhanVien()
+
+    Function XulyGetThongTinNhanVien(tkMa As Integer) As NhanVien
+
 End Interface

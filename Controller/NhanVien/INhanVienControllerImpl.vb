@@ -28,6 +28,17 @@
         chiNhanhDao = New ChiNhanhDAO()
     End Sub
 
+    Private nhanVienSession As NhanVien
+
+    Public Property UserSession() As NhanVien
+        Get
+            Return nhanVienSession
+        End Get
+        Set(ByVal value As NhanVien)
+            nhanVienSession = value
+        End Set
+    End Property
+
 
     Public Property Index() As Integer
         Get
@@ -181,4 +192,14 @@
         listChiNhanh = chiNhanhDao.GetAllChiNhanh()
         View.BindingChiNhanhCombobox(listChiNhanh)
     End Sub
+
+    Public Function XulyGetThongTinNhanVien(tkMa As Integer) As NhanVien Implements INhanVienController.XulyGetThongTinNhanVien
+        Dim listNv As List(Of NhanVien) = nhanVienDao.Get_NhanVien_ChiNhanh_TaiKhoan_By_MaTaiKhoan(tkMa)
+        If listNv Is Nothing OrElse listNv.Count = 0 Then
+            Return Nothing
+        End If
+        nhanVienSession = listNv(0)
+        Return nhanVienSession
+
+    End Function
 End Class

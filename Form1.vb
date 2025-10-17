@@ -1,11 +1,25 @@
 ﻿Imports System.Runtime.Intrinsics
 
 Public Class Form1
+
     Dim DsForm As New List(Of Form)
+
+    Private nhanViewController As INhanVienControllerImpl
+
+    Private tkMa As Integer
+
+
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
-    End Sub
+        'Get user info
+        nhanViewController = INhanVienControllerImpl.Instance
+        nhanViewController.XulyGetThongTinNhanVien(Me.tkMa)
 
+    End Sub
+    Public Sub New(tkMa As Integer)
+        InitializeComponent()
+        Me.tkMa = tkMa
+    End Sub
     Function TimForm(type As Type)
         For Each frm As Form In DsForm
             If frm.GetType() Is type Then
@@ -173,4 +187,5 @@ Public Class Form1
         ThongTinForm.Show()
         DsForm.Add(ThongTinForm)
     End Sub
+
 End Class

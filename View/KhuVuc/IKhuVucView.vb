@@ -15,6 +15,4 @@ Public Interface IKhuVucView
     Sub ConfigureGridView()
 
     Sub ClearFields()
-
-
 End Interface

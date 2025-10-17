@@ -33,7 +33,7 @@ Namespace My
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _
         Protected Overrides Sub OnCreateMainForm()
-            Me.MainForm = Global._20810229_TapHoa.Form1
+            Me.MainForm = Global._20810229_TapHoa.FormDangNhap
         End Sub
         
         <Global.System.Diagnostics.DebuggerStepThroughAttribute()>  _

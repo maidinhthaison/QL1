@@ -7,6 +7,7 @@ Public Class FormKhuVuc
 
     Private khuVucController As IKhuVucControllerImpl
 
+    Private nhanViewController As INhanVienControllerImpl
 
     Public Sub SetController(Controller As IKhuVucControllerImpl) Implements IKhuVucView.SetController
         khuVucController = Controller
@@ -14,6 +15,8 @@ Public Class FormKhuVuc
 
     Public Sub LoadData() Implements IKhuVucView.LoadData
         khuVucController.XulyLoadData()
+
+        MessageBox.Show("Chào mừng " & nhanViewController.UserSession.Ten & " đã đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Public Sub BindingListToGridView(list As List(Of KhuVuc)) Implements IKhuVucView.BindingListToGridView
@@ -45,6 +48,7 @@ Public Class FormKhuVuc
     Private Sub frmKhuVuc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         khuVucController = IKhuVucControllerImpl.Instance
         khuVucController.Init(Me)
+        nhanViewController = INhanVienControllerImpl.Instance
         InitViews()
         LoadData()
     End Sub

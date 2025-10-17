@@ -165,4 +165,55 @@ Public Class NhanVienDAO
         Return nvList
     End Function
 
+    Public Function Get_NhanVien_ChiNhanh_TaiKhoan_By_MaTaiKhoan(tkMa As Integer) As List(Of NhanVien)
+        Dim nhanVienInfo As New List(Of NhanVien)()
+        Dim sql As String = "SELECT nv.nv_ma, nv.nv_ten, nv.nv_diachi, nv.nv_gioi_tinh, nv.nv_xoa,
+                nv.nv_dien_thoai, nv.nv_tk_ma, nv.nv_chi_nhanh,
+                cn.cn_ma, cn.cn_ten, cn.cn_dia_chi,
+                tk.tk_ma, tk.tk_tai_khoan, tk.tk_mat_khau, tk.tk_xoa, tk.tk_dang_nhap_sai, tk.tk_chu_quan
+                FROM (NhanVien AS nv
+                INNER JOIN TaiKhoan AS tk ON tk.tk_ma = nv.nv_tk_ma)
+                INNER JOIN ChiNhanh AS cn ON cn.cn_ma = nv.nv_chi_nhanh
+                WHERE tk.tk_ma = ? "
+
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    cmd.Parameters.AddWithValue("tk_ma", tkMa)
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim nv As New NhanVien() With {
+                                .Ma = CInt(reader("nv_ma")),
+                                .Ten = CStr(reader("nv_ten")),
+                                .DiaChi = CStr(reader("nv_diachi")),
+                                .GioiTinh = CBool(reader("nv_gioi_tinh")),
+                                .IsXoa = CStr(reader("nv_xoa")),
+                                .DienThoai = CStr(reader("nv_dien_thoai")),
+                                .TaiKhoan = New TaiKhoan With {
+                                    .Ma = CInt(reader("tk_ma")),
+                                    .TaiKhoan = CStr(reader("tk_tai_khoan")),
+                                    .MatKhau = CStr(reader("tk_mat_khau")),
+                                    .IsXoa = CBool(reader("tk_xoa")),
+                                    .SoLanDangNhapSai = CInt(reader("tk_dang_nhap_sai")),
+                                    .IsChuQuan = CBool(reader("tk_chu_quan"))
+                                },
+                                .ChiNhanh = New ChiNhanh With {
+                                    .Ma = CInt(reader("cn_ma")),
+                                    .Ten = CStr(reader("cn_ten")),
+                                    .DiaChi = CStr(reader("cn_dia_chi"))
+                                }
+                        }
+                        nhanVienInfo.Add(nv)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return nhanVienInfo
+    End Function
 End Class

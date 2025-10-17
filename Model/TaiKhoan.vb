@@ -3,6 +3,8 @@
     Private _taikhoan As String
     Private _matkhau As String
     Private _xoa As Boolean
+    Private _dang_nhap_sai As Integer
+    Private _chu_quan As Boolean
 
     Public Sub New()
         Me.Ma = 0
@@ -41,6 +43,24 @@
         End Get
         Set(ByVal value As Boolean)
             _xoa = value
+        End Set
+    End Property
+
+    Public Property SoLanDangNhapSai() As Integer
+        Get
+            Return _dang_nhap_sai
+        End Get
+        Set(ByVal value As Integer)
+            _dang_nhap_sai = value
+        End Set
+    End Property
+
+    Public Property IsChuQuan() As Boolean
+        Get
+            Return _chu_quan
+        End Get
+        Set(ByVal value As Boolean)
+            _chu_quan = value
         End Set
     End Property
 
