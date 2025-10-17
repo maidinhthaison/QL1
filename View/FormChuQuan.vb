@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.Intrinsics
 
-Public Class Form1
+Public Class FormChuQuan
 
     Dim DsForm As New List(Of Form)
 
@@ -11,7 +11,6 @@ Public Class Form1
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
-        'Get user info
 
     End Sub
     Public Sub New(tkMa As Integer)
@@ -19,24 +18,8 @@ Public Class Form1
         Me.tkMa = tkMa
 
         nhanViewController = INhanVienControllerImpl.Instance
-        nhanViewController.XulyGetThongTinNhanVien(Me.tkMa)
-        Dim isChuQuan As Boolean = nhanViewController.UserSession.TaiKhoan.IsChuQuan
-        Select Case isChuQuan
-            Case True
-                NhapHangMenuItem.Visible = True
-                ThuChiMenuItem.Visible = True
-                NhanVienMenuItem.Visible = True
-                LoaiSpMenuItem.Visible = True
-                KhuVucMenuItem.Visible = True
-                NhaCCMenuItem.Visible = True
-            Case False
-                NhapHangMenuItem.Visible = False
-                ThuChiMenuItem.Visible = False
-                NhanVienMenuItem.Visible = False
-                LoaiSpMenuItem.Visible = False
-                KhuVucMenuItem.Visible = False
-                NhaCCMenuItem.Visible = False
-        End Select
+        nhanViewController.XulyGetThongTinUser(Me.tkMa)
+
     End Sub
     Function TimForm(type As Type)
         For Each frm As Form In DsForm

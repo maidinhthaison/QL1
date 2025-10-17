@@ -193,7 +193,7 @@
         View.BindingChiNhanhCombobox(listChiNhanh)
     End Sub
 
-    Public Function XulyGetThongTinNhanVien(tkMa As Integer) As NhanVien Implements INhanVienController.XulyGetThongTinNhanVien
+    Public Function XulyGetThongTinUser(tkMa As Integer) As NhanVien Implements INhanVienController.XulyGetThongTinUser
         Dim listNv As List(Of NhanVien) = nhanVienDao.Get_NhanVien_ChiNhanh_TaiKhoan_By_MaTaiKhoan(tkMa)
         If listNv Is Nothing OrElse listNv.Count = 0 Then
             Return Nothing

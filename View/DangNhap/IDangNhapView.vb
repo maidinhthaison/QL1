@@ -5,5 +5,6 @@
 
     Sub ClearFields()
 
-    Sub GotoMainScreen(tkMa As Integer)
+    Sub PhanQuyen(tkMa As Integer, isChuQuan As Boolean)
+
 End Interface

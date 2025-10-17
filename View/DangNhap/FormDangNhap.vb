@@ -24,20 +24,45 @@
         tbMatKhau.Text = ""
     End Sub
 
-    Public Sub GotoMainScreen(tkMa As Integer) Implements IDangNhapView.GotoMainScreen
-        Dim frm As Form = TimForm(GetType(Form1), listForms)
+    Public Sub PhanQuyen(tkMa As Integer, isChuQuan As Boolean) Implements IDangNhapView.PhanQuyen
+        If isChuQuan Then
+            GoToFormChuQuan(tkMa)
+        Else
+            GoToFormNhanVien(tkMa)
+        End If
+
+    End Sub
+
+    Private Sub GoToFormChuQuan(tkMa As Integer)
+        Dim frm As Form = TimForm(GetType(FormChuQuan), listForms)
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim formMain As New Form1(tkMa)
+        Dim formChuQuan As New FormChuQuan(tkMa)
 
         'formMain.MdiParent = Me.MdiParent
-        formMain.WindowState = FormWindowState.Maximized
-        formMain.Show()
+        formChuQuan.WindowState = FormWindowState.Maximized
+        formChuQuan.Show()
         Me.Hide()
-        listForms.Add(formMain)
+        listForms.Add(formChuQuan)
+    End Sub
+
+    Private Sub GoToFormNhanVien(tkMa As Integer)
+        Dim frm As Form = TimForm(GetType(FormNhanVien), listForms)
+        If frm IsNot Nothing Then
+            frm.Activate()
+            Return
+        End If
+
+        Dim fromNv As New FormNhanVien(tkMa)
+
+        'formMain.MdiParent = Me.MdiParent
+        fromNv.WindowState = FormWindowState.Maximized
+        fromNv.Show()
+        Me.Hide()
+        listForms.Add(fromNv)
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
