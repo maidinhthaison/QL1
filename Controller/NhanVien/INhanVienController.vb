@@ -12,6 +12,6 @@
 
     Sub XulyXoaNhanVien()
 
-    Function XulyGetThongTinNhanVien(tkMa As Integer) As NhanVien
+    Function XulyGetThongTinUser(tkMa As Integer) As NhanVien
 
 End Interface

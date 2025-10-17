@@ -1,24 +1,21 @@
-﻿Imports System.Runtime.Intrinsics
-
-Public Class Form1
-
+﻿Public Class FormNhanVien
     Dim DsForm As New List(Of Form)
 
     Private nhanViewController As INhanVienControllerImpl
 
     Private tkMa As Integer
 
-
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
-        'Get user info
-        nhanViewController = INhanVienControllerImpl.Instance
-        nhanViewController.XulyGetThongTinNhanVien(Me.tkMa)
 
     End Sub
     Public Sub New(tkMa As Integer)
         InitializeComponent()
         Me.tkMa = tkMa
+
+        nhanViewController = INhanVienControllerImpl.Instance
+        nhanViewController.XulyGetThongTinUser(Me.tkMa)
+
     End Sub
     Function TimForm(type As Type)
         For Each frm As Form In DsForm
@@ -48,33 +45,6 @@ Public Class Form1
         DsForm.Add(frmBanHang)
     End Sub
 
-    Private Sub NhapHangMenuItem_Click(sender As Object, e As EventArgs) Handles NhapHangMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmQLNhapHang))
-        If frm IsNot Nothing Then
-            frm.Activate()
-            Return
-        End If
-
-        Dim frmNhapHang As New frmQLNhapHang()
-        frmNhapHang.MdiParent = Me
-        frmNhapHang.WindowState = FormWindowState.Maximized
-        frmNhapHang.Show()
-        DsForm.Add(frmNhapHang)
-    End Sub
-
-    Private Sub ThuChiMenuItem_Click(sender As Object, e As EventArgs) Handles ThuChiMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmQLThuChi))
-        If frm IsNot Nothing Then
-            frm.Activate()
-            Return
-        End If
-
-        Dim frmThuChi As New frmQLThuChi()
-        frmThuChi.MdiParent = Me
-        frmThuChi.WindowState = FormWindowState.Maximized
-        frmThuChi.Show()
-        DsForm.Add(frmThuChi)
-    End Sub
 
     Private Sub DSSanPhamMenuItem_Click(sender As Object, e As EventArgs) Handles DSSanPhamMenuItem.Click
         Dim frm As Form = TimForm(GetType(FormQLSanPham))
@@ -90,47 +60,6 @@ Public Class Form1
         DsForm.Add(frmSanPham)
     End Sub
 
-    Private Sub NhaCCMenuItem_Click(sender As Object, e As EventArgs) Handles NhaCCMenuItem.Click
-        Dim frm As Form = TimForm(GetType(FormNhaCungCap))
-        If frm IsNot Nothing Then
-            frm.Activate()
-            Return
-        End If
-
-        Dim frmNCC As New FormNhaCungCap()
-        frmNCC.MdiParent = Me
-        frmNCC.WindowState = FormWindowState.Maximized
-        frmNCC.Show()
-        DsForm.Add(frmNCC)
-    End Sub
-
-    Private Sub LoaiSpMenuItem_Click(sender As Object, e As EventArgs) Handles LoaiSpMenuItem.Click
-        Dim frm As Form = TimForm(GetType(FormLoaiSanPham))
-        If frm IsNot Nothing Then
-            frm.Activate()
-            Return
-        End If
-
-        Dim frmLoaiSp As New FormLoaiSanPham()
-        frmLoaiSp.MdiParent = Me
-        frmLoaiSp.WindowState = FormWindowState.Maximized
-        frmLoaiSp.Show()
-        DsForm.Add(frmLoaiSp)
-    End Sub
-
-    Private Sub KhuVucMenuItem_Click(sender As Object, e As EventArgs) Handles KhuVucMenuItem.Click
-        Dim frm As Form = TimForm(GetType(FormKhuVuc))
-        If frm IsNot Nothing Then
-            frm.Activate()
-            Return
-        End If
-
-        Dim frmKV As New FormKhuVuc()
-        frmKV.MdiParent = Me
-        frmKV.WindowState = FormWindowState.Maximized
-        frmKV.Show()
-        DsForm.Add(frmKV)
-    End Sub
 
     Private Sub KhachHangMenuItem_Click(sender As Object, e As EventArgs) Handles KhachHangMenuItem.Click
         Dim frm As Form = TimForm(GetType(frmQLKhachHang))
@@ -146,19 +75,6 @@ Public Class Form1
         DsForm.Add(frmKhachHang)
     End Sub
 
-    Private Sub NhanVienMenuItem_Click(sender As Object, e As EventArgs) Handles NhanVienMenuItem.Click
-        Dim frm As Form = TimForm(GetType(FormQLNhanVien))
-        If frm IsNot Nothing Then
-            frm.Activate()
-            Return
-        End If
-
-        Dim frmNhanVien As New FormQLNhanVien()
-        frmNhanVien.MdiParent = Me
-        frmNhanVien.WindowState = FormWindowState.Maximized
-        frmNhanVien.Show()
-        DsForm.Add(frmNhanVien)
-    End Sub
 
     Private Sub ThongKeMenuItem_Click(sender As Object, e As EventArgs) Handles ThongKeMenuItem.Click
         Dim frm As Form = TimForm(GetType(frmThongKe))
@@ -188,4 +104,7 @@ Public Class Form1
         DsForm.Add(ThongTinForm)
     End Sub
 
+    Private Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Application.Exit()
+    End Sub
 End Class
