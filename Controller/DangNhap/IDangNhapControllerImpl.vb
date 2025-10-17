@@ -41,7 +41,7 @@
             If VerifyPassword(plainTextPassword, hashedPwd) Then
                 ' Login successful
                 View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Đăng nhập thành công!")
-                View.GotoMainScreen(taiKhoan)
+                View.GotoMainScreen(tk.Ma)
             Else
                 ' Invalid password
                 Dim dangNhapSai As Integer = tk.SoLanDangNhapSai

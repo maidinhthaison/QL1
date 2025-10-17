@@ -113,39 +113,6 @@ Public Class TaiKhoanDAO
         Return taiKhoanList
     End Function
 
-    Public Function GetNhanVienByTaiKhoan(tkMa As Integer) As List(Of NhanVien)
-        Dim taiKhoanList As New List(Of TaiKhoan)()
-        Dim sql As String = "SELECT tk_ma, tk_tai_khoan, tk_mat_khau, tk_xoa, tk_dang_nhap_sai, tk_chu_quan
-                FROM TaiKhoan WHERE tk_tai_khoan = ? AND tk_xoa = ?"
 
-        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
-        Using conn As New OleDbConnection(ConnectionString)
-            Using cmd As New OleDbCommand(sql, conn)
-                Try
-                    cmd.Parameters.AddWithValue("tk_tai_khoan", tenDangNhap)
-                    cmd.Parameters.AddWithValue("tk_xoa", False)
-                    conn.Open()
-                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
-                    While reader.Read()
-
-                        Dim tk As New TaiKhoan() With {
-                                .Ma = CInt(reader("tk_ma")),
-                                .TaiKhoan = CStr(reader("tk_tai_khoan")),
-                                .MatKhau = CStr(reader("tk_mat_khau")),
-                                .SoLanDangNhapSai = CInt(reader("tk_dang_nhap_sai")),
-                                .IsXoa = CBool(reader("tk_xoa")),
-                                .IsChuQuan = CBool(reader("tk_chu_quan"))
-                        }
-                        taiKhoanList.Add(tk)
-                    End While
-
-                Catch ex As Exception
-                    Console.WriteLine("Error loading data: " & ex.Message)
-                End Try
-            End Using
-        End Using
-
-        Return taiKhoanList
-    End Function
 
 End Class

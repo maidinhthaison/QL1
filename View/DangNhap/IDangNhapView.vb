@@ -5,5 +5,5 @@
 
     Sub ClearFields()
 
-    Sub GotoMainScreen(user As NhanVien)
+    Sub GotoMainScreen(tkMa As Integer)
 End Interface

@@ -12,6 +12,6 @@
 
     Sub XulyXoaNhanVien()
 
-    Sub XulyDangNhap(taiKhoan As TaiKhoan)
+    Function XulyGetThongTinNhanVien(tkMa As Integer) As NhanVien
 
 End Interface

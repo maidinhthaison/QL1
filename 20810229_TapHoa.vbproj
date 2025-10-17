@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <OutputType>WinExe</OutputType>
-    <TargetFramework>net8.0-windows</TargetFramework>
+    <TargetFramework>net8.0-windows8.0</TargetFramework>
     <RootNamespace>_20810229_TapHoa</RootNamespace>
     <StartupObject>_20810229_TapHoa.My.MyApplication</StartupObject>
     <UseWindowsForms>true</UseWindowsForms>

@@ -24,20 +24,20 @@
         tbMatKhau.Text = ""
     End Sub
 
-    Public Sub GotoMainScreen(user As NhanVien) Implements IDangNhapView.GotoMainScreen
+    Public Sub GotoMainScreen(tkMa As Integer) Implements IDangNhapView.GotoMainScreen
         Dim frm As Form = TimForm(GetType(Form1), listForms)
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim formMain As New Form1(user)
+        Dim formMain As New Form1(tkMa)
 
-        formMain.MdiParent = Me.MdiParent
+        'formMain.MdiParent = Me.MdiParent
         formMain.WindowState = FormWindowState.Maximized
         formMain.Show()
+        Me.Hide()
         listForms.Add(formMain)
-
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -45,15 +45,6 @@
         AddHandler btnXoa.Click, AddressOf OnButtonClick
         listForms = New List(Of Form)
 
-
-        Me.Hide()
-        Dim frm As Form = New FormDangNhap()
-        Dim dr As DialogResult = frm.ShowDialog()
-        If dr = DialogResult.OK Then
-            Me.Show()
-        Else
-            Me.MdiParent.Close()
-        End If
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
