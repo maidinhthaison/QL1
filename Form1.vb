@@ -12,13 +12,31 @@ Public Class Form1
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
         'Get user info
-        nhanViewController = INhanVienControllerImpl.Instance
-        nhanViewController.XulyGetThongTinNhanVien(Me.tkMa)
 
     End Sub
     Public Sub New(tkMa As Integer)
         InitializeComponent()
         Me.tkMa = tkMa
+
+        nhanViewController = INhanVienControllerImpl.Instance
+        nhanViewController.XulyGetThongTinNhanVien(Me.tkMa)
+        Dim isChuQuan As Boolean = nhanViewController.UserSession.TaiKhoan.IsChuQuan
+        Select Case isChuQuan
+            Case True
+                NhapHangMenuItem.Visible = True
+                ThuChiMenuItem.Visible = True
+                NhanVienMenuItem.Visible = True
+                LoaiSpMenuItem.Visible = True
+                KhuVucMenuItem.Visible = True
+                NhaCCMenuItem.Visible = True
+            Case False
+                NhapHangMenuItem.Visible = False
+                ThuChiMenuItem.Visible = False
+                NhanVienMenuItem.Visible = False
+                LoaiSpMenuItem.Visible = False
+                KhuVucMenuItem.Visible = False
+                NhaCCMenuItem.Visible = False
+        End Select
     End Sub
     Function TimForm(type As Type)
         For Each frm As Form In DsForm
@@ -188,4 +206,7 @@ Public Class Form1
         DsForm.Add(ThongTinForm)
     End Sub
 
+    Private Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        Application.Exit()
+    End Sub
 End Class

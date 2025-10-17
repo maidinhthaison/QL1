@@ -4,6 +4,8 @@
     Private sanPhamController As ISanPhamControllerImpl
 
     Private donViController As IDonViControllerImpl
+
+    Private nhanViewController As INhanVienControllerImpl
     Public Sub SetController(Controller As ISanPhamControllerImpl) Implements ISanPhamView.SetController
         sanPhamController = Controller
     End Sub
