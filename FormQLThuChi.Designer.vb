@@ -1,5 +1,5 @@
 ﻿<Global.Microsoft.VisualBasic.CompilerServices.DesignerGenerated()> _
-Partial Class frmThongKe
+Partial Class FormQLThuChi
     Inherits System.Windows.Forms.Form
 
     'Form overrides dispose to clean up the component list.
@@ -24,13 +24,13 @@ Partial Class frmThongKe
     Private Sub InitializeComponent()
         SuspendLayout()
         ' 
-        ' frmThongKe
+        ' frmThuChi
         ' 
         AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
         ClientSize = New Size(800, 450)
-        Name = "frmThongKe"
-        Text = "Thống kê"
+        Name = "frmThuChi"
+        Text = "Thu Chi"
         ResumeLayout(False)
     End Sub
 End Class
