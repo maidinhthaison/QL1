@@ -12,6 +12,7 @@
     'Ref
     Private _khach_hang As KhachHang
     Private _chi_nhanh As ChiNhanh
+    Private _nhan_vien As NhanVien
 
     Public Sub New()
         Me.Ma = 0
@@ -108,6 +109,16 @@
         End Set
     End Property
 
+    Public Property DonHang_NhanVien() As NhanVien
+        Get
+            Return _nhan_vien
+        End Get
+        Set(ByVal value As NhanVien)
+            _nhan_vien = value
+        End Set
+    End Property
+
+
     Public Overrides Function ToString() As String
         Dim result As String = "Mã đơn hàng: " & Me.Code & Environment.NewLine &
                                "Ngày: " & Me.Ngay.ToString("dd/MM/yyyy") & Environment.NewLine &
@@ -118,7 +129,9 @@
                                "Khách hàng Ma : " & Me.BanHangKhachHang.Ma & Environment.NewLine &
                                "Khách hàng Tên : " & Me.BanHangKhachHang.Ten & Environment.NewLine &
                                "Chi nhánh Mã " & Me.ChiNhanh.Ma & Environment.NewLine &
-                               "Chi nhánh Tên: " & Me.ChiNhanh.Ten & Environment.NewLine
+                               "Chi nhánh Tên: " & Me.ChiNhanh.Ten & Environment.NewLine &
+                               "Nhân viên Mã: " & Me.DonHang_NhanVien.Ma
+
         Return result
     End Function
 End Class

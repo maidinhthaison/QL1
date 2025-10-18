@@ -62,13 +62,13 @@
 
 
     Private Sub KhachHangMenuItem_Click(sender As Object, e As EventArgs) Handles KhachHangMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmQLKhachHang))
+        Dim frm As Form = TimForm(GetType(FormQLKhachHang))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim frmKhachHang As New frmQLKhachHang()
+        Dim frmKhachHang As New FormQLKhachHang()
         frmKhachHang.MdiParent = Me
         frmKhachHang.WindowState = FormWindowState.Maximized
         frmKhachHang.Show()
@@ -77,13 +77,13 @@
 
 
     Private Sub ThongKeMenuItem_Click(sender As Object, e As EventArgs) Handles ThongKeMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmThongKe))
+        Dim frm As Form = TimForm(GetType(FormThongKe))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim ThongKeForm As New frmThongKe()
+        Dim ThongKeForm As New FormThongKe()
         ThongKeForm.MdiParent = Me
         ThongKeForm.WindowState = FormWindowState.Maximized
         ThongKeForm.Show()
@@ -91,13 +91,13 @@
     End Sub
 
     Private Sub ThongTinMenuItem_Click(sender As Object, e As EventArgs) Handles ThongTinMenuItem.Click
-        Dim frm As Form = TimForm(GetType(frmThongTin))
+        Dim frm As Form = TimForm(GetType(FormThongTin))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim ThongTinForm As New frmThongTin()
+        Dim ThongTinForm As New FormThongTin()
         ThongTinForm.MdiParent = Me
         ThongTinForm.WindowState = FormWindowState.Maximized
         ThongTinForm.Show()
