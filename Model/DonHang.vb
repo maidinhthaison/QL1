@@ -6,13 +6,16 @@
     Private _tong_khuyen_mai As Double
     Private _tong_tien As Double
     Private _ghi_chu As String
-
+    Private _khach_hang_ma As Integer
     Private _isXoa As Boolean
+    Private _chi_nhanh_ma As Integer
+    Private _nhan_vien_ma As Integer
 
     'Ref
     Private _khach_hang As KhachHang
     Private _chi_nhanh As ChiNhanh
     Private _nhan_vien As NhanVien
+    Private _chi_tiet_don_hang As List(Of ChiTietDonHang)
 
     Public Sub New()
         Me.Ma = 0
@@ -118,6 +121,41 @@
         End Set
     End Property
 
+    Public Property KhachHangMa() As Integer
+        Get
+            Return _khach_hang_ma
+        End Get
+        Set(ByVal value As Integer)
+            _khach_hang_ma = value
+        End Set
+    End Property
+
+    Public Property ChiNhanhMa() As Integer
+        Get
+            Return _chi_nhanh_ma
+        End Get
+        Set(ByVal value As Integer)
+            _chi_nhanh_ma = value
+        End Set
+    End Property
+
+    Public Property NhanVienMa() As Integer
+        Get
+            Return _nhan_vien_ma
+        End Get
+        Set(ByVal value As Integer)
+            _nhan_vien_ma = value
+        End Set
+    End Property
+
+    Public Property ListChiTietDonhang() As List(Of ChiTietDonHang)
+        Get
+            Return _chi_tiet_don_hang
+        End Get
+        Set(ByVal value As List(Of ChiTietDonHang))
+            _chi_tiet_don_hang = value
+        End Set
+    End Property
 
     Public Overrides Function ToString() As String
         Dim result As String = "Mã đơn hàng: " & Me.Code & Environment.NewLine &

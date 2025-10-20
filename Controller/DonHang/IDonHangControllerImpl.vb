@@ -7,19 +7,15 @@
 
     Private listDonhang As List(Of DonHang)
 
-    Private listChiNhanh As List(Of ChiNhanh)
+    Private chiTietDonHang As DonHang
 
     Private selectedIndex As Integer
 
     Private donHangDao As DonHangDAO
 
-    Private chiNhanhDao As ChiNhanhDAO
-
     Private Sub New()
         listDonhang = New List(Of DonHang)
-        listChiNhanh = New List(Of ChiNhanh)
         donHangDao = New DonHangDAO()
-        chiNhanhDao = New ChiNhanhDAO()
 
     End Sub
 
@@ -56,17 +52,6 @@
         View.SetController(Me)
     End Sub
 
-    Public Sub XulyLoadData() Implements IDonHangController.XulyLoadData
-        listDonhang = donHangDao.Get_Pbh_By_ChiNhanh_KH()
-        View.BindingListDonHangToGridView(listDonhang)
-    End Sub
-
-
-
-    Public Sub XulyGetAllChiNhanh() Implements IDonHangController.XulyGetAllChiNhanh
-        listChiNhanh = chiNhanhDao.GetAllChiNhanh()
-        View.BindingListChiNhanhToCombobox(listChiNhanh)
-    End Sub
 
     Public Sub XulyTaoDonHang(tempDonHang As DonHang) Implements IDonHangController.XulyTaoDonHang
         Dim newDonHang As New List(Of DonHang) From {tempDonHang}
@@ -77,4 +62,42 @@
         End If
 
     End Sub
+
+    Public Sub Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(chiNhanhMa As Integer) Implements IDonHangController.Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh
+
+        listDonhang = donHangDao.ChuQuan_GetAll_DonHang_By_ChiNhanh(chiNhanhMa)
+        View.BindingListDonHangToGridView(listDonhang)
+    End Sub
+
+    Public Sub Xuly_GetAll_DonHang_With_KH() Implements IDonHangController.Xuly_GetAll_DonHang_With_KH
+        listDonhang = donHangDao.GetAll_DonHang_With_ChiNhanh_KH()
+        View.BindingListDonHangToGridView(listDonhang)
+    End Sub
+
+    Public Function Xuly_TimKiem_DonHang_By_ChiNhanh(tuKhoa As String) As List(Of DonHang) Implements IDonHangController.Xuly_TimKiem_DonHang_By_ChiNhanh
+        If String.IsNullOrWhiteSpace(tuKhoa) Then
+            Return listDonhang
+        Else
+            Dim searchResult As List(Of DonHang) = listDonhang.Where(
+                Function(donhang) donhang.Code.ToLower().Contains(tuKhoa.ToLower()) OrElse
+                        donhang.Ngay.ToString().Contains(tuKhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.TongSanPham.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.TongKhuyenMai.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.TongTien.ToString().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.GhiChu.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.DonHang_NhanVien.Ten.ToString.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.BanHangKhachHang.Ten.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        donhang.BanHangKhachHang.DienThoai.ToLower().Contains(tuKhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
+                        ).ToList()
+            Return searchResult
+        End If
+    End Function
+
+    Public Sub Xuly_ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(pbhMa As Integer) Implements IDonHangController.Xuly_ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh
+        Dim list = donHangDao.ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(pbhMa)
+        If list IsNot Nothing AndAlso list.Count > 0 Then
+            View.BindingTolabelTextBox(list)
+        End If
+    End Sub
+
 End Class

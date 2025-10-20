@@ -78,7 +78,7 @@
             Case "btnDangNhap"
 
                 If tbTenDangNhap.Text = "" Or tbMatKhau.Text = "" Then
-                    ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Vui lòng nhập đầy đủ thông tin!")
+                    lbThongBao.Text = "Vui lòng nhập đầy đủ thông tin!"
                     Return
                 End If
                 dangNhapController.XuLyDangNhap(tbTenDangNhap.Text, tbMatKhau.Text)
@@ -93,5 +93,9 @@
         dangNhapController.Init(Me)
         InitViews()
 
+    End Sub
+
+    Public Sub DisplayLabelMessage(Message As String) Implements IDangNhapView.DisplayLabelMessage
+        lbThongBao.Text = Message
     End Sub
 End Class
