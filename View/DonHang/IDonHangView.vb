@@ -8,11 +8,11 @@
 
     Sub BindingListDonHangToGridView(list As List(Of DonHang))
 
-    Sub BindingTolabelTextBox(phieuBh As DonHang)
-
-    Sub BindingListChiNhanhToCombobox(list As List(Of ChiNhanh))
+    Sub BindingTolabelTextBox(list As List(Of DonHang))
 
     Sub ConfigureGridView()
+
+    Sub ConfigureGridViewChiTietDonHang()
 
     Sub GotoChiTietDonHangForm(tempDonHang As DonHang)
 End Interface

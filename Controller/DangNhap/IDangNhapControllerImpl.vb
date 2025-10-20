@@ -40,7 +40,6 @@
             Dim hashedPwd As String = tk.MatKhau
             If VerifyPassword(plainTextPassword, hashedPwd) Then
                 ' Login successful
-                View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", "Đăng nhập thành công!")
                 View.PhanQuyen(tk.Ma, tk.IsChuQuan)
             Else
                 ' Invalid password
@@ -51,7 +50,7 @@
                     tk.SoLanDangNhapSai = dangNhapSai
                     Dim tkToSave As New List(Of TaiKhoan) From {tk}
                     taiKhoanDao.SaveTaiKhoan(tkToSave)
-                    View.ShowMessageBox(EnumMessageBox.Errors, "Thông báo", $"Sai mật khẩu! Bạn còn {5 - dangNhapSai} lần thử")
+                    View.DisplayLabelMessage($"Sai mật khẩu! Bạn còn {5 - dangNhapSai} lần thử")
 
                 Else
                     tk.SoLanDangNhapSai = dangNhapSai

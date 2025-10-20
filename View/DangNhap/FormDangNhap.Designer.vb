@@ -23,6 +23,7 @@ Partial Class FormDangNhap
     <System.Diagnostics.DebuggerStepThrough()> _
     Private Sub InitializeComponent()
         GroupBox1 = New GroupBox()
+        lbThongBao = New Label()
         btnXoa = New Button()
         btnDangNhap = New Button()
         tbMatKhau = New TextBox()
@@ -34,6 +35,7 @@ Partial Class FormDangNhap
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(lbThongBao)
         GroupBox1.Controls.Add(btnXoa)
         GroupBox1.Controls.Add(btnDangNhap)
         GroupBox1.Controls.Add(tbMatKhau)
@@ -42,10 +44,19 @@ Partial Class FormDangNhap
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(395, 211)
+        GroupBox1.Size = New Size(395, 238)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Đăng nhập"
+        ' 
+        ' lbThongBao
+        ' 
+        lbThongBao.AutoSize = True
+        lbThongBao.ForeColor = Color.Red
+        lbThongBao.Location = New Point(16, 196)
+        lbThongBao.Name = "lbThongBao"
+        lbThongBao.Size = New Size(0, 20)
+        lbThongBao.TabIndex = 6
         ' 
         ' btnXoa
         ' 
@@ -89,7 +100,7 @@ Partial Class FormDangNhap
         tbTenDangNhap.Name = "tbTenDangNhap"
         tbTenDangNhap.Size = New Size(204, 27)
         tbTenDangNhap.TabIndex = 1
-        tbTenDangNhap.Text = "NV5"
+        tbTenDangNhap.Text = "ADM1"
         ' 
         ' Label1
         ' 
@@ -104,7 +115,7 @@ Partial Class FormDangNhap
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(416, 240)
+        ClientSize = New Size(416, 262)
         Controls.Add(GroupBox1)
         Name = "FormDangNhap"
         Text = "FormDangNhap"
@@ -120,4 +131,5 @@ Partial Class FormDangNhap
     Friend WithEvents Label2 As Label
     Friend WithEvents tbTenDangNhap As TextBox
     Friend WithEvents Label1 As Label
+    Friend WithEvents lbThongBao As Label
 End Class

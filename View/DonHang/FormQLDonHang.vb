@@ -3,6 +3,10 @@
 
     Private donHangController As IDonHangControllerImpl
 
+    Private nhanvienController As INhanVienControllerImpl
+
+    Dim userSession As NhanVien
+
     Private listForms As List(Of Form)
 
 
@@ -22,8 +26,11 @@
     End Sub
 
     Public Sub LoadData() Implements IDonHangView.LoadData
-        donHangController.XulyLoadData()
-        donHangController.XulyGetAllChiNhanh()
+        userSession = nhanvienController.UserSession
+        lbChiNhanh.Text = userSession.ChiNhanh.Ten
+
+        donHangController.Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(userSession.ChiNhanh.Ma)
+
     End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IDonHangView.ShowMessageBox
@@ -47,30 +54,73 @@
         End If
     End Sub
 
-    Public Sub BindingListPbhToGridView(list As List(Of DonHang)) Implements IDonHangView.BindingListDonHangToGridView
+    Public Sub BindingListDonHangToGridView(list As List(Of DonHang)) Implements IDonHangView.BindingListDonHangToGridView
         dgvDonHang.DataSource = Nothing
 
-        dgvDonHang.DataSource = list
+        bsPhieuBanHang.DataSource = list
 
         dgvDonHang.DataSource = bsPhieuBanHang
 
         ConfigureGridView()
+
+
     End Sub
 
-    Public Sub BindingTolabelTextBox(phieuBh As DonHang) Implements IDonHangView.BindingTolabelTextBox
-        Throw New NotImplementedException()
+    Public Sub BindingTolabelTextBox(list As List(Of DonHang)) Implements IDonHangView.BindingTolabelTextBox
+        Dim phieuBh As DonHang = list(0)
+        lbTenKh.Text = phieuBh.BanHangKhachHang.Ten
+        lbDienThoai.Text = phieuBh.BanHangKhachHang.DienThoai
+        lbDiaChi.Text = phieuBh.BanHangKhachHang.DiaChi
+        tbGhiChu.Text = phieuBh.GhiChu
+        lbTongTien.Text = CurrencyFormat(phieuBh.TongTien)
+        lbKhuyenMai.Text = CurrencyFormat(phieuBh.TongKhuyenMai)
+        lbNguoiLap.Text = phieuBh.DonHang_NhanVien.Ten
+
+        Dim resultChiTiet As New List(Of ChiTietDonHang)
+        list.ForEach(Sub(dh)
+                         resultChiTiet.AddRange(dh.ListChiTietDonhang)
+
+                     End Sub)
+
+        dgvSanPham.DataSource = Nothing
+        BindingSource_CTDonHang.DataSource = resultChiTiet
+        dgvSanPham.DataSource = BindingSource_CTDonHang
+        ConfigureGridViewChiTietDonHang()
+
     End Sub
 
     Public Sub ConfigureGridView() Implements IDonHangView.ConfigureGridView
+        dgvDonHang.Columns("Ma").Visible = False
+        dgvDonHang.Columns("GhiChu").Visible = False
+        dgvDonHang.Columns("IsXoa").Visible = False
+        dgvDonHang.Columns("ChiNhanh").Visible = False
+        dgvDonHang.Columns("ChiNhanhMa").Visible = False
+        dgvDonHang.Columns("NhanVienMa").Visible = False
+        dgvDonHang.Columns("KhachHangMa").Visible = False
 
-    End Sub
+        ' Set custom header text for columns
+        dgvDonHang.Columns("Code").HeaderText = "Code"
+        dgvDonHang.Columns("Code").DisplayIndex = 0
+
+        dgvDonHang.Columns("Ngay").HeaderText = "Ngày"
+        dgvDonHang.Columns("Ngay").DisplayIndex = 1
 
 
-    Public Sub BindingListChiNhanhToCombobox(list As List(Of ChiNhanh)) Implements IDonHangView.BindingListChiNhanhToCombobox
-        cbChiNhanh.DataSource = Nothing
-        cbChiNhanh.DataSource = list
-        cbChiNhanh.DisplayMember = "Ten"
-        cbChiNhanh.ValueMember = "Ma"
+        dgvDonHang.Columns("TongSanPham").HeaderText = "Tổng SP"
+        dgvDonHang.Columns("TongSanPham").DisplayIndex = 2
+
+        dgvDonHang.Columns("TongKhuyenMai").HeaderText = "Tổng KM"
+        dgvDonHang.Columns("TongKhuyenMai").DisplayIndex = 3
+
+        dgvDonHang.Columns("TongTien").HeaderText = "Tổng tiền"
+        dgvDonHang.Columns("TongTien").DisplayIndex = 4
+
+        dgvDonHang.Columns("BanHangKhachHang").HeaderText = "Khách hàng"
+        dgvDonHang.Columns("BanHangKhachHang").DisplayIndex = 5
+
+        dgvDonHang.Columns("DonHang_NhanVien").HeaderText = "Người lập"
+        dgvDonHang.Columns("DonHang_NhanVien").DisplayIndex = 6
+
     End Sub
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
@@ -103,8 +153,8 @@
                       .IsXoa = False
                  },
                  .ChiNhanh = New ChiNhanh() With {
-                      .Ma = Convert.ToInt32(cbChiNhanh.SelectedValue),
-                      .Ten = cbChiNhanh.SelectedItem.Ten
+                      .Ma = userSession.ChiNhanh.Ma,
+                      .Ten = lbChiNhanh.Text
                  }
         }
         donHangController.XulyTaoDonHang(newPhieuBanHang)
@@ -112,8 +162,11 @@
     End Sub
 
     Private Sub FormQLBanHang_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        nhanvienController = INhanVienControllerImpl.Instance
+
         donHangController = IDonHangControllerImpl.Instance
         donHangController.Init(Me)
+
         InitViews()
         LoadData()
 
@@ -135,6 +188,117 @@
     End Sub
 
     Private Sub dgvDonHang_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDonHang.CellClick
+        If e.RowIndex >= 0 Then
+            donHangController.Index = e.RowIndex
+            Dim selectedRow = dgvDonHang.Rows(e.RowIndex)
+            Dim selectedDonHang = CType(selectedRow.DataBoundItem, DonHang)
+            If selectedDonHang IsNot Nothing Then
+                donHangController.Xuly_ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(selectedDonHang.Ma)
+            End If
 
+        End If
+    End Sub
+
+    Private Sub tbTuKhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTuKhoa.TextChanged
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
+        Dim result As List(Of DonHang) = donHangController.Xuly_TimKiem_DonHang_By_ChiNhanh(tukhoa)
+        BindingListDonHangToGridView(result)
+    End Sub
+
+    Private Sub dgvDonHang_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvDonHang.CellFormatting
+        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "BanHangKhachHang" Then
+            If e.Value IsNot Nothing Then
+                Dim khachHang = TryCast(e.Value, KhachHang)
+                If khachHang IsNot Nothing Then
+                    e.Value = khachHang.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "DonHang_NhanVien" Then
+            If e.Value IsNot Nothing Then
+                Dim nhanVien = TryCast(e.Value, NhanVien)
+                If nhanVien IsNot Nothing Then
+                    e.Value = nhanVien.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongKhuyenMai" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
+
+    End Sub
+
+    Public Sub ConfigureGridViewChiTietDonHang() Implements IDonHangView.ConfigureGridViewChiTietDonHang
+        dgvSanPham.Columns("Ma").Visible = False
+        dgvSanPham.Columns("Pbh_Ma").Visible = False
+        dgvSanPham.Columns("Sp_Ma").Visible = False
+        dgvSanPham.Columns("IsXoa").Visible = False
+
+        dgvSanPham.Columns("SanPhamInfo").HeaderText = "SP"
+        dgvSanPham.Columns("SanPhamInfo").DisplayIndex = 0
+        dgvSanPham.Columns("SanPhamInfo").Width = 150
+
+        dgvSanPham.Columns("Gia").HeaderText = "Đơn giá"
+        dgvSanPham.Columns("Gia").DisplayIndex = 1
+        dgvSanPham.Columns("Gia").Width = 100
+
+        dgvSanPham.Columns("SoLuong").HeaderText = "SL"
+        dgvSanPham.Columns("SoLuong").DisplayIndex = 2
+        dgvSanPham.Columns("SoLuong").Width = 25
+
+        dgvSanPham.Columns("KhuyenMai").HeaderText = "KM"
+        dgvSanPham.Columns("KhuyenMai").DisplayIndex = 3
+        dgvSanPham.Columns("KhuyenMai").Width = 75
+
+        dgvSanPham.Columns("ThanhTien").HeaderText = "Thành tiền"
+        dgvSanPham.Columns("ThanhTien").DisplayIndex = 4
+        dgvSanPham.Columns("ThanhTien").Width = 100
+    End Sub
+
+    Private Sub dgvSanPham_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvSanPham.CellFormatting
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "SanPhamInfo" Then
+            If e.Value IsNot Nothing Then
+                Dim sanPham = TryCast(e.Value, SanPham)
+                If sanPham IsNot Nothing Then
+                    e.Value = sanPham.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "KhuyenMai" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
+
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
     End Sub
 End Class

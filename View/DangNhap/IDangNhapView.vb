@@ -3,6 +3,8 @@
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)
 
+    Sub DisplayLabelMessage(Message As String)
+
     Sub ClearFields()
 
     Sub PhanQuyen(tkMa As Integer, isChuQuan As Boolean)
