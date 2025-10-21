@@ -98,4 +98,9 @@
     Public Sub DisplayLabelMessage(Message As String) Implements IDangNhapView.DisplayLabelMessage
         lbThongBao.Text = Message
     End Sub
+
+    Public Sub DisableButton() Implements IDangNhapView.DisableButton
+        btnDangNhap.Enabled = False
+        lbThongBao.Text = "Tài khoản đã bị khóa. Vui lòng liên hệ chủ quán để mở lại."
+    End Sub
 End Class

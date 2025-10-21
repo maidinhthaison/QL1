@@ -32,7 +32,7 @@
 
         Dim taiKhoan As List(Of TaiKhoan) = taiKhoanDao.DangNhap(tenDangNhap)
         If taiKhoan.Count = 0 Then
-            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Tài khoản không tồn tại! - Liên hệ chủ quán để mở lại")
+            View.ShowMessageBox(EnumMessageBox.Errors, "Lỗi", "Tài khoản không tồn tại!")
 
             Return
         ElseIf taiKhoan.Count = 1 Then
@@ -57,7 +57,8 @@
                     tk.IsXoa = True
                     Dim tkToSave As New List(Of TaiKhoan) From {tk}
                     taiKhoanDao.SaveTaiKhoan(tkToSave)
-                    View.ShowMessageBox(EnumMessageBox.Infomation, "Thông báo", $"Bạn bị khóa tài khoản vì nhập sai {dangNhapSai} lần. Liên hệ chủ quán để mở lại")
+                    View.ShowMessageBox(EnumMessageBox.Errors, "Thông báo", $"Bạn bị khóa tài khoản vì nhập sai {dangNhapSai} lần. Liên hệ chủ quán để mở lại")
+                    View.DisableButton()
                 End If
             End If
         End If
