@@ -7,6 +7,8 @@
 
     Sub ClearFields()
 
+    Sub DisableButton()
+
     Sub PhanQuyen(tkMa As Integer, isChuQuan As Boolean)
 
 End Interface
