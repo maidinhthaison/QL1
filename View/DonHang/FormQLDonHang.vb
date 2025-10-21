@@ -226,19 +226,14 @@
             End If
         End If
 
-        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongKhuyenMai" Then
+        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongKhuyenMai" OrElse
+            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)
                 e.Value = CurrencyFormat(value)
             End If
         End If
 
-        If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" Then
-            If e.Value IsNot Nothing Then
-                Dim value As Double = Convert.ToDouble(e.Value)
-                e.Value = CurrencyFormat(value)
-            End If
-        End If
 
     End Sub
 
@@ -280,25 +275,14 @@
             End If
         End If
 
-        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" OrElse
+            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "KhuyenMai" OrElse
+            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)
                 e.Value = CurrencyFormat(value)
             End If
         End If
 
-        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "KhuyenMai" Then
-            If e.Value IsNot Nothing Then
-                Dim value As Double = Convert.ToDouble(e.Value)
-                e.Value = CurrencyFormat(value)
-            End If
-        End If
-
-        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
-            If e.Value IsNot Nothing Then
-                Dim value As Double = Convert.ToDouble(e.Value)
-                e.Value = CurrencyFormat(value)
-            End If
-        End If
     End Sub
 End Class
