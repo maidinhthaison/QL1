@@ -197,28 +197,32 @@ Public Class SanPhamDAO
     Public Function GetSP_By_LoaiSP_NhaCC_KhuVuc_ChiNhanh(chiNhanhMa As Integer) As List(Of SanPham)
         Dim spList As New List(Of SanPham)()
 
-        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc, lsp.lsp_cn_ma,
-                ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, 
-                kv.kv_ma AS kv_ma, kv.kv_ten AS kv_ten,
-                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code, sp_dv_ma,
-                cn.cn_ma AS cn_ma, cn.cn_ten AS cn_ten, cn.cn_dia_chi AS cn_dia_chi
+        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc,  lsp.lsp_cn_ma,
+                ncc.ncc_ma, ncc.ncc_ten, ncc.ncc_diachi, ncc.ncc_dien_thoai, ncc.ncc_code,
+                kv.kv_ma, kv.kv_ten, kv.kv_mo_ta, kv.kv_xoa, kv.kv_code,
+                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code, sp_so_luong, sp_dv_ma,
+                cn.cn_ma, cn.cn_ten, cn.cn_dia_chi,
+                dv.dv_ma, dv.dv_ten, dv.dv_mota, dv.dv_xoa, dv.dv_code
                 FROM (
+                    (
                     (
                     (SanPham As sp
                     INNER JOIN LoaiSanPham AS lsp ON sp.sp_loai = lsp.lsp_ma)
                     INNER JOIN NhaCungCap AS ncc ON lsp.lsp_ncc = ncc.ncc_ma)
                     INNER JOIN KhuVuc AS kv ON lsp.lsp_khu_vuc = kv.kv_ma)
-                    INNER JOIN ChiNhanh AS cn ON lsp.lsp_cn_ma = cn.cn_ma
-                    WHERE lsp.lsp_cn_ma = ?"
+                    INNER JOIN ChiNhanh AS cn ON lsp.lsp_cn_ma = cn.cn_ma)
+                    INNER JOIN DonVi AS dv ON dv.dv_ma = sp.sp_dv_ma
+                WHERE lsp.lsp_cn_ma = ?"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
             Using cmd As New OleDbCommand(sql, conn)
-                cmd.Parameters.AddWithValue("pLspMa", chiNhanhMa)
                 Try
+                    cmd.Parameters.AddWithValue("pChiNhanhMa", chiNhanhMa)
                     conn.Open()
                     Dim reader As OleDbDataReader = cmd.ExecuteReader()
                     While reader.Read()
+
                         Dim sp As New SanPham() With {
                                 .Ma = CInt(reader("sp_ma")),
                                 .Ten = CStr(reader("sp_ten")),
@@ -227,7 +231,7 @@ Public Class SanPhamDAO
                                 .Gia = CDbl(reader("sp_gia")),
                                 .IsXoa = CBool(reader("sp_xoa")),
                                 .Code = CStr(reader("sp_code")),
-                                .Sp_Dv_Ma = CStr(reader("sp_dv_ma")),
+                                .Sp_Dv_Ma = CInt(reader("sp_dv_ma")),
                                 .LoaiSp_Ma = CInt(reader("lsp_ma")),
                                 .LoaiSp_Ten = CStr(reader("lsp_ten")),
                                 .LoaiSp_Ncc_Ma = CInt(reader("lsp_ncc")),

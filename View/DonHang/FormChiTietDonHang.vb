@@ -25,7 +25,8 @@ Public Class FormChiTietDonHang
         AddHandler btnTimKH.Click, AddressOf OnButtonClick
         AddHandler btnCapNhatKH.Click, AddressOf OnButtonClick
 
-        lbNgayThang.Text = tempDonHang.Ngay
+        'MessageBox.Show($"{tempDonHang.Ngay.ToString(DATETIME_FORMAT)} - {tempDonHang.Ngay}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        lbNgayThang.Text = tempDonHang.Ngay.ToString(DATETIME_FORMAT)
         lbChiNhanh.Text = tempDonHang.ChiNhanh.Ten
     End Sub
 
@@ -180,45 +181,6 @@ Public Class FormChiTietDonHang
 
     Private Sub XoaSPGioHang()
 
-        'Dim index As Integer = donHangControllerImpl.CurrentSPIndex
-        'Dim selectedSp As SanPham = donHangControllerImpl.ListSp(index)
-        'Dim foundProduct As ChiTietDonHang = donHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
-
-        'If foundProduct IsNot Nothing Then
-        '    'Cập nhật số lượng
-        '    'foundProduct.SoLuong += 1
-        '    foundProduct.SoLuong += Integer.Parse(tbSoluong.Text)
-        '    Dim thanhtien As Double = Double.Parse(foundProduct.Gia) * Double.Parse(foundProduct.SoLuong)
-        '    Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
-        '    foundProduct.ThanhTien = thanhtien - khuyenmai
-        '    foundProduct.KhuyenMai = khuyenmai
-        '    TinhTongTien()
-        '    RefreshDonHangGridView(donHangControllerImpl.GetDSChiTietPbh)
-        '    ConfigureDonHangGridView()
-        'Else
-        '    'Thêm mới
-        '    Dim pbhCode As String = Gen_12Chars_UUID()
-        '    Dim thanhtien As Double = Double.Parse(selectedSp.Gia) * Integer.Parse(tbSoluong.Text)
-        '    Dim khuyenmai As Double = thanhtien * Double.Parse(tbKhuyenMai.Text) / 100
-
-        '    Dim newChiTietDonHang As New ChiTietDonHang() With {
-        '         .Sp_Ma = selectedSp.Ma,
-        '         .SoLuong = Integer.Parse(tbSoluong.Text),
-        '         .Gia = selectedSp.Gia,
-        '         .ThanhTien = thanhtien - khuyenmai,
-        '         .KhuyenMai = khuyenmai,
-        '         .IsXoa = False,
-        '         .SanPhamInfo = selectedSp
-        '     }
-
-        '    donHangControllerImpl.GetDSChiTietPbh.Add(newChiTietDonHang)
-
-        '    TinhTongTien()
-
-        '    RefreshDonHangGridView(donHangControllerImpl.GetDSChiTietPbh)
-
-        '    ConfigureDonHangGridView()
-        'End If
     End Sub
     Private Sub TinhTongTien()
         Dim listChiTietPbh As List(Of ChiTietDonHang) = donHangControllerImpl.GetDSChiTietPbh
@@ -311,23 +273,36 @@ Public Class FormChiTietDonHang
         dgvSanPham.Columns("LoaiSp_Ten").Visible = False
         dgvSanPham.Columns("LoaiSp_ChiNhanh").Visible = False
 
-        dgvSanPham.Columns("Code").Visible = False
+        dgvSanPham.Columns("Sp_Dv_Ma").Visible = False
         ' Set custom header text for columns
 
+        dgvSanPham.Columns("Code").DisplayIndex = 0
+        dgvSanPham.Columns("Code").Width = 75
+
+        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 1
+        dgvSanPham.Columns("NCC_Ten").Width = 50
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
-        dgvSanPham.Columns("NCC_Ten").DisplayIndex = 0
 
+        dgvSanPham.Columns("Ten").DisplayIndex = 2
         dgvSanPham.Columns("Ten").HeaderText = "SP"
-        dgvSanPham.Columns("Ten").DisplayIndex = 1
 
+        dgvSanPham.Columns("Gia").DisplayIndex = 3
+        dgvSanPham.Columns("Gia").Width = 50
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
-        dgvSanPham.Columns("Gia").DisplayIndex = 2
 
-        dgvSanPham.Columns("LoaiSp_SoLuong").HeaderText = "Kho hàng"
-        dgvSanPham.Columns("LoaiSp_SoLuong").DisplayIndex = 3
+        dgvSanPham.Columns("Sp_DonVi").DisplayIndex = 4
+        dgvSanPham.Columns("Sp_DonVi").Width = 50
+        dgvSanPham.Columns("Sp_DonVi").HeaderText = "Đơn vị"
 
+        dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 5
+        dgvSanPham.Columns("Sp_SoLuong").Width = 50
+        dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Kho hàng"
+
+        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
+        dgvSanPham.Columns("Kv_Ten").Width = 75
         dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu Vực"
-        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 4
+
+
 
     End Sub
 
@@ -374,6 +349,7 @@ Public Class FormChiTietDonHang
                 End If
             End If
         End If
+
     End Sub
 
     Private Sub FormChiTietDonHang_Deactivate(sender As Object, e As EventArgs) Handles MyBase.Deactivate
@@ -425,5 +401,26 @@ Public Class FormChiTietDonHang
         Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
         Dim result As List(Of SanPham) = sanPhamControllerImpl.XulyTimKiemSanPham(tukhoa)
         BindingListSanPhamToGridView(result)
+    End Sub
+
+    Private Sub dgvSanPham_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvSanPham.CellFormatting
+
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Sp_DonVi" Then
+            If e.Value IsNot Nothing Then
+                Dim donVi = TryCast(e.Value, DonVi)
+                If donVi IsNot Nothing Then
+                    e.Value = donVi.Ten
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" OrElse
+            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
+
     End Sub
 End Class

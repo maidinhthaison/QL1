@@ -7,7 +7,7 @@
     Private _khuyen_mai As Double
     Private _thanh_tien As Double
     Private _isXoa As Boolean
-
+    Private _tong_tien As Double
     'Ref
     Private _sanPham As SanPham
 
@@ -92,6 +92,15 @@
         End Get
         Set(ByVal value As SanPham)
             _sanPham = value
+        End Set
+    End Property
+
+    Public Property TongTien() As Double
+        Get
+            Return _tong_tien
+        End Get
+        Set(ByVal value As Double)
+            _tong_tien = value
         End Set
     End Property
 End Class

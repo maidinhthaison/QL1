@@ -49,8 +49,8 @@ Public Class ChiTietDonHangDAO
     Private Shared Sub InsertCTDonHang(ByVal ctpbh As ChiTietDonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
         Dim sql As String = "INSERT INTO ChiTietPhieuBanHang (ctpbh_pbh_ma, ctpbh_ma_san_pham, ctpbh_so_luong,
-            ctpbh_gia, ctpbh_khuyen_mai, ctpbh_thanh_tien, ctpbh_xoa)
-                            VALUES (?, ?, ?, ?, ?, ?, ?)"
+            ctpbh_gia, ctpbh_khuyen_mai, ctpbh_tong_tien, ctpbh_thanh_tien, ctpbh_xoa)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
@@ -59,6 +59,7 @@ Public Class ChiTietDonHangDAO
             cmd.Parameters.AddWithValue("pSl", ctpbh.SoLuong)
             cmd.Parameters.AddWithValue("TGia", ctpbh.Gia)
             cmd.Parameters.AddWithValue("pKm", ctpbh.KhuyenMai)
+            cmd.Parameters.AddWithValue("pTongTien", ctpbh.TongTien)
             cmd.Parameters.AddWithValue("pTT", ctpbh.ThanhTien)
             cmd.Parameters.AddWithValue("pXoa", ctpbh.IsXoa)
             cmd.ExecuteNonQuery()
@@ -70,11 +71,12 @@ Public Class ChiTietDonHangDAO
 
     Private Shared Sub UpdateCTDonHang(ByVal ctpbh As ChiTietDonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE ChiTietPhieuBanHang SET ctpbh_so_luong = ?,
-            ctpbh_khuyen_mai = ?, ctpbh_thanh_tien = ? WHERE ctpbh_ma = ?"
+            ctpbh_khuyen_mai = ?, ctpbh_tong_tien = ?, ctpbh_thanh_tien = ? WHERE ctpbh_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pSl", ctpbh.SoLuong)
             cmd.Parameters.AddWithValue("pKm", ctpbh.KhuyenMai)
+            cmd.Parameters.AddWithValue("pTongTien", ctpbh.TongTien)
             cmd.Parameters.AddWithValue("pTT", ctpbh.ThanhTien)
             cmd.Parameters.AddWithValue("pMa", ctpbh.Ma)
             cmd.ExecuteNonQuery()

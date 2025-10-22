@@ -4,7 +4,6 @@
 
     Private View As IChiTietDonHangView
 
-
     ''' <summary>
     ''' 
     ''' </summary>
@@ -20,8 +19,6 @@
     ''' DAO DonHang
     ''' </summary>
     Private donHangDao As DonHangDAO
-
-
 
     Private Sub New()
         listSanPham = New List(Of SanPham)
@@ -86,6 +83,7 @@
         ' Them chi tiet don hang
         Dim tongSoLuong As Integer = 0
         Dim tongKhuyenMai As Double = 0
+        Dim tongTien As Double = 0
         Dim tongThanhTien As Double = 0
 
         For i As Integer = 0 To listChiTietDonHang.Count - 1
@@ -93,7 +91,8 @@
             ctDH.Pbh_Ma = addedDonHang.Ma
             tongSoLuong += ctDH.SoLuong
             tongKhuyenMai += ctDH.KhuyenMai
-            tongThanhTien += ctDH.ThanhTien
+            tongTien += ctDH.Gia * ctDH.SoLuong
+            tongThanhTien = tongTien - tongKhuyenMai
         Next
 
         addedDonHang.TongSanPham = tongSoLuong
@@ -120,6 +119,7 @@
     End Sub
 
     Public Sub XuLyGetAllSanPhamByChiNhanh(chiNhanhMa As Integer) Implements IChiTietDHController.XuLyGetAllSanPhamByChiNhanh
+        MessageBox.Show(chiNhanhMa)
         listSanPham = sanPhamDao.GetSP_By_LoaiSP_NhaCC_KhuVuc_ChiNhanh(chiNhanhMa)
         View.BindingListSanPhamToGridView(listSanPham)
     End Sub

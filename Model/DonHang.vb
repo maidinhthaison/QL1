@@ -159,7 +159,7 @@
 
     Public Overrides Function ToString() As String
         Dim result As String = "Mã đơn hàng: " & Me.Code & Environment.NewLine &
-                               "Ngày: " & Me.Ngay.ToString("dd/MM/yyyy") & Environment.NewLine &
+                               "Ngày: " & Me.Ngay.ToString(DATETIME_FORMAT) & Environment.NewLine &
                                "Tổng số sản phẩm: " & Me.TongSanPham & Environment.NewLine &
                                "Tổng khuyến mãi: " & Me.TongKhuyenMai.ToString("C2") & Environment.NewLine &
                                "Tổng tiền: " & Me.TongTien.ToString("C2") & Environment.NewLine &

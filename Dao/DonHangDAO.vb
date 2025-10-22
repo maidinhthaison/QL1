@@ -55,7 +55,7 @@ Public Class DonHangDAO
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
             cmd.Parameters.AddWithValue("pCode", pbh.Code)
-            cmd.Parameters.AddWithValue("pNgay", pbh.Ngay)
+            cmd.Parameters.AddWithValue("pNgay", pbh.Ngay.ToString("dd/MM/yyyy"))
             cmd.Parameters.AddWithValue("pTsp", pbh.TongSanPham)
             cmd.Parameters.AddWithValue("Tkm", pbh.TongKhuyenMai)
             cmd.Parameters.AddWithValue("pTT", pbh.TongTien)
@@ -211,7 +211,8 @@ Public Class DonHangDAO
         Dim sql As String = "SELECT pbh_ma, pbh_khach_hang, pbh_chi_nhanh, pbh_nv_ma, pbh_tong_khuyen_mai, pbh_tong_tien, pbh_ghi_chu,
                 nv.nv_ma, nv.nv_ten, 
                 kh.kh_ma, kh.kh_code, kh.kh_ten, kh.kh_dien_thoai, kh.kh_dia_chi,
-                ctpbh.ctpbh_ma, ctpbh.ctpbh_pbh_ma, ctpbh.ctpbh_ma_san_pham, ctpbh.ctpbh_so_luong, ctpbh.ctpbh_gia, ctpbh.ctpbh_khuyen_mai, ctpbh.ctpbh_thanh_tien,
+                ctpbh.ctpbh_ma, ctpbh.ctpbh_pbh_ma, ctpbh.ctpbh_ma_san_pham, ctpbh.ctpbh_so_luong, ctpbh.ctpbh_gia,
+                ctpbh.ctpbh_khuyen_mai, ctpbh.ctpbh_thanh_tien, ctpbh.ctpbh_tong_tien,
                 sp.sp_ma, sp.sp_ten, sp.sp_code
                 FROM(
                     (
@@ -255,6 +256,7 @@ Public Class DonHangDAO
                                         .Sp_Ma = CInt(reader("ctpbh_ma_san_pham")),
                                         .SoLuong = CInt(reader("ctpbh_so_luong")),
                                         .Gia = CDbl(reader("ctpbh_gia")),
+                                        .TongTien = CDbl(reader("ctpbh_tong_tien")),
                                         .KhuyenMai = CDbl(reader("ctpbh_khuyen_mai")),
                                         .ThanhTien = CDbl(reader("ctpbh_thanh_tien")),
                                         .SanPhamInfo = New SanPham() With {

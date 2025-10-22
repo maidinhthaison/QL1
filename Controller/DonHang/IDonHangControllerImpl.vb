@@ -64,7 +64,6 @@
     End Sub
 
     Public Sub Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(chiNhanhMa As Integer) Implements IDonHangController.Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh
-
         listDonhang = donHangDao.ChuQuan_GetAll_DonHang_By_ChiNhanh(chiNhanhMa)
         View.BindingListDonHangToGridView(listDonhang)
     End Sub

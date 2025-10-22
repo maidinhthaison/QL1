@@ -13,5 +13,5 @@
     Public MSG_BOX_DELETE_SUCCESS_MESSAGE As String = "Xoá {0} thành công"
     Public MSG_BOX_DELETE_ERROR_MESSAGE As String = "Xoá {0} thất bại"
 
-    Public DATETIME_FORMAT As String = "dd-MM-yyyy"
+    Public DATETIME_FORMAT As String = "dd/MM/yyyy"
 End Module
