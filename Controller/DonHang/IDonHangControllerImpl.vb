@@ -19,7 +19,21 @@
 
     End Sub
 
+    Public Shared ReadOnly Property Instance() As IDonHangControllerImpl
+        Get
+            If _instance Is Nothing Then
+                _instance = New IDonHangControllerImpl()
+            End If
+            Return _instance
+        End Get
+    End Property
 
+    Public Sub Init(ByVal nvView As IDonHangView)
+        View = nvView
+        View.SetController(Me)
+    End Sub
+
+    '' Properties
     Public Property Index() As Integer
         Get
             Return selectedIndex
@@ -37,21 +51,9 @@
             listDonhang = value
         End Set
     End Property
-
-    Public Shared ReadOnly Property Instance() As IDonHangControllerImpl
-        Get
-            If _instance Is Nothing Then
-                _instance = New IDonHangControllerImpl()
-            End If
-            Return _instance
-        End Get
-    End Property
-
-    Public Sub Init(ByVal nvView As IDonHangView)
-        View = nvView
-        View.SetController(Me)
-    End Sub
-
+    ''' <summary>
+    ''' Methods
+    ''' </summary>
 
     Public Sub XulyTaoDonHang(tempDonHang As DonHang) Implements IDonHangController.XulyTaoDonHang
         Dim newDonHang As New List(Of DonHang) From {tempDonHang}

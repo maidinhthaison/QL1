@@ -101,12 +101,12 @@ Public Class KhachHangDAO
     End Sub
 
     Private Sub UpdateKhachHang(ByVal Kh As KhachHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
-        Dim sql As String = "UPDATE KhuVuc SET kh_ten = ?, kd_dien_thoai = ?, kh_dia_chi = ?, kh_xoa = ? WHERE kh_ma = ?"
+        Dim sql As String = "UPDATE KhachHang SET kh_ten = ?, kh_dien_thoai = ?, kh_dia_chi = ?, kh_xoa = ? WHERE kh_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pTen", Kh.Ten)
             cmd.Parameters.AddWithValue("pDt", Kh.DienThoai)
-            cmd.Parameters.AddWithValue("pDc", Kh.DienThoai)
+            cmd.Parameters.AddWithValue("pDc", Kh.DiaChi)
             cmd.Parameters.AddWithValue("pXoa", Kh.IsXoa)
             cmd.Parameters.AddWithValue("pMa", Kh.Ma)
             cmd.ExecuteNonQuery()

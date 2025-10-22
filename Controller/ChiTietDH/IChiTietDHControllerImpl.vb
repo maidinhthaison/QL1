@@ -31,7 +31,21 @@
 
     End Sub
 
+    Public Shared ReadOnly Property Instance() As IChiTietDHControllerImpl
+        Get
+            If _instance Is Nothing Then
+                _instance = New IChiTietDHControllerImpl()
+            End If
+            Return _instance
+        End Get
+    End Property
 
+    Public Sub Init(ByVal donHangView As IChiTietDonHangView)
+        View = donHangView
+        View.SetController(Me)
+    End Sub
+
+    '' Properties
     Public Property CurrentSPIndex() As Integer
         Get
             Return selectedSanPhamIndex
@@ -60,44 +74,28 @@
     End Property
 
 
-    Public Shared ReadOnly Property Instance() As IChiTietDHControllerImpl
-        Get
-            If _instance Is Nothing Then
-                _instance = New IChiTietDHControllerImpl()
-            End If
-            Return _instance
-        End Get
-    End Property
-
-    Public Sub Init(ByVal donHangView As IChiTietDonHangView)
-        View = donHangView
-        View.SetController(Me)
-    End Sub
-
-    Public Sub XuLyGetAllSanPham() Implements IChiTietDHController.XuLyGetAllSanPham
-        listSanPham = sanPhamDao.GetSP_By_LoaiSP_NhaCC_KhuVuc()
-        View.BindingListSanPhamToGridView(listSanPham)
-    End Sub
+    '' <summary>
+    ''' Methods
+    ''</summary>
 
     Public Sub XuLySaveChiTietDonHang(listChiTietDonHang As List(Of ChiTietDonHang), addedDonHang As DonHang, khachHang As KhachHang) Implements IChiTietDHController.XuLySaveChiTietDonHang
         ' Them chi tiet don hang
         Dim tongSoLuong As Integer = 0
         Dim tongKhuyenMai As Double = 0
         Dim tongTien As Double = 0
-        Dim tongThanhTien As Double = 0
-
+        Dim thanhTien As Double = 0
         For i As Integer = 0 To listChiTietDonHang.Count - 1
             Dim ctDH As ChiTietDonHang = listChiTietDonHang(i)
             ctDH.Pbh_Ma = addedDonHang.Ma
             tongSoLuong += ctDH.SoLuong
             tongKhuyenMai += ctDH.KhuyenMai
-            tongTien += ctDH.Gia * ctDH.SoLuong
-            tongThanhTien = tongTien - tongKhuyenMai
+            tongTien += Double.Parse(ctDH.SoLuong) * Double.Parse(ctDH.SoLuong)
+            thanhTien += tongTien - tongKhuyenMai
         Next
 
         addedDonHang.TongSanPham = tongSoLuong
         addedDonHang.TongKhuyenMai = tongKhuyenMai
-        addedDonHang.TongTien = tongThanhTien
+        addedDonHang.TongTien = tongTien
 
         If khachHang IsNot Nothing Then
             addedDonHang.BanHangKhachHang.Ma = khachHang.Ma
@@ -119,9 +117,28 @@
     End Sub
 
     Public Sub XuLyGetAllSanPhamByChiNhanh(chiNhanhMa As Integer) Implements IChiTietDHController.XuLyGetAllSanPhamByChiNhanh
-        MessageBox.Show(chiNhanhMa)
         listSanPham = sanPhamDao.GetSP_By_LoaiSP_NhaCC_KhuVuc_ChiNhanh(chiNhanhMa)
         View.BindingListSanPhamToGridView(listSanPham)
     End Sub
+
+    Public Function XulyTimKiemSanPham(tukhoa As String) As List(Of SanPham) Implements IChiTietDHController.XulyTimKiemSanPham
+        If String.IsNullOrWhiteSpace(tukhoa) Then
+            Return listSanPham
+        Else
+            Dim searchResult As List(Of SanPham) = listSanPham.Where(
+                Function(sp) sp.Ten.ToLower().Contains(tukhoa.ToLower()) OrElse
+                        sp.Gia.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Code.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.LoaiSp_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.NCC_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.LoaiSp_ChiNhanh.Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Sp_SoLuong.ToString.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Mota.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Sp_DonVi.Ten.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Kv_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
+               ).ToList()
+            Return searchResult
+        End If
+    End Function
 
 End Class
