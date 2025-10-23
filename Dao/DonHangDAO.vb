@@ -49,21 +49,22 @@ Public Class DonHangDAO
     Private Shared Sub InsertDonHang(ByVal pbh As DonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
         Dim sql As String = "INSERT INTO PhieuBanHang (pbh_code, pbh_ngay,  pbh_tong_san_pham, pbh_tong_khuyen_mai, 
-                pbh_tong_tien, pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh)
-                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)"
+                pbh_tong_tien, pbh_tong_thanh_tien, pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh, pbh_nv_ma)
+                            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
             cmd.Parameters.AddWithValue("pCode", pbh.Code)
-            cmd.Parameters.AddWithValue("pNgay", pbh.Ngay.ToString("dd/MM/yyyy"))
+            cmd.Parameters.AddWithValue("pNgay", pbh.Ngay.ToString(DATETIME_FORMAT))
             cmd.Parameters.AddWithValue("pTsp", pbh.TongSanPham)
             cmd.Parameters.AddWithValue("Tkm", pbh.TongKhuyenMai)
             cmd.Parameters.AddWithValue("pTT", pbh.TongTien)
+            cmd.Parameters.AddWithValue("pThanhTien", pbh.ThanhTien)
             cmd.Parameters.AddWithValue("pGhiChu", pbh.GhiChu)
             cmd.Parameters.AddWithValue("pKHMa", pbh.BanHangKhachHang.Ma)
             cmd.Parameters.AddWithValue("pXoa", pbh.IsXoa)
             cmd.Parameters.AddWithValue("pChiNhanhMa", pbh.ChiNhanh.Ma)
-
+            cmd.Parameters.AddWithValue("pNvMa", pbh.DonHang_NhanVien.Ma)
             cmd.ExecuteNonQuery()
             cmd.CommandText = "SELECT @@IDENTITY;"
             Dim newId As Integer = CInt(cmd.ExecuteScalar())
@@ -74,18 +75,20 @@ Public Class DonHangDAO
 
     Private Shared Sub UpdateDonHang(ByVal pbh As DonHang, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         Dim sql As String = "UPDATE PhieuBanHang SET pbh_ngay = ?, pbh_tong_san_pham = ?,
-            pbh_tong_khuyen_mai = ?, pbh_tong_tien = ?, pbh_ghi_chu = ?,
-            pbh_khach_hang = ?, pbh_xoa = ?, pbh_chi_nhanh = ? WHERE pbh_ma = ?"
+            pbh_tong_khuyen_mai = ?, pbh_tong_tien = ?, pbh_tong_thanh_tien = ?,  pbh_ghi_chu = ?,
+            pbh_khach_hang = ?, pbh_xoa = ?, pbh_chi_nhanh = ?, pbh_nv_ma = ? WHERE pbh_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
-            cmd.Parameters.AddWithValue("pNgay", pbh.Ngay)
+            cmd.Parameters.AddWithValue("pNgay", pbh.Ngay.ToString(DATETIME_FORMAT))
             cmd.Parameters.AddWithValue("pTongSp", pbh.TongSanPham)
             cmd.Parameters.AddWithValue("pTongKm", pbh.TongKhuyenMai)
             cmd.Parameters.AddWithValue("pTongTien", pbh.TongTien)
+            cmd.Parameters.AddWithValue("pThanhTien", pbh.ThanhTien)
             cmd.Parameters.AddWithValue("pGhiChu", pbh.GhiChu)
             cmd.Parameters.AddWithValue("pKHMa", pbh.BanHangKhachHang.Ma)
             cmd.Parameters.AddWithValue("pXoa", pbh.IsXoa)
             cmd.Parameters.AddWithValue("pChiNhanhMa", pbh.ChiNhanh.Ma)
+            cmd.Parameters.AddWithValue("pNvMa", pbh.DonHang_NhanVien.Ma)
             cmd.Parameters.AddWithValue("pMa", pbh.Ma)
             cmd.ExecuteNonQuery()
         End Using
@@ -94,7 +97,7 @@ Public Class DonHangDAO
         Dim pbhList As New List(Of DonHang)()
 
         Dim sql As String = "SELECT pbh_ma, pbh_code, pbh_ngay, pbh_tong_san_pham, pbh_tong_khuyen_mai, pbh_tong_tien,
-                pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh,
+                pbh_tong_thanh_tien, pbh_ghi_chu, pbh_khach_hang, pbh_xoa, pbh_chi_nhanh, pbh_nv_ma,
                 cn.cn_ma, cn.cn_ten, cn.cn_dia_chi
                 kh.kh_ma, kh.kh_code, kh.kh_ten, kh.kh_dien_thoai, kh.kh_dia_chi, kh.kh_xoa
                 FROM(
@@ -116,6 +119,7 @@ Public Class DonHangDAO
                                 .TongSanPham = CInt(reader("pbh_tong_san_pham")),
                                 .TongKhuyenMai = CDbl(reader("pbh_tong_khuyen_mai")),
                                 .TongTien = CDbl(reader("pbh_tong_tien")),
+                                .ThanhTien = CDbl(reader("pbh_tong_thanh_tien")),
                                 .GhiChu = CStr(reader("pbh_ghi_chu")),
                                 .IsXoa = CBool(reader("pbh_xoa")),
                                 .BanHangKhachHang = New KhachHang() With {
@@ -130,7 +134,10 @@ Public Class DonHangDAO
                                     .Ten = CStr(reader("cn_ten")),
                                     .DiaChi = CStr(reader("cn_dia_chi")),
                                     .Ma = CInt(reader("cn_ma"))
-                                }
+                                },
+                                .NhanVienMa = CInt(reader("pbh_nv_ma")),
+                                .KhachHangMa = CInt(reader("pbh_khach_hang")),
+                                .ChiNhanhMa = CInt(reader("pbh_chi_nhanh"))
                         }
                         pbhList.Add(pbh)
                     End While
@@ -148,7 +155,7 @@ Public Class DonHangDAO
         Dim pbhList As New List(Of DonHang)()
 
         Dim sql As String = "SELECT pbh.pbh_ma, pbh.pbh_code, pbh.pbh_ngay, pbh.pbh_tong_san_pham,
-                pbh.pbh_tong_khuyen_mai, pbh.pbh_tong_tien, pbh_nv_ma,
+                pbh.pbh_tong_khuyen_mai, pbh.pbh_tong_tien, pbh.pbh_tong_thanh_tien, pbh_nv_ma,
                 pbh.pbh_ghi_chu, pbh.pbh_khach_hang, pbh.pbh_xoa, pbh.pbh_chi_nhanh,
                 kh.kh_ma, kh.kh_code, kh.kh_ten, kh.kh_dien_thoai, kh.kh_dia_chi,
                 nv.nv_ma, nv.nv_ten, nv.nv_dien_thoai, nv.nv_diachi
@@ -156,7 +163,7 @@ Public Class DonHangDAO
                     PhieuBanHang As pbh
                     INNER JOIN KhachHang AS kh ON pbh.pbh_khach_hang = kh.kh_ma)
                     INNER JOIN NhanVien AS nv ON pbh.pbh_nv_ma = nv.nv_ma
-                WHERE pbh_chi_nhanh = ?"
+                WHERE pbh.pbh_chi_nhanh = ?"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
@@ -173,6 +180,7 @@ Public Class DonHangDAO
                                 .TongSanPham = CInt(reader("pbh_tong_san_pham")),
                                 .TongKhuyenMai = CDbl(reader("pbh_tong_khuyen_mai")),
                                 .TongTien = CDbl(reader("pbh_tong_tien")),
+                                .ThanhTien = CDbl(reader("pbh_tong_thanh_tien")),
                                 .GhiChu = CStr(reader("pbh_ghi_chu")),
                                 .IsXoa = CBool(reader("pbh_xoa")),
                                 .KhachHangMa = CInt(reader("pbh_khach_hang")),
@@ -208,7 +216,7 @@ Public Class DonHangDAO
     Public Function ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(pbh_ma As Integer) As List(Of DonHang)
         Dim pbhList As New List(Of DonHang)()
 
-        Dim sql As String = "SELECT pbh_ma, pbh_khach_hang, pbh_chi_nhanh, pbh_nv_ma, pbh_tong_khuyen_mai, pbh_tong_tien, pbh_ghi_chu,
+        Dim sql As String = "SELECT pbh_ma, pbh_khach_hang, pbh_chi_nhanh, pbh_nv_ma, pbh_tong_khuyen_mai, pbh_tong_tien, pbh_tong_thanh_tien, pbh_ghi_chu,
                 nv.nv_ma, nv.nv_ten, 
                 kh.kh_ma, kh.kh_code, kh.kh_ten, kh.kh_dien_thoai, kh.kh_dia_chi,
                 ctpbh.ctpbh_ma, ctpbh.ctpbh_pbh_ma, ctpbh.ctpbh_ma_san_pham, ctpbh.ctpbh_so_luong, ctpbh.ctpbh_gia,
@@ -237,6 +245,7 @@ Public Class DonHangDAO
                                 .NhanVienMa = CInt(reader("pbh_nv_ma")),
                                 .TongKhuyenMai = CDbl(reader("pbh_tong_khuyen_mai")),
                                 .TongTien = CDbl(reader("pbh_tong_tien")),
+                                .ThanhTien = CDbl(reader("pbh_tong_thanh_tien")),
                                 .GhiChu = CStr(reader("pbh_ghi_chu")),
                                 .BanHangKhachHang = New KhachHang() With {
                                     .Ten = CStr(reader("kh_ten")),

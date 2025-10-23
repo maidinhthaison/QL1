@@ -5,6 +5,7 @@
     Private _tong_san_pham As Integer
     Private _tong_khuyen_mai As Double
     Private _tong_tien As Double
+    Private _tong_thanh_tien As Double
     Private _ghi_chu As String
     Private _khach_hang_ma As Integer
     Private _isXoa As Boolean
@@ -72,6 +73,15 @@
         End Get
         Set(ByVal value As Double)
             _tong_tien = value
+        End Set
+    End Property
+
+    Public Property ThanhTien() As Double
+        Get
+            Return _tong_thanh_tien
+        End Get
+        Set(ByVal value As Double)
+            _tong_thanh_tien = value
         End Set
     End Property
 
@@ -159,16 +169,17 @@
 
     Public Overrides Function ToString() As String
         Dim result As String = "Mã đơn hàng: " & Me.Code & Environment.NewLine &
-                               "Ngày: " & Me.Ngay.ToString(DATETIME_FORMAT) & Environment.NewLine &
+                               "Ngày: " & Me.Ngay & Environment.NewLine &
                                "Tổng số sản phẩm: " & Me.TongSanPham & Environment.NewLine &
                                "Tổng khuyến mãi: " & Me.TongKhuyenMai.ToString("C2") & Environment.NewLine &
                                "Tổng tiền: " & Me.TongTien.ToString("C2") & Environment.NewLine &
+                               "Thành tiền: " & Me.ThanhTien.ToString("C2") & Environment.NewLine &
                                "Ghi chú: " & Me.GhiChu & Environment.NewLine &
                                "Khách hàng Ma : " & Me.BanHangKhachHang.Ma & Environment.NewLine &
                                "Khách hàng Tên : " & Me.BanHangKhachHang.Ten & Environment.NewLine &
                                "Chi nhánh Mã " & Me.ChiNhanh.Ma & Environment.NewLine &
                                "Chi nhánh Tên: " & Me.ChiNhanh.Ten & Environment.NewLine &
-                               "Nhân viên Mã: " & Me.DonHang_NhanVien.Ma
+                               "Nhân viên Mã: " & Me.DonHang_NhanVien.Ma & Environment.NewLine
 
         Return result
     End Function

@@ -89,17 +89,20 @@
             ctDH.Pbh_Ma = addedDonHang.Ma
             tongSoLuong += ctDH.SoLuong
             tongKhuyenMai += ctDH.KhuyenMai
-            tongTien += Double.Parse(ctDH.SoLuong) * Double.Parse(ctDH.SoLuong)
-            thanhTien += tongTien - tongKhuyenMai
+            tongTien += Double.Parse(ctDH.Gia) * Double.Parse(ctDH.SoLuong)
+            thanhTien += ctDH.ThanhTien
         Next
 
         addedDonHang.TongSanPham = tongSoLuong
         addedDonHang.TongKhuyenMai = tongKhuyenMai
         addedDonHang.TongTien = tongTien
+        addedDonHang.ThanhTien = thanhTien
 
         If khachHang IsNot Nothing Then
+            addedDonHang.KhachHangMa = khachHang.Ma
             addedDonHang.BanHangKhachHang.Ma = khachHang.Ma
         End If
+        MessageBox.Show($"{addedDonHang.ToString}", "Xác nhận", MessageBoxButtons.YesNo, MessageBoxIcon.Question)
         ' Save chi tiet don hang
         If chiTietPhieuBanHangDao.SaveChiTietDonHang(listChiTietDonHang) Then
             Dim updatedDonHang = New List(Of DonHang) From {addedDonHang}

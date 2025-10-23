@@ -410,11 +410,11 @@ Partial Class FormChiTietDonHang
         ' lbTongtien
         ' 
         lbTongtien.AutoSize = True
-        lbTongtien.Font = New Font("Segoe UI", 11F, FontStyle.Bold)
+        lbTongtien.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         lbTongtien.ForeColor = Color.Red
-        lbTongtien.Location = New Point(404, 31)
+        lbTongtien.Location = New Point(393, 36)
         lbTongtien.Name = "lbTongtien"
-        lbTongtien.Size = New Size(23, 25)
+        lbTongtien.Size = New Size(18, 20)
         lbTongtien.TabIndex = 16
         lbTongtien.Text = "0"
         ' 

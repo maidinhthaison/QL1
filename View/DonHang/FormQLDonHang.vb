@@ -110,17 +110,20 @@
         dgvDonHang.Columns("TongSanPham").DisplayIndex = 2
         dgvDonHang.Columns("TongSanPham").Width = 50
 
-        dgvDonHang.Columns("TongKhuyenMai").HeaderText = "Tổng KM"
-        dgvDonHang.Columns("TongKhuyenMai").DisplayIndex = 3
-
         dgvDonHang.Columns("TongTien").HeaderText = "Tổng tiền"
-        dgvDonHang.Columns("TongTien").DisplayIndex = 4
+        dgvDonHang.Columns("TongTien").DisplayIndex = 3
+
+        dgvDonHang.Columns("TongKhuyenMai").HeaderText = "Tổng KM"
+        dgvDonHang.Columns("TongKhuyenMai").DisplayIndex = 4
+
+        dgvDonHang.Columns("ThanhTien").HeaderText = "Thành tiền"
+        dgvDonHang.Columns("ThanhTien").DisplayIndex = 5
 
         dgvDonHang.Columns("BanHangKhachHang").HeaderText = "Khách hàng"
-        dgvDonHang.Columns("BanHangKhachHang").DisplayIndex = 5
+        dgvDonHang.Columns("BanHangKhachHang").DisplayIndex = 6
 
         dgvDonHang.Columns("DonHang_NhanVien").HeaderText = "Người lập"
-        dgvDonHang.Columns("DonHang_NhanVien").DisplayIndex = 6
+        dgvDonHang.Columns("DonHang_NhanVien").DisplayIndex = 7
 
     End Sub
 
@@ -145,6 +148,7 @@
                  .TongSanPham = 0,
                  .TongKhuyenMai = 0,
                  .TongTien = 0,
+                 .ThanhTien = 0,
                  .GhiChu = "",
                  .IsXoa = False,
                  .BanHangKhachHang = New KhachHang() With {
@@ -227,7 +231,8 @@
         End If
 
         If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongKhuyenMai" OrElse
-            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" Then
+            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" OrElse
+            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)
                 e.Value = CurrencyFormat(value)
