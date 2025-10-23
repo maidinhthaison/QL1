@@ -32,8 +32,6 @@ Partial Class FormQLDonHang
         btnTaoDon = New Button()
         Panel1 = New Panel()
         GroupBox2 = New GroupBox()
-        Button1 = New Button()
-        btnCapNhat = New Button()
         lbNguoiLap = New Label()
         Label7 = New Label()
         tbGhiChu = New RichTextBox()
@@ -75,7 +73,7 @@ Partial Class FormQLDonHang
         GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Padding = New Padding(3, 4, 3, 4)
-        GroupBox1.Size = New Size(1098, 972)
+        GroupBox1.Size = New Size(999, 972)
         GroupBox1.TabIndex = 1
         GroupBox1.TabStop = False
         GroupBox1.Text = "Danh Sách Đơn Hàng"
@@ -129,12 +127,12 @@ Partial Class FormQLDonHang
         dgvDonHang.ReadOnly = True
         dgvDonHang.RowHeadersWidth = 51
         dgvDonHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvDonHang.Size = New Size(1085, 885)
+        dgvDonHang.Size = New Size(986, 885)
         dgvDonHang.TabIndex = 4
         ' 
         ' btnTaoDon
         ' 
-        btnTaoDon.Location = New Point(793, 33)
+        btnTaoDon.Location = New Point(735, 35)
         btnTaoDon.Margin = New Padding(3, 4, 3, 4)
         btnTaoDon.Name = "btnTaoDon"
         btnTaoDon.Size = New Size(86, 31)
@@ -145,16 +143,14 @@ Partial Class FormQLDonHang
         ' Panel1
         ' 
         Panel1.Controls.Add(GroupBox2)
-        Panel1.Location = New Point(1118, 13)
+        Panel1.Location = New Point(1019, 13)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(627, 975)
+        Panel1.Size = New Size(726, 975)
         Panel1.TabIndex = 5
         ' 
         ' GroupBox2
         ' 
-        GroupBox2.Controls.Add(Button1)
-        GroupBox2.Controls.Add(btnCapNhat)
         GroupBox2.Controls.Add(lbNguoiLap)
         GroupBox2.Controls.Add(Label7)
         GroupBox2.Controls.Add(tbGhiChu)
@@ -177,36 +173,16 @@ Partial Class FormQLDonHang
         GroupBox2.Margin = New Padding(3, 4, 3, 4)
         GroupBox2.Name = "GroupBox2"
         GroupBox2.Padding = New Padding(3, 4, 3, 4)
-        GroupBox2.Size = New Size(607, 963)
+        GroupBox2.Size = New Size(714, 963)
         GroupBox2.TabIndex = 44
         GroupBox2.TabStop = False
         GroupBox2.Text = "Thông tin đơn hàng"
-        ' 
-        ' Button1
-        ' 
-        Button1.Location = New Point(124, 917)
-        Button1.Margin = New Padding(3, 4, 3, 4)
-        Button1.Name = "Button1"
-        Button1.Size = New Size(86, 31)
-        Button1.TabIndex = 54
-        Button1.Text = "Xóa Đơn"
-        Button1.UseVisualStyleBackColor = True
-        ' 
-        ' btnCapNhat
-        ' 
-        btnCapNhat.Location = New Point(10, 917)
-        btnCapNhat.Margin = New Padding(3, 4, 3, 4)
-        btnCapNhat.Name = "btnCapNhat"
-        btnCapNhat.Size = New Size(86, 31)
-        btnCapNhat.TabIndex = 49
-        btnCapNhat.Text = "Cập nhật"
-        btnCapNhat.UseVisualStyleBackColor = True
         ' 
         ' lbNguoiLap
         ' 
         lbNguoiLap.AutoSize = True
         lbNguoiLap.ForeColor = Color.Blue
-        lbNguoiLap.Location = New Point(124, 78)
+        lbNguoiLap.Location = New Point(400, 45)
         lbNguoiLap.Name = "lbNguoiLap"
         lbNguoiLap.Size = New Size(36, 20)
         lbNguoiLap.TabIndex = 53
@@ -215,7 +191,7 @@ Partial Class FormQLDonHang
         ' Label7
         ' 
         Label7.AutoSize = True
-        Label7.Location = New Point(10, 78)
+        Label7.Location = New Point(285, 45)
         Label7.Name = "Label7"
         Label7.Size = New Size(76, 20)
         Label7.TabIndex = 52
@@ -223,16 +199,16 @@ Partial Class FormQLDonHang
         ' 
         ' tbGhiChu
         ' 
-        tbGhiChu.Location = New Point(9, 374)
+        tbGhiChu.Location = New Point(400, 78)
         tbGhiChu.Name = "tbGhiChu"
-        tbGhiChu.Size = New Size(424, 102)
+        tbGhiChu.Size = New Size(297, 102)
         tbGhiChu.TabIndex = 51
         tbGhiChu.Text = ""
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Location = New Point(13, 336)
+        Label5.Location = New Point(286, 93)
         Label5.Name = "Label5"
         Label5.Size = New Size(58, 20)
         Label5.TabIndex = 50
@@ -246,19 +222,19 @@ Partial Class FormQLDonHang
         dgvSanPham.AllowUserToResizeRows = False
         dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvSanPham.Location = New Point(9, 539)
+        dgvSanPham.Location = New Point(6, 294)
         dgvSanPham.Margin = New Padding(3, 4, 3, 4)
         dgvSanPham.Name = "dgvSanPham"
         dgvSanPham.ReadOnly = True
         dgvSanPham.RowHeadersWidth = 51
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSanPham.Size = New Size(586, 350)
+        dgvSanPham.Size = New Size(699, 416)
         dgvSanPham.TabIndex = 49
         ' 
         ' lbDiaChi
         ' 
         lbDiaChi.AutoSize = True
-        lbDiaChi.Location = New Point(127, 231)
+        lbDiaChi.Location = New Point(134, 196)
         lbDiaChi.Name = "lbDiaChi"
         lbDiaChi.Size = New Size(36, 20)
         lbDiaChi.TabIndex = 48
@@ -267,7 +243,7 @@ Partial Class FormQLDonHang
         ' Label3
         ' 
         Label3.AutoSize = True
-        Label3.Location = New Point(9, 496)
+        Label3.Location = New Point(6, 251)
         Label3.Name = "Label3"
         Label3.Size = New Size(182, 20)
         Label3.TabIndex = 9
@@ -276,7 +252,7 @@ Partial Class FormQLDonHang
         ' lbDienThoai
         ' 
         lbDienThoai.AutoSize = True
-        lbDienThoai.Location = New Point(127, 177)
+        lbDienThoai.Location = New Point(134, 147)
         lbDienThoai.Name = "lbDienThoai"
         lbDienThoai.Size = New Size(36, 20)
         lbDienThoai.TabIndex = 47
@@ -285,16 +261,17 @@ Partial Class FormQLDonHang
         ' Label10
         ' 
         Label10.AutoSize = True
-        Label10.Location = New Point(14, 288)
+        Label10.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        Label10.Location = New Point(9, 734)
         Label10.Name = "Label10"
-        Label10.Size = New Size(72, 20)
+        Label10.Size = New Size(87, 23)
         Label10.TabIndex = 24
         Label10.Text = "Tổng tiền"
         ' 
         ' lbTenKh
         ' 
         lbTenKh.AutoSize = True
-        lbTenKh.Location = New Point(127, 123)
+        lbTenKh.Location = New Point(134, 93)
         lbTenKh.Name = "lbTenKh"
         lbTenKh.Size = New Size(36, 20)
         lbTenKh.TabIndex = 46
@@ -303,11 +280,11 @@ Partial Class FormQLDonHang
         ' lbTongTien
         ' 
         lbTongTien.AutoSize = True
-        lbTongTien.Font = New Font("Segoe UI", 10F)
+        lbTongTien.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbTongTien.ForeColor = Color.Red
-        lbTongTien.Location = New Point(100, 285)
+        lbTongTien.Location = New Point(102, 734)
         lbTongTien.Name = "lbTongTien"
-        lbTongTien.Size = New Size(19, 23)
+        lbTongTien.Size = New Size(20, 23)
         lbTongTien.TabIndex = 36
         lbTongTien.Text = "0"
         ' 
@@ -315,7 +292,7 @@ Partial Class FormQLDonHang
         ' 
         lbChiNhanh.AutoSize = True
         lbChiNhanh.ForeColor = Color.Blue
-        lbChiNhanh.Location = New Point(124, 39)
+        lbChiNhanh.Location = New Point(134, 45)
         lbChiNhanh.Name = "lbChiNhanh"
         lbChiNhanh.Size = New Size(36, 20)
         lbChiNhanh.TabIndex = 45
@@ -324,27 +301,28 @@ Partial Class FormQLDonHang
         ' lbKhuyenMai
         ' 
         lbKhuyenMai.AutoSize = True
-        lbKhuyenMai.Font = New Font("Segoe UI", 10F)
+        lbKhuyenMai.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbKhuyenMai.ForeColor = Color.Blue
-        lbKhuyenMai.Location = New Point(285, 285)
+        lbKhuyenMai.Location = New Point(400, 734)
         lbKhuyenMai.Name = "lbKhuyenMai"
-        lbKhuyenMai.Size = New Size(19, 23)
+        lbKhuyenMai.Size = New Size(20, 23)
         lbKhuyenMai.TabIndex = 37
         lbKhuyenMai.Text = "0"
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(193, 288)
+        Label2.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        Label2.Location = New Point(244, 734)
         Label2.Name = "Label2"
-        Label2.Size = New Size(86, 20)
+        Label2.Size = New Size(150, 23)
         Label2.TabIndex = 8
-        Label2.Text = "Khuyến mãi"
+        Label2.Text = "Tổng Khuyến mãi"
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Location = New Point(10, 231)
+        Label9.Location = New Point(10, 196)
         Label9.Name = "Label9"
         Label9.Size = New Size(55, 20)
         Label9.TabIndex = 42
@@ -353,7 +331,7 @@ Partial Class FormQLDonHang
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(10, 177)
+        Label6.Location = New Point(10, 147)
         Label6.Name = "Label6"
         Label6.Size = New Size(78, 20)
         Label6.TabIndex = 40
@@ -362,7 +340,7 @@ Partial Class FormQLDonHang
         ' Label8
         ' 
         Label8.AutoSize = True
-        Label8.Location = New Point(6, 39)
+        Label8.Location = New Point(10, 45)
         Label8.Name = "Label8"
         Label8.Size = New Size(74, 20)
         Label8.TabIndex = 31
@@ -371,7 +349,7 @@ Partial Class FormQLDonHang
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Location = New Point(10, 123)
+        Label4.Location = New Point(6, 93)
         Label4.Name = "Label4"
         Label4.Size = New Size(113, 20)
         Label4.TabIndex = 34
@@ -427,7 +405,5 @@ Partial Class FormQLDonHang
     Friend WithEvents Label5 As Label
     Friend WithEvents lbNguoiLap As Label
     Friend WithEvents Label7 As Label
-    Friend WithEvents Button1 As Button
-    Friend WithEvents btnCapNhat As Button
     Friend WithEvents BindingSource_CTDonHang As BindingSource
 End Class

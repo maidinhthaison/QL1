@@ -17,6 +17,7 @@ Public Class ISanPhamControllerImpl
 
     Private sanPhamDAO As SanPhamDAO
 
+
     Private Sub New()
         listSanPham = New List(Of SanPham)
         listLoaiSanPham = New List(Of LoaiSanPham)
@@ -24,6 +25,19 @@ Public Class ISanPhamControllerImpl
         sanPhamDAO = New SanPhamDAO()
     End Sub
 
+    Public Shared ReadOnly Property Instance() As ISanPhamControllerImpl
+        Get
+            If _instance Is Nothing Then
+                _instance = New ISanPhamControllerImpl()
+            End If
+            Return _instance
+        End Get
+    End Property
+
+    Public Sub Init(ByVal loaiSpView As ISanPhamView)
+        View = loaiSpView
+        View.SetController(Me)
+    End Sub
 
     Public Property Index() As Integer
         Get
@@ -52,19 +66,9 @@ Public Class ISanPhamControllerImpl
         End Set
     End Property
 
-    Public Shared ReadOnly Property Instance() As ISanPhamControllerImpl
-        Get
-            If _instance Is Nothing Then
-                _instance = New ISanPhamControllerImpl()
-            End If
-            Return _instance
-        End Get
-    End Property
-
-    Public Sub Init(ByVal loaiSpView As ISanPhamView)
-        View = loaiSpView
-        View.SetController(Me)
-    End Sub
+    ''' <summary>
+    ''' Methods
+    ''' </summary>
 
     Public Sub XulyThemSanPham(addedSanPham As SanPham) Implements ISanPhamController.XulyThemSanPham
 

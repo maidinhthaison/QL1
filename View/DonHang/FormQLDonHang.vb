@@ -108,18 +108,22 @@
 
         dgvDonHang.Columns("TongSanPham").HeaderText = "Tổng SP"
         dgvDonHang.Columns("TongSanPham").DisplayIndex = 2
-
-        dgvDonHang.Columns("TongKhuyenMai").HeaderText = "Tổng KM"
-        dgvDonHang.Columns("TongKhuyenMai").DisplayIndex = 3
+        dgvDonHang.Columns("TongSanPham").Width = 50
 
         dgvDonHang.Columns("TongTien").HeaderText = "Tổng tiền"
-        dgvDonHang.Columns("TongTien").DisplayIndex = 4
+        dgvDonHang.Columns("TongTien").DisplayIndex = 3
+
+        dgvDonHang.Columns("TongKhuyenMai").HeaderText = "Tổng KM"
+        dgvDonHang.Columns("TongKhuyenMai").DisplayIndex = 4
+
+        dgvDonHang.Columns("ThanhTien").HeaderText = "Thành tiền"
+        dgvDonHang.Columns("ThanhTien").DisplayIndex = 5
 
         dgvDonHang.Columns("BanHangKhachHang").HeaderText = "Khách hàng"
-        dgvDonHang.Columns("BanHangKhachHang").DisplayIndex = 5
+        dgvDonHang.Columns("BanHangKhachHang").DisplayIndex = 6
 
         dgvDonHang.Columns("DonHang_NhanVien").HeaderText = "Người lập"
-        dgvDonHang.Columns("DonHang_NhanVien").DisplayIndex = 6
+        dgvDonHang.Columns("DonHang_NhanVien").DisplayIndex = 7
 
     End Sub
 
@@ -136,13 +140,15 @@
     End Sub
 
     Private Sub TaoDon()
+
         ' Tao 1 phieu ban hang moi
         Dim newPhieuBanHang As New DonHang() With {
                  .Code = Gen_12Chars_UUID(),
-                 .Ngay = dtPicker.Value.ToString(DATETIME_FORMAT),
+                 .Ngay = dtPicker.Value,
                  .TongSanPham = 0,
                  .TongKhuyenMai = 0,
                  .TongTien = 0,
+                 .ThanhTien = 0,
                  .GhiChu = "",
                  .IsXoa = False,
                  .BanHangKhachHang = New KhachHang() With {
@@ -152,10 +158,8 @@
                       .DiaChi = "",
                       .IsXoa = False
                  },
-                 .ChiNhanh = New ChiNhanh() With {
-                      .Ma = userSession.ChiNhanh.Ma,
-                      .Ten = lbChiNhanh.Text
-                 }
+                 .ChiNhanh = userSession.ChiNhanh,
+                 .DonHang_NhanVien = userSession
         }
         donHangController.XulyTaoDonHang(newPhieuBanHang)
         GotoChiTietDonHangForm(newPhieuBanHang)
@@ -227,7 +231,8 @@
         End If
 
         If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongKhuyenMai" OrElse
-            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" Then
+            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" OrElse
+            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)
                 e.Value = CurrencyFormat(value)
@@ -255,12 +260,16 @@
         dgvSanPham.Columns("SoLuong").DisplayIndex = 2
         dgvSanPham.Columns("SoLuong").Width = 25
 
+        dgvSanPham.Columns("TongTien").HeaderText = "Tổng"
+        dgvSanPham.Columns("TongTien").DisplayIndex = 3
+        dgvSanPham.Columns("TongTien").Width = 75
+
         dgvSanPham.Columns("KhuyenMai").HeaderText = "KM"
-        dgvSanPham.Columns("KhuyenMai").DisplayIndex = 3
+        dgvSanPham.Columns("KhuyenMai").DisplayIndex = 4
         dgvSanPham.Columns("KhuyenMai").Width = 75
 
         dgvSanPham.Columns("ThanhTien").HeaderText = "Thành tiền"
-        dgvSanPham.Columns("ThanhTien").DisplayIndex = 4
+        dgvSanPham.Columns("ThanhTien").DisplayIndex = 5
         dgvSanPham.Columns("ThanhTien").Width = 100
     End Sub
 
@@ -277,6 +286,7 @@
 
         If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" OrElse
             dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "KhuyenMai" OrElse
+            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "TongTien" OrElse
             dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)

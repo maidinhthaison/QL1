@@ -7,7 +7,7 @@
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
-
+        MessageBox.Show($"Chào mừng {nhanViewController.UserSession.Ten} đã đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
     Public Sub New(tkMa As Integer)
         InitializeComponent()

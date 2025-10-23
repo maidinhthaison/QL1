@@ -1,6 +1,9 @@
 ﻿Imports System.Globalization
+Imports System.Runtime.InteropServices.JavaScript.JSType
 Imports System.Security.Cryptography
 Imports System.Text
+Imports System.Text.RegularExpressions
+Imports System.Windows.Forms.DataFormats
 Imports BCrypt.Net.BCrypt
 
 Module Util
@@ -72,4 +75,5 @@ Module Util
         Dim formattedCurrency As String = amount.ToString("C", vietnamCulture)
         Return formattedCurrency
     End Function
+
 End Module
