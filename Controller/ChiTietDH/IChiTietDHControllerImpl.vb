@@ -15,6 +15,7 @@
     ''' </summary>
     Private chiTietPhieuBanHangDao As ChiTietDonHangDAO
     Private listChiTietPBH As List(Of ChiTietDonHang)
+    Private selectedDonHangIndex As Integer
     ''' <summary>
     ''' DAO DonHang
     ''' </summary>
@@ -73,7 +74,14 @@
         End Set
     End Property
 
-
+    Public Property CurrentDonHangIndex() As Integer
+        Get
+            Return selectedDonHangIndex
+        End Get
+        Set(ByVal value As Integer)
+            selectedDonHangIndex = value
+        End Set
+    End Property
     '' <summary>
     ''' Methods
     ''</summary>
