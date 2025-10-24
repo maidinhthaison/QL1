@@ -88,7 +88,7 @@ Public Class FormChiTietDonHang
     Private Sub TimKiemKhachHang()
         Dim tukhoa = tbDienthoaiKh.Text.Trim.ToString()
         If String.IsNullOrWhiteSpace(tukhoa) Then
-            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Vui lòng nhập tên khách hàng để tìm kiếm.")
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Vui lòng nhập số điện thoại để tìm kiếm.")
             Return
         End If
 
@@ -224,13 +224,10 @@ Public Class FormChiTietDonHang
         If selectedCTDonHang.SoLuong <= Integer.Parse(tbSoluong.Text) Then
             ' Xóa đơn hàng ra khỏi danh sách
             dsCTDonHang.RemoveAt(selectedCTDonHangIndex)
-
             RefreshDonHangGridView(chiTietDonHangControllerImpl.GetDSChiTietPbh)
             ConfigureDonHangGridView()
 
             ' Cập nhật lại kho hàng
-            'Dim index As Integer = chiTietDonHangControllerImpl.CurrentSPIndex
-            'Dim selectedSp As SanPham = chiTietDonHangControllerImpl.ListSp(index)
             foundCTDH.SanPhamInfo.Sp_SoLuong += foundCTDH.SoLuong
             RefreshSanPhamGridView(chiTietDonHangControllerImpl.ListSp)
             ConfigureGridView()
