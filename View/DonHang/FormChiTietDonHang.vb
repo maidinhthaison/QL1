@@ -154,23 +154,30 @@ Public Class FormChiTietDonHang
     Private Sub ThemSPGioHang()
         Dim index As Integer = chiTietDonHangControllerImpl.CurrentSPIndex
         Dim selectedSp As SanPham = chiTietDonHangControllerImpl.ListSp(index)
-        If selectedSp.Sp_SoLuong = 0 Then
-            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Sản phẩm hết hàng")
+        If selectedSp.Sp_SoLuong = 0 OrElse Integer.Parse(selectedSp.Sp_SoLuong) < Integer.Parse(tbSoluong.Text) Then
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Không đủ hàng")
             Return
         Else
             Dim foundProduct As ChiTietDonHang = chiTietDonHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedSp.Ma)
 
             If foundProduct IsNot Nothing Then
                 'Cập nhật số lượng
-                'foundProduct.SoLuong += 1
                 foundProduct.SoLuong += Integer.Parse(tbSoluong.Text)
-                Dim tongtien As Double = Double.Parse(foundProduct.Gia) * Double.Parse(foundProduct.SoLuong)
+                Dim tongtien As Double = Double.Parse(selectedSp.Gia) * Double.Parse(foundProduct.SoLuong)
                 Dim khuyenmai As Double = tongtien * Double.Parse(tbKhuyenMai.Text) / 100
+                foundProduct.TongTien = tongtien
                 foundProduct.ThanhTien = tongtien - khuyenmai
                 foundProduct.KhuyenMai = khuyenmai
                 TinhTongTien()
+
                 RefreshDonHangGridView(chiTietDonHangControllerImpl.GetDSChiTietPbh)
                 ConfigureDonHangGridView()
+
+                'Cập nhật kho
+                selectedSp.Sp_SoLuong -= Integer.Parse(tbSoluong.Text)
+                RefreshSanPhamGridView(chiTietDonHangControllerImpl.ListSp)
+                ConfigureGridView()
+
             Else
                 'Thêm mới
                 Dim pbhCode As String = Gen_12Chars_UUID()
@@ -194,8 +201,12 @@ Public Class FormChiTietDonHang
                 TinhTongTien()
 
                 RefreshDonHangGridView(chiTietDonHangControllerImpl.GetDSChiTietPbh)
-
                 ConfigureDonHangGridView()
+
+                'Cập nhật kho
+                selectedSp.Sp_SoLuong -= Integer.Parse(tbSoluong.Text)
+                RefreshSanPhamGridView(chiTietDonHangControllerImpl.ListSp)
+                ConfigureGridView()
             End If
         End If
 
@@ -204,6 +215,19 @@ Public Class FormChiTietDonHang
 
     Private Sub XoaSPGioHang()
 
+    End Sub
+
+    Private Sub CapNhatKho()
+        Dim listChiTietPbh As List(Of ChiTietDonHang) = chiTietDonHangControllerImpl.GetDSChiTietPbh
+        If listChiTietPbh IsNot Nothing AndAlso listChiTietPbh.Count > 0 Then
+            Dim tongTien As Double = listChiTietPbh.Sum(Function(ct) ct.TongTien)
+            Dim thanhTien As Double = listChiTietPbh.Sum(Function(ct) ct.ThanhTien)
+            Dim tongKhuyenMai As Double = listChiTietPbh.Sum(Function(ct) ct.KhuyenMai)
+            Dim tongSoLuong As Integer = listChiTietPbh.Sum(Function(ct) ct.SoLuong)
+            lbTongtien.Text = CurrencyFormat(thanhTien)
+        Else
+            lbTongtien.Text = "0"
+        End If
     End Sub
     Private Sub TinhTongTien()
         Dim listChiTietPbh As List(Of ChiTietDonHang) = chiTietDonHangControllerImpl.GetDSChiTietPbh
@@ -222,6 +246,15 @@ Public Class FormChiTietDonHang
         dgvDonHang.DataSource = Nothing
         CTDH_BindingSource.DataSource = list
         dgvDonHang.DataSource = CTDH_BindingSource
+
+    End Sub
+
+    Private Sub RefreshSanPhamGridView(list As List(Of SanPham))
+        dgvSanPham.DataSource = Nothing
+
+        SP_BindingSource.DataSource = list
+
+        dgvSanPham.DataSource = SP_BindingSource
 
     End Sub
 
@@ -275,11 +308,7 @@ Public Class FormChiTietDonHang
     End Sub
 
     Public Sub BindingListSanPhamToGridView(list As List(Of SanPham)) Implements IChiTietDonHangView.BindingListSanPhamToGridView
-        dgvSanPham.DataSource = Nothing
-
-        SP_BindingSource.DataSource = list
-
-        dgvSanPham.DataSource = SP_BindingSource
+        RefreshSanPhamGridView(list)
 
         ConfigureGridView()
     End Sub
@@ -303,29 +332,26 @@ Public Class FormChiTietDonHang
         ' Set custom header text for columns
 
         dgvSanPham.Columns("Code").DisplayIndex = 0
-        dgvSanPham.Columns("Code").Width = 75
+        dgvSanPham.Columns("Code").Width = 100
 
         dgvSanPham.Columns("NCC_Ten").DisplayIndex = 1
-        dgvSanPham.Columns("NCC_Ten").Width = 50
+        dgvSanPham.Columns("NCC_Ten").Width = 100
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
 
         dgvSanPham.Columns("Ten").DisplayIndex = 2
         dgvSanPham.Columns("Ten").HeaderText = "SP"
+        dgvSanPham.Columns("Ten").Width = 200
 
-        dgvSanPham.Columns("Gia").DisplayIndex = 3
-        dgvSanPham.Columns("Gia").Width = 50
+        dgvSanPham.Columns("Gia").Width = 75
         dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("Gia").DisplayIndex = 3
 
-        dgvSanPham.Columns("Sp_DonVi").DisplayIndex = 4
-        dgvSanPham.Columns("Sp_DonVi").Width = 50
-        dgvSanPham.Columns("Sp_DonVi").HeaderText = "Đơn vị"
 
-        dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 5
         dgvSanPham.Columns("Sp_SoLuong").Width = 50
         dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Kho hàng"
 
-        dgvSanPham.Columns("Kv_Ten").DisplayIndex = 6
-        dgvSanPham.Columns("Kv_Ten").Width = 75
+        dgvSanPham.Columns("Sp_DonVi").HeaderText = "Đơn vị"
+
         dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu Vực"
 
 

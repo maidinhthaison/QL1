@@ -30,7 +30,6 @@ Partial Class FormChiTietDonHang
         Label2 = New Label()
         btnThem = New Button()
         btnXoa = New Button()
-        GroupBox2 = New GroupBox()
         GroupBox4 = New GroupBox()
         btnCapNhatKH = New Button()
         btnTimKH = New Button()
@@ -63,7 +62,6 @@ Partial Class FormChiTietDonHang
         Bs_KhachHang = New BindingSource(components)
         GroupBox1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
-        GroupBox2.SuspendLayout()
         GroupBox4.SuspendLayout()
         CType(dgvKhachHang, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox3.SuspendLayout()
@@ -93,13 +91,13 @@ Partial Class FormChiTietDonHang
         dgvSanPham.AllowUserToResizeRows = False
         dgvSanPham.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvSanPham.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvSanPham.Location = New Point(6, 21)
+        dgvSanPham.Location = New Point(6, 28)
         dgvSanPham.Margin = New Padding(3, 4, 3, 4)
         dgvSanPham.Name = "dgvSanPham"
         dgvSanPham.ReadOnly = True
         dgvSanPham.RowHeadersWidth = 51
         dgvSanPham.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvSanPham.Size = New Size(918, 841)
+        dgvSanPham.Size = New Size(918, 834)
         dgvSanPham.TabIndex = 7
         ' 
         ' tbTuKhoa
@@ -148,20 +146,6 @@ Partial Class FormChiTietDonHang
         btnXoa.Text = "< Bỏ ra"
         btnXoa.UseVisualStyleBackColor = True
         ' 
-        ' GroupBox2
-        ' 
-        GroupBox2.Controls.Add(GroupBox4)
-        GroupBox2.Controls.Add(GroupBox3)
-        GroupBox2.Controls.Add(dgvDonHang)
-        GroupBox2.Location = New Point(950, 16)
-        GroupBox2.Margin = New Padding(3, 4, 3, 4)
-        GroupBox2.Name = "GroupBox2"
-        GroupBox2.Padding = New Padding(3, 4, 3, 4)
-        GroupBox2.Size = New Size(635, 915)
-        GroupBox2.TabIndex = 8
-        GroupBox2.TabStop = False
-        GroupBox2.Text = "Đơn hàng"
-        ' 
         ' GroupBox4
         ' 
         GroupBox4.Controls.Add(btnCapNhatKH)
@@ -174,11 +158,11 @@ Partial Class FormChiTietDonHang
         GroupBox4.Controls.Add(Label4)
         GroupBox4.Controls.Add(Label9)
         GroupBox4.Controls.Add(tbDiaChi)
-        GroupBox4.Location = New Point(16, 644)
+        GroupBox4.Location = New Point(16, 619)
         GroupBox4.Margin = New Padding(3, 4, 3, 4)
         GroupBox4.Name = "GroupBox4"
         GroupBox4.Padding = New Padding(3, 4, 3, 4)
-        GroupBox4.Size = New Size(603, 263)
+        GroupBox4.Size = New Size(699, 299)
         GroupBox4.TabIndex = 13
         GroupBox4.TabStop = False
         GroupBox4.Text = "Thông tin khách hàng"
@@ -217,7 +201,7 @@ Partial Class FormChiTietDonHang
         dgvKhachHang.ReadOnly = True
         dgvKhachHang.RowHeadersWidth = 51
         dgvKhachHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvKhachHang.Size = New Size(282, 238)
+        dgvKhachHang.Size = New Size(378, 274)
         dgvKhachHang.TabIndex = 14
         ' 
         ' cbTichDiem
@@ -283,8 +267,10 @@ Partial Class FormChiTietDonHang
         ' 
         ' GroupBox3
         ' 
+        GroupBox3.Controls.Add(GroupBox4)
         GroupBox3.Controls.Add(Label11)
         GroupBox3.Controls.Add(lbChiNhanh)
+        GroupBox3.Controls.Add(dgvDonHang)
         GroupBox3.Controls.Add(Label7)
         GroupBox3.Controls.Add(tbSoluong)
         GroupBox3.Controls.Add(Label5)
@@ -295,11 +281,11 @@ Partial Class FormChiTietDonHang
         GroupBox3.Controls.Add(btnXacNhan)
         GroupBox3.Controls.Add(tbGhiChu)
         GroupBox3.Controls.Add(lbTongtien)
-        GroupBox3.Location = New Point(16, 28)
+        GroupBox3.Location = New Point(950, 13)
         GroupBox3.Margin = New Padding(3, 4, 3, 4)
         GroupBox3.Name = "GroupBox3"
         GroupBox3.Padding = New Padding(3, 4, 3, 4)
-        GroupBox3.Size = New Size(603, 173)
+        GroupBox3.Size = New Size(721, 926)
         GroupBox3.TabIndex = 12
         GroupBox3.TabStop = False
         GroupBox3.Text = "Chi tiết ĐH"
@@ -426,13 +412,13 @@ Partial Class FormChiTietDonHang
         dgvDonHang.AllowUserToResizeRows = False
         dgvDonHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvDonHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvDonHang.Location = New Point(16, 209)
+        dgvDonHang.Location = New Point(16, 184)
         dgvDonHang.Margin = New Padding(3, 4, 3, 4)
         dgvDonHang.Name = "dgvDonHang"
         dgvDonHang.ReadOnly = True
         dgvDonHang.RowHeadersWidth = 51
         dgvDonHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvDonHang.Size = New Size(603, 427)
+        dgvDonHang.Size = New Size(699, 427)
         dgvDonHang.TabIndex = 7
         ' 
         ' lbDateTime
@@ -459,11 +445,11 @@ Partial Class FormChiTietDonHang
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1600, 952)
+        ClientSize = New Size(1683, 952)
         Controls.Add(lbNgayThang)
         Controls.Add(lbDateTime)
-        Controls.Add(GroupBox2)
         Controls.Add(btnXoa)
+        Controls.Add(GroupBox3)
         Controls.Add(btnThem)
         Controls.Add(Label2)
         Controls.Add(Label1)
@@ -474,7 +460,6 @@ Partial Class FormChiTietDonHang
         Text = "FormTaoDonHang"
         GroupBox1.ResumeLayout(False)
         CType(dgvSanPham, ComponentModel.ISupportInitialize).EndInit()
-        GroupBox2.ResumeLayout(False)
         GroupBox4.ResumeLayout(False)
         GroupBox4.PerformLayout()
         CType(dgvKhachHang, ComponentModel.ISupportInitialize).EndInit()
@@ -495,7 +480,6 @@ Partial Class FormChiTietDonHang
     Friend WithEvents btnThem As Button
     Friend WithEvents btnXoa As Button
     Friend WithEvents dgvSanPham As DataGridView
-    Friend WithEvents GroupBox2 As GroupBox
     Friend WithEvents dgvDonHang As DataGridView
     Friend WithEvents lbTongtien As Label
     Friend WithEvents btnClearDH As Button
