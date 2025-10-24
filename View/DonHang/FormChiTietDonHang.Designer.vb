@@ -44,6 +44,7 @@ Partial Class FormChiTietDonHang
         GroupBox3 = New GroupBox()
         Label11 = New Label()
         lbChiNhanh = New Label()
+        dgvDonHang = New DataGridView()
         Label7 = New Label()
         tbSoluong = New TextBox()
         Label5 = New Label()
@@ -54,7 +55,6 @@ Partial Class FormChiTietDonHang
         btnXacNhan = New Button()
         tbGhiChu = New TextBox()
         lbTongtien = New Label()
-        dgvDonHang = New DataGridView()
         lbDateTime = New Label()
         SP_BindingSource = New BindingSource(components)
         CTDH_BindingSource = New BindingSource(components)
@@ -128,20 +128,20 @@ Partial Class FormChiTietDonHang
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(605, 24)
+        btnThem.Location = New Point(605, 28)
         btnThem.Margin = New Padding(3, 4, 3, 4)
         btnThem.Name = "btnThem"
-        btnThem.Size = New Size(99, 31)
+        btnThem.Size = New Size(99, 41)
         btnThem.TabIndex = 5
         btnThem.Text = "Thêm vào >"
         btnThem.UseVisualStyleBackColor = True
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(728, 26)
+        btnXoa.Location = New Point(16, 122)
         btnXoa.Margin = New Padding(3, 4, 3, 4)
         btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(99, 31)
+        btnXoa.Size = New Size(109, 42)
         btnXoa.TabIndex = 6
         btnXoa.Text = "< Bỏ ra"
         btnXoa.UseVisualStyleBackColor = True
@@ -269,6 +269,7 @@ Partial Class FormChiTietDonHang
         ' 
         GroupBox3.Controls.Add(GroupBox4)
         GroupBox3.Controls.Add(Label11)
+        GroupBox3.Controls.Add(btnXoa)
         GroupBox3.Controls.Add(lbChiNhanh)
         GroupBox3.Controls.Add(dgvDonHang)
         GroupBox3.Controls.Add(Label7)
@@ -309,6 +310,23 @@ Partial Class FormChiTietDonHang
         lbChiNhanh.Size = New Size(36, 20)
         lbChiNhanh.TabIndex = 45
         lbChiNhanh.Text = "N/A"
+        ' 
+        ' dgvDonHang
+        ' 
+        dgvDonHang.AllowUserToAddRows = False
+        dgvDonHang.AllowUserToDeleteRows = False
+        dgvDonHang.AllowUserToResizeColumns = False
+        dgvDonHang.AllowUserToResizeRows = False
+        dgvDonHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvDonHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvDonHang.Location = New Point(16, 182)
+        dgvDonHang.Margin = New Padding(3, 4, 3, 4)
+        dgvDonHang.Name = "dgvDonHang"
+        dgvDonHang.ReadOnly = True
+        dgvDonHang.RowHeadersWidth = 51
+        dgvDonHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvDonHang.Size = New Size(699, 429)
+        dgvDonHang.TabIndex = 7
         ' 
         ' Label7
         ' 
@@ -358,7 +376,7 @@ Partial Class FormChiTietDonHang
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Location = New Point(16, 134)
+        Label6.Location = New Point(197, 135)
         Label6.Name = "Label6"
         Label6.Size = New Size(58, 20)
         Label6.TabIndex = 21
@@ -366,7 +384,7 @@ Partial Class FormChiTietDonHang
         ' 
         ' btnClearDH
         ' 
-        btnClearDH.Location = New Point(472, 129)
+        btnClearDH.Location = New Point(623, 25)
         btnClearDH.Margin = New Padding(3, 4, 3, 4)
         btnClearDH.Name = "btnClearDH"
         btnClearDH.Size = New Size(86, 31)
@@ -376,7 +394,7 @@ Partial Class FormChiTietDonHang
         ' 
         ' btnXacNhan
         ' 
-        btnXacNhan.Location = New Point(465, 58)
+        btnXacNhan.Location = New Point(443, 58)
         btnXacNhan.Margin = New Padding(3, 4, 3, 4)
         btnXacNhan.Name = "btnXacNhan"
         btnXacNhan.Size = New Size(119, 49)
@@ -386,10 +404,10 @@ Partial Class FormChiTietDonHang
         ' 
         ' tbGhiChu
         ' 
-        tbGhiChu.Location = New Point(110, 131)
+        tbGhiChu.Location = New Point(315, 130)
         tbGhiChu.Margin = New Padding(3, 4, 3, 4)
         tbGhiChu.Name = "tbGhiChu"
-        tbGhiChu.Size = New Size(317, 27)
+        tbGhiChu.Size = New Size(394, 27)
         tbGhiChu.TabIndex = 22
         tbGhiChu.Text = "abc"
         ' 
@@ -403,23 +421,6 @@ Partial Class FormChiTietDonHang
         lbTongtien.Size = New Size(18, 20)
         lbTongtien.TabIndex = 16
         lbTongtien.Text = "0"
-        ' 
-        ' dgvDonHang
-        ' 
-        dgvDonHang.AllowUserToAddRows = False
-        dgvDonHang.AllowUserToDeleteRows = False
-        dgvDonHang.AllowUserToResizeColumns = False
-        dgvDonHang.AllowUserToResizeRows = False
-        dgvDonHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvDonHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvDonHang.Location = New Point(16, 184)
-        dgvDonHang.Margin = New Padding(3, 4, 3, 4)
-        dgvDonHang.Name = "dgvDonHang"
-        dgvDonHang.ReadOnly = True
-        dgvDonHang.RowHeadersWidth = 51
-        dgvDonHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvDonHang.Size = New Size(699, 427)
-        dgvDonHang.TabIndex = 7
         ' 
         ' lbDateTime
         ' 
@@ -448,7 +449,6 @@ Partial Class FormChiTietDonHang
         ClientSize = New Size(1683, 952)
         Controls.Add(lbNgayThang)
         Controls.Add(lbDateTime)
-        Controls.Add(btnXoa)
         Controls.Add(GroupBox3)
         Controls.Add(btnThem)
         Controls.Add(Label2)

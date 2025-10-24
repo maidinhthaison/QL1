@@ -96,7 +96,7 @@ Public Class FormChiTietDonHang
 
         Dim result = khachHangControllerImpl.ListKh
         If result Is Nothing OrElse result.Count = 0 Then
-            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Không tìm thấy khách hàng nào với số điện thoại đã nhập.")
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Không tồn tại khách hàng trong hệ thống")
             Return
         End If
 
@@ -214,6 +214,46 @@ Public Class FormChiTietDonHang
     End Sub
 
     Private Sub XoaSPGioHang()
+        Dim dsCTDonHang As List(Of ChiTietDonHang) = chiTietDonHangControllerImpl.GetDSChiTietPbh
+        If dsCTDonHang.Count = 0 Then
+            Return
+        End If
+        Dim selectedCTDonHangIndex As Integer = chiTietDonHangControllerImpl.CurrentDonHangIndex
+        Dim selectedCTDonHang As ChiTietDonHang = dsCTDonHang(selectedCTDonHangIndex)
+        Dim foundCTDH As ChiTietDonHang = chiTietDonHangControllerImpl.GetDSChiTietPbh.FirstOrDefault(Function(p) p.Sp_Ma = selectedCTDonHang.SanPhamInfo.Ma)
+        If selectedCTDonHang.SoLuong <= Integer.Parse(tbSoluong.Text) Then
+            ' Xóa đơn hàng ra khỏi danh sách
+            dsCTDonHang.RemoveAt(selectedCTDonHangIndex)
+
+            RefreshDonHangGridView(chiTietDonHangControllerImpl.GetDSChiTietPbh)
+            ConfigureDonHangGridView()
+
+            ' Cập nhật lại kho hàng
+            'Dim index As Integer = chiTietDonHangControllerImpl.CurrentSPIndex
+            'Dim selectedSp As SanPham = chiTietDonHangControllerImpl.ListSp(index)
+            foundCTDH.SanPhamInfo.Sp_SoLuong += foundCTDH.SoLuong
+            RefreshSanPhamGridView(chiTietDonHangControllerImpl.ListSp)
+            ConfigureGridView()
+        Else
+            If foundCTDH IsNot Nothing Then
+                'Cập nhật số lượng
+                foundCTDH.SoLuong -= Integer.Parse(tbSoluong.Text)
+                Dim tongtien As Double = Double.Parse(selectedCTDonHang.Gia) * Double.Parse(foundCTDH.SoLuong)
+                Dim khuyenmai As Double = tongtien * Double.Parse(tbKhuyenMai.Text) / 100
+                foundCTDH.TongTien = tongtien
+                foundCTDH.ThanhTien = tongtien - khuyenmai
+                foundCTDH.KhuyenMai = khuyenmai
+                TinhTongTien()
+
+                RefreshDonHangGridView(chiTietDonHangControllerImpl.GetDSChiTietPbh)
+                ConfigureDonHangGridView()
+
+                ' Cập nhật kho
+                foundCTDH.SanPhamInfo.Sp_SoLuong += Integer.Parse(tbSoluong.Text)
+                RefreshSanPhamGridView(chiTietDonHangControllerImpl.ListSp)
+                ConfigureGridView()
+            End If
+        End If
 
     End Sub
 
@@ -455,7 +495,7 @@ Public Class FormChiTietDonHang
 
     Private Sub dgvDonHang_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvDonHang.CellClick
         If e.RowIndex >= 0 Then
-            chiTietDonHangControllerImpl.CurrentSPIndex = e.RowIndex
+            chiTietDonHangControllerImpl.CurrentDonHangIndex = e.RowIndex
         End If
     End Sub
 
