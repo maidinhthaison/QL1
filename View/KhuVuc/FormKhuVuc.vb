@@ -9,14 +9,8 @@ Public Class FormKhuVuc
 
     Private nhanViewController As INhanVienControllerImpl
 
-    Public Sub SetController(Controller As IKhuVucControllerImpl) Implements IKhuVucView.SetController
-        khuVucController = Controller
-    End Sub
-
     Public Sub LoadData() Implements IKhuVucView.LoadData
         khuVucController.XulyLoadData()
-
-        MessageBox.Show("Chào mừng " & nhanViewController.UserSession.Ten & " đã đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
     End Sub
 
     Public Sub BindingListToGridView(list As List(Of KhuVuc)) Implements IKhuVucView.BindingListToGridView
@@ -32,27 +26,18 @@ Public Class FormKhuVuc
 
     Public Sub ConfigureGridView() Implements IKhuVucView.ConfigureGridView
         dgvKhuVuc.Columns("Ma").Visible = False
-        dgvKhuVuc.Columns("IsXoa").Visible = False
-
         ' Set custom header text for columns
         dgvKhuVuc.Columns("Ten").HeaderText = "Tên KV"
         dgvKhuVuc.Columns("Mota").HeaderText = "Mô tả"
+        dgvKhuVuc.Columns("IsXoa").HeaderText = "Xóa?"
 
     End Sub
 
     Public Sub BindingToTextBox(khuVuc As KhuVuc) Implements IKhuVucView.BindingToTextBox
         tbTenKv.Text = khuVuc.Ten
         rtbMota.Text = khuVuc.Mota
+        cbIsXoa.Checked = khuVuc.IsXoa
     End Sub
-
-    Private Sub frmKhuVuc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
-        khuVucController = IKhuVucControllerImpl.Instance
-        khuVucController.Init(Me)
-        nhanViewController = INhanVienControllerImpl.Instance
-        InitViews()
-        LoadData()
-    End Sub
-
 
     Private Sub OnButtonClick(sender As Object, e As EventArgs)
         Dim button As Button = CType(sender, Button)
@@ -61,20 +46,18 @@ Public Class FormKhuVuc
                 ThemKhuVuc()
             Case "btnCapNhat"
                 CapNhatKhuVuc()
-            Case "btnXoa"
-                ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 
-    Private Sub XoaKhuVuc()
-        If dgvKhuVuc.SelectedCells.Count > 0 Then
+    'Private Sub XoaKhuVuc()
+    '    If dgvKhuVuc.SelectedCells.Count > 0 Then
 
-            khuVucController.XulyXoaKhuVuc()
-            BindingSource1.RemoveAt(khuVucController.Index)
+    '        khuVucController.XulyXoaKhuVuc()
+    '        BindingSource1.RemoveAt(khuVucController.Index)
 
-        End If
+    '    End If
 
-    End Sub
+    'End Sub
 
     Private Sub ThemKhuVuc()
         Dim newKhuVuc As New KhuVuc() With {
@@ -104,7 +87,8 @@ Public Class FormKhuVuc
         If dgvKhuVuc.SelectedCells.Count > 0 Then
             Dim edittedKhuVuc As New KhuVuc() With {
                 .Ten = tbTenKv.Text,
-                .Mota = rtbMota.Text
+                .Mota = rtbMota.Text,
+                .IsXoa = cbIsXoa.Checked
             }
             khuVucController.XulyCapNhatKhuVuc(edittedKhuVuc)
         End If
@@ -114,14 +98,9 @@ Public Class FormKhuVuc
     Private Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
-        AddHandler btnXoa.Click, AddressOf OnButtonClick
+
     End Sub
 
-    Private Sub ClearFields() Implements IKhuVucView.ClearFields
-
-        tbTenKv.Text = ""
-        rtbMota.Text = ""
-    End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IKhuVucView.ShowMessageBox
         Select Case MessageBoxType
@@ -132,15 +111,24 @@ Public Class FormKhuVuc
         End Select
     End Sub
 
-    Public Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IKhuVucView.ShowConfirmMessageBox
-        Dim result As DialogResult
-        result = MessageBox.Show(Message, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            Select Case Action
-                Case "btnXoa"
-                    XoaKhuVuc()
-            End Select
+    'Public Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IKhuVucView.ShowConfirmMessageBox
+    '    Dim result As DialogResult
+    '    result = MessageBox.Show(Message, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+    '    If result = DialogResult.Yes Then
+    '        Select Case Action
+    '            Case "btnXoa"
+    '                XoaKhuVuc()
+    '        End Select
 
-        End If
+    '    End If
+    'End Sub
+
+    Private Sub FormKhuVuc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+        khuVucController = IKhuVucControllerImpl.Instance
+        khuVucController.Init(Me)
+        nhanViewController = INhanVienControllerImpl.Instance
+        InitViews()
+        LoadData()
     End Sub
+
 End Class

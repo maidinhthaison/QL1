@@ -40,7 +40,7 @@ Partial Class FormChiTietDonHang
         tbTenKh = New TextBox()
         Label4 = New Label()
         Label9 = New Label()
-        tbDiaChi = New TextBox()
+        tbDiaChiKh = New TextBox()
         GroupBox3 = New GroupBox()
         Label11 = New Label()
         lbChiNhanh = New Label()
@@ -157,7 +157,7 @@ Partial Class FormChiTietDonHang
         GroupBox4.Controls.Add(tbTenKh)
         GroupBox4.Controls.Add(Label4)
         GroupBox4.Controls.Add(Label9)
-        GroupBox4.Controls.Add(tbDiaChi)
+        GroupBox4.Controls.Add(tbDiaChiKh)
         GroupBox4.Location = New Point(16, 619)
         GroupBox4.Margin = New Padding(3, 4, 3, 4)
         GroupBox4.Name = "GroupBox4"
@@ -257,13 +257,13 @@ Partial Class FormChiTietDonHang
         Label9.TabIndex = 50
         Label9.Text = "Địa chỉ"
         ' 
-        ' tbDiaChi
+        ' tbDiaChiKh
         ' 
-        tbDiaChi.Location = New Point(100, 122)
-        tbDiaChi.Margin = New Padding(3, 4, 3, 4)
-        tbDiaChi.Name = "tbDiaChi"
-        tbDiaChi.Size = New Size(206, 27)
-        tbDiaChi.TabIndex = 51
+        tbDiaChiKh.Location = New Point(100, 122)
+        tbDiaChiKh.Margin = New Padding(3, 4, 3, 4)
+        tbDiaChiKh.Name = "tbDiaChiKh"
+        tbDiaChiKh.Size = New Size(206, 27)
+        tbDiaChiKh.TabIndex = 51
         ' 
         ' GroupBox3
         ' 
@@ -394,10 +394,10 @@ Partial Class FormChiTietDonHang
         ' 
         ' btnXacNhan
         ' 
-        btnXacNhan.Location = New Point(443, 58)
+        btnXacNhan.Location = New Point(443, 56)
         btnXacNhan.Margin = New Padding(3, 4, 3, 4)
         btnXacNhan.Name = "btnXacNhan"
-        btnXacNhan.Size = New Size(119, 49)
+        btnXacNhan.Size = New Size(119, 51)
         btnXacNhan.TabIndex = 14
         btnXacNhan.Text = "Xác nhận"
         btnXacNhan.UseVisualStyleBackColor = True
@@ -493,7 +493,7 @@ Partial Class FormChiTietDonHang
     Friend WithEvents tbGhiChu As TextBox
     Friend WithEvents Label6 As Label
     Friend WithEvents CTDH_BindingSource As BindingSource
-    Friend WithEvents tbDiaChi As TextBox
+    Friend WithEvents tbDiaChiKh As TextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents tbDienthoaiKh As TextBox
     Friend WithEvents Label3 As Label

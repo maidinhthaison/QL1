@@ -64,20 +64,20 @@ Public Class FormChiTietDonHang
                 ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "khách hàng"))
             End If
         Else
-            ' Tao moi khach hang
+            ' Nếu khách hàng không tồn tại thì tạo mới khach hang
             Dim newKhachHang As New KhachHang() With {
                  .Code = Gen_6Chars_UUID(),
                  .Ten = tbTenKh.Text,
                  .DienThoai = tbDienthoaiKh.Text,
-                 .DiaChi = tbDiaChi.Text,
+                 .DiaChi = tbDiaChiKh.Text,
                  .IsXoa = False
              }
             If khachHangControllerImpl.XulySaveKhachHang(newKhachHang) Then
                 khachHangControllerImpl.GetSelectedKH = newKhachHang
                 khachHangControllerImpl.GetSelectedKH.Ma = newKhachHang.Ma
-                ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "khách hàng"))
+                ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "khách hàng"))
             Else
-                ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "khách hàng"))
+                ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "khách hàng"))
             End If
 
         End If
@@ -96,11 +96,20 @@ Public Class FormChiTietDonHang
 
         Dim result = khachHangControllerImpl.ListKh
         If result Is Nothing OrElse result.Count = 0 Then
-            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Không tồn tại khách hàng trong hệ thống")
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Không có khách hàng trong hệ thống")
             Return
         End If
 
+        If result IsNot Nothing Then
+            BindingListKhachHangToGridView(result)
+            If result.Count > 0 Then
+                BindingKhachHangToTextBox(result(0))
+            End If
+
+        End If
+
         BindingListKhachHangToGridView(result)
+
     End Sub
 
     Private Sub XacNhanDonHang()
@@ -130,7 +139,7 @@ Public Class FormChiTietDonHang
                       .Code = Gen_6Chars_UUID(),
                       .Ten = tbTenKh.Text,
                       .DienThoai = tbDienthoaiKh.Text,
-                      .DiaChi = tbDiaChi.Text,
+                      .DiaChi = tbDiaChiKh.Text,
                       .IsXoa = False
                  },
                  .ChiNhanh = New ChiNhanh() With {
@@ -340,9 +349,6 @@ Public Class FormChiTietDonHang
         End Select
     End Sub
 
-    Public Sub BindingTolabelTextBox(phieuBh As DonHang) Implements IChiTietDonHangView.BindingTolabelTextBox
-        Throw New NotImplementedException()
-    End Sub
 
     Public Sub BindingListSanPhamToGridView(list As List(Of SanPham)) Implements IChiTietDonHangView.BindingListSanPhamToGridView
         RefreshSanPhamGridView(list)
@@ -426,7 +432,7 @@ Public Class FormChiTietDonHang
     Private Sub BindingToTextBoxKhachHang(selectedKH As Object)
         tbTenKh.Text = CType(selectedKH, KhachHang).Ten
         tbDienthoaiKh.Text = CType(selectedKH, KhachHang).DienThoai
-        tbDiaChi.Text = CType(selectedKH, KhachHang).DiaChi
+        tbDiaChiKh.Text = CType(selectedKH, KhachHang).DiaChi
     End Sub
 
     Private Sub dgvDonHang_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvDonHang.CellFormatting
@@ -466,10 +472,10 @@ Public Class FormChiTietDonHang
 
         dgvKhachHang.DataSource = Bs_KhachHang
 
-        ConfigureListBox()
+        ConfigureKhachHangDataGridView()
     End Sub
 
-    Private Sub ConfigureListBox()
+    Private Sub ConfigureKhachHangDataGridView()
         dgvKhachHang.Columns("Ma").Visible = False
         dgvKhachHang.Columns("Code").Visible = False
         dgvKhachHang.Columns("DiaChi").Visible = False
@@ -521,5 +527,10 @@ Public Class FormChiTietDonHang
             End If
         End If
 
+    End Sub
+
+    Public Sub BindingKhachHangToTextBox(khachHang As KhachHang) Implements IChiTietDonHangView.BindingKhachHangToTextBox
+        tbTenKh.Text = khachHang.Ten
+        tbDiaChiKh.Text = khachHang.DiaChi
     End Sub
 End Class
