@@ -20,18 +20,6 @@ Public Class FormQLNhanVien
         End Select
     End Sub
 
-    Public Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements INhanVienView.ShowConfirmMessageBox
-        Dim result As DialogResult
-        result = MessageBox.Show(Message, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-        If result = DialogResult.Yes Then
-            Select Case Action
-                Case "btnXoa"
-                    XoaNhanVien()
-            End Select
-
-        End If
-    End Sub
-
     Private Sub XoaNhanVien()
         If dgvNhanVien.SelectedCells.Count > 0 Then
             nhanVienController.XulyXoaNhanVien()
@@ -47,8 +35,6 @@ Public Class FormQLNhanVien
                 ThemNhanVien()
             Case "btnCapNhat"
                 CapNhatNhanVien()
-            Case "btnXoa"
-                ' ShowConfirmMessageBox(MSG_BOX_CONFIRM_TITLE, MSG_BOX_CONFIRM_MESSAGE, "btnXoa")
         End Select
     End Sub
 
@@ -161,8 +147,7 @@ Public Class FormQLNhanVien
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
-        AddHandler btnXoa.Click, AddressOf OnButtonClick
-        btnXoa.Visible = False
+
     End Sub
 
     Private Sub FormNhanVien_Load(sender As Object, e As EventArgs) Handles MyBase.Load
