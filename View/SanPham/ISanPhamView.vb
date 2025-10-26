@@ -1,5 +1,4 @@
 ﻿Public Interface ISanPhamView
-    Sub SetController(Controller As ISanPhamControllerImpl)
     Sub LoadData()
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)

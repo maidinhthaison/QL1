@@ -36,7 +36,6 @@ Public Class ISanPhamControllerImpl
 
     Public Sub Init(ByVal loaiSpView As ISanPhamView)
         View = loaiSpView
-        View.SetController(Me)
     End Sub
 
     Public Property Index() As Integer
