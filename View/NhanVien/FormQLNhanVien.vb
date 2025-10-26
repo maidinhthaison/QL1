@@ -5,9 +5,6 @@ Public Class FormQLNhanVien
 
     Private nhanVienController As INhanVienControllerImpl
 
-    Public Sub SetController(Controller As INhanVienControllerImpl) Implements INhanVienView.SetController
-        nhanVienController = Controller
-    End Sub
 
     Public Sub LoadData() Implements INhanVienView.LoadData
         nhanVienController.XulyLoadData()
@@ -58,13 +55,13 @@ Public Class FormQLNhanVien
     Private Sub CapNhatNhanVien()
         If dgvNhanVien.SelectedCells.Count > 0 Then
             Dim selectedChiNhanh As ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh)
-            'MessageBox.Show($"{selectedChiNhanh.Ma} - {selectedChiNhanh.Ten} - {selectedChiNhanh.DiaChi}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
             Dim nvParam As New NhanVien() With {
                 .Ten = tbTen.Text,
                 .DiaChi = tbDiaChi.Text,
                 .DienThoai = tbDienThoai.Text,
                 .IsXoa = cbStatus.Checked,
                 .TaiKhoan = New TaiKhoan() With {
+                      .Ma = 0,
                       .TaiKhoan = tbTaiKhoan.Text,
                       .MatKhau = HashPwd(tbMatKhau.Text),
                       .IsXoa = cbStatus.Checked
@@ -73,7 +70,9 @@ Public Class FormQLNhanVien
                       .Ma = selectedChiNhanh.Ma,
                       .Ten = selectedChiNhanh.Ten,
                       .DiaChi = selectedChiNhanh.DiaChi
-                 }
+                 },
+                 .NV_ChiNhanh_Ma = selectedChiNhanh.Ma,
+                 .NV_TaiKhoan_Ma = 0
             }
 
             nhanVienController.XulyCapNhatNhanVienTK(nvParam)
@@ -81,11 +80,13 @@ Public Class FormQLNhanVien
     End Sub
 
     Private Sub ThemNhanVien()
-
+        Dim selectedChiNhanh As ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh)
         Dim newTk As New TaiKhoan() With {
             .TaiKhoan = tbTaiKhoan.Text,
             .MatKhau = HashPwd(tbMatKhau.Text),
-            .IsXoa = False
+            .IsXoa = False,
+            .SoLanDangNhapSai = 0,
+            .IsChuQuan = False
         }
         Dim isMan As Boolean = rbNam.Checked = True
 
@@ -96,7 +97,9 @@ Public Class FormQLNhanVien
             .DienThoai = tbDienThoai.Text,
             .IsXoa = False,
             .TaiKhoan = newTk,
-            .ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh)
+            .ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh),
+            .NV_TaiKhoan_Ma = newTk.Ma,
+            .NV_ChiNhanh_Ma = selectedChiNhanh.Ma
         }
         nhanVienController.XulyThemTaiKhoan(newTk, newNv)
     End Sub
@@ -117,6 +120,8 @@ Public Class FormQLNhanVien
 
         dgvNhanVien.Columns("Ma").Visible = False
         dgvNhanVien.Columns("GioiTinh").Visible = False
+        dgvNhanVien.Columns("NV_ChiNhanh_Ma").Visible = False
+        dgvNhanVien.Columns("NV_TaiKhoan_Ma").Visible = False
 
         ' Set custom header text for columns
 
@@ -131,14 +136,14 @@ Public Class FormQLNhanVien
 
 
         dgvNhanVien.Columns("DienThoai").HeaderText = "Điện thoại"
-        dgvNhanVien.Columns("DienThoai").DisplayIndex = 3
+        'dgvNhanVien.Columns("DienThoai").DisplayIndex = 3
 
         dgvNhanVien.Columns("DiaChi").HeaderText = "Địa chỉ"
-        dgvNhanVien.Columns("DiaChi").DisplayIndex = 4
+        'dgvNhanVien.Columns("DiaChi").DisplayIndex = 4
 
 
         dgvNhanVien.Columns("IsXoa").HeaderText = "Đã nghỉ"
-        dgvNhanVien.Columns("IsXoa").DisplayIndex = 5
+        'dgvNhanVien.Columns("IsXoa").DisplayIndex = 5
 
 
     End Sub

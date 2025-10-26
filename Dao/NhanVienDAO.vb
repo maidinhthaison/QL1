@@ -9,7 +9,7 @@ Public Class NhanVienDAO
     '========================================================================
     Public Function GetAllNhatVien() As List(Of NhanVien)
         Dim nhanVienList As New List(Of NhanVien)()
-        Dim sql As String = "SELECT nv_ma, nv_ten, nv_diachi, nv_gioi_tinh, nv_xoa, nv_dien_thoai
+        Dim sql As String = "SELECT nv_ma, nv_ten, nv_diachi, nv_gioi_tinh, nv_xoa, nv_dien_thoai, nv_tk_ma, nv_chi_nhanh
                 FROM NhanVien ORDER BY nv_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
@@ -25,7 +25,9 @@ Public Class NhanVienDAO
                                 .DiaChi = CStr(reader("nv_diachi")),
                                 .GioiTinh = CBool(reader("nv_gioi_tinh")),
                                 .IsXoa = CBool(reader("nv_xoa")),
-                                .DienThoai = CStr(reader("nv_dien_thoai"))
+                                .DienThoai = CStr(reader("nv_dien_thoai")),
+                                .NV_TaiKhoan_Ma = CInt(reader("nv_tk_ma")),
+                                .NV_ChiNhanh_Ma = CInt(reader("nv_chi_nhanh"))
                         }
                         nhanVienList.Add(nv)
                     End While
@@ -84,8 +86,8 @@ Public Class NhanVienDAO
 
     Private Shared Sub InsertNhanVien(ByVal nv As NhanVien, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
         ' Note: We don't insert the ID because it's an AutoNumber field.
-        Dim sql As String = "INSERT INTO NhanVien (nv_ten, nv_diachi, nv_xoa, nv_dien_thoai, nv_tk_ma)
-                            VALUES (?, ?, ?, ?, ?)"
+        Dim sql As String = "INSERT INTO NhanVien (nv_ten, nv_diachi, nv_xoa, nv_dien_thoai, nv_tk_ma, nv_chi_nhanh)
+                            VALUES (?, ?, ?, ?, ?, ?)"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
@@ -93,7 +95,8 @@ Public Class NhanVienDAO
             cmd.Parameters.AddWithValue("pDc", nv.DiaChi)
             cmd.Parameters.AddWithValue("pXoa", nv.IsXoa)
             cmd.Parameters.AddWithValue("pDT", nv.DienThoai)
-            cmd.Parameters.AddWithValue("pTkMa", nv.TaiKhoan.Ma)
+            cmd.Parameters.AddWithValue("pTkMa", nv.NV_TaiKhoan_Ma)
+            cmd.Parameters.AddWithValue("pCnMa", nv.NV_ChiNhanh_Ma)
             cmd.ExecuteNonQuery()
 
             ' Optional: Get the new ID of the inserted record
@@ -111,7 +114,7 @@ Public Class NhanVienDAO
             cmd.Parameters.AddWithValue("pDc", nv.DiaChi)
             cmd.Parameters.AddWithValue("pDT", nv.DienThoai)
             cmd.Parameters.AddWithValue("pXoa", nv.IsXoa)
-            cmd.Parameters.AddWithValue("pCn", nv.ChiNhanh.Ma)
+            cmd.Parameters.AddWithValue("pCn", nv.NV_ChiNhanh_Ma)
             cmd.Parameters.AddWithValue("pMa", nv.Ma)
             cmd.ExecuteNonQuery()
         End Using
@@ -120,7 +123,7 @@ Public Class NhanVienDAO
         Dim nvList As New List(Of NhanVien)()
 
         Dim sql As String = "SELECT nv.nv_ma, nv.nv_ten, nv.nv_diachi, nv.nv_gioi_tinh, nv.nv_xoa, 
-                nv.nv_dien_thoai, nv.nv_tk_ma,
+                nv.nv_dien_thoai, nv.nv_tk_ma, nv.nv_chi_nhanh,
                 tk.tk_tai_khoan AS tk_tai_khoan, tk.tk_mat_khau AS tk_mat_khau , tk.tk_xoa AS tk_xoa, tk.tk_ma AS tk_ma,
                 cn.cn_ma, cn.cn_ten, cn.cn_dia_chi
                 FROM(
@@ -141,6 +144,8 @@ Public Class NhanVienDAO
                                 .GioiTinh = CBool(reader("nv_gioi_tinh")),
                                 .IsXoa = CBool(reader("nv_xoa")),
                                 .DienThoai = CStr(reader("nv_dien_thoai")),
+                                .NV_TaiKhoan_Ma = CInt(reader("nv_tk_ma")),
+                                .NV_ChiNhanh_Ma = CInt(reader("nv_chi_nhanh")),
                                 .TaiKhoan = New TaiKhoan() With {
                                     .TaiKhoan = CStr(reader("tk_tai_khoan")),
                                     .MatKhau = CStr(reader("tk_mat_khau")),
@@ -191,6 +196,8 @@ Public Class NhanVienDAO
                                 .GioiTinh = CBool(reader("nv_gioi_tinh")),
                                 .IsXoa = CStr(reader("nv_xoa")),
                                 .DienThoai = CStr(reader("nv_dien_thoai")),
+                                .NV_TaiKhoan_Ma = CInt(reader("nv_tk_ma")),
+                                .NV_ChiNhanh_Ma = CInt(reader("nv_chi_nhanh")),
                                 .TaiKhoan = New TaiKhoan With {
                                     .Ma = CInt(reader("tk_ma")),
                                     .TaiKhoan = CStr(reader("tk_tai_khoan")),

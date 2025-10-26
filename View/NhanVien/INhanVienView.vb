@@ -1,5 +1,4 @@
 ﻿Public Interface INhanVienView
-    Sub SetController(Controller As INhanVienControllerImpl)
     Sub LoadData()
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)

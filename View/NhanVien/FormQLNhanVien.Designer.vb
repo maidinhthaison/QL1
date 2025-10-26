@@ -26,6 +26,7 @@ Partial Class FormQLNhanVien
         GroupBox1 = New GroupBox()
         Label1 = New Label()
         tbTuKhoa = New TextBox()
+        dgvNhanVien = New DataGridView()
         Panel1 = New Panel()
         cbStatus = New CheckBox()
         Lb = New Label()
@@ -47,12 +48,13 @@ Partial Class FormQLNhanVien
         Label3 = New Label()
         tbTen = New TextBox()
         Label2 = New Label()
-        dgvNhanVien = New DataGridView()
         bsNhanVien = New BindingSource(components)
+        GroupBox2 = New GroupBox()
         GroupBox1.SuspendLayout()
-        Panel1.SuspendLayout()
         CType(dgvNhanVien, ComponentModel.ISupportInitialize).BeginInit()
+        Panel1.SuspendLayout()
         CType(bsNhanVien, ComponentModel.ISupportInitialize).BeginInit()
+        GroupBox2.SuspendLayout()
         SuspendLayout()
         ' 
         ' GroupBox1
@@ -87,6 +89,23 @@ Partial Class FormQLNhanVien
         tbTuKhoa.Size = New Size(281, 27)
         tbTuKhoa.TabIndex = 6
         ' 
+        ' dgvNhanVien
+        ' 
+        dgvNhanVien.AllowUserToAddRows = False
+        dgvNhanVien.AllowUserToDeleteRows = False
+        dgvNhanVien.AllowUserToResizeColumns = False
+        dgvNhanVien.AllowUserToResizeRows = False
+        dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
+        dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
+        dgvNhanVien.Location = New Point(7, 79)
+        dgvNhanVien.Margin = New Padding(3, 4, 3, 4)
+        dgvNhanVien.Name = "dgvNhanVien"
+        dgvNhanVien.ReadOnly = True
+        dgvNhanVien.RowHeadersWidth = 51
+        dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect
+        dgvNhanVien.Size = New Size(874, 481)
+        dgvNhanVien.TabIndex = 4
+        ' 
         ' Panel1
         ' 
         Panel1.Controls.Add(cbStatus)
@@ -109,10 +128,10 @@ Partial Class FormQLNhanVien
         Panel1.Controls.Add(Label3)
         Panel1.Controls.Add(tbTen)
         Panel1.Controls.Add(Label2)
-        Panel1.Location = New Point(907, 26)
+        Panel1.Location = New Point(6, 27)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(272, 531)
+        Panel1.Size = New Size(314, 531)
         Panel1.TabIndex = 5
         ' 
         ' cbStatus
@@ -300,39 +319,33 @@ Partial Class FormQLNhanVien
         Label2.TabIndex = 8
         Label2.Text = "Tên"
         ' 
-        ' dgvNhanVien
+        ' GroupBox2
         ' 
-        dgvNhanVien.AllowUserToAddRows = False
-        dgvNhanVien.AllowUserToDeleteRows = False
-        dgvNhanVien.AllowUserToResizeColumns = False
-        dgvNhanVien.AllowUserToResizeRows = False
-        dgvNhanVien.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
-        dgvNhanVien.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvNhanVien.Location = New Point(7, 79)
-        dgvNhanVien.Margin = New Padding(3, 4, 3, 4)
-        dgvNhanVien.Name = "dgvNhanVien"
-        dgvNhanVien.ReadOnly = True
-        dgvNhanVien.RowHeadersWidth = 51
-        dgvNhanVien.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvNhanVien.Size = New Size(874, 481)
-        dgvNhanVien.TabIndex = 4
+        GroupBox2.Controls.Add(Panel1)
+        GroupBox2.Location = New Point(907, 19)
+        GroupBox2.Name = "GroupBox2"
+        GroupBox2.Size = New Size(326, 565)
+        GroupBox2.TabIndex = 1
+        GroupBox2.TabStop = False
+        GroupBox2.Text = "Thông tin Nhân viên"
         ' 
         ' FormQLNhanVien
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1195, 600)
+        ClientSize = New Size(1242, 600)
+        Controls.Add(GroupBox2)
         Controls.Add(GroupBox1)
-        Controls.Add(Panel1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLNhanVien"
         Text = "Nhân viên"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
+        CType(dgvNhanVien, ComponentModel.ISupportInitialize).EndInit()
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
-        CType(dgvNhanVien, ComponentModel.ISupportInitialize).EndInit()
         CType(bsNhanVien, ComponentModel.ISupportInitialize).EndInit()
+        GroupBox2.ResumeLayout(False)
         ResumeLayout(False)
     End Sub
 
@@ -362,4 +375,5 @@ Partial Class FormQLNhanVien
     Friend WithEvents Label8 As Label
     Friend WithEvents Lb As Label
     Friend WithEvents cbStatus As CheckBox
+    Friend WithEvents GroupBox2 As GroupBox
 End Class

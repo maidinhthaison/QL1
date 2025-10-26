@@ -5,6 +5,8 @@
     Private _gioitinh As Boolean
     Private _xoa As Boolean
     Private _dienthoai As String
+    Private _nv_tk_ma As Integer
+    Private _nv_chi_nhanh_ma As Integer
 
     'Ref
     Private _taiKhoan As TaiKhoan
@@ -69,6 +71,24 @@
         End Set
     End Property
 
+    Public Property NV_TaiKhoan_Ma() As Integer
+        Get
+            Return _nv_tk_ma
+        End Get
+        Set(ByVal value As Integer)
+            _nv_tk_ma = value
+        End Set
+    End Property
+
+    Public Property NV_ChiNhanh_Ma() As Integer
+        Get
+            Return _nv_chi_nhanh_ma
+        End Get
+        Set(ByVal value As Integer)
+            _nv_chi_nhanh_ma = value
+        End Set
+    End Property
+
     Public Property TaiKhoan() As TaiKhoan
         Get
             Return _taiKhoan
@@ -86,4 +106,12 @@
             _chiNhanh = value
         End Set
     End Property
+
+    Public Overrides Function ToString() As String
+        Dim result As String = "Chi nhánh Mã: " & Me.NV_ChiNhanh_Ma & Environment.NewLine &
+                               "Chi nhánh Tên: " & Me.ChiNhanh.Ten & Environment.NewLine &
+                               "Tài khoản mã: " & Me.NV_TaiKhoan_Ma & Environment.NewLine
+
+        Return result
+    End Function
 End Class
