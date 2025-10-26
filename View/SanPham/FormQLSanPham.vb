@@ -6,15 +6,24 @@
     Private donViController As IDonViControllerImpl
 
     Private nhanViewController As INhanVienControllerImpl
-    Public Sub SetController(Controller As ISanPhamControllerImpl) Implements ISanPhamView.SetController
-        sanPhamController = Controller
-    End Sub
+
+    Private userSession As NhanVien
 
     Public Sub LoadData() Implements ISanPhamView.LoadData
         sanPhamController.XulyLoadLoaiSanPham()
         sanPhamController.XulyLoadData()
         Dim listDonVi = donViController.XuLyGetAllDonVi()
         BindingListDonViToComboBox(listDonVi)
+
+        userSession = nhanViewController.UserSession
+        If userSession IsNot Nothing Then
+            lbChiNhanh.Text = userSession.ChiNhanh.Ten
+            btnThem.Visible = userSession.TaiKhoan.IsChuQuan
+            btnCapNhat.Visible = userSession.TaiKhoan.IsChuQuan
+            btnXoa.Visible = userSession.TaiKhoan.IsChuQuan
+        End If
+
+
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -204,6 +213,7 @@
         sanPhamController = ISanPhamControllerImpl.Instance
         sanPhamController.Init(Me)
         donViController = IDonViControllerImpl.Instance
+        nhanViewController = INhanVienControllerImpl.Instance
         InitViews()
         LoadData()
     End Sub

@@ -24,6 +24,7 @@ Partial Class FormQLSanPham
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
+        Label11 = New Label()
         Label1 = New Label()
         tbTukhoa = New TextBox()
         Panel1 = New Panel()
@@ -50,8 +51,7 @@ Partial Class FormQLSanPham
         Label2 = New Label()
         dgvSanPham = New DataGridView()
         bsSanPham = New BindingSource(components)
-        Label11 = New Label()
-        cbChiNhanh = New ComboBox()
+        lbChiNhanh = New Label()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
@@ -60,7 +60,7 @@ Partial Class FormQLSanPham
         ' 
         ' GroupBox1
         ' 
-        GroupBox1.Controls.Add(cbChiNhanh)
+        GroupBox1.Controls.Add(lbChiNhanh)
         GroupBox1.Controls.Add(Label11)
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Controls.Add(tbTukhoa)
@@ -74,6 +74,15 @@ Partial Class FormQLSanPham
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý sản phẩm"
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(504, 40)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(74, 20)
+        Label11.TabIndex = 29
+        Label11.Text = "Chi nhánh"
         ' 
         ' Label1
         ' 
@@ -328,23 +337,15 @@ Partial Class FormQLSanPham
         dgvSanPham.Size = New Size(953, 695)
         dgvSanPham.TabIndex = 3
         ' 
-        ' Label11
+        ' lbChiNhanh
         ' 
-        Label11.AutoSize = True
-        Label11.Location = New Point(504, 40)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(74, 20)
-        Label11.TabIndex = 29
-        Label11.Text = "Chi nhánh"
-        ' 
-        ' cbChiNhanh
-        ' 
-        cbChiNhanh.FormattingEnabled = True
-        cbChiNhanh.Location = New Point(584, 32)
-        cbChiNhanh.Margin = New Padding(3, 4, 3, 4)
-        cbChiNhanh.Name = "cbChiNhanh"
-        cbChiNhanh.Size = New Size(173, 28)
-        cbChiNhanh.TabIndex = 29
+        lbChiNhanh.AutoSize = True
+        lbChiNhanh.ForeColor = Color.Blue
+        lbChiNhanh.Location = New Point(600, 40)
+        lbChiNhanh.Name = "lbChiNhanh"
+        lbChiNhanh.Size = New Size(36, 20)
+        lbChiNhanh.TabIndex = 46
+        lbChiNhanh.Text = "N/A"
         ' 
         ' FormQLSanPham
         ' 
@@ -391,6 +392,6 @@ Partial Class FormQLSanPham
     Friend WithEvents Label9 As Label
     Friend WithEvents cbDonVi As ComboBox
     Friend WithEvents Label10 As Label
-    Friend WithEvents cbChiNhanh As ComboBox
     Friend WithEvents Label11 As Label
+    Friend WithEvents lbChiNhanh As Label
 End Class
