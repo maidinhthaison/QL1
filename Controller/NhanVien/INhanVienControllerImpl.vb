@@ -78,7 +78,6 @@
 
     Public Sub Init(ByVal nvView As INhanVienView)
         View = nvView
-        View.SetController(Me)
     End Sub
 
 
@@ -106,6 +105,7 @@
         Dim tkToSave As New List(Of TaiKhoan) From {newTaiKhoan}
         Dim result = taiKhoanDao.SaveTaiKhoan(tkToSave)
         If result Then
+            newNhanVien.NV_TaiKhoan_Ma = tkToSave(0).Ma
             XulyThemNhanVien(newNhanVien)
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "tài khoản"))
@@ -139,10 +139,7 @@
         tk.MatKhau = nvParam.TaiKhoan.MatKhau
         tk.IsXoa = nvParam.IsXoa
 
-        Dim cn As ChiNhanh = selectedNv.ChiNhanh
-        cn.Ma = nvParam.ChiNhanh.Ma
-        cn.Ten = nvParam.ChiNhanh.Ten
-        cn.DiaChi = nvParam.ChiNhanh.DiaChi
+        Dim cn As ChiNhanh = nvParam.ChiNhanh
 
         selectedNv.Ten = nvParam.Ten
         selectedNv.DiaChi = nvParam.DiaChi
@@ -150,6 +147,8 @@
         selectedNv.DienThoai = nvParam.DienThoai
         selectedNv.TaiKhoan = tk
         selectedNv.ChiNhanh = cn
+        selectedNv.NV_ChiNhanh_Ma = cn.Ma
+        selectedNv.NV_TaiKhoan_Ma = tk.Ma
 
         Dim nvToSave As New List(Of NhanVien) From {selectedNv}
         If nhanVienDao.SaveNhanVien(nvToSave) Then

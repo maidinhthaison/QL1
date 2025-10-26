@@ -44,7 +44,7 @@ Partial Class FormDangNhap
         GroupBox1.Controls.Add(Label1)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(395, 238)
+        GroupBox1.Size = New Size(395, 220)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Đăng nhập"
@@ -53,14 +53,14 @@ Partial Class FormDangNhap
         ' 
         lbThongBao.AutoSize = True
         lbThongBao.ForeColor = Color.Red
-        lbThongBao.Location = New Point(16, 196)
+        lbThongBao.Location = New Point(6, 131)
         lbThongBao.Name = "lbThongBao"
         lbThongBao.Size = New Size(0, 20)
         lbThongBao.TabIndex = 6
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(132, 150)
+        btnXoa.Location = New Point(132, 163)
         btnXoa.Name = "btnXoa"
         btnXoa.Size = New Size(94, 29)
         btnXoa.TabIndex = 5
@@ -69,7 +69,7 @@ Partial Class FormDangNhap
         ' 
         ' btnDangNhap
         ' 
-        btnDangNhap.Location = New Point(16, 150)
+        btnDangNhap.Location = New Point(19, 163)
         btnDangNhap.Name = "btnDangNhap"
         btnDangNhap.Size = New Size(94, 29)
         btnDangNhap.TabIndex = 4
@@ -115,7 +115,7 @@ Partial Class FormDangNhap
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(416, 262)
+        ClientSize = New Size(416, 241)
         Controls.Add(GroupBox1)
         Name = "FormDangNhap"
         Text = "FormDangNhap"
