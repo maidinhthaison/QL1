@@ -37,7 +37,6 @@ Partial Class FormQLNhanVien
         tbTaiKhoan = New TextBox()
         tbMatKhau = New TextBox()
         Label10 = New Label()
-        btnXoa = New Button()
         btnCapNhat = New Button()
         btnThem = New Button()
         tbDienThoai = New TextBox()
@@ -117,7 +116,6 @@ Partial Class FormQLNhanVien
         Panel1.Controls.Add(tbTaiKhoan)
         Panel1.Controls.Add(tbMatKhau)
         Panel1.Controls.Add(Label10)
-        Panel1.Controls.Add(btnXoa)
         Panel1.Controls.Add(btnCapNhat)
         Panel1.Controls.Add(btnThem)
         Panel1.Controls.Add(tbDienThoai)
@@ -219,16 +217,6 @@ Partial Class FormQLNhanVien
         Label10.Size = New Size(70, 20)
         Label10.TabIndex = 24
         Label10.Text = "Mật khẩu"
-        ' 
-        ' btnXoa
-        ' 
-        btnXoa.Location = New Point(110, 418)
-        btnXoa.Margin = New Padding(3, 4, 3, 4)
-        btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(61, 31)
-        btnXoa.TabIndex = 21
-        btnXoa.Text = "Xoá"
-        btnXoa.UseVisualStyleBackColor = True
         ' 
         ' btnCapNhat
         ' 
@@ -364,7 +352,6 @@ Partial Class FormQLNhanVien
     Friend WithEvents Label7 As Label
     Friend WithEvents btnThem As Button
     Friend WithEvents btnCapNhat As Button
-    Friend WithEvents btnXoa As Button
     Friend WithEvents bsNhanVien As BindingSource
     Friend WithEvents Label10 As Label
     Friend WithEvents rbNam As RadioButton
