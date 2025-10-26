@@ -24,7 +24,8 @@ Partial Class FormKhuVuc
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
         Panel1 = New Panel()
-        btnXoa = New Button()
+        cbIsXoa = New CheckBox()
+        Label2 = New Label()
         btnCapNhat = New Button()
         rtbMota = New RichTextBox()
         Label3 = New Label()
@@ -54,7 +55,8 @@ Partial Class FormKhuVuc
         ' 
         ' Panel1
         ' 
-        Panel1.Controls.Add(btnXoa)
+        Panel1.Controls.Add(cbIsXoa)
+        Panel1.Controls.Add(Label2)
         Panel1.Controls.Add(btnCapNhat)
         Panel1.Controls.Add(rtbMota)
         Panel1.Controls.Add(Label3)
@@ -67,19 +69,27 @@ Partial Class FormKhuVuc
         Panel1.Size = New Size(405, 531)
         Panel1.TabIndex = 2
         ' 
-        ' btnXoa
+        ' cbIsXoa
         ' 
-        btnXoa.Location = New Point(229, 234)
-        btnXoa.Margin = New Padding(3, 4, 3, 4)
-        btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(86, 31)
-        btnXoa.TabIndex = 8
-        btnXoa.Text = "Xoá"
-        btnXoa.UseVisualStyleBackColor = True
+        cbIsXoa.AutoSize = True
+        cbIsXoa.Location = New Point(122, 228)
+        cbIsXoa.Name = "cbIsXoa"
+        cbIsXoa.Size = New Size(18, 17)
+        cbIsXoa.TabIndex = 10
+        cbIsXoa.UseVisualStyleBackColor = True
+        ' 
+        ' Label2
+        ' 
+        Label2.AutoSize = True
+        Label2.Location = New Point(16, 228)
+        Label2.Name = "Label2"
+        Label2.Size = New Size(42, 20)
+        Label2.TabIndex = 9
+        Label2.Text = "Xóa?"
         ' 
         ' btnCapNhat
         ' 
-        btnCapNhat.Location = New Point(122, 234)
+        btnCapNhat.Location = New Point(122, 279)
         btnCapNhat.Margin = New Padding(3, 4, 3, 4)
         btnCapNhat.Name = "btnCapNhat"
         btnCapNhat.Size = New Size(86, 31)
@@ -115,7 +125,7 @@ Partial Class FormKhuVuc
         ' 
         ' btnThem
         ' 
-        btnThem.Location = New Point(16, 234)
+        btnThem.Location = New Point(16, 279)
         btnThem.Margin = New Padding(3, 4, 3, 4)
         btnThem.Name = "btnThem"
         btnThem.Size = New Size(86, 31)
@@ -167,7 +177,6 @@ Partial Class FormKhuVuc
     Friend WithEvents GroupBox1 As GroupBox
     Friend WithEvents dgvKhuVuc As DataGridView
     Friend WithEvents Panel1 As Panel
-    Friend WithEvents btnXoa As Button
     Friend WithEvents btnCapNhat As Button
     Friend WithEvents rtbMota As RichTextBox
     Friend WithEvents Label3 As Label
@@ -175,4 +184,6 @@ Partial Class FormKhuVuc
     Friend WithEvents btnThem As Button
     Friend WithEvents Label1 As Label
     Friend WithEvents BindingSource1 As BindingSource
+    Friend WithEvents Label2 As Label
+    Friend WithEvents cbIsXoa As CheckBox
 End Class

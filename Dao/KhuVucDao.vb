@@ -9,7 +9,7 @@ Public Class KhuVucDao
     '========================================================================
     Public Function LoadKhuVuc() As List(Of KhuVuc)
         Dim khuVucList As New List(Of KhuVuc)()
-        Dim sql As String = "SELECT * FROM KhuVuc WHERE kv_xoa = False ORDER BY kv_ma"
+        Dim sql As String = "SELECT * FROM KhuVuc ORDER BY kv_ma"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)

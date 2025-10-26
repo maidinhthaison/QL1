@@ -4,7 +4,7 @@
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)
 
-    Sub BindingTolabelTextBox(phieuBh As DonHang)
+    Sub BindingKhachHangToTextBox(khachHang As KhachHang)
 
     Sub BindingListSanPhamToGridView(list As List(Of SanPham))
 

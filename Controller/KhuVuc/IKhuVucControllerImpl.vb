@@ -51,7 +51,6 @@ Public Class IKhuVucControllerImpl
 
     Public Sub Init(ByVal khuVucView As IKhuVucView)
         View = khuVucView
-        View.SetController(Me)
     End Sub
 
     Public Sub XulyThemKhuVuc(addedKhuVuc As KhuVuc) Implements IKhuVucController.XulyThemKhuVuc
@@ -61,7 +60,6 @@ Public Class IKhuVucControllerImpl
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
                                 String.Format(MSG_BOX_INSERT_SUCCESS_MESSAGE, "khu vực"))
-            View.ClearFields()
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE,
                                 String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "khu vực"))
@@ -78,13 +76,11 @@ Public Class IKhuVucControllerImpl
         Dim kv As KhuVuc = listKhuVuc(selectedIndex)
         kv.Ten = edittedKhuVuc.Ten
         kv.Mota = edittedKhuVuc.Mota
-        kv.Code = edittedKhuVuc.Code
         kv.IsXoa = edittedKhuVuc.IsXoa
         Dim khuVucToSave As New List(Of KhuVuc) From {kv}
         If khuVucDao.SaveKhuVuc(khuVucToSave) Then
             View.ShowMessageBox(EnumMessageBox.Infomation, MSG_BOX_INFO_TITLE,
                                 String.Format(MSG_BOX_UPDATE_SUCCESS_MESSAGE, "khu vực"))
-            View.ClearFields()
             View.BindingListToGridView(listKhuVuc)
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE,
