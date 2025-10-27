@@ -120,7 +120,7 @@ Public Class LoaiSanPhamDao
         End Using
     End Sub
 
-    Public Function Get_LSP_BY_KhuVuc_ChiNhanh_NCC() As List(Of LoaiSanPham)
+    Public Function Get_LSP_With_KhuVuc_ChiNhanh_NCC_By_CNMa(chiNhanhMa As Integer) As List(Of LoaiSanPham)
         Dim loaiSanPhamList As New List(Of LoaiSanPham)()
         Dim sql As String = "SELECT lsp_ma, lsp_ten, lsp_mo_ta, lsp_xoa, lsp_code, lsp_ncc, lsp_khu_vuc, lsp_cn_ma,
                 ncc.ncc_ma AS ncc_ma, ncc.ncc_ten AS ncc_ten, ncc.ncc_diachi AS ncc_diachi, 
@@ -132,13 +132,14 @@ Public Class LoaiSanPhamDao
                 INNER JOIN NhaCungCap AS ncc ON ncc.ncc_ma = lsp.lsp_ncc)
                 INNER JOIN KhuVuc AS kv ON kv.kv_ma = lsp.lsp_khu_vuc)
                 INNER JOIN ChiNhanh AS cn ON cn.cn_ma = lsp.lsp_cn_ma
-                WHERE lsp_xoa = ? "
+                WHERE lsp_xoa = ? AND lsp_cn_ma = ?"
 
         ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
         Using conn As New OleDbConnection(ConnectionString)
             Using cmd As New OleDbCommand(sql, conn)
                 Try
                     cmd.Parameters.AddWithValue("lsp_xoa", False)
+                    cmd.Parameters.AddWithValue("lsp_cn_ma", chiNhanhMa)
                     conn.Open()
                     Dim reader As OleDbDataReader = cmd.ExecuteReader()
                     While reader.Read()

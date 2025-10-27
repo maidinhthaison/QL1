@@ -3,16 +3,16 @@
 
     Private loaiSanPhamController As ILoaiSanPhamControllerImpl
 
+    Private nhanVienController As INhanVienControllerImpl
 
-    Public Sub SetController(Controller As ILoaiSanPhamControllerImpl) Implements ILoaiSanPhamView.SetController
-        loaiSanPhamController = Controller
-    End Sub
-
+    Private userSession As NhanVien
     Public Sub LoadData() Implements ILoaiSanPhamView.LoadData
         loaiSanPhamController.XulyComboboxKhuVuc()
         loaiSanPhamController.XulyComboboxNhaCungCap()
-        loaiSanPhamController.XulyLoadData()
+        loaiSanPhamController.XulyGetLoaiSpByChiNhanh(userSession.NV_ChiNhanh_Ma)
         loaiSanPhamController.XulyComboboxChiNhanh()
+
+        lbChiNhanh.Text = userSession.ChiNhanh.Ten
     End Sub
 
     Public Sub InitViews() Implements IBaseForm.InitViews
@@ -88,6 +88,8 @@
     Private Sub FormLoaiSanPham_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         loaiSanPhamController = ILoaiSanPhamControllerImpl.Instance
         loaiSanPhamController.Init(Me)
+        nhanVienController = INhanVienControllerImpl.Instance
+        userSession = nhanVienController.UserSession
         InitViews()
         LoadData()
     End Sub
@@ -161,7 +163,7 @@
         dgvLoaiSp.Columns("Lsp_Ncc").HeaderText = "Nhà CC"
         dgvLoaiSp.Columns("Lsp_Ncc").DisplayIndex = 1
 
-        dgvLoaiSp.Columns("Lsp_ChiNhanh").HeaderText = "ChiNhanh"
+        dgvLoaiSp.Columns("Lsp_ChiNhanh").HeaderText = "Chi nhánh"
         dgvLoaiSp.Columns("Lsp_ChiNhanh").DisplayIndex = 2
 
         dgvLoaiSp.Columns("Lsp_Kv").HeaderText = "Khu Vực"
