@@ -1,5 +1,4 @@
 ﻿Public Interface ILoaiSanPhamView
-    Sub SetController(Controller As ILoaiSanPhamControllerImpl)
     Sub LoadData()
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)

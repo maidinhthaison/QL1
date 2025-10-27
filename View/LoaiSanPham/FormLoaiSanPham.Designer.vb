@@ -45,6 +45,8 @@ Partial Class FormLoaiSanPham
         Label2 = New Label()
         tbTen = New TextBox()
         Label1 = New Label()
+        lbChiNhanh = New Label()
+        Label11 = New Label()
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
@@ -53,7 +55,9 @@ Partial Class FormLoaiSanPham
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(lbChiNhanh)
         GroupBox1.Controls.Add(tbTuKhoa)
+        GroupBox1.Controls.Add(Label11)
         GroupBox1.Controls.Add(Label8)
         GroupBox1.Controls.Add(dgvLoaiSp)
         GroupBox1.Location = New Point(14, 16)
@@ -273,6 +277,25 @@ Partial Class FormLoaiSanPham
         Label1.TabIndex = 0
         Label1.Text = "Loại sản phẩm"
         ' 
+        ' lbChiNhanh
+        ' 
+        lbChiNhanh.AutoSize = True
+        lbChiNhanh.ForeColor = Color.Blue
+        lbChiNhanh.Location = New Point(571, 33)
+        lbChiNhanh.Name = "lbChiNhanh"
+        lbChiNhanh.Size = New Size(36, 20)
+        lbChiNhanh.TabIndex = 48
+        lbChiNhanh.Text = "N/A"
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(471, 33)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(74, 20)
+        Label11.TabIndex = 47
+        Label11.Text = "Chi nhánh"
+        ' 
         ' FormLoaiSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -314,4 +337,6 @@ Partial Class FormLoaiSanPham
     Friend WithEvents Label8 As Label
     Friend WithEvents tbTuKhoa As TextBox
     Friend WithEvents btnHuy As Button
+    Friend WithEvents lbChiNhanh As Label
+    Friend WithEvents Label11 As Label
 End Class

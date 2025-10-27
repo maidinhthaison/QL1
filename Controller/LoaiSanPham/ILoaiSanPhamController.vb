@@ -2,7 +2,7 @@
     Sub XulyThemLoaiSanPham(addedLoaiSp As LoaiSanPham)
     Sub XulyXoaLoaiSanPham()
     Sub XulyCapNhatLoaiSanPham(editedLoaiSp As LoaiSanPham)
-    Sub XulyLoadData()
+    Sub XulyGetLoaiSpByChiNhanh(chiNhanhMa As Integer)
 
     Sub XulyComboboxKhuVuc()
 

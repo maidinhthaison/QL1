@@ -55,7 +55,7 @@
 
     Public Sub Init(ByVal loaiSpView As ILoaiSanPhamView)
         View = loaiSpView
-        View.SetController(Me)
+
     End Sub
 
 
@@ -76,8 +76,8 @@
 
 
 
-    Public Sub XulyLoadData() Implements ILoaiSanPhamController.XulyLoadData
-        listLoaiSp = loaiSanphamDAO.Get_LSP_BY_KhuVuc_ChiNhanh_NCC()
+    Public Sub XulyGetLoaiSpByChiNhanh(chiNhanhMa As Integer) Implements ILoaiSanPhamController.XulyGetLoaiSpByChiNhanh
+        listLoaiSp = loaiSanphamDAO.Get_LSP_With_KhuVuc_ChiNhanh_NCC_By_CNMa(chiNhanhMa)
         View.BindingListToGridView(listLoaiSp)
     End Sub
 
