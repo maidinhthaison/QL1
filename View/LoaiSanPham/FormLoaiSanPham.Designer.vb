@@ -45,8 +45,6 @@ Partial Class FormLoaiSanPham
         Label2 = New Label()
         tbTen = New TextBox()
         Label1 = New Label()
-        lbChiNhanh = New Label()
-        Label9 = New Label()
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
@@ -55,16 +53,14 @@ Partial Class FormLoaiSanPham
         ' 
         ' GroupBox1
         ' 
-        GroupBox1.Controls.Add(lbChiNhanh)
         GroupBox1.Controls.Add(tbTuKhoa)
-        GroupBox1.Controls.Add(Label9)
         GroupBox1.Controls.Add(Label8)
         GroupBox1.Controls.Add(dgvLoaiSp)
         GroupBox1.Location = New Point(14, 16)
         GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Padding = New Padding(3, 4, 3, 4)
-        GroupBox1.Size = New Size(964, 502)
+        GroupBox1.Size = New Size(964, 793)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Loại sản phẩm"
@@ -75,7 +71,7 @@ Partial Class FormLoaiSanPham
         tbTuKhoa.Margin = New Padding(3, 4, 3, 4)
         tbTuKhoa.Name = "tbTuKhoa"
         tbTuKhoa.PlaceholderText = "Loại, nhà cung cấp, khu vực, địa chỉ..."
-        tbTuKhoa.Size = New Size(317, 27)
+        tbTuKhoa.Size = New Size(361, 27)
         tbTuKhoa.TabIndex = 22
         ' 
         ' Label8
@@ -101,7 +97,7 @@ Partial Class FormLoaiSanPham
         dgvLoaiSp.ReadOnly = True
         dgvLoaiSp.RowHeadersWidth = 51
         dgvLoaiSp.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvLoaiSp.Size = New Size(951, 416)
+        dgvLoaiSp.Size = New Size(951, 715)
         dgvLoaiSp.TabIndex = 2
         ' 
         ' Label6
@@ -120,7 +116,7 @@ Partial Class FormLoaiSanPham
         cbChiNhanh.Location = New Point(121, 15)
         cbChiNhanh.Margin = New Padding(3, 4, 3, 4)
         cbChiNhanh.Name = "cbChiNhanh"
-        cbChiNhanh.Size = New Size(187, 28)
+        cbChiNhanh.Size = New Size(253, 28)
         cbChiNhanh.TabIndex = 18
         ' 
         ' Panel1
@@ -144,7 +140,7 @@ Partial Class FormLoaiSanPham
         Panel1.Location = New Point(984, 26)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(326, 492)
+        Panel1.Size = New Size(387, 783)
         Panel1.TabIndex = 4
         ' 
         ' btnHuy
@@ -173,7 +169,7 @@ Partial Class FormLoaiSanPham
         cbKhuVuc.Location = New Point(121, 159)
         cbKhuVuc.Margin = New Padding(3, 4, 3, 4)
         cbKhuVuc.Name = "cbKhuVuc"
-        cbKhuVuc.Size = New Size(187, 28)
+        cbKhuVuc.Size = New Size(253, 28)
         cbKhuVuc.TabIndex = 14
         ' 
         ' cbNhaCc
@@ -182,7 +178,7 @@ Partial Class FormLoaiSanPham
         cbNhaCc.Location = New Point(121, 110)
         cbNhaCc.Margin = New Padding(3, 4, 3, 4)
         cbNhaCc.Name = "cbNhaCc"
-        cbNhaCc.Size = New Size(187, 28)
+        cbNhaCc.Size = New Size(253, 28)
         cbNhaCc.TabIndex = 13
         ' 
         ' btnXoa
@@ -220,7 +216,7 @@ Partial Class FormLoaiSanPham
         rtbMota.Location = New Point(72, 261)
         rtbMota.Margin = New Padding(3, 4, 3, 4)
         rtbMota.Name = "rtbMota"
-        rtbMota.Size = New Size(236, 88)
+        rtbMota.Size = New Size(302, 88)
         rtbMota.TabIndex = 9
         rtbMota.Text = ""
         ' 
@@ -265,7 +261,7 @@ Partial Class FormLoaiSanPham
         tbTen.Location = New Point(121, 60)
         tbTen.Margin = New Padding(3, 4, 3, 4)
         tbTen.Name = "tbTen"
-        tbTen.Size = New Size(187, 27)
+        tbTen.Size = New Size(253, 27)
         tbTen.TabIndex = 1
         ' 
         ' Label1
@@ -277,30 +273,11 @@ Partial Class FormLoaiSanPham
         Label1.TabIndex = 0
         Label1.Text = "Loại sản phẩm"
         ' 
-        ' lbChiNhanh
-        ' 
-        lbChiNhanh.AutoSize = True
-        lbChiNhanh.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        lbChiNhanh.Location = New Point(511, 37)
-        lbChiNhanh.Name = "lbChiNhanh"
-        lbChiNhanh.Size = New Size(39, 20)
-        lbChiNhanh.TabIndex = 24
-        lbChiNhanh.Text = "N/A"
-        ' 
-        ' Label9
-        ' 
-        Label9.AutoSize = True
-        Label9.Location = New Point(423, 37)
-        Label9.Name = "Label9"
-        Label9.Size = New Size(77, 20)
-        Label9.TabIndex = 23
-        Label9.Text = "Chi Nhánh"
-        ' 
         ' FormLoaiSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1323, 532)
+        ClientSize = New Size(1385, 822)
         Controls.Add(Panel1)
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
@@ -337,6 +314,4 @@ Partial Class FormLoaiSanPham
     Friend WithEvents Label8 As Label
     Friend WithEvents tbTuKhoa As TextBox
     Friend WithEvents btnHuy As Button
-    Friend WithEvents lbChiNhanh As Label
-    Friend WithEvents Label9 As Label
 End Class

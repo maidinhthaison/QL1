@@ -24,6 +24,7 @@ Partial Class FormQLSanPham
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
+        lbChiNhanh = New Label()
         Label11 = New Label()
         Label1 = New Label()
         tbTukhoa = New TextBox()
@@ -51,7 +52,6 @@ Partial Class FormQLSanPham
         Label2 = New Label()
         dgvSanPham = New DataGridView()
         bsSanPham = New BindingSource(components)
-        lbChiNhanh = New Label()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
@@ -70,10 +70,20 @@ Partial Class FormQLSanPham
         GroupBox1.Margin = New Padding(3, 4, 3, 4)
         GroupBox1.Name = "GroupBox1"
         GroupBox1.Padding = New Padding(3, 4, 3, 4)
-        GroupBox1.Size = New Size(1278, 780)
+        GroupBox1.Size = New Size(1361, 780)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Quản lý sản phẩm"
+        ' 
+        ' lbChiNhanh
+        ' 
+        lbChiNhanh.AutoSize = True
+        lbChiNhanh.ForeColor = Color.Blue
+        lbChiNhanh.Location = New Point(600, 40)
+        lbChiNhanh.Name = "lbChiNhanh"
+        lbChiNhanh.Size = New Size(36, 20)
+        lbChiNhanh.TabIndex = 46
+        lbChiNhanh.Text = "N/A"
         ' 
         ' Label11
         ' 
@@ -128,7 +138,7 @@ Partial Class FormQLSanPham
         Panel1.Location = New Point(967, 29)
         Panel1.Margin = New Padding(3, 4, 3, 4)
         Panel1.Name = "Panel1"
-        Panel1.Size = New Size(304, 743)
+        Panel1.Size = New Size(388, 743)
         Panel1.TabIndex = 4
         ' 
         ' cbDonVi
@@ -137,7 +147,7 @@ Partial Class FormQLSanPham
         cbDonVi.Location = New Point(123, 360)
         cbDonVi.Margin = New Padding(3, 4, 3, 4)
         cbDonVi.Name = "cbDonVi"
-        cbDonVi.Size = New Size(167, 28)
+        cbDonVi.Size = New Size(246, 28)
         cbDonVi.TabIndex = 28
         ' 
         ' Label10
@@ -272,7 +282,7 @@ Partial Class FormQLSanPham
         rtbMota.Location = New Point(123, 419)
         rtbMota.Margin = New Padding(3, 4, 3, 4)
         rtbMota.Name = "rtbMota"
-        rtbMota.Size = New Size(167, 127)
+        rtbMota.Size = New Size(246, 127)
         rtbMota.TabIndex = 12
         rtbMota.Text = ""
         ' 
@@ -291,7 +301,7 @@ Partial Class FormQLSanPham
         cbLoaiSp.Location = New Point(123, 48)
         cbLoaiSp.Margin = New Padding(3, 4, 3, 4)
         cbLoaiSp.Name = "cbLoaiSp"
-        cbLoaiSp.Size = New Size(173, 28)
+        cbLoaiSp.Size = New Size(246, 28)
         cbLoaiSp.TabIndex = 10
         ' 
         ' Label3
@@ -308,7 +318,7 @@ Partial Class FormQLSanPham
         tbSanpham.Location = New Point(123, 208)
         tbSanpham.Margin = New Padding(3, 4, 3, 4)
         tbSanpham.Name = "tbSanpham"
-        tbSanpham.Size = New Size(173, 27)
+        tbSanpham.Size = New Size(246, 27)
         tbSanpham.TabIndex = 9
         ' 
         ' Label2
@@ -337,21 +347,11 @@ Partial Class FormQLSanPham
         dgvSanPham.Size = New Size(953, 695)
         dgvSanPham.TabIndex = 3
         ' 
-        ' lbChiNhanh
-        ' 
-        lbChiNhanh.AutoSize = True
-        lbChiNhanh.ForeColor = Color.Blue
-        lbChiNhanh.Location = New Point(600, 40)
-        lbChiNhanh.Name = "lbChiNhanh"
-        lbChiNhanh.Size = New Size(36, 20)
-        lbChiNhanh.TabIndex = 46
-        lbChiNhanh.Text = "N/A"
-        ' 
         ' FormQLSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(1305, 809)
+        ClientSize = New Size(1387, 809)
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLSanPham"
