@@ -244,6 +244,13 @@
                 End If
             End If
         End If
+
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
     End Sub
 
     Public Sub BindingListDonViToComboBox(list As List(Of DonVi)) Implements ISanPhamView.BindingListDonViToComboBox

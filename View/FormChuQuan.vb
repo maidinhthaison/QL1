@@ -11,7 +11,18 @@ Public Class FormChuQuan
 
     Private Sub Form1_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         DsForm = New List(Of Form)()
-        MessageBox.Show($"Chào mừng {nhanViewController.UserSession.Ten} đã đăng nhập hệ thống!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
+        Dim userSession = nhanViewController.UserSession
+        If userSession IsNot Nothing Then
+            MessageBox.Show($"Chào mừng {userSession.Ten} đã đăng nhập hệ thống lúc {DateTime.Now.ToString()}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
+            Dim taiKhoan = userSession.TaiKhoan
+            If taiKhoan.IsChuQuan Then
+                Me.Text = $"Chủ quán: {nhanViewController.UserSession.Ten} đã đăng nhập lúc {DateTime.Now.ToString()}"
+            Else
+                Me.Text = $"Nhân viên: {nhanViewController.UserSession.Ten} đã đăng nhập lúc {DateTime.Now.ToString()}"
+            End If
+        End If
+
+
     End Sub
     Public Sub New(tkMa As Integer)
         InitializeComponent()
