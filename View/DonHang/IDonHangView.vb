@@ -1,5 +1,4 @@
 ﻿Public Interface IDonHangView
-    Sub SetController(Controller As IDonHangControllerImpl)
     Sub LoadData()
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)
