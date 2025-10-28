@@ -30,7 +30,6 @@
 
     Public Sub Init(ByVal nvView As IDonHangView)
         View = nvView
-        View.SetController(Me)
     End Sub
 
     '' Properties
@@ -65,7 +64,7 @@
 
     End Sub
 
-    Public Sub Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(chiNhanhMa As Integer) Implements IDonHangController.Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh
+    Public Sub Xuly_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(chiNhanhMa As Integer) Implements IDonHangController.Xuly_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh
         listDonhang = donHangDao.ChuQuan_GetAll_DonHang_By_ChiNhanh(chiNhanhMa)
         View.BindingListDonHangToGridView(listDonhang)
     End Sub
@@ -94,7 +93,7 @@
         End If
     End Function
 
-    Public Sub Xuly_ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(pbhMa As Integer) Implements IDonHangController.Xuly_ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh
+    Public Sub Xuly_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(pbhMa As Integer) Implements IDonHangController.Xuly_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh
         Dim list = donHangDao.ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(pbhMa)
         If list IsNot Nothing AndAlso list.Count > 0 Then
             View.BindingTolabelTextBox(list)

@@ -9,7 +9,6 @@
 
     Private listForms As List(Of Form)
 
-
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnTaoDon.Click, AddressOf OnButtonClick
 
@@ -21,15 +20,11 @@
         listForms = New List(Of Form)
     End Sub
 
-    Public Sub SetController(Controller As IDonHangControllerImpl) Implements IDonHangView.SetController
-        donHangController = Controller
-    End Sub
-
     Public Sub LoadData() Implements IDonHangView.LoadData
         userSession = nhanvienController.UserSession
         lbChiNhanh.Text = userSession.ChiNhanh.Ten
 
-        donHangController.Xuly_ChuQuan_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(userSession.ChiNhanh.Ma)
+        donHangController.Xuly_GetAll_DonHang_With_KH_NhanVien_ChiNhanh_By_ChiNhanh(userSession.ChiNhanh.Ma)
 
     End Sub
 
@@ -197,7 +192,7 @@
             Dim selectedRow = dgvDonHang.Rows(e.RowIndex)
             Dim selectedDonHang = CType(selectedRow.DataBoundItem, DonHang)
             If selectedDonHang IsNot Nothing Then
-                donHangController.Xuly_ChuQuan_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(selectedDonHang.Ma)
+                donHangController.Xuly_Get_ChiTiet_DonHang_With_KH_NV_By_ChiNhanh(selectedDonHang.Ma)
             End If
 
         End If
