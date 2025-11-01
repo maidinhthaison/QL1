@@ -398,7 +398,6 @@ Public Class FormChiTietDonHang
         dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu Vực"
 
 
-
     End Sub
 
     Public Sub ClearFields() Implements IChiTietDonHangView.ClearFields

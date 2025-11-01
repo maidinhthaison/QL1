@@ -1,5 +1,4 @@
-﻿Imports System.ComponentModel
-Imports System.Security
+﻿
 
 Public Class FormKhuVuc
 
