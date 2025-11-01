@@ -1,4 +1,5 @@
-﻿Imports System.Dynamic
+﻿Imports System.DirectoryServices
+Imports System.Dynamic
 
 Public Class FormChiTietNhapHang
     Implements IBaseForm, IChiTietNhapHangView
@@ -187,7 +188,7 @@ Public Class FormChiTietNhapHang
             End If
         End If
 
-        ''Hightlight ô số lượng khi gần hết hàng (<5)
+        ''Hightlight ô số lượng khi gần hết hàng (< Constant.SL_TOI_THIEU)
         If e.RowIndex < 0 OrElse e.RowIndex >= dgvSanPham.Rows.Count Then
             Return
         End If
@@ -308,5 +309,11 @@ Public Class FormChiTietNhapHang
 
     Private Sub FormChiTietNhapHang_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         chiTietPhieuNhapControllerImpl.ResetData()
+    End Sub
+
+    Private Sub tbTuKhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTuKhoa.TextChanged
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
+        Dim result As List(Of SanPham) = chiTietPhieuNhapControllerImpl.XulyTimKiemSanPham(tukhoa)
+        BindingListSanPhamToGridView(result)
     End Sub
 End Class

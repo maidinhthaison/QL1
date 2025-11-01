@@ -99,7 +99,23 @@
     End Sub
 
     Public Function XulyTimKiemSanPham(tukhoa As String) As List(Of SanPham) Implements IChiTietNhapHangController.XulyTimKiemSanPham
-        Throw New NotImplementedException()
+        If String.IsNullOrWhiteSpace(tukhoa) Then
+            Return listSanPham
+        Else
+            Dim searchResult As List(Of SanPham) = listSanPham.Where(
+                Function(sp) sp.Ten.ToLower().Contains(tukhoa.ToLower()) OrElse
+                        sp.Gia.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Code.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.LoaiSp_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.NCC_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.LoaiSp_ChiNhanh.Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Sp_SoLuong.ToString.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Mota.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Sp_DonVi.Ten.Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.Kv_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase)
+               ).ToList()
+            Return searchResult
+        End If
     End Function
 
     Public Sub Xuly_Them_ChiTietNhapHang(newCTPhieuNhap As ChiTietPhieuNhap, selectedSanPham As SanPham) Implements IChiTietNhapHangController.Xuly_Them_ChiTietNhapHang
