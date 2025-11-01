@@ -82,7 +82,7 @@ Partial Class FormQLNhapHang
         GroupBox1.Size = New Size(999, 972)
         GroupBox1.TabIndex = 2
         GroupBox1.TabStop = False
-        GroupBox1.Text = "Danh Sách Phiếu Nhập"
+        GroupBox1.Text = "Danh Sách Hóa Đơn"
         ' 
         ' Label13
         ' 
@@ -159,7 +159,7 @@ Partial Class FormQLNhapHang
         GroupBox2.Size = New Size(714, 963)
         GroupBox2.TabIndex = 49
         GroupBox2.TabStop = False
-        GroupBox2.Text = "Thông tin phiếu nhập"
+        GroupBox2.Text = "Thông tin hóa đơn"
         ' 
         ' Panel3
         ' 
@@ -231,9 +231,9 @@ Partial Class FormQLNhapHang
         Label3.AutoSize = True
         Label3.Location = New Point(9, 24)
         Label3.Name = "Label3"
-        Label3.Size = New Size(193, 20)
+        Label3.Size = New Size(174, 20)
         Label3.TabIndex = 9
-        Label3.Text = "Sản phẩm trong phiếu nhập"
+        Label3.Text = "Sản phẩm trong hóa đơn"
         ' 
         ' Label2
         ' 

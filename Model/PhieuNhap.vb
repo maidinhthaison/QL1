@@ -9,7 +9,6 @@
     Private _tong_thanh_tien As Double
     Private _ghi_chu As String
     Private _isXoa As Boolean
-
     'Ref
 
     Private _chi_nhanh As ChiNhanh
@@ -116,4 +115,5 @@
             _chi_nhanh = value
         End Set
     End Property
+
 End Class
