@@ -200,4 +200,5 @@
             _lsp_donvi = value
         End Set
     End Property
+
 End Class

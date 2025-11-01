@@ -8,6 +8,7 @@
     Private _ctpn_tong_tien As Double
     Private _ctpn_thanh_tien As Double
     Private _ctpn_xoa As Boolean
+    Private _ctpn_ghi_chu As String
     'Ref
 
     Private _san_pham As SanPham
@@ -106,4 +107,12 @@
         End Set
     End Property
 
+    Public Property GhiChu() As String
+        Get
+            Return _ctpn_ghi_chu
+        End Get
+        Set(ByVal value As String)
+            _ctpn_ghi_chu = value
+        End Set
+    End Property
 End Class
