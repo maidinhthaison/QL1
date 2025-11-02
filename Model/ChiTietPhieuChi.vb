@@ -4,6 +4,7 @@
     Private _pc_ma As Integer
     Private _xoa As Boolean
     Private _lydo_ma As Integer
+    Private _ghi_chu As String
 
     'Ref
     Private _pc_lydo As PhieuChiLyDo
@@ -53,6 +54,15 @@
         End Get
         Set(ByVal value As Boolean)
             _xoa = value
+        End Set
+    End Property
+
+    Public Property GhiChu() As String
+        Get
+            Return _ghi_chu
+        End Get
+        Set(ByVal value As String)
+            _ghi_chu = value
         End Set
     End Property
 
