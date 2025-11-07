@@ -43,7 +43,6 @@ Partial Class FormQLThuChi
         Label5 = New Label()
         Panel3 = New Panel()
         cbLyDo = New ComboBox()
-        btnXoaCTPC = New Button()
         btnCapNhatCTPC = New Button()
         cbXoaCTPC = New CheckBox()
         tbCTPC_GhiChu = New TextBox()
@@ -57,6 +56,7 @@ Partial Class FormQLThuChi
         BindingSource_PhieuChi = New BindingSource(components)
         BindingSource_CTPhieuChi = New BindingSource(components)
         GroupBox3 = New GroupBox()
+        btnThemCTPC = New Button()
         GroupBox1.SuspendLayout()
         CType(dgvPhieuChi, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox2.SuspendLayout()
@@ -250,8 +250,8 @@ Partial Class FormQLThuChi
         ' 
         ' Panel3
         ' 
+        Panel3.Controls.Add(btnThemCTPC)
         Panel3.Controls.Add(cbLyDo)
-        Panel3.Controls.Add(btnXoaCTPC)
         Panel3.Controls.Add(btnCapNhatCTPC)
         Panel3.Controls.Add(cbXoaCTPC)
         Panel3.Controls.Add(tbCTPC_GhiChu)
@@ -274,22 +274,13 @@ Partial Class FormQLThuChi
         cbLyDo.Size = New Size(243, 28)
         cbLyDo.TabIndex = 64
         ' 
-        ' btnXoaCTPC
-        ' 
-        btnXoaCTPC.Location = New Point(426, 115)
-        btnXoaCTPC.Name = "btnXoaCTPC"
-        btnXoaCTPC.Size = New Size(133, 45)
-        btnXoaCTPC.TabIndex = 63
-        btnXoaCTPC.Text = "Xóa CTPC"
-        btnXoaCTPC.UseVisualStyleBackColor = True
-        ' 
         ' btnCapNhatCTPC
         ' 
-        btnCapNhatCTPC.Location = New Point(249, 115)
+        btnCapNhatCTPC.Location = New Point(426, 115)
         btnCapNhatCTPC.Name = "btnCapNhatCTPC"
         btnCapNhatCTPC.Size = New Size(133, 45)
         btnCapNhatCTPC.TabIndex = 62
-        btnCapNhatCTPC.Text = "Cập nhật"
+        btnCapNhatCTPC.Text = "Cập nhật CTPC"
         btnCapNhatCTPC.UseVisualStyleBackColor = True
         ' 
         ' cbXoaCTPC
@@ -392,6 +383,15 @@ Partial Class FormQLThuChi
         GroupBox3.TabStop = False
         GroupBox3.Text = "Chi tiết phiếu chi"
         ' 
+        ' btnThemCTPC
+        ' 
+        btnThemCTPC.Location = New Point(280, 115)
+        btnThemCTPC.Name = "btnThemCTPC"
+        btnThemCTPC.Size = New Size(133, 45)
+        btnThemCTPC.TabIndex = 65
+        btnThemCTPC.Text = "Thêm CTPC"
+        btnThemCTPC.UseVisualStyleBackColor = True
+        ' 
         ' FormQLThuChi
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -445,10 +445,10 @@ Partial Class FormQLThuChi
     Friend WithEvents GroupBox3 As GroupBox
     Friend WithEvents tbSoTien As TextBox
     Friend WithEvents Label3 As Label
-    Friend WithEvents btnXoaCTPC As Button
     Friend WithEvents btnCapNhatCTPC As Button
     Friend WithEvents cbXoaCTPC As CheckBox
     Friend WithEvents tbCTPC_GhiChu As TextBox
     Friend WithEvents Label9 As Label
     Friend WithEvents cbLyDo As ComboBox
+    Friend WithEvents btnThemCTPC As Button
 End Class

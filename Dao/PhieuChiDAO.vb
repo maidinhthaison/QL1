@@ -126,7 +126,7 @@ Public Class PhieuChiDAO
     Public Function Get_ChiTietPhieuChi_By_PhieuChiMa(phieuChiMa As Integer) As List(Of ChiTietPhieuChi)
         Dim ctPhieuChiList As New List(Of ChiTietPhieuChi)()
 
-        Dim sql As String = "SELECT ctpc_ma, ctpc_so_tien, ctpc_xoa, ctpc_pc_ma, ctpc_lydo_ma,
+        Dim sql As String = "SELECT ctpc_ma, ctpc_so_tien, ctpc_xoa, ctpc_pc_ma, ctpc_lydo_ma, ctpc_ghi_chu,
                             pc_ld.lydo_ma, pc_ld.lydo_code, pc_ld.lydo_mota
                             FROM
                             ChiTietPhieuChi AS ctpc
@@ -147,6 +147,7 @@ Public Class PhieuChiDAO
                                 .PhieuChiMa = CInt(reader("ctpc_pc_ma")),
                                 .LyDoMa = CInt(reader("ctpc_lydo_ma")),
                                 .IsXoa = CBool(reader("ctpc_xoa")),
+                                .GhiChu = CStr(reader("ctpc_ghi_chu")),
                                 .GetPhieuChiLyDo = New PhieuChiLyDo() With {
                                     .Ma = CInt(reader("lydo_ma")),
                                     .Code = CStr(reader("lydo_code")),

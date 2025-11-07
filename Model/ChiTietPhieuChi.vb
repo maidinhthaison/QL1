@@ -74,4 +74,16 @@
             _pc_lydo = value
         End Set
     End Property
+
+    Public Overrides Function ToString() As String
+        Dim result As String = "Mã CTPC: " & Me.Ma & Environment.NewLine &
+                               "Số tiền: " & Me.SoTien & Environment.NewLine &
+                               "phiếu chi mã: " & Me._pc_ma & Environment.NewLine &
+                               "is xóa: " & Me.IsXoa & Environment.NewLine &
+                               "Lý do mã: " & Me.LyDoMa & Environment.NewLine &
+                               "Ghi chú: " & Me.GhiChu & Environment.NewLine &
+                               "Mô tả lý do: " & Me.GetPhieuChiLyDo.Mota & Environment.NewLine
+
+        Return result
+    End Function
 End Class

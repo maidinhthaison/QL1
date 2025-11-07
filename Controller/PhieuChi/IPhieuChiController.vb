@@ -4,5 +4,7 @@
     Sub Xuly_GetPhieuChi_By_ChiNhanh(chiNhanhMa As Integer)
     Sub Xuly_GetChiTietPhieuChi_By_MaPhieuChi(phieuChiMa As Integer)
 
-    Sub Xuly_Save_CTPhieuChi(ctpc As ChiTietPhieuChi)
+    Sub Xuly_CapNhat_CTPhieuChi(ctpc As ChiTietPhieuChi, pc As PhieuChi)
+
+    Sub Xuly_Them_CTPhieuChi(ctpc As ChiTietPhieuChi)
 End Interface

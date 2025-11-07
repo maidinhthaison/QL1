@@ -12,7 +12,7 @@
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnTaoPhieuChi.Click, AddressOf OnButtonClick
         AddHandler btnCapNhatCTPC.Click, AddressOf OnButtonClick
-        AddHandler btnXoaCTPC.Click, AddressOf OnButtonClick
+        AddHandler btnThemCTPC.Click, AddressOf OnButtonClick
 
         'Set up DateTimePicker
         dtPicker.Format = DateTimePickerFormat.Custom
@@ -29,23 +29,34 @@
                 TaoPhieuChi()
             Case "btnCapNhatCTPC"
                 CapNhatCTPC()
-            Case "btnXoaCTPC"
-                XoaCTPC()
+            Case "btnThemCTPC"
+                ThemCTPC()
         End Select
     End Sub
 
-    Private Sub XoaCTPC()
-        Throw New NotImplementedException()
+    Private Sub ThemCTPC()
+        Dim index As Integer = phieuChiController.GetSelectedPhieuChiIndex
+        Dim selectedPhieuChi As PhieuChi = phieuChiController.GetListPhieuChi(index)
+        If selectedPhieuChi Is Nothing Then
+            Return
+        End If
+        ' Thêm mới
+        Dim selectedLyDo As PhieuChiLyDo = TryCast(cbLyDo.SelectedItem, PhieuChiLyDo)
+        Dim newCTPhieuChi As New ChiTietPhieuChi() With {
+            .Ma = 0,
+            .SoTien = Double.Parse(tbSoTien.Text.Trim.ToString),
+            .PhieuChiMa = selectedPhieuChi.Ma,
+            .LyDoMa = selectedLyDo.Ma,
+            .GhiChu = tbCTPC_GhiChu.Text.Trim.ToString,
+            .GetPhieuChiLyDo = New PhieuChiLyDo() With {
+                  .Code = selectedLyDo.Code,
+                  .Ma = selectedLyDo.Ma,
+                  .Mota = selectedLyDo.Mota
+             }
+        }
+        phieuChiController.Xuly_Them_CTPhieuChi(newCTPhieuChi)
     End Sub
-    Private _ma As Integer
-    Private _sotien As Double
-    Private _pc_ma As Integer
-    Private _xoa As Boolean
-    Private _lydo_ma As Integer
-    Private _ghi_chu As String
 
-    'Ref
-    Private _pc_lydo As PhieuChiLyDo
     Private Sub CapNhatCTPC()
         Dim index As Integer = phieuChiController.GetSelectedPhieuChiIndex
         Dim selectedPhieuChi As PhieuChi = phieuChiController.GetListPhieuChi(index)
@@ -55,17 +66,23 @@
         Dim selectedCTPCIndex As Integer = phieuChiController.GetSelectedChiTietPhieuChiIndex
         Dim selectedCTPC As ChiTietPhieuChi = phieuChiController.GetListChiTietPhieuChi(selectedCTPCIndex)
         If selectedCTPC Is Nothing Then
-            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Cần chọn phiếu chi bên trái"))
             Return
         End If
         Dim selectedLyDo As PhieuChiLyDo = TryCast(cbLyDo.SelectedItem, PhieuChiLyDo)
         Dim newCTPhieuChi As New ChiTietPhieuChi() With {
-            .SoTien = Double.Parse(tbSoTien.Text.Trim.ToString),
-            .PhieuChiMa = selectedPhieuChi.Ma,
-            .LyDoMa = selectedLyDo.Ma,
-            .GhiChu = tbCTPC_GhiChu.Text.Trim.ToString
-        }
-        'phieuChiController.Xuly_Save_CTPhieuChi(newCTPhieuChi)
+                .Ma = selectedCTPC.Ma,
+                .SoTien = Double.Parse(tbSoTien.Text.Trim.ToString),
+                .PhieuChiMa = selectedPhieuChi.Ma,
+                .LyDoMa = selectedLyDo.Ma,
+                .GhiChu = tbCTPC_GhiChu.Text.Trim.ToString,
+                .GetPhieuChiLyDo = New PhieuChiLyDo() With {
+                      .Code = selectedLyDo.Code,
+                      .Ma = selectedLyDo.Ma,
+                      .Mota = selectedLyDo.Mota
+                 }
+            }
+        phieuChiController.Xuly_CapNhat_CTPhieuChi(newCTPhieuChi, selectedPhieuChi)
+
     End Sub
 
     Private Sub TaoPhieuChi()
@@ -115,6 +132,7 @@
         dtPicker.Value = phieuChi.NgayChi.ToString(DATETIME_FORMAT)
         lbCode.Text = phieuChi.Code
         tbGhiChu.Text = phieuChi.GhiChu
+        lbTongTien.Text = CurrencyFormat(phieuChi.TongTien)
     End Sub
 
     Public Sub ConfigurePhieuChiGridView() Implements IQuanLyPhieuChiView.ConfigurePhieuChiGridView
@@ -148,15 +166,36 @@
     End Sub
 
     Public Sub BindingListChiTietPhieuChiToGridView(list As List(Of ChiTietPhieuChi)) Implements IQuanLyPhieuChiView.BindingListChiTietPhieuChiToGridView
-        Throw New NotImplementedException()
+        RefreshChiTietPhieuChiGridView(list)
+
+        ConfigureChiTietPhieuChiGridView()
     End Sub
 
     Public Sub ConfigureChiTietPhieuChiGridView() Implements IQuanLyPhieuChiView.ConfigureChiTietPhieuChiGridView
-        Throw New NotImplementedException()
+        dgvCTPC.Columns("Ma").Visible = False
+        dgvCTPC.Columns("GhiChu").Visible = False
+        dgvCTPC.Columns("PhieuChiMa").Visible = False
+        dgvCTPC.Columns("LyDoMa").Visible = False
+        ' Set custom header text for columns
+        dgvCTPC.Columns("GetPhieuChiLyDo").HeaderText = "Lý do"
+        dgvCTPC.Columns("GetPhieuChiLyDo").DisplayIndex = 0
+        dgvCTPC.Columns("GetPhieuChiLyDo").Width = 200
+
+        dgvCTPC.Columns("SoTien").HeaderText = "Số tiền"
+        dgvCTPC.Columns("SoTien").DisplayIndex = 1
+        dgvCTPC.Columns("SoTien").Width = 100
+
+        dgvCTPC.Columns("IsXoa").HeaderText = "Xóa ?"
+        dgvCTPC.Columns("IsXoa").DisplayIndex = 3
+
     End Sub
 
     Public Sub RefreshChiTietPhieuChiGridView(list As List(Of ChiTietPhieuChi)) Implements IQuanLyPhieuChiView.RefreshChiTietPhieuChiGridView
-        Throw New NotImplementedException()
+        dgvCTPC.DataSource = Nothing
+
+        BindingSource_CTPhieuChi.DataSource = list
+
+        dgvCTPC.DataSource = BindingSource_CTPhieuChi
     End Sub
 
     Private Sub FormQLThuChi_Load(sender As Object, e As EventArgs) Handles MyBase.Load
@@ -170,7 +209,7 @@
             Dim selectedRow = dgvCTPC.Rows(e.RowIndex)
             Dim selectedCTPhieuChi = CType(selectedRow.DataBoundItem, ChiTietPhieuChi)
             If selectedCTPhieuChi IsNot Nothing Then
-                'BindingPhieuChiToTextBox(selectedPhieuChi)
+                BindingCTPhieuChiToTextBox(selectedCTPhieuChi)
                 ''Lấy dữ liệu chi tiết phiếu chi theo mã phiếu chi
                 'phieuChiController.Xuly_GetChiTietPhieuChi_By_MaPhieuChi(selectedPhieuChi.Ma)
             End If
@@ -179,7 +218,23 @@
     End Sub
 
     Private Sub dgvCTPC_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvCTPC.CellFormatting
+        If e.RowIndex >= 0 AndAlso
+           dgvCTPC.Columns(e.ColumnIndex).DataPropertyName = "SoTien" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
 
+        If e.RowIndex >= 0 AndAlso dgvCTPC.Columns(e.ColumnIndex).DataPropertyName = "GetPhieuChiLyDo" Then
+            If e.Value IsNot Nothing Then
+                Dim pcld = TryCast(e.Value, PhieuChiLyDo)
+                If pcld IsNot Nothing Then
+                    e.Value = pcld.Mota
+                    e.FormattingApplied = True
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub dgvPhieuChi_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvPhieuChi.CellClick
@@ -216,6 +271,7 @@
         phieuChiController.GetListPhieuChi.Clear()
         phieuChiController.GetSelectedPhieuChiIndex = 0
         phieuChiController.GetListPhieuChiLyDo.Clear()
+        phieuChiController.GetListChiTietPhieuChi.Clear()
     End Sub
 
     Public Sub BindingPhieuChiLyDoToCombobox(list As List(Of PhieuChiLyDo)) Implements IQuanLyPhieuChiView.BindingPhieuChiLyDoToCombobox
@@ -224,7 +280,12 @@
         cbLyDo.DisplayMember = "Mota"
         cbLyDo.ValueMember = "Ma"
 
-        'Dim selectedChiNhanh As ChiNhanh = TryCast(cbChiNhanh.SelectedItem, ChiNhanh)
-        'cbChiNhanh.SelectedValue = NhanVien.ChiNhanh.Ma
+    End Sub
+
+    Public Sub BindingCTPhieuChiToTextBox(ctpc As ChiTietPhieuChi) Implements IQuanLyPhieuChiView.BindingCTPhieuChiToTextBox
+        cbLyDo.SelectedValue = ctpc.GetPhieuChiLyDo.Ma
+        tbSoTien.Text = ctpc.SoTien
+        tbCTPC_GhiChu.Text = ctpc.GhiChu
+        cbXoaCTPC.Checked = ctpc.IsXoa
     End Sub
 End Class

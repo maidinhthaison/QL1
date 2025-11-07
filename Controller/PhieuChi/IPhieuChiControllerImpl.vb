@@ -1,4 +1,6 @@
-﻿Public Class IPhieuChiControllerImpl
+﻿Imports System.Runtime.Intrinsics.X86
+
+Public Class IPhieuChiControllerImpl
     Implements IPhieuChiController
 
     Private Shared _instance As IPhieuChiControllerImpl
@@ -114,7 +116,8 @@
     End Sub
 
     Public Sub Xuly_GetChiTietPhieuChi_By_MaPhieuChi(phieuChiMa As Integer) Implements IPhieuChiController.Xuly_GetChiTietPhieuChi_By_MaPhieuChi
-        Throw New NotImplementedException()
+        listChiTietPhieuChi = phieuChiDao.Get_ChiTietPhieuChi_By_PhieuChiMa(phieuChiMa)
+        View.BindingListChiTietPhieuChiToGridView(listChiTietPhieuChi)
     End Sub
 
     Public Sub Xuly_LoadLyDo_To_Combobox() Implements IPhieuChiController.Xuly_LoadLyDo_To_Combobox
@@ -122,11 +125,49 @@
         View.BindingPhieuChiLyDoToCombobox(listPhieuChiLyDo)
     End Sub
 
-    Public Sub Xuly_Save_CTPhieuChi(ctpc As ChiTietPhieuChi) Implements IPhieuChiController.Xuly_Save_CTPhieuChi
+
+    Public Sub Xuly_CapNhat_CTPhieuChi(ctpc As ChiTietPhieuChi, pc As PhieuChi) Implements IPhieuChiController.Xuly_CapNhat_CTPhieuChi
+        Dim ctpcToSave As New List(Of ChiTietPhieuChi) From {ctpc}
+        If chiTietPhieuChiDao.SaveChiTietPhieuChi(ctpcToSave) Then
+            View.BindingListChiTietPhieuChiToGridView(listChiTietPhieuChi)
+            Dim foundCTPhieuChi As ChiTietPhieuChi = listChiTietPhieuChi.FirstOrDefault(Function(p) p.Ma = ctpc.Ma)
+            foundCTPhieuChi.SoTien = ctpc.SoTien
+            '' Cập nhật số tiền
+            Dim tongTien As Double = 0
+            For i As Integer = 0 To listChiTietPhieuChi.Count - 1
+                Dim item = listChiTietPhieuChi(i)
+                tongTien += item.SoTien
+            Next
+            Dim listPC As List(Of PhieuChi) = GetListPhieuChi
+            Dim foundPhieuChi As PhieuChi = listPC.FirstOrDefault(Function(p) p.Ma = ctpc.PhieuChiMa)
+            foundPhieuChi.TongTien = tongTien
+
+            View.BindingListPhieuChiToGridView(listPC)
+            View.BindingPhieuChiToTextBox(foundPhieuChi)
+            phieuChiDao.SavePhieuChi(listPC)
+        Else
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "chi tiết phiếu chi"))
+        End If
+    End Sub
+
+    Public Sub Xuly_Them_CTPhieuChi(ctpc As ChiTietPhieuChi) Implements IPhieuChiController.Xuly_Them_CTPhieuChi
         Dim ctpcToSave As New List(Of ChiTietPhieuChi) From {ctpc}
         listChiTietPhieuChi.Add(ctpc)
         If chiTietPhieuChiDao.SaveChiTietPhieuChi(ctpcToSave) Then
             View.BindingListChiTietPhieuChiToGridView(listChiTietPhieuChi)
+            '' Cập nhật số tiền
+            Dim tongTien As Double = 0
+            For i As Integer = 0 To listChiTietPhieuChi.Count - 1
+                Dim item = listChiTietPhieuChi(i)
+                tongTien += item.SoTien
+            Next
+            Dim listPC As List(Of PhieuChi) = GetListPhieuChi
+            Dim foundPhieuChi As PhieuChi = listPC.FirstOrDefault(Function(p) p.Ma = ctpc.PhieuChiMa)
+            foundPhieuChi.TongTien = tongTien
+            'Dim pcToSave As New List(Of PhieuChi) From {foundPhieuChi}
+            View.BindingListPhieuChiToGridView(listPC)
+            View.BindingPhieuChiToTextBox(foundPhieuChi)
+            phieuChiDao.SavePhieuChi(listPC)
         Else
             View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, String.Format(MSG_BOX_INSERT_ERROR_MESSAGE, "chi tiết phiếu chi"))
         End If

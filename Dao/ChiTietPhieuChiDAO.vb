@@ -67,7 +67,7 @@ Public Class ChiTietPhieuChiDAO
     End Sub
 
     Private Shared Sub UpdateChiTietPhieuChi(ByVal pn As ChiTietPhieuChi, ByVal conn As OleDbConnection, ByVal transaction As OleDbTransaction)
-        Dim sql As String = "UPDATE PhieuChi SET ctpc_so_tien = ?, ctpc_xoa = ?, ctpc_lydo_ma = ?, ctpc_ghi_chu = ?  WHERE ctpc_ma = ?"
+        Dim sql As String = "UPDATE ChiTietPhieuChi SET ctpc_so_tien = ?, ctpc_xoa = ?, ctpc_lydo_ma = ?, ctpc_ghi_chu = ?  WHERE ctpc_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
             cmd.Parameters.AddWithValue("pSt", pn.SoTien)
@@ -79,32 +79,44 @@ Public Class ChiTietPhieuChiDAO
         End Using
     End Sub
 
-    'Public Function GetAll_PhieuChiLyDo() As List(Of PhieuChiLyDo)
-    '    Dim phieuChiLyDo As New List(Of PhieuChiLyDo)()
+    Public Function GetAll_ChiTietPhieuChi() As List(Of ChiTietPhieuChi)
+        Dim listCTPC As New List(Of ChiTietPhieuChi)()
 
-    '    Dim sql As String = "SELECT * FROM PhieuChi_LyDo"
+        Dim sql As String = "SELECT ctpc_ma, ctpc_so_tien, ctpc_xoa, ctpc_pc_ma, ctpc_lydo_ma,
+                            ctpc_ghi_chu 
+                            FROM ChiTietPhieuChi AS ctpc
+                            INNER JOIN PhieuChiLyDo AS pcld ON pcld.lydo_ma = ctpc.ctpc_lydo_ma
+                            ORDER BY ctpc_ma DESC"
 
-    '    ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
-    '    Using conn As New OleDbConnection(ConnectionString)
-    '        Using cmd As New OleDbCommand(sql, conn)
-    '            Try
-    '                conn.Open()
-    '                Dim reader As OleDbDataReader = cmd.ExecuteReader()
-    '                While reader.Read()
-    '                    Dim pn As New PhieuChiLyDo() With {
-    '                            .Ma = CInt(reader("lydo_ma")),
-    '                            .Code = CStr(reader("lydo_code")),
-    '                            .Mota = CStr(reader("lydo_mota"))
-    '                    }
-    '                    phieuChiLyDo.Add(pn)
-    '                End While
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim ctpc As New ChiTietPhieuChi() With {
+                                .Ma = CInt(reader("ctpc_ma")),
+                                .SoTien = CDbl(reader("ctpc_so_tien")),
+                                .PhieuChiMa = CStr(reader("ctpc_pc_ma")),
+                                .IsXoa = CStr(reader("ctpc_xoa")),
+                                .LyDoMa = CStr(reader("ctpc_lydo_ma")),
+                                .GhiChu = CStr(reader("ctpc_ghi_chu")),
+                                .GetPhieuChiLyDo = New PhieuChiLyDo() With {
+                                    .Code = CStr(reader("ctpc_xoa")),
+                                    .Mota = CStr(reader("ctpc_xoa")),
+                                    .Ma = CStr(reader("ctpc_xoa"))
+                                }
+                        }
+                        listCTPC.Add(ctpc)
+                    End While
 
-    '            Catch ex As Exception
-    '                Console.WriteLine("Error loading data: " & ex.Message)
-    '            End Try
-    '        End Using
-    '    End Using
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
 
-    '    Return phieuChiLyDo
-    'End Function
+        Return listCTPC
+    End Function
 End Class

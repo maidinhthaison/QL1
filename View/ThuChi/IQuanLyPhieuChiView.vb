@@ -16,4 +16,6 @@
     Sub RefreshChiTietPhieuChiGridView(list As List(Of ChiTietPhieuChi))
 
     Sub BindingPhieuChiLyDoToCombobox(list As List(Of PhieuChiLyDo))
+
+    Sub BindingCTPhieuChiToTextBox(ctpc As ChiTietPhieuChi)
 End Interface
