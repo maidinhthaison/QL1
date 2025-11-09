@@ -7,4 +7,6 @@
     Sub XulyThemKhachHang(addKhachHang As KhachHang)
 
     Sub XulyCapNhatKhachHang(editKhachHang As KhachHang)
+
+    Sub XulyTimKiemKhachHang(tuKhoa As String)
 End Interface

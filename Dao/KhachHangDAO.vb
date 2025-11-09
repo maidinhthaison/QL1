@@ -145,4 +145,39 @@ Public Class KhachHangDAO
 
         Return khachHangList
     End Function
+
+    Public Function TimKiemKH(tukhoa As String) As List(Of KhachHang)
+        Dim khachHangList As New List(Of KhachHang)()
+        Dim sql As String = "SELECT * FROM KhachHang WHERE kh_code LIKE ? OR kh_ten LIKE ? OR kh_dia_chi LIKE ? OR kh_dien_thoai LIKE ? "
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    Dim searchTerm As String = "*" & tukhoa & "*"
+                    cmd.Parameters.AddWithValue("p1", searchTerm)
+                    cmd.Parameters.AddWithValue("p2", searchTerm)
+                    cmd.Parameters.AddWithValue("p3", searchTerm)
+                    cmd.Parameters.AddWithValue("p4", searchTerm)
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim kh As New KhachHang() With {
+                                .Ma = CInt(reader("kh_ma")),
+                                .Code = CStr(reader("kh_code")),
+                                .Ten = CStr(reader("kh_ten")),
+                                .DienThoai = CStr(reader("kh_dien_thoai")),
+                                .DiaChi = CStr(reader("kh_dia_chi")),
+                                .IsXoa = CBool(reader("kh_xoa"))
+                        }
+                        khachHangList.Add(kh)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return khachHangList
+    End Function
+
 End Class

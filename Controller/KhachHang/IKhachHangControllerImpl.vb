@@ -107,4 +107,13 @@ Public Class IKhachHangControllerImpl
                                 String.Format(MSG_BOX_UPDATE_ERROR_MESSAGE, "khách hàng"))
         End If
     End Sub
+
+    Public Sub XulyTimKiemKhachHang(tuKhoa As String) Implements IKhachHangController.XulyTimKiemKhachHang
+        If tuKhoa = "" Then
+            View.BindingListKhacHangToGridView(listKhachHang)
+            Return
+        End If
+        Dim result = khachHangDao.TimKiemKH(tuKhoa)
+        View.BindingListKhacHangToGridView(result)
+    End Sub
 End Class

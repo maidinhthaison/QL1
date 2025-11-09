@@ -24,6 +24,8 @@ Partial Class FormQLKhachHang
     Private Sub InitializeComponent()
         components = New ComponentModel.Container()
         GroupBox1 = New GroupBox()
+        tbTukhoa = New TextBox()
+        Label5 = New Label()
         dgvKhachHang = New DataGridView()
         GroupBox2 = New GroupBox()
         btnCapNhat = New Button()
@@ -46,6 +48,8 @@ Partial Class FormQLKhachHang
         ' 
         ' GroupBox1
         ' 
+        GroupBox1.Controls.Add(tbTukhoa)
+        GroupBox1.Controls.Add(Label5)
         GroupBox1.Controls.Add(dgvKhachHang)
         GroupBox1.Location = New Point(12, 12)
         GroupBox1.Name = "GroupBox1"
@@ -54,19 +58,36 @@ Partial Class FormQLKhachHang
         GroupBox1.TabStop = False
         GroupBox1.Text = "Danh Sách Khách Hàng"
         ' 
+        ' tbTukhoa
+        ' 
+        tbTukhoa.Location = New Point(74, 37)
+        tbTukhoa.Name = "tbTukhoa"
+        tbTukhoa.PlaceholderText = "Code, Tên, SĐT, Địa chỉ..."
+        tbTukhoa.Size = New Size(279, 27)
+        tbTukhoa.TabIndex = 29
+        ' 
+        ' Label5
+        ' 
+        Label5.AutoSize = True
+        Label5.Location = New Point(6, 40)
+        Label5.Name = "Label5"
+        Label5.Size = New Size(62, 20)
+        Label5.TabIndex = 29
+        Label5.Text = "Từ khóa"
+        ' 
         ' dgvKhachHang
         ' 
         dgvKhachHang.AllowUserToAddRows = False
         dgvKhachHang.AllowUserToDeleteRows = False
         dgvKhachHang.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill
         dgvKhachHang.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize
-        dgvKhachHang.Location = New Point(6, 27)
+        dgvKhachHang.Location = New Point(6, 87)
         dgvKhachHang.Margin = New Padding(3, 4, 3, 4)
         dgvKhachHang.Name = "dgvKhachHang"
         dgvKhachHang.ReadOnly = True
         dgvKhachHang.RowHeadersWidth = 51
         dgvKhachHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
-        dgvKhachHang.Size = New Size(546, 540)
+        dgvKhachHang.Size = New Size(546, 480)
         dgvKhachHang.TabIndex = 2
         ' 
         ' GroupBox2
@@ -196,6 +217,7 @@ Partial Class FormQLKhachHang
         Name = "FormQLKhachHang"
         Text = "Khách Hàng"
         GroupBox1.ResumeLayout(False)
+        GroupBox1.PerformLayout()
         CType(dgvKhachHang, ComponentModel.ISupportInitialize).EndInit()
         GroupBox2.ResumeLayout(False)
         GroupBox2.PerformLayout()
@@ -218,4 +240,6 @@ Partial Class FormQLKhachHang
     Friend WithEvents btnCapNhat As Button
     Friend WithEvents btnThem As Button
     Friend WithEvents bindingSourceKhachHang As BindingSource
+    Friend WithEvents tbTukhoa As TextBox
+    Friend WithEvents Label5 As Label
 End Class
