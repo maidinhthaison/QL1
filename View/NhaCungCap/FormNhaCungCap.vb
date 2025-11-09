@@ -3,11 +3,6 @@
 
     Private nhaCungCapController As INhaCungCapControllerImpl
 
-
-    Public Sub SetController(Controller As INhaCungCapControllerImpl) Implements INhaCungCapView.SetController
-        nhaCungCapController = Controller
-    End Sub
-
     Public Sub LoadData() Implements INhaCungCapView.LoadData
         nhaCungCapController.XulyLoadData()
     End Sub
@@ -16,7 +11,7 @@
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnCapNhat.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
-        AddHandler btnHuy.Click, AddressOf OnButtonClick
+
     End Sub
 
     Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements INhaCungCapView.ShowMessageBox
@@ -143,7 +138,62 @@
             Dim selectedNhaCc As NhaCungCap = CType(selectedRow.DataBoundItem, NhaCungCap)
             If selectedNhaCc IsNot Nothing Then
                 BindingToTextBox(selectedNhaCc)
+                nhaCungCapController.XuLyGetSanPhamByNhaCungCap(selectedNhaCc.Ma)
             End If
         End If
+    End Sub
+
+    Public Sub ConfigureGridViewSanPham() Implements INhaCungCapView.ConfigureGridViewSanPham
+        dgvSanPham.Columns("Ma").Visible = False
+        dgvSanPham.Columns("Mota").Visible = False
+        dgvSanPham.Columns("Loai").Visible = False
+        dgvSanPham.Columns("IsXoa").Visible = False
+        dgvSanPham.Columns("Code").Visible = False
+        dgvSanPham.Columns("Loai").Visible = False
+
+        dgvSanPham.Columns("LoaiSp_Ma").Visible = False
+        dgvSanPham.Columns("LoaiSp_Ncc_Ma").Visible = False
+        dgvSanPham.Columns("LoaiSp_Kv_Ma").Visible = False
+        dgvSanPham.Columns("NCC_Ma").Visible = False
+        dgvSanPham.Columns("Kv_Ma").Visible = False
+        dgvSanPham.Columns("Kv_Ten").Visible = False
+
+        dgvSanPham.Columns("LoaiSp_ChiNhanh").Visible = False
+        dgvSanPham.Columns("Sp_Dv_Ma").Visible = False
+        dgvSanPham.Columns("Sp_DonVi").Visible = False
+
+
+        ' Set custom header text for columns
+        dgvSanPham.Columns("Ten").HeaderText = "Tên SP"
+        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("Sp_SoLuong").HeaderText = "SL"
+        dgvSanPham.Columns("NCC_Ten").HeaderText = "Nhà CC"
+        dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại SP"
+    End Sub
+
+    Public Sub BindingListSanPhamToGridView(list As List(Of SanPham)) Implements INhaCungCapView.BindingListSanPhamToGridView
+        dgvSanPham.DataSource = Nothing
+
+        bsSanPham.DataSource = list
+
+        dgvSanPham.DataSource = bsSanPham
+        ConfigureGridViewSanPham()
+    End Sub
+
+    Private Sub dgvSanPham_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvSanPham.CellFormatting
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+            If e.Value IsNot Nothing Then
+                Dim value As Double = Convert.ToDouble(e.Value)
+                e.Value = CurrencyFormat(value)
+            End If
+        End If
+    End Sub
+
+    Private Sub FormNhaCungCap_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        nhaCungCapController.Items.Clear()
+        nhaCungCapController.Items = Nothing
+        nhaCungCapController.Index = -1
+        nhaCungCapController.ListSP.Clear()
+        nhaCungCapController.ListSP = Nothing
     End Sub
 End Class

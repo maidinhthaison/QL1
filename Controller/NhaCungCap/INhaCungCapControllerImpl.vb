@@ -11,10 +11,15 @@
 
     Private nhaCcDAO As NhaCungCapDAO
 
+    ''
+    Private listSanPham As List(Of SanPham)
+    Private sanPhamDAO As SanPhamDAO
     Private Sub New()
         listNhaCc = New List(Of NhaCungCap)
         nhaCcDAO = New NhaCungCapDAO()
-
+        ''
+        listSanPham = New List(Of SanPham)
+        sanPhamDAO = New SanPhamDAO()
     End Sub
 
 
@@ -36,6 +41,15 @@
         End Set
     End Property
 
+    Public Property ListSP() As List(Of SanPham)
+        Get
+            Return listSanPham
+        End Get
+        Set(ByVal value As List(Of SanPham))
+            listSanPham = value
+        End Set
+    End Property
+
     Public Shared ReadOnly Property Instance() As INhaCungCapControllerImpl
         Get
             If _instance Is Nothing Then
@@ -47,7 +61,6 @@
 
     Public Sub Init(ByVal nhaCungCapView As INhaCungCapView)
         View = nhaCungCapView
-        View.SetController(Me)
     End Sub
 
     Public Sub XulyThemNhaCungCap(addedNhacc As NhaCungCap) Implements INhaCungCapController.XulyThemNhaCungCap
@@ -97,5 +110,8 @@
         View.BindingListToGridView(listNhaCc)
     End Sub
 
-
+    Public Sub XuLyGetSanPhamByNhaCungCap(nhaCCMa As Integer) Implements INhaCungCapController.XuLyGetSanPhamByNhaCungCap
+        listSanPham = sanPhamDAO.GetSP_With_LoaiSP_By_NhaCC(nhaCCMa)
+        View.BindingListSanPhamToGridView(listSanPham)
+    End Sub
 End Class

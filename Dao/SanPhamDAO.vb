@@ -265,4 +265,49 @@ Public Class SanPhamDAO
 
         Return spList
     End Function
+
+    Public Function GetSP_With_LoaiSP_By_NhaCC(nhaCCMa As Integer) As List(Of SanPham)
+        Dim spList As New List(Of SanPham)()
+
+        Dim sql As String = "SELECT lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_mo_ta, lsp.lsp_xoa, lsp.lsp_code, lsp.lsp_ncc, lsp.lsp_khu_vuc,  lsp.lsp_cn_ma,
+                ncc.ncc_ma, ncc.ncc_ten, ncc.ncc_diachi, ncc.ncc_dien_thoai, ncc.ncc_code,
+                sp.sp_ma, sp.sp_ten, sp.sp_mo_ta, sp.sp_loai, sp.sp_gia, sp.sp_xoa, sp.sp_code, sp_so_luong, sp_dv_ma
+                FROM(
+                    SanPham As sp
+                    INNER JOIN LoaiSanPham AS lsp ON sp.sp_loai = lsp.lsp_ma)
+                    INNER JOIN NhaCungCap AS ncc ON lsp.lsp_ncc = ncc.ncc_ma
+                WHERE ncc.ncc_ma = ?"
+
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    cmd.Parameters.AddWithValue("nhaCCMa", nhaCCMa)
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+
+                        Dim sp As New SanPham() With {
+                                .Ma = CInt(reader("sp_ma")),
+                                .Ten = CStr(reader("sp_ten")),
+                                .Mota = CStr(reader("sp_mo_ta")),
+                                .Loai = CInt(reader("sp_loai")),
+                                .Gia = CDbl(reader("sp_gia")),
+                                .IsXoa = CBool(reader("sp_xoa")),
+                                .Code = CStr(reader("sp_code")),
+                                .LoaiSp_Ten = CStr(reader("lsp_ten")),
+                                .NCC_Ten = CStr(reader("ncc_ten")),
+                                .Sp_SoLuong = CInt(reader("sp_so_luong"))
+                        }
+                        spList.Add(sp)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return spList
+    End Function
 End Class
