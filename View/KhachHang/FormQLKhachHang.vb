@@ -108,4 +108,16 @@
             End If
         End If
     End Sub
+
+    Private Sub tbTukhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTukhoa.TextChanged
+        Dim tukhoa = tbTukhoa.Text.Trim.ToString()
+        khachHangController.XulyTimKiemKhachHang(tukhoa)
+    End Sub
+
+    Private Sub FormQLKhachHang_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+        khachHangController.ListKh.Clear()
+        khachHangController.ListKh = Nothing
+        khachHangController.GetSelectedKH = Nothing
+        khachHangController.Index = -1
+    End Sub
 End Class
