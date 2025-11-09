@@ -1,5 +1,4 @@
 ﻿Public Interface INhaCungCapView
-    Sub SetController(Controller As INhaCungCapControllerImpl)
     Sub LoadData()
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)
@@ -14,5 +13,8 @@
 
     Sub ClearFields()
 
+    ''
+    Sub ConfigureGridViewSanPham()
+    Sub BindingListSanPhamToGridView(list As List(Of SanPham))
 
 End Interface

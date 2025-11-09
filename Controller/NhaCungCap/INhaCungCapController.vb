@@ -3,4 +3,7 @@
     Sub XulyXoaNhaCungCap()
     Sub XulyCapNhatNhaCungCap(editedNhacc As NhaCungCap)
     Sub XulyLoadData()
+
+    ''
+    Sub XuLyGetSanPhamByNhaCungCap(nhaCCMa As Integer)
 End Interface
