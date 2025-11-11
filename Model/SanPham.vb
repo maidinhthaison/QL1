@@ -4,6 +4,7 @@
     Private _sp_mota As String
     Private _sp_loai As Integer
     Private _sp_gia As Double
+    Private _sp_gia_nhap As Double
     Private _sp_xoa As Boolean
     Private _sp_code As String
     Private _sp_dv_ma As Integer
@@ -144,6 +145,15 @@
         End Get
         Set(ByVal value As Double)
             _sp_gia = value
+        End Set
+    End Property
+
+    Public Property GiaNhap() As Double
+        Get
+            Return _sp_gia_nhap
+        End Get
+        Set(ByVal value As Double)
+            _sp_gia_nhap = value
         End Set
     End Property
 

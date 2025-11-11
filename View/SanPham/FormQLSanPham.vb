@@ -74,6 +74,7 @@
     Public Sub BindingTolabelTextBox(sp As SanPham) Implements ISanPhamView.BindingTolabelTextBox
         tbSanpham.Text = sp.Ten
         tbGia.Text = sp.Gia
+        tbGiaNhap.Text = sp.GiaNhap
         rtbMota.Text = sp.Mota
         lbCode.Text = sp.Code
         cbLoaiSp.SelectedValue = sp.Loai
@@ -102,16 +103,18 @@
         ' Set custom header text for columns
 
         dgvSanPham.Columns("Ten").HeaderText = "Tên"
-        'dgvSanPham.Columns("Ten").DisplayIndex = 0
+        dgvSanPham.Columns("Ten").Width = 200
 
         dgvSanPham.Columns("LoaiSp_Ten").HeaderText = "Loại"
         'dgvSanPham.Columns("LoaiSp_Ten").DisplayIndex = 1
 
-        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("GiaNhap").HeaderText = "Giá nhập"
+
+        dgvSanPham.Columns("Gia").HeaderText = "Giá bán"
         'dgvSanPham.Columns("Gia").DisplayIndex = 2
 
         dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Số lượng"
-        'dgvSanPham.Columns("Sp_SoLuong").DisplayIndex = 3
+        dgvSanPham.Columns("Sp_SoLuong").Width = 50
 
         dgvSanPham.Columns("NCC_Ten").HeaderText = "NCC"
         'dgvSanPham.Columns("NCC_Ten").DisplayIndex = 4
@@ -127,6 +130,7 @@
     Public Sub ClearFields() Implements ISanPhamView.ClearFields
         tbSanpham.Text = ""
         tbGia.Text = ""
+        tbGiaNhap.Text = ""
         tbTukhoa.Text = ""
         rtbMota.Text = ""
         lbCode.Text = ""
@@ -160,6 +164,7 @@
                 .Ten = tbSanpham.Text.Trim.ToString,
                 .Mota = rtbMota.Text.Trim.ToString,
                 .Gia = tbGia.Text.Trim.ToString,
+                .GiaNhap = tbGiaNhap.Text.Trim.ToString,
                 .Loai = selectedLoaiSp.Ma,
                 .Sp_SoLuong = tbSoLuong.Text.Trim.ToString
             }
@@ -171,13 +176,12 @@
         Dim selectedLoaiSp As LoaiSanPham = TryCast(cbLoaiSp.SelectedItem, LoaiSanPham)
         Dim list As List(Of LoaiSanPham) = sanPhamController.Xuly_Get_KhuVucNCC_By_LoaiSP_Ma(selectedLoaiSp.Ma)
         Dim loaiSP As LoaiSanPham = list(0)
-        'MessageBox.Show($"{loaiSP.Ma} - {loaiSP.Ten} - {loaiSP.Lsp_Ncc.Ma} - {loaiSP.Lsp_Kv.Ma} -
-        '    {loaiSP.Lsp_Ncc.Ma} - {loaiSP.Lsp_Ncc.Ten} - {loaiSP.Lsp_Kv.Ma} - {loaiSP.Lsp_Kv.Ten}")
         Dim newSp As New SanPham() With {
             .Ten = tbSanpham.Text,
             .Mota = rtbMota.Text,
             .Loai = selectedLoaiSp.Ma,
             .Gia = tbGia.Text,
+            .GiaNhap = tbGiaNhap.Text,
             .IsXoa = False,
             .Code = Gen_12Chars_UUID(),
             .LoaiSp_Ma = loaiSP.Ma,
@@ -245,7 +249,8 @@
             End If
         End If
 
-        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+        If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" OrElse
+            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "GiaNhap" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)
                 e.Value = CurrencyFormat(value)

@@ -105,6 +105,7 @@ Public Class ISanPhamControllerImpl
         selectedSp.Mota = editedSanPham.Mota
         selectedSp.Loai = editedSanPham.Loai
         selectedSp.Gia = editedSanPham.Gia
+        selectedSp.GiaNhap = editedSanPham.GiaNhap
         selectedSp.Sp_SoLuong = editedSanPham.Sp_SoLuong
         Dim spToSave As New List(Of SanPham) From {selectedSp}
         If sanPhamDAO.SaveSanPham(spToSave) Then
@@ -129,6 +130,7 @@ Public Class ISanPhamControllerImpl
             Dim searchResult As List(Of SanPham) = listSanPham.Where(
                 Function(sp) sp.Ten.ToLower().Contains(tukhoa.ToLower()) OrElse
                         sp.Gia.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.GiaNhap.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.Code.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.LoaiSp_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.NCC_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse

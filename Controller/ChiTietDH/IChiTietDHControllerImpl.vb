@@ -139,6 +139,7 @@
             Dim searchResult As List(Of SanPham) = listSanPham.Where(
                 Function(sp) sp.Ten.ToLower().Contains(tukhoa.ToLower()) OrElse
                         sp.Gia.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
+                        sp.GiaNhap.ToString().Contains(tukhoa, StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.Code.ToString().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.LoaiSp_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
                         sp.NCC_Ten.ToLower().Contains(tukhoa.ToLower(), StringComparison.CurrentCultureIgnoreCase) OrElse
