@@ -1,6 +1,5 @@
-﻿
-Public Class FormNhanVienThongKe
-    Implements INhanVienThongKeView, IBaseForm
+﻿Public Class FormChuQuanThongKe
+    Implements IChuQuanThongKeView, IBaseForm
 
     Private thongKeController As IThongKeControllerImpl
 
@@ -8,38 +7,28 @@ Public Class FormNhanVienThongKe
 
     Private userSession As NhanVien
 
-    Public Sub LoadData() Implements INhanVienThongKeView.LoadData
-        cbBoLoc.DataSource = System.Enum.GetValues(GetType(EnumFilterThongKe))
-        Dim selectedFilter As EnumFilterThongKe = CType(cbBoLoc.SelectedItem, EnumFilterThongKe)
-
-        'Mặc định theo tháng
-        thongKeController.XulyThongKeNhanVienBanHang(EnumFilterThongKe.Thang, userSession.Ma)
-
-        lbChiNhanh.Text = userSession.ChiNhanh.Ten
-        lbNhanVien.Text = userSession.Ten
-
-    End Sub
-
     Public Sub InitViews() Implements IBaseForm.InitViews
         AddHandler btnTraCuu.Click, AddressOf OnButtonClick
     End Sub
 
-    Public Sub BindingListDoanhThuSanPhamOfNhanVienToGridView(list As List(Of ChiTietDonHang)) Implements INhanVienThongKeView.BindingListDoanhThuSanPhamOfNhanVienToGridView
+    Public Sub LoadData() Implements IChuQuanThongKeView.LoadData
+        cbBoLoc.DataSource = System.Enum.GetValues(GetType(EnumFilterThongKe))
+        Dim selectedFilter As EnumFilterThongKe = CType(cbBoLoc.SelectedItem, EnumFilterThongKe)
+
+        'Mặc định theo tháng
+        thongKeController.XulyThongKeDoanhThu(EnumFilterThongKe.Thang)
+
+        lbChiNhanh.Text = userSession.ChiNhanh.Ten
+
+    End Sub
+
+    Public Sub BindingListDoanhThuSanPhamToGridView(list As List(Of ChiTietDonHang)) Implements IChuQuanThongKeView.BindingListDoanhThuSanPhamToGridView
         RefreshGridView(list)
 
         ConfigGridView()
     End Sub
 
-    Private Sub RefreshGridView(list As List(Of ChiTietDonHang))
-        dgvSanPham.DataSource = Nothing
-
-        bsDoanhThuSanPham.DataSource = list
-
-        dgvSanPham.DataSource = bsDoanhThuSanPham
-    End Sub
-
-
-    Public Sub ConfigGridView()
+    Private Sub ConfigGridView()
         dgvSanPham.Columns("Ma").Visible = False
         dgvSanPham.Columns("Pbh_Ma").Visible = False
         dgvSanPham.Columns("Sp_Ma").Visible = False
@@ -53,13 +42,13 @@ Public Class FormNhanVienThongKe
         End With
 
         With dgvSanPham.Columns("Gia")
-            .HeaderText = "Giá"
+            .HeaderText = "Giá bán"
             .DisplayIndex = 1
             .Width = 100
         End With
 
         With dgvSanPham.Columns("SoLuong")
-            .HeaderText = "SL"
+            .HeaderText = "SL Bán"
             .DisplayIndex = 2
             .Width = 50
         End With
@@ -76,10 +65,25 @@ Public Class FormNhanVienThongKe
         With dgvSanPham.Columns("ThanhTien")
             .HeaderText = "Thành tiền"
         End With
-
     End Sub
 
-    Private Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements INhanVienThongKeView.ShowMessageBox
+    Private Sub RefreshGridView(list As List(Of ChiTietDonHang))
+        dgvSanPham.DataSource = Nothing
+
+        bsDoanhThuSanPham.DataSource = list
+
+        dgvSanPham.DataSource = bsDoanhThuSanPham
+    End Sub
+
+    Public Sub SetDoanhThuLabel(fromDate As String, toDate As String, doanhThu As Double, tienVon As Double, khuyenMai As Double, loiNhuan As Double) Implements IChuQuanThongKeView.SetDoanhThuLabel
+        lbDoanhThu.Text = CurrencyFormat(doanhThu)
+        lbTienVon.Text = CurrencyFormat(tienVon)
+        lbKhuyenMai.Text = CurrencyFormat(khuyenMai)
+        lbLoiNhuan.Text = CurrencyFormat(loiNhuan)
+        lbDate.Text = String.Format("Từ ngày {0} đến ngày {1}", fromDate, toDate)
+    End Sub
+
+    Public Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String) Implements IChuQuanThongKeView.ShowMessageBox
         Select Case MessageBoxType
             Case EnumMessageBox.Infomation
                 MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Information)
@@ -88,9 +92,9 @@ Public Class FormNhanVienThongKe
         End Select
     End Sub
 
-    Private Sub FormNhanVienThongKe_Load(sender As Object, e As EventArgs) Handles MyBase.Load
+    Private Sub FormChuQuanThongKe_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         thongKeController = IThongKeControllerImpl.Instance
-        thongKeController.Init(Me)
+        thongKeController.InitViewChuQuan(Me)
 
         nhanViewController = INhanVienControllerImpl.Instance
         userSession = nhanViewController.UserSession
@@ -98,10 +102,11 @@ Public Class FormNhanVienThongKe
         LoadData()
     End Sub
 
-    Private Sub FormNhanVienThongKe_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
+    Private Sub FormChuQuanThongKe_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         userSession = Nothing
-        thongKeController.ListThongKeBanHang.Clear()
-        thongKeController.ListThongKeBanHang = Nothing
+        thongKeController.ListThongKeDoanhThuCuaHang.Clear()
+        thongKeController.ListThongKeDoanhThuCuaHang = Nothing
+        thongKeController.CTDHIndex = -1
         thongKeController = Nothing
     End Sub
 
@@ -115,7 +120,7 @@ Public Class FormNhanVienThongKe
 
     Private Sub TraCuuThongKe()
         Dim selectedFilter As EnumFilterThongKe = CType(cbBoLoc.SelectedItem, EnumFilterThongKe)
-        thongKeController.XulyThongKeNhanVienBanHang(selectedFilter, userSession.Ma)
+        thongKeController.XulyThongKeDoanhThu(selectedFilter)
     End Sub
 
     Private Sub dgvSanPham_CellFormatting(sender As Object, e As DataGridViewCellFormattingEventArgs) Handles dgvSanPham.CellFormatting
@@ -138,9 +143,31 @@ Public Class FormNhanVienThongKe
                 e.Value = CurrencyFormat(value)
             End If
         End If
+
+        ' Highlight dòng đầu tiên (sản phẩm bán nhiều nhất)
+        dgvSanPham.Rows(0).DefaultCellStyle.BackColor = Color.LightCoral
+
     End Sub
 
-    Public Sub SetDoanhThuLabel(doanhThu As Double) Implements INhanVienThongKeView.SetDoanhThuLabel
-        lbDoanhThu.Text = CurrencyFormat(doanhThu)
+    Private Sub dgvSanPham_CellClick(sender As Object, e As DataGridViewCellEventArgs) Handles dgvSanPham.CellClick
+
+        If e.RowIndex >= 0 Then
+            thongKeController.CTDHIndex = e.RowIndex
+            thongKeController.XulyClickChiTietSanPham()
+
+        End If
+    End Sub
+
+    Private Sub tbTuKhoa_TextChanged(sender As Object, e As EventArgs) Handles tbTuKhoa.TextChanged
+        Dim tukhoa = tbTuKhoa.Text.Trim.ToString()
+        Dim result As List(Of ChiTietDonHang) = thongKeController.XulyTimKiemSanPham(tukhoa)
+        BindingListDoanhThuSanPhamToGridView(result)
+    End Sub
+
+    Public Sub SetDoanhThuSanPhamLabel(doanhThu As Double, tienVon As Double, khuyenMai As Double, loiNhuan As Double) Implements IChuQuanThongKeView.SetDoanhThuSanPhamLabel
+        lbDoanhThuSp.Text = CurrencyFormat(doanhThu)
+        lbTienVonSp.Text = CurrencyFormat(tienVon)
+        lbKhuyenMaiSp.Text = CurrencyFormat(khuyenMai)
+        lbLoiNhuanSp.Text = CurrencyFormat(loiNhuan)
     End Sub
 End Class
