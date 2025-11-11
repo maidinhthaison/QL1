@@ -173,13 +173,13 @@ Public Class FormChuQuan
     End Sub
 
     Private Sub ThongKeMenuItem_Click(sender As Object, e As EventArgs) Handles ThongKeMenuItem.Click
-        Dim frm As Form = TimForm(GetType(FormNhanVienThongKe))
+        Dim frm As Form = TimForm(GetType(FormChuQuanThongKe))
         If frm IsNot Nothing Then
             frm.Activate()
             Return
         End If
 
-        Dim ThongKeForm As New FormNhanVienThongKe()
+        Dim ThongKeForm As New FormChuQuanThongKe()
         ThongKeForm.MdiParent = Me
         ThongKeForm.WindowState = FormWindowState.Maximized
         ThongKeForm.Show()
