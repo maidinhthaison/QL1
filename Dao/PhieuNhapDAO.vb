@@ -56,7 +56,7 @@ Public Class PhieuNhapDAO
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
             cmd.Parameters.AddWithValue("pCN", pn.ChiNhanhMa)
             cmd.Parameters.AddWithValue("pCode", pn.Code)
-            cmd.Parameters.AddWithValue("pNgay", pn.NgayNhap.ToString(DATETIME_FORMAT))
+            cmd.Parameters.AddWithValue("pNgay", pn.NgayNhap.ToString(Constant.DATETIME_FORMAT))
             cmd.Parameters.AddWithValue("pTSP", pn.TongSanPham)
             cmd.Parameters.AddWithValue("Tkm", pn.TongKhuyenMai)
             cmd.Parameters.AddWithValue("pTT", pn.TongTien)
@@ -76,7 +76,7 @@ Public Class PhieuNhapDAO
             pn_tong_khuyen_mai = ?, pn_tong_tien = ?, pn_tong_thanh_tien = ?,  pn_ghi_chu = ?, pn_xoa = ? WHERE pn_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
-            cmd.Parameters.AddWithValue("pNgay", pn.NgayNhap.ToString(DATETIME_FORMAT))
+            cmd.Parameters.AddWithValue("pNgay", pn.NgayNhap.ToString(Constant.DATETIME_FORMAT))
             cmd.Parameters.AddWithValue("pTongSp", pn.TongSanPham)
             cmd.Parameters.AddWithValue("pTongKm", pn.TongKhuyenMai)
             cmd.Parameters.AddWithValue("pTongTien", pn.TongTien)

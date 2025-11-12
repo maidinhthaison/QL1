@@ -26,9 +26,10 @@ Public Class FormChiTietDonHang
         AddHandler btnClearDH.Click, AddressOf OnButtonClick
         AddHandler btnTimKH.Click, AddressOf OnButtonClick
         AddHandler btnCapNhatKH.Click, AddressOf OnButtonClick
+        AddHandler btnXuatHoaDon.Click, AddressOf OnButtonClick
 
         'MessageBox.Show($"{tempDonHang.Ngay.ToString(DATETIME_FORMAT)} - {tempDonHang.Ngay}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        lbNgayThang.Text = tempDonHang.Ngay.ToString(DATETIME_FORMAT)
+        lbNgayThang.Text = tempDonHang.Ngay.ToString(Constant.DATETIME_FORMAT)
         lbChiNhanh.Text = tempDonHang.ChiNhanh.Ten
     End Sub
 
@@ -47,11 +48,32 @@ Public Class FormChiTietDonHang
                 TimKiemKhachHang()
             Case "btnCapNhatKH"
                 CapNhatKH()
+            Case "btnXuatHoaDon"
+                XuatHoaDon()
 
         End Select
     End Sub
 
-
+    Private Sub XuatHoaDon()
+        If chiTietDonHangControllerImpl.GetDSChiTietPbh Is Nothing OrElse chiTietDonHangControllerImpl.GetDSChiTietPbh.Count = 0 Then
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Chưa có sản phẩm trong đơn hàng")
+            Return
+        End If
+        If tempDonHang Is Nothing Then
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Chưa có đơn hàng")
+            Return
+        End If
+        If khachHangControllerImpl.GetSelectedKH Is Nothing Then
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Chưa có khách hàng")
+            Return
+        End If
+        Dim pdfPath As String = chiTietDonHangControllerImpl.XuLyXuatHoaDon(chiTietDonHangControllerImpl.GetDSChiTietPbh, tempDonHang, khachHangControllerImpl.GetSelectedKH)
+        If pdfPath IsNot Nothing Then
+            ShowConfirmMessageBox("Xuất hóa đơn", "Xuất hóa đơn thành công. Bạn có muốn in hóa đơn không?", "InHoaDon")
+        Else
+            ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE, "Xuất hóa đơn thất bại.")
+        End If
+    End Sub
 
     Private Sub CapNhatKH()
         If khachHangControllerImpl.ListKh.Count > 0 Then
@@ -311,6 +333,7 @@ Public Class FormChiTietDonHang
         dgvDonHang.Columns("IsXoa").Visible = False
 
         ' Set custom header text for columns
+
         dgvDonHang.Columns("SanPhamInfo").HeaderText = "SP"
         dgvDonHang.Columns("SanPhamInfo").DisplayIndex = 0
 
@@ -319,9 +342,8 @@ Public Class FormChiTietDonHang
         dgvDonHang.Columns("SoLuong").DisplayIndex = 1
         dgvDonHang.Columns("SoLuong").Width = 50
 
-        dgvDonHang.Columns("Gia").HeaderText = "Đơn Giá"
+        dgvDonHang.Columns("Gia").HeaderText = "Đơn Giá Bán"
         dgvDonHang.Columns("Gia").DisplayIndex = 2
-
 
         dgvDonHang.Columns("KhuyenMai").HeaderText = "KM"
         dgvDonHang.Columns("KhuyenMai").DisplayIndex = 3
@@ -386,9 +408,10 @@ Public Class FormChiTietDonHang
         dgvSanPham.Columns("Ten").Width = 200
 
         dgvSanPham.Columns("Gia").Width = 75
-        dgvSanPham.Columns("Gia").HeaderText = "Giá"
+        dgvSanPham.Columns("Gia").HeaderText = "Đơn Giá bán"
         dgvSanPham.Columns("Gia").DisplayIndex = 3
 
+        dgvSanPham.Columns("GiaNhap").HeaderText = "Đơn Giá nhập"
 
         dgvSanPham.Columns("Sp_SoLuong").Width = 50
         dgvSanPham.Columns("Sp_SoLuong").HeaderText = "Kho hàng"
@@ -413,6 +436,8 @@ Public Class FormChiTietDonHang
         khachHangControllerImpl = IKhachHangControllerImpl.Instance
         sanPhamControllerImpl = ISanPhamControllerImpl.Instance
         nhanvienController = INhanVienControllerImpl.Instance
+
+        System.Text.Encoding.RegisterProvider(System.Text.CodePagesEncodingProvider.Instance)
 
         InitViews()
         LoadData()
@@ -446,6 +471,7 @@ Public Class FormChiTietDonHang
         End If
 
         If e.RowIndex >= 0 AndAlso dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "Gia" OrElse
+           dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "GiaNhap" OrElse
            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "KhuyenMai" OrElse
            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "TongTien" OrElse
            dgvDonHang.Columns(e.ColumnIndex).DataPropertyName = "ThanhTien" Then
@@ -462,6 +488,14 @@ Public Class FormChiTietDonHang
 
     Private Sub FormChiTietDonHang_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         tempDonHang = Nothing
+        chiTietDonHangControllerImpl.CurrentSPIndex = -1
+        chiTietDonHangControllerImpl.CurrentDonHangIndex = -1
+        chiTietDonHangControllerImpl.GetDSChiTietPbh.Clear()
+        chiTietDonHangControllerImpl.GetDSChiTietPbh = Nothing
+        chiTietDonHangControllerImpl.ListSp.Clear()
+        chiTietDonHangControllerImpl.ListSp = Nothing
+        chiTietDonHangControllerImpl.GetHoaDonFilePath = Nothing
+        khachHangControllerImpl.GetSelectedKH = Nothing
     End Sub
 
     Public Sub BindingListKhachHangToGridView(list As List(Of KhachHang)) Implements IChiTietDonHangView.BindingListKhachHangToGridView
@@ -519,7 +553,7 @@ Public Class FormChiTietDonHang
             End If
         End If
         If e.RowIndex >= 0 AndAlso dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" OrElse
-            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "Gia" Then
+            dgvSanPham.Columns(e.ColumnIndex).DataPropertyName = "GiaNhap" Then
             If e.Value IsNot Nothing Then
                 Dim value As Double = Convert.ToDouble(e.Value)
                 e.Value = CurrencyFormat(value)
@@ -531,5 +565,21 @@ Public Class FormChiTietDonHang
     Public Sub BindingKhachHangToTextBox(khachHang As KhachHang) Implements IChiTietDonHangView.BindingKhachHangToTextBox
         tbTenKh.Text = khachHang.Ten
         tbDiaChiKh.Text = khachHang.DiaChi
+    End Sub
+
+    Public Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IChiTietDonHangView.ShowConfirmMessageBox
+        Dim result As DialogResult
+        result = MessageBox.Show(Message, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
+        If result = DialogResult.Yes Then
+            Select Case Action
+                Case "InHoaDon"
+                    InHoaDon(chiTietDonHangControllerImpl.GetHoaDonFilePath)
+            End Select
+
+        End If
+    End Sub
+
+    Private Sub InHoaDon(pdfFilePath As String)
+        chiTietDonHangControllerImpl.InHoaDon(pdfFilePath)
     End Sub
 End Class

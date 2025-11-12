@@ -1,5 +1,11 @@
-﻿Public Class IChiTietDHControllerImpl
+﻿Imports System.IO
+Imports MigraDoc.DocumentObjectModel
+Imports MigraDoc.DocumentObjectModel.Tables
+Imports MigraDoc.Rendering
+
+Public Class IChiTietDHControllerImpl
     Implements IChiTietDHController
+
     Private Shared _instance As IChiTietDHControllerImpl
 
     Private View As IChiTietDonHangView
@@ -21,10 +27,10 @@
     ''' </summary>
     Private donHangDao As DonHangDAO
 
+    Private pdfHoaDonPath As String
     Private Sub New()
         listSanPham = New List(Of SanPham)
         listChiTietPBH = New List(Of ChiTietDonHang)
-
 
         sanPhamDao = New SanPhamDAO()
         chiTietPhieuBanHangDao = New ChiTietDonHangDAO()
@@ -80,6 +86,15 @@
         End Get
         Set(ByVal value As Integer)
             selectedDonHangIndex = value
+        End Set
+    End Property
+
+    Public Property GetHoaDonFilePath() As String
+        Get
+            Return pdfHoaDonPath
+        End Get
+        Set(ByVal value As String)
+            pdfHoaDonPath = value
         End Set
     End Property
     '' <summary>
@@ -153,4 +168,97 @@
         End If
     End Function
 
+
+    Public Sub InHoaDon(pdfPath As String)
+        Try
+            'Send the PDF to the default printer
+            Dim psi As New ProcessStartInfo
+            psi.FileName = pdfPath
+            psi.Verb = "Print" ' This is the command to print
+            psi.UseShellExecute = True
+            Process.Start(psi)
+
+        Catch ex As Exception
+            View.ShowMessageBox(EnumMessageBox.Errors, MSG_BOX_ERROR_TITLE,
+                                "Cần cài đặt trình đọc PDF mặc định (như Adobe Reader hoặc Edge)." & ex.Message)
+
+        End Try
+    End Sub
+
+    Public Function XuLyXuatHoaDon(items As List(Of ChiTietDonHang), donHang As DonHang, khachHang As KhachHang) As String Implements IChiTietDHController.XuLyXuatHoaDon
+        ' 1. Create a new PDF document
+        Dim document As New Document()
+        document.Info.Title = "Hóa Đơn"
+        Dim section As Section = document.AddSection()
+
+        ' 2. Add Header
+        section.AddParagraph("HÓA ĐƠN MUA HÀNG", "Heading5")
+        section.AddParagraph("Khách Hàng: " & khachHang.Ten, "Heading3")
+        section.AddParagraph("Điện thoại: " & khachHang.DienThoai, "Heading3")
+        section.AddParagraph("Ngày mua: " & donHang.Ngay.ToString(Constant.DATETIME_FORMAT))
+        section.AddParagraph() ' Blank line
+
+        ' 3. Create the table for the items
+        Dim table As New Table()
+        table.Borders.Width = 0.75
+        table.AddColumn(Unit.FromCentimeter(5))
+        table.AddColumn(Unit.FromCentimeter(1))
+        table.AddColumn(Unit.FromCentimeter(2))
+        table.AddColumn(Unit.FromCentimeter(3))
+        table.AddColumn(Unit.FromCentimeter(3))
+        table.AddColumn(Unit.FromCentimeter(3))
+
+        ' 4. Add Table Header
+        Dim headerRow As Row = table.AddRow()
+        headerRow.Cells(0).AddParagraph("Sản phẩm")
+        headerRow.Cells(1).AddParagraph("SL")
+        headerRow.Cells(2).AddParagraph("Đơn giá")
+        headerRow.Cells(3).AddParagraph("Tổng tiền")
+        headerRow.Cells(4).AddParagraph("Khuyến mãi")
+        headerRow.Cells(5).AddParagraph("Thành tiền")
+        headerRow.Format.Font.Bold = True
+
+        ' 5. Add items from the List Object
+        Dim totalAmount As Decimal = 0
+        For Each item In items
+            Dim dataRow As Row = table.AddRow()
+            dataRow.Cells(0).AddParagraph(item.SanPhamInfo.Ten)
+            dataRow.Cells(1).AddParagraph(item.SoLuong)
+            dataRow.Cells(2).AddParagraph(CurrencyFormat(item.Gia))
+            dataRow.Cells(3).AddParagraph(CurrencyFormat(item.TongTien))
+            dataRow.Cells(4).AddParagraph(CurrencyFormat(item.KhuyenMai))
+            dataRow.Cells(5).AddParagraph(CurrencyFormat(item.ThanhTien))
+            totalAmount += item.ThanhTien
+        Next
+
+        section.Add(table)
+        section.AddParagraph()
+
+        ' 6. Add Totals
+        section.AddParagraph("Tổng hóa đơn: " & CurrencyFormat(totalAmount), "Heading3")
+
+        ' 7. Save the PDF
+        Dim renderer As New PdfDocumentRenderer(True)
+        renderer.Document = document
+        renderer.RenderDocument()
+
+        Dim desktop As String = Environment.GetFolderPath(Environment.SpecialFolder.Desktop)
+        Dim pdfFilePath As String = Path.Combine(desktop, $"HoaDon-{donHang.Code}.pdf")
+
+        'Dim pdfFilePath As String = Path.Combine(Path.GetTempPath(), $"HoaDon-{donHang.Code}.pdf")
+        renderer.PdfDocument.Save(pdfFilePath)
+
+        ' 8. Show the PDF file
+        Dim psi As New ProcessStartInfo
+        psi.FileName = pdfFilePath
+        psi.UseShellExecute = True
+        Process.Start(psi)
+
+        If pdfFilePath IsNot Nothing Then
+            GetHoaDonFilePath = pdfFilePath
+        End If
+
+        ' 9. Return the path
+        Return pdfFilePath
+    End Function
 End Class

@@ -17,7 +17,9 @@
 
   <ItemGroup>
     <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+    <PackageReference Include="PdfSharp.MigraDoc.Standard" Version="1.51.15" />
     <PackageReference Include="System.Data.OleDb" Version="9.0.8" />
+    <PackageReference Include="System.Text.Encoding.CodePages" Version="10.0.0" />
   </ItemGroup>
 
   <ItemGroup>

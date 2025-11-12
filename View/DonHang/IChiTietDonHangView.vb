@@ -4,6 +4,8 @@
 
     Sub ShowMessageBox(MessageBoxType As EnumMessageBox, Title As String, Message As String)
 
+    Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String)
+
     Sub BindingKhachHangToTextBox(khachHang As KhachHang)
 
     Sub BindingListSanPhamToGridView(list As List(Of SanPham))

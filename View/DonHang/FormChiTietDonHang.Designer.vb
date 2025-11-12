@@ -60,6 +60,7 @@ Partial Class FormChiTietDonHang
         CTDH_BindingSource = New BindingSource(components)
         lbNgayThang = New Label()
         Bs_KhachHang = New BindingSource(components)
+        btnXuatHoaDon = New Button()
         GroupBox1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox4.SuspendLayout()
@@ -267,6 +268,7 @@ Partial Class FormChiTietDonHang
         ' 
         ' GroupBox3
         ' 
+        GroupBox3.Controls.Add(btnXuatHoaDon)
         GroupBox3.Controls.Add(GroupBox4)
         GroupBox3.Controls.Add(Label11)
         GroupBox3.Controls.Add(btnXoa)
@@ -394,10 +396,10 @@ Partial Class FormChiTietDonHang
         ' 
         ' btnXacNhan
         ' 
-        btnXacNhan.Location = New Point(443, 56)
+        btnXacNhan.Location = New Point(441, 76)
         btnXacNhan.Margin = New Padding(3, 4, 3, 4)
         btnXacNhan.Name = "btnXacNhan"
-        btnXacNhan.Size = New Size(119, 51)
+        btnXacNhan.Size = New Size(100, 35)
         btnXacNhan.TabIndex = 14
         btnXacNhan.Text = "Xác nhận"
         btnXacNhan.UseVisualStyleBackColor = True
@@ -441,6 +443,16 @@ Partial Class FormChiTietDonHang
         lbNgayThang.Size = New Size(36, 20)
         lbNgayThang.TabIndex = 10
         lbNgayThang.Text = "N/A"
+        ' 
+        ' btnXuatHoaDon
+        ' 
+        btnXuatHoaDon.Location = New Point(576, 76)
+        btnXuatHoaDon.Margin = New Padding(3, 4, 3, 4)
+        btnXuatHoaDon.Name = "btnXuatHoaDon"
+        btnXuatHoaDon.Size = New Size(133, 35)
+        btnXuatHoaDon.TabIndex = 48
+        btnXuatHoaDon.Text = "Xuất hóa đơn"
+        btnXuatHoaDon.UseVisualStyleBackColor = True
         ' 
         ' FormChiTietDonHang
         ' 
@@ -510,4 +522,5 @@ Partial Class FormChiTietDonHang
     Friend WithEvents dgvKhachHang As DataGridView
     Friend WithEvents btnTimKH As Button
     Friend WithEvents btnCapNhatKH As Button
+    Friend WithEvents btnXuatHoaDon As Button
 End Class
