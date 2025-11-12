@@ -62,15 +62,18 @@ Public Class ThongKeDAO
         Dim ctdhList As New List(Of ChiTietDonHang)()
 
         Dim sql As String = "SELECT pbh_ma, pbh_ngay, pbh_khach_hang, pbh_chi_nhanh, pbh_nv_ma, pbh_tong_khuyen_mai, pbh_tong_tien, pbh_tong_thanh_tien, pbh_ghi_chu,
-                nv.nv_ma, nv.nv_ten, 
                 ctpbh.ctpbh_ma, ctpbh.ctpbh_pbh_ma, ctpbh.ctpbh_ma_san_pham, ctpbh.ctpbh_so_luong, ctpbh.ctpbh_gia,
                 ctpbh.ctpbh_khuyen_mai, ctpbh.ctpbh_thanh_tien, ctpbh.ctpbh_tong_tien,
-                sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_gia_nhap, sp.sp_code
+                sp.sp_ma, sp.sp_ten, sp.sp_gia, sp.sp_gia_nhap, sp.sp_code, sp.sp_loai,
+                lsp.lsp_ma, lsp.lsp_ten, lsp.lsp_ncc,
+                ncc.ncc_ma, ncc.ncc_ten
                 FROM(
+                    (
                     (PhieuBanHang As pbh
-                    INNER JOIN NhanVien AS nv ON pbh.pbh_nv_ma = nv.nv_ma)
                     INNER JOIN ChiTietPhieuBanHang AS ctpbh ON pbh.pbh_ma = ctpbh.ctpbh_pbh_ma)
-                    INNER JOIN SanPham AS sp ON ctpbh.ctpbh_ma_san_pham = sp.sp_ma
+                    INNER JOIN SanPham AS sp ON ctpbh.ctpbh_ma_san_pham = sp.sp_ma)
+                    INNER JOIN LoaiSanPham AS lsp ON sp.sp_loai = lsp.lsp_ma)
+                    INNER JOIN NhaCungCap AS ncc ON ncc.ncc_ma = lsp.lsp_ncc
                 WHERE pbh_ngay BETWEEN ? AND ? 
                 ORDER BY ctpbh_so_luong DESC"
 
@@ -98,7 +101,9 @@ Public Class ThongKeDAO
                                 .Ten = CStr(reader("sp_ten")),
                                 .Code = CStr(reader("sp_code")),
                                 .Gia = CDbl(reader("sp_gia")),
-                                .GiaNhap = CDbl(reader("sp_gia_nhap"))
+                                .GiaNhap = CDbl(reader("sp_gia_nhap")),
+                                .LoaiSp_Ten = CStr(reader("lsp_ten")),
+                                .NCC_Ten = CStr(reader("ncc_ten"))
                             }
                         }
                         ctdhList.Add(ctdh)
