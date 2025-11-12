@@ -54,7 +54,7 @@ Public Class PhieuChiDAO
         Using cmd As New OleDbCommand(sql, conn, transaction)
             ' OLEDB uses positional '?' placeholders. The order you add parameters matters.
             cmd.Parameters.AddWithValue("pCode", pn.Code)
-            cmd.Parameters.AddWithValue("pNgay", pn.NgayChi.ToString(DATETIME_FORMAT))
+            cmd.Parameters.AddWithValue("pNgay", pn.NgayChi.ToString(Constant.DATETIME_FORMAT))
             cmd.Parameters.AddWithValue("pTT", pn.TongTien)
             cmd.Parameters.AddWithValue("pGhiChu", pn.GhiChu)
             cmd.Parameters.AddWithValue("pXoa", pn.IsXoa)
@@ -71,7 +71,7 @@ Public Class PhieuChiDAO
         Dim sql As String = "UPDATE PhieuChi SET pc_ngay = ?,  pc_tong_tien = ?, pc_ghi_chu = ?, pc_xoa = ? WHERE pc_ma = ?"
 
         Using cmd As New OleDbCommand(sql, conn, transaction)
-            cmd.Parameters.AddWithValue("pNgay", pn.NgayChi.ToString(DATETIME_FORMAT))
+            cmd.Parameters.AddWithValue("pNgay", pn.NgayChi.ToString(Constant.DATETIME_FORMAT))
             cmd.Parameters.AddWithValue("pTongTien", pn.TongTien)
             cmd.Parameters.AddWithValue("pGhiChu", pn.GhiChu)
             cmd.Parameters.AddWithValue("pXoa", pn.IsXoa)

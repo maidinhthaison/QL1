@@ -122,7 +122,7 @@
 
         listThongKeDoanhThu = thongKeDao.ThongKe_DonHang_By_ThoiGian(fromDate, toDate)
         chuQuanThongKeView.BindingListDoanhThuSanPhamToGridView(listThongKeDoanhThu)
-        chuQuanThongKeView.SetDoanhThuLabel(fromDate.ToString(DATETIME_FORMAT), toDate.ToString(DATETIME_FORMAT),
+        chuQuanThongKeView.SetDoanhThuLabel(fromDate.ToString(Constant.DATETIME_FORMAT), toDate.ToString(Constant.DATETIME_FORMAT),
                         CalculateDoanhThu(listThongKeDoanhThu), CalculateTienVon(listThongKeDoanhThu),
                         CalculateKhuyenMai(listThongKeDoanhThu), CalculateLoiNhuan(listThongKeDoanhThu))
     End Sub

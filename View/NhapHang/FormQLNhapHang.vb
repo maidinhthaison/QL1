@@ -14,7 +14,7 @@
 
         'Set up DateTimePicker
         dtPicker.Format = DateTimePickerFormat.Custom
-        dtPicker.CustomFormat = DATETIME_FORMAT
+        dtPicker.CustomFormat = Constant.DATETIME_FORMAT
         dtPicker.Value = DateTime.Now
 
         listForms = New List(Of Form)

@@ -16,7 +16,7 @@
 
         'Set up DateTimePicker
         dtPicker.Format = DateTimePickerFormat.Custom
-        dtPicker.CustomFormat = DATETIME_FORMAT
+        dtPicker.CustomFormat = Constant.DATETIME_FORMAT
         dtPicker.Value = DateTime.Now
 
         listForms = New List(Of Form)
@@ -129,7 +129,7 @@
     End Sub
 
     Public Sub BindingPhieuChiToTextBox(phieuChi As PhieuChi) Implements IQuanLyPhieuChiView.BindingPhieuChiToTextBox
-        dtPicker.Value = phieuChi.NgayChi.ToString(DATETIME_FORMAT)
+        dtPicker.Value = phieuChi.NgayChi.ToString(Constant.DATETIME_FORMAT)
         lbCode.Text = phieuChi.Code
         tbGhiChu.Text = phieuChi.GhiChu
         lbTongTien.Text = CurrencyFormat(phieuChi.TongTien)

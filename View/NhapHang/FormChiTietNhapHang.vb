@@ -23,7 +23,7 @@ Public Class FormChiTietNhapHang
         AddHandler btnBora.Click, AddressOf OnButtonClick
 
         'MessageBox.Show($"{tempDonHang.Ngay.ToString(DATETIME_FORMAT)} - {tempDonHang.Ngay}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information)
-        lbNgayThang.Text = tempPhieuNhap.NgayNhap.ToString(DATETIME_FORMAT)
+        lbNgayThang.Text = tempPhieuNhap.NgayNhap.ToString(Constant.DATETIME_FORMAT)
         lbChiNhanh.Text = tempPhieuNhap.PhieuNhap_ChiNhanh.Ten
     End Sub
 

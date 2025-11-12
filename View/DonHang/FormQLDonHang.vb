@@ -1,4 +1,6 @@
-﻿Public Class FormQLDonHang
+﻿Imports System.Runtime.Serialization
+
+Public Class FormQLDonHang
     Implements IBaseForm, IDonHangView
 
     Private donHangController As IDonHangControllerImpl
@@ -14,10 +16,13 @@
 
         'Set up DateTimePicker
         dtPicker.Format = DateTimePickerFormat.Custom
-        dtPicker.CustomFormat = DATETIME_FORMAT
+        dtPicker.CustomFormat = Constant.DATETIME_FORMAT
         dtPicker.Value = DateTime.Now
 
         listForms = New List(Of Form)
+
+        ' Set default ghi chú
+        tbGhiChu.Text = $"Đơn hàng {DateTime.Now.ToString(Constant.CURRENT_DATETIME_FORMAT)}"
     End Sub
 
     Public Sub LoadData() Implements IDonHangView.LoadData
