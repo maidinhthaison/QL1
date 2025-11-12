@@ -147,84 +147,84 @@ Partial Class FormChuQuanThongKe
         ' lbLoiNhuan
         ' 
         lbLoiNhuan.AutoSize = True
-        lbLoiNhuan.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbLoiNhuan.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbLoiNhuan.ForeColor = Color.Red
-        lbLoiNhuan.Location = New Point(692, 16)
+        lbLoiNhuan.Location = New Point(741, 16)
         lbLoiNhuan.Name = "lbLoiNhuan"
-        lbLoiNhuan.Size = New Size(18, 20)
+        lbLoiNhuan.Size = New Size(20, 23)
         lbLoiNhuan.TabIndex = 59
         lbLoiNhuan.Text = "0"
         ' 
         ' Label5
         ' 
         Label5.AutoSize = True
-        Label5.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label5.Location = New Point(608, 16)
+        Label5.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        Label5.Location = New Point(652, 16)
         Label5.Name = "Label5"
-        Label5.Size = New Size(78, 20)
+        Label5.Size = New Size(89, 23)
         Label5.TabIndex = 58
         Label5.Text = "Lợi nhuận"
         ' 
         ' lbKhuyenMai
         ' 
         lbKhuyenMai.AutoSize = True
-        lbKhuyenMai.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbKhuyenMai.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbKhuyenMai.ForeColor = Color.Red
-        lbKhuyenMai.Location = New Point(522, 17)
+        lbKhuyenMai.Location = New Point(538, 16)
         lbKhuyenMai.Name = "lbKhuyenMai"
-        lbKhuyenMai.Size = New Size(18, 20)
+        lbKhuyenMai.Size = New Size(20, 23)
         lbKhuyenMai.TabIndex = 57
         lbKhuyenMai.Text = "0"
         ' 
         ' Label4
         ' 
         Label4.AutoSize = True
-        Label4.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
-        Label4.Location = New Point(424, 16)
+        Label4.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        Label4.Location = New Point(432, 16)
         Label4.Name = "Label4"
-        Label4.Size = New Size(92, 20)
+        Label4.Size = New Size(104, 23)
         Label4.TabIndex = 56
         Label4.Text = "Khuyến Mãi"
         ' 
         ' lbTienVon
         ' 
         lbTienVon.AutoSize = True
-        lbTienVon.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbTienVon.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbTienVon.ForeColor = Color.Red
         lbTienVon.Location = New Point(313, 16)
         lbTienVon.Name = "lbTienVon"
-        lbTienVon.Size = New Size(18, 20)
+        lbTienVon.Size = New Size(20, 23)
         lbTienVon.TabIndex = 55
         lbTienVon.Text = "0"
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        Label2.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         Label2.Location = New Point(238, 16)
         Label2.Name = "Label2"
-        Label2.Size = New Size(69, 20)
+        Label2.Size = New Size(78, 23)
         Label2.TabIndex = 54
         Label2.Text = "Tiền vốn"
         ' 
         ' lbDt
         ' 
         lbDt.AutoSize = True
-        lbDt.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbDt.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbDt.Location = New Point(8, 17)
         lbDt.Name = "lbDt"
-        lbDt.Size = New Size(86, 20)
+        lbDt.Size = New Size(97, 23)
         lbDt.TabIndex = 51
         lbDt.Text = "Doanh Thu"
         ' 
         ' lbDoanhThu
         ' 
         lbDoanhThu.AutoSize = True
-        lbDoanhThu.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
+        lbDoanhThu.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
         lbDoanhThu.ForeColor = Color.Red
         lbDoanhThu.Location = New Point(100, 16)
         lbDoanhThu.Name = "lbDoanhThu"
-        lbDoanhThu.Size = New Size(18, 20)
+        lbDoanhThu.Size = New Size(20, 23)
         lbDoanhThu.TabIndex = 52
         lbDoanhThu.Text = "0"
         ' 
@@ -245,8 +245,8 @@ Partial Class FormChuQuanThongKe
         ' 
         tbTuKhoa.Location = New Point(76, 38)
         tbTuKhoa.Name = "tbTuKhoa"
-        tbTuKhoa.PlaceholderText = "Sản phẩm, Giá..."
-        tbTuKhoa.Size = New Size(213, 27)
+        tbTuKhoa.PlaceholderText = "Sản phẩm, loại, nhà cung cấp, giá..."
+        tbTuKhoa.Size = New Size(263, 27)
         tbTuKhoa.TabIndex = 62
         ' 
         ' Label15
@@ -276,85 +276,85 @@ Partial Class FormChuQuanThongKe
         ' lbLoiNhuanSp
         ' 
         lbLoiNhuanSp.AutoSize = True
-        lbLoiNhuanSp.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        lbLoiNhuanSp.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         lbLoiNhuanSp.ForeColor = Color.Blue
         lbLoiNhuanSp.Location = New Point(692, 16)
         lbLoiNhuanSp.Name = "lbLoiNhuanSp"
-        lbLoiNhuanSp.Size = New Size(17, 19)
+        lbLoiNhuanSp.Size = New Size(18, 20)
         lbLoiNhuanSp.TabIndex = 59
         lbLoiNhuanSp.Text = "0"
         ' 
         ' Label6
         ' 
         Label6.AutoSize = True
-        Label6.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        Label6.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label6.Location = New Point(608, 16)
         Label6.Name = "Label6"
-        Label6.Size = New Size(73, 19)
+        Label6.Size = New Size(78, 20)
         Label6.TabIndex = 58
         Label6.Text = "Lợi nhuận"
         ' 
         ' lbKhuyenMaiSp
         ' 
         lbKhuyenMaiSp.AutoSize = True
-        lbKhuyenMaiSp.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        lbKhuyenMaiSp.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         lbKhuyenMaiSp.ForeColor = Color.Blue
         lbKhuyenMaiSp.Location = New Point(522, 17)
         lbKhuyenMaiSp.Name = "lbKhuyenMaiSp"
-        lbKhuyenMaiSp.Size = New Size(17, 19)
+        lbKhuyenMaiSp.Size = New Size(18, 20)
         lbKhuyenMaiSp.TabIndex = 57
         lbKhuyenMaiSp.Text = "0"
         ' 
         ' Label9
         ' 
         Label9.AutoSize = True
-        Label9.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        Label9.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label9.Location = New Point(424, 16)
         Label9.Name = "Label9"
-        Label9.Size = New Size(87, 19)
+        Label9.Size = New Size(92, 20)
         Label9.TabIndex = 56
         Label9.Text = "Khuyến Mãi"
         ' 
         ' lbTienVonSp
         ' 
         lbTienVonSp.AutoSize = True
-        lbTienVonSp.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        lbTienVonSp.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         lbTienVonSp.ForeColor = Color.Blue
         lbTienVonSp.Location = New Point(313, 16)
         lbTienVonSp.Name = "lbTienVonSp"
-        lbTienVonSp.Size = New Size(17, 19)
+        lbTienVonSp.Size = New Size(18, 20)
         lbTienVonSp.TabIndex = 55
         lbTienVonSp.Text = "0"
         ' 
         ' Label11
         ' 
         Label11.AutoSize = True
-        Label11.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        Label11.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label11.ForeColor = Color.Black
         Label11.Location = New Point(238, 16)
         Label11.Name = "Label11"
-        Label11.Size = New Size(66, 19)
+        Label11.Size = New Size(69, 20)
         Label11.TabIndex = 54
         Label11.Text = "Tiền vốn"
         ' 
         ' Label12
         ' 
         Label12.AutoSize = True
-        Label12.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        Label12.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         Label12.Location = New Point(8, 17)
         Label12.Name = "Label12"
-        Label12.Size = New Size(80, 19)
+        Label12.Size = New Size(86, 20)
         Label12.TabIndex = 51
         Label12.Text = "Doanh Thu"
         ' 
         ' lbDoanhThuSp
         ' 
         lbDoanhThuSp.AutoSize = True
-        lbDoanhThuSp.Font = New Font("Segoe UI", 8F, FontStyle.Bold)
+        lbDoanhThuSp.Font = New Font("Segoe UI", 9F, FontStyle.Bold)
         lbDoanhThuSp.ForeColor = Color.Blue
         lbDoanhThuSp.Location = New Point(100, 16)
         lbDoanhThuSp.Name = "lbDoanhThuSp"
-        lbDoanhThuSp.Size = New Size(17, 19)
+        lbDoanhThuSp.Size = New Size(18, 20)
         lbDoanhThuSp.TabIndex = 52
         lbDoanhThuSp.Text = "0"
         ' 
