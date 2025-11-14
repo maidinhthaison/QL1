@@ -507,7 +507,7 @@ Partial Class FormChiTietNhapHang
         Controls.Add(GroupBox1)
         Controls.Add(Panel1)
         Name = "FormChiTietNhapHang"
-        Text = "CHI TIẾT NHẬP HÀNG"
+        Text = "Chi tiết nhập hàng"
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).EndInit()

@@ -34,7 +34,6 @@ Partial Class FormChiTietDonHang
         btnCapNhatKH = New Button()
         btnTimKH = New Button()
         dgvKhachHang = New DataGridView()
-        cbTichDiem = New CheckBox()
         tbDienthoaiKh = New TextBox()
         Label3 = New Label()
         tbTenKh = New TextBox()
@@ -42,6 +41,7 @@ Partial Class FormChiTietDonHang
         Label9 = New Label()
         tbDiaChiKh = New TextBox()
         GroupBox3 = New GroupBox()
+        btnXuatHoaDon = New Button()
         Label11 = New Label()
         lbChiNhanh = New Label()
         dgvDonHang = New DataGridView()
@@ -51,7 +51,6 @@ Partial Class FormChiTietDonHang
         Label8 = New Label()
         tbKhuyenMai = New TextBox()
         Label6 = New Label()
-        btnClearDH = New Button()
         btnXacNhan = New Button()
         tbGhiChu = New TextBox()
         lbTongtien = New Label()
@@ -60,7 +59,6 @@ Partial Class FormChiTietDonHang
         CTDH_BindingSource = New BindingSource(components)
         lbNgayThang = New Label()
         Bs_KhachHang = New BindingSource(components)
-        btnXuatHoaDon = New Button()
         GroupBox1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox4.SuspendLayout()
@@ -152,7 +150,6 @@ Partial Class FormChiTietDonHang
         GroupBox4.Controls.Add(btnCapNhatKH)
         GroupBox4.Controls.Add(btnTimKH)
         GroupBox4.Controls.Add(dgvKhachHang)
-        GroupBox4.Controls.Add(cbTichDiem)
         GroupBox4.Controls.Add(tbDienthoaiKh)
         GroupBox4.Controls.Add(Label3)
         GroupBox4.Controls.Add(tbTenKh)
@@ -204,16 +201,6 @@ Partial Class FormChiTietDonHang
         dgvKhachHang.SelectionMode = DataGridViewSelectionMode.FullRowSelect
         dgvKhachHang.Size = New Size(378, 274)
         dgvKhachHang.TabIndex = 14
-        ' 
-        ' cbTichDiem
-        ' 
-        cbTichDiem.AutoSize = True
-        cbTichDiem.Location = New Point(13, 231)
-        cbTichDiem.Name = "cbTichDiem"
-        cbTichDiem.Size = New Size(96, 24)
-        cbTichDiem.TabIndex = 52
-        cbTichDiem.Text = "Tích điểm"
-        cbTichDiem.UseVisualStyleBackColor = True
         ' 
         ' tbDienthoaiKh
         ' 
@@ -280,7 +267,6 @@ Partial Class FormChiTietDonHang
         GroupBox3.Controls.Add(Label8)
         GroupBox3.Controls.Add(tbKhuyenMai)
         GroupBox3.Controls.Add(Label6)
-        GroupBox3.Controls.Add(btnClearDH)
         GroupBox3.Controls.Add(btnXacNhan)
         GroupBox3.Controls.Add(tbGhiChu)
         GroupBox3.Controls.Add(lbTongtien)
@@ -292,6 +278,16 @@ Partial Class FormChiTietDonHang
         GroupBox3.TabIndex = 12
         GroupBox3.TabStop = False
         GroupBox3.Text = "Chi tiết ĐH"
+        ' 
+        ' btnXuatHoaDon
+        ' 
+        btnXuatHoaDon.Location = New Point(576, 76)
+        btnXuatHoaDon.Margin = New Padding(3, 4, 3, 4)
+        btnXuatHoaDon.Name = "btnXuatHoaDon"
+        btnXuatHoaDon.Size = New Size(133, 35)
+        btnXuatHoaDon.TabIndex = 48
+        btnXuatHoaDon.Text = "Xuất hóa đơn"
+        btnXuatHoaDon.UseVisualStyleBackColor = True
         ' 
         ' Label11
         ' 
@@ -384,16 +380,6 @@ Partial Class FormChiTietDonHang
         Label6.TabIndex = 21
         Label6.Text = "Ghi chú"
         ' 
-        ' btnClearDH
-        ' 
-        btnClearDH.Location = New Point(623, 25)
-        btnClearDH.Margin = New Padding(3, 4, 3, 4)
-        btnClearDH.Name = "btnClearDH"
-        btnClearDH.Size = New Size(86, 31)
-        btnClearDH.TabIndex = 15
-        btnClearDH.Text = "Huỷ"
-        btnClearDH.UseVisualStyleBackColor = True
-        ' 
         ' btnXacNhan
         ' 
         btnXacNhan.Location = New Point(441, 76)
@@ -444,16 +430,6 @@ Partial Class FormChiTietDonHang
         lbNgayThang.TabIndex = 10
         lbNgayThang.Text = "N/A"
         ' 
-        ' btnXuatHoaDon
-        ' 
-        btnXuatHoaDon.Location = New Point(576, 76)
-        btnXuatHoaDon.Margin = New Padding(3, 4, 3, 4)
-        btnXuatHoaDon.Name = "btnXuatHoaDon"
-        btnXuatHoaDon.Size = New Size(133, 35)
-        btnXuatHoaDon.TabIndex = 48
-        btnXuatHoaDon.Text = "Xuất hóa đơn"
-        btnXuatHoaDon.UseVisualStyleBackColor = True
-        ' 
         ' FormChiTietDonHang
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -469,7 +445,7 @@ Partial Class FormChiTietDonHang
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormChiTietDonHang"
-        Text = "FormTaoDonHang"
+        Text = "Chi tiết đơn hàng"
         GroupBox1.ResumeLayout(False)
         CType(dgvSanPham, ComponentModel.ISupportInitialize).EndInit()
         GroupBox4.ResumeLayout(False)
@@ -494,7 +470,6 @@ Partial Class FormChiTietDonHang
     Friend WithEvents dgvSanPham As DataGridView
     Friend WithEvents dgvDonHang As DataGridView
     Friend WithEvents lbTongtien As Label
-    Friend WithEvents btnClearDH As Button
     Friend WithEvents btnXacNhan As Button
     Friend WithEvents tbKhuyenMai As TextBox
     Friend WithEvents Label8 As Label
@@ -517,7 +492,6 @@ Partial Class FormChiTietDonHang
     Friend WithEvents Label5 As Label
     Friend WithEvents lbChiNhanh As Label
     Friend WithEvents Label11 As Label
-    Friend WithEvents cbTichDiem As CheckBox
     Friend WithEvents Bs_KhachHang As BindingSource
     Friend WithEvents dgvKhachHang As DataGridView
     Friend WithEvents btnTimKH As Button

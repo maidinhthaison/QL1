@@ -326,7 +326,7 @@ Partial Class FormQLNhanVien
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLNhanVien"
-        Text = "Nhân viên"
+        Text = "Quản lý nhân viên"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         CType(dgvNhanVien, ComponentModel.ISupportInitialize).EndInit()

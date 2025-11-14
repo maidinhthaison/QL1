@@ -75,7 +75,7 @@ Public Class FormQLDonHang
         lbTongTien.Text = CurrencyFormat(phieuBh.TongTien)
         lbKhuyenMai.Text = CurrencyFormat(phieuBh.TongKhuyenMai)
         lbNguoiLap.Text = phieuBh.DonHang_NhanVien.Ten
-
+        lbThanhTien.Text = CurrencyFormat(phieuBh.ThanhTien)
         Dim resultChiTiet As New List(Of ChiTietDonHang)
         list.ForEach(Sub(dh)
                          resultChiTiet.AddRange(dh.ListChiTietDonhang)

@@ -32,6 +32,8 @@ Partial Class FormQLDonHang
         btnTaoDon = New Button()
         Panel1 = New Panel()
         GroupBox2 = New GroupBox()
+        Label11 = New Label()
+        lbThanhTien = New Label()
         lbNguoiLap = New Label()
         Label7 = New Label()
         tbGhiChu = New RichTextBox()
@@ -151,6 +153,8 @@ Partial Class FormQLDonHang
         ' 
         ' GroupBox2
         ' 
+        GroupBox2.Controls.Add(Label11)
+        GroupBox2.Controls.Add(lbThanhTien)
         GroupBox2.Controls.Add(lbNguoiLap)
         GroupBox2.Controls.Add(Label7)
         GroupBox2.Controls.Add(tbGhiChu)
@@ -177,6 +181,27 @@ Partial Class FormQLDonHang
         GroupBox2.TabIndex = 44
         GroupBox2.TabStop = False
         GroupBox2.Text = "Thông tin đơn hàng"
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        Label11.Location = New Point(10, 786)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(95, 23)
+        Label11.TabIndex = 54
+        Label11.Text = "Thành tiền"
+        ' 
+        ' lbThanhTien
+        ' 
+        lbThanhTien.AutoSize = True
+        lbThanhTien.Font = New Font("Segoe UI", 10F, FontStyle.Bold)
+        lbThanhTien.ForeColor = Color.Red
+        lbThanhTien.Location = New Point(103, 786)
+        lbThanhTien.Name = "lbThanhTien"
+        lbThanhTien.Size = New Size(20, 23)
+        lbThanhTien.TabIndex = 55
+        lbThanhTien.Text = "0"
         ' 
         ' lbNguoiLap
         ' 
@@ -364,7 +389,7 @@ Partial Class FormQLDonHang
         Controls.Add(Panel1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLDonHang"
-        Text = "FormQLBanHang"
+        Text = "Quản lý đơn hàng"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         CType(dgvDonHang, ComponentModel.ISupportInitialize).EndInit()
@@ -406,4 +431,6 @@ Partial Class FormQLDonHang
     Friend WithEvents lbNguoiLap As Label
     Friend WithEvents Label7 As Label
     Friend WithEvents BindingSource_CTDonHang As BindingSource
+    Friend WithEvents Label11 As Label
+    Friend WithEvents lbThanhTien As Label
 End Class

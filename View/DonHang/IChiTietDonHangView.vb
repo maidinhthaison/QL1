@@ -14,5 +14,4 @@
 
     Sub ConfigureGridView()
 
-    Sub ClearFields()
 End Interface

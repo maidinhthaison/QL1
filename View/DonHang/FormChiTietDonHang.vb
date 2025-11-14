@@ -23,7 +23,6 @@ Public Class FormChiTietDonHang
         AddHandler btnThem.Click, AddressOf OnButtonClick
         AddHandler btnXoa.Click, AddressOf OnButtonClick
         AddHandler btnXacNhan.Click, AddressOf OnButtonClick
-        AddHandler btnClearDH.Click, AddressOf OnButtonClick
         AddHandler btnTimKH.Click, AddressOf OnButtonClick
         AddHandler btnCapNhatKH.Click, AddressOf OnButtonClick
         AddHandler btnXuatHoaDon.Click, AddressOf OnButtonClick
@@ -42,8 +41,6 @@ Public Class FormChiTietDonHang
                 XoaSPGioHang()
             Case "btnXacNhan"
                 XacNhanDonHang()
-            Case "btnClearDH"
-                ClearFields()
             Case "btnTimKH"
                 TimKiemKhachHang()
             Case "btnCapNhatKH"
@@ -421,12 +418,6 @@ Public Class FormChiTietDonHang
         dgvSanPham.Columns("Kv_Ten").HeaderText = "Khu Vực"
 
 
-    End Sub
-
-    Public Sub ClearFields() Implements IChiTietDonHangView.ClearFields
-        tbSoluong.Text = ""
-        tbKhuyenMai.Text = ""
-        tbGhiChu.Text = ""
     End Sub
 
     Private Sub FormTaoDonHang_Load(sender As Object, e As EventArgs) Handles MyBase.Load

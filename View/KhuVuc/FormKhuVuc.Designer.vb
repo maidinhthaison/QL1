@@ -165,7 +165,7 @@ Partial Class FormKhuVuc
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormKhuVuc"
-        Text = "Khu Vực"
+        Text = "Quản lý khu vực"
         GroupBox1.ResumeLayout(False)
         Panel1.ResumeLayout(False)
         Panel1.PerformLayout()

@@ -29,6 +29,8 @@ Partial Class FormQLSanPham
         Label1 = New Label()
         tbTukhoa = New TextBox()
         Panel1 = New Panel()
+        tbGiaNhap = New TextBox()
+        Label12 = New Label()
         cbDonVi = New ComboBox()
         Label10 = New Label()
         tbSoLuong = New TextBox()
@@ -52,8 +54,6 @@ Partial Class FormQLSanPham
         Label2 = New Label()
         dgvSanPham = New DataGridView()
         bsSanPham = New BindingSource(components)
-        Label12 = New Label()
-        tbGiaNhap = New TextBox()
         GroupBox1.SuspendLayout()
         Panel1.SuspendLayout()
         CType(dgvSanPham, ComponentModel.ISupportInitialize).BeginInit()
@@ -144,6 +144,23 @@ Partial Class FormQLSanPham
         Panel1.Name = "Panel1"
         Panel1.Size = New Size(388, 743)
         Panel1.TabIndex = 4
+        ' 
+        ' tbGiaNhap
+        ' 
+        tbGiaNhap.Location = New Point(123, 263)
+        tbGiaNhap.Margin = New Padding(3, 4, 3, 4)
+        tbGiaNhap.Name = "tbGiaNhap"
+        tbGiaNhap.Size = New Size(103, 27)
+        tbGiaNhap.TabIndex = 30
+        ' 
+        ' Label12
+        ' 
+        Label12.AutoSize = True
+        Label12.Location = New Point(15, 266)
+        Label12.Name = "Label12"
+        Label12.Size = New Size(68, 20)
+        Label12.TabIndex = 29
+        Label12.Text = "Giá nhập"
         ' 
         ' cbDonVi
         ' 
@@ -351,23 +368,6 @@ Partial Class FormQLSanPham
         dgvSanPham.Size = New Size(953, 695)
         dgvSanPham.TabIndex = 3
         ' 
-        ' Label12
-        ' 
-        Label12.AutoSize = True
-        Label12.Location = New Point(15, 266)
-        Label12.Name = "Label12"
-        Label12.Size = New Size(68, 20)
-        Label12.TabIndex = 29
-        Label12.Text = "Giá nhập"
-        ' 
-        ' tbGiaNhap
-        ' 
-        tbGiaNhap.Location = New Point(123, 263)
-        tbGiaNhap.Margin = New Padding(3, 4, 3, 4)
-        tbGiaNhap.Name = "tbGiaNhap"
-        tbGiaNhap.Size = New Size(103, 27)
-        tbGiaNhap.TabIndex = 30
-        ' 
         ' FormQLSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -376,7 +376,7 @@ Partial Class FormQLSanPham
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLSanPham"
-        Text = "Sản Phẩm"
+        Text = "Quản lý sản phẩm"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         Panel1.ResumeLayout(False)

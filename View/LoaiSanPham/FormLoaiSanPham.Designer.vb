@@ -25,7 +25,9 @@ Partial Class FormLoaiSanPham
         components = New ComponentModel.Container()
         bsLoaiSp = New BindingSource(components)
         GroupBox1 = New GroupBox()
+        lbChiNhanh = New Label()
         tbTuKhoa = New TextBox()
+        Label11 = New Label()
         Label8 = New Label()
         dgvLoaiSp = New DataGridView()
         Label6 = New Label()
@@ -45,8 +47,6 @@ Partial Class FormLoaiSanPham
         Label2 = New Label()
         tbTen = New TextBox()
         Label1 = New Label()
-        lbChiNhanh = New Label()
-        Label11 = New Label()
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
         GroupBox1.SuspendLayout()
         CType(dgvLoaiSp, ComponentModel.ISupportInitialize).BeginInit()
@@ -69,6 +69,16 @@ Partial Class FormLoaiSanPham
         GroupBox1.TabStop = False
         GroupBox1.Text = "Loại sản phẩm"
         ' 
+        ' lbChiNhanh
+        ' 
+        lbChiNhanh.AutoSize = True
+        lbChiNhanh.ForeColor = Color.Blue
+        lbChiNhanh.Location = New Point(571, 33)
+        lbChiNhanh.Name = "lbChiNhanh"
+        lbChiNhanh.Size = New Size(36, 20)
+        lbChiNhanh.TabIndex = 48
+        lbChiNhanh.Text = "N/A"
+        ' 
         ' tbTuKhoa
         ' 
         tbTuKhoa.Location = New Point(83, 30)
@@ -77,6 +87,15 @@ Partial Class FormLoaiSanPham
         tbTuKhoa.PlaceholderText = "Loại, nhà cung cấp, khu vực, địa chỉ..."
         tbTuKhoa.Size = New Size(361, 27)
         tbTuKhoa.TabIndex = 22
+        ' 
+        ' Label11
+        ' 
+        Label11.AutoSize = True
+        Label11.Location = New Point(471, 33)
+        Label11.Name = "Label11"
+        Label11.Size = New Size(74, 20)
+        Label11.TabIndex = 47
+        Label11.Text = "Chi nhánh"
         ' 
         ' Label8
         ' 
@@ -277,25 +296,6 @@ Partial Class FormLoaiSanPham
         Label1.TabIndex = 0
         Label1.Text = "Loại sản phẩm"
         ' 
-        ' lbChiNhanh
-        ' 
-        lbChiNhanh.AutoSize = True
-        lbChiNhanh.ForeColor = Color.Blue
-        lbChiNhanh.Location = New Point(571, 33)
-        lbChiNhanh.Name = "lbChiNhanh"
-        lbChiNhanh.Size = New Size(36, 20)
-        lbChiNhanh.TabIndex = 48
-        lbChiNhanh.Text = "N/A"
-        ' 
-        ' Label11
-        ' 
-        Label11.AutoSize = True
-        Label11.Location = New Point(471, 33)
-        Label11.Name = "Label11"
-        Label11.Size = New Size(74, 20)
-        Label11.TabIndex = 47
-        Label11.Text = "Chi nhánh"
-        ' 
         ' FormLoaiSanPham
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
@@ -305,7 +305,7 @@ Partial Class FormLoaiSanPham
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormLoaiSanPham"
-        Text = "Loại Sản Phẩm"
+        Text = "Quản lý loại sản phẩm"
         CType(bsLoaiSp, ComponentModel.ISupportInitialize).EndInit()
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()

@@ -48,16 +48,6 @@ Public Class FormKhuVuc
         End Select
     End Sub
 
-    'Private Sub XoaKhuVuc()
-    '    If dgvKhuVuc.SelectedCells.Count > 0 Then
-
-    '        khuVucController.XulyXoaKhuVuc()
-    '        BindingSource1.RemoveAt(khuVucController.Index)
-
-    '    End If
-
-    'End Sub
-
     Private Sub ThemKhuVuc()
         Dim newKhuVuc As New KhuVuc() With {
             .Ten = tbTenKv.Text,
@@ -109,18 +99,6 @@ Public Class FormKhuVuc
                 MessageBox.Show(Message, Title, MessageBoxButtons.OK, MessageBoxIcon.Error)
         End Select
     End Sub
-
-    'Public Sub ShowConfirmMessageBox(Title As String, Message As String, Action As String) Implements IKhuVucView.ShowConfirmMessageBox
-    '    Dim result As DialogResult
-    '    result = MessageBox.Show(Message, Title, MessageBoxButtons.YesNo, MessageBoxIcon.Question)
-    '    If result = DialogResult.Yes Then
-    '        Select Case Action
-    '            Case "btnXoa"
-    '                XoaKhuVuc()
-    '        End Select
-
-    '    End If
-    'End Sub
 
     Private Sub FormKhuVuc_Load(sender As Object, e As EventArgs) Handles MyBase.Load
         khuVucController = IKhuVucControllerImpl.Instance
