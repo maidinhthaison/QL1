@@ -251,7 +251,7 @@ Partial Class FormNhaCungCap
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormNhaCungCap"
-        Text = "Nhà cung cấp"
+        Text = "Quản lý nhà cung cấp"
         CType(bsNhaCc, ComponentModel.ISupportInitialize).EndInit()
         GroupBox1.ResumeLayout(False)
         Panel1.ResumeLayout(False)

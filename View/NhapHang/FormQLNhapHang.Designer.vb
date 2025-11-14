@@ -412,7 +412,7 @@ Partial Class FormQLNhapHang
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLNhapHang"
-        Text = "Nhập Hàng"
+        Text = "Quản lý nhập hàng"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         CType(dgvPhieuNhap, ComponentModel.ISupportInitialize).EndInit()

@@ -215,7 +215,7 @@ Partial Class FormQLKhachHang
         Controls.Add(GroupBox1)
         Margin = New Padding(3, 4, 3, 4)
         Name = "FormQLKhachHang"
-        Text = "Khách Hàng"
+        Text = "Quản lý khách hàng"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         CType(dgvKhachHang, ComponentModel.ISupportInitialize).EndInit()

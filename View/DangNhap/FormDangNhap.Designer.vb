@@ -118,7 +118,7 @@ Partial Class FormDangNhap
         ClientSize = New Size(416, 241)
         Controls.Add(GroupBox1)
         Name = "FormDangNhap"
-        Text = "FormDangNhap"
+        Text = "Đăng nhập"
         GroupBox1.ResumeLayout(False)
         GroupBox1.PerformLayout()
         ResumeLayout(False)
