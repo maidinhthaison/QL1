@@ -1,3 +1,3 @@
 ﻿Public Interface IHoaDonController
-    Sub XuLyXuatHoaDon(listCTDH As List(Of ChiTietDonHang))
+    Sub XuLy_GetDanhSachHoaDon_By_NgayThangh_ChiNhanh(chiNhanhMa As Integer, ngayThang As Date)
 End Interface

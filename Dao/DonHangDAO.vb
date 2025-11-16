@@ -288,4 +288,88 @@ Public Class DonHangDAO
         Return pbhList
     End Function
 
+
+    Public Function Get_ChiTiet_DonHang_With_KH_NV_By_NgayThang_ChiNhanh(ngayThang As String, chiNhanhMa As Integer) As List(Of DonHang)
+        Dim pbhList As New List(Of DonHang)()
+
+        Dim sql As String = "SELECT pbh_ma, pbh_khach_hang, pbh_chi_nhanh, pbh_nv_ma, pbh_tong_khuyen_mai, 
+                pbh_tong_tien, pbh_tong_thanh_tien, pbh_ghi_chu, pbh_ngay, pbh_tong_san_pham,
+                nv.nv_ma, nv.nv_ten, 
+                kh.kh_ma, kh.kh_code, kh.kh_ten, kh.kh_dien_thoai, kh.kh_dia_chi,
+                ctpbh.ctpbh_ma, ctpbh.ctpbh_pbh_ma, ctpbh.ctpbh_ma_san_pham, ctpbh.ctpbh_so_luong, ctpbh.ctpbh_gia,
+                ctpbh.ctpbh_khuyen_mai, ctpbh.ctpbh_thanh_tien, ctpbh.ctpbh_tong_tien,
+                sp.sp_ma, sp.sp_ten, sp.sp_code
+                FROM(
+                    (
+                    (PhieuBanHang As pbh
+                    INNER JOIN NhanVien AS nv ON pbh.pbh_nv_ma = nv.nv_ma)
+                    INNER JOIN KhachHang AS kh ON pbh.pbh_khach_hang = kh.kh_ma)
+                    INNER JOIN ChiTietPhieuBanHang AS ctpbh ON pbh.pbh_ma = ctpbh.ctpbh_pbh_ma)
+                    INNER JOIN SanPham AS sp ON ctpbh.ctpbh_ma_san_pham = sp.sp_ma
+                WHERE pbh_chi_nhanh = ? AND pbh_ngay  = ? "
+
+        ' Use 'Using' blocks to ensure database objects are closed and disposed of properly
+        Using conn As New OleDbConnection(ConnectionString)
+            Using cmd As New OleDbCommand(sql, conn)
+                Try
+                    cmd.Parameters.AddWithValue("p_pbh_chi_nhanh", chiNhanhMa)
+                    cmd.Parameters.AddWithValue("p_pbh_ngay", ngayThang)
+                    conn.Open()
+                    Dim reader As OleDbDataReader = cmd.ExecuteReader()
+                    While reader.Read()
+                        Dim pbh As New DonHang() With {
+                                .Ma = CInt(reader("pbh_ma")),
+                                .KhachHangMa = CInt(reader("pbh_khach_hang")),
+                                .ChiNhanhMa = CInt(reader("pbh_chi_nhanh")),
+                                .NhanVienMa = CInt(reader("pbh_nv_ma")),
+                                .TongKhuyenMai = CDbl(reader("pbh_tong_khuyen_mai")),
+                                .TongTien = CDbl(reader("pbh_tong_tien")),
+                                .ThanhTien = CDbl(reader("pbh_tong_thanh_tien")),
+                                .TongSanPham = CInt(reader("pbh_tong_san_pham")),
+                                .GhiChu = CStr(reader("pbh_ghi_chu")),
+                                .Ngay = CStr(reader("pbh_ngay")),
+                                .BanHangKhachHang = New KhachHang() With {
+                                    .Ten = CStr(reader("kh_ten")),
+                                    .Code = CStr(reader("kh_code")),
+                                    .DienThoai = CStr(reader("kh_dien_thoai")),
+                                    .Ma = CInt(reader("kh_ma")),
+                                    .DiaChi = CStr(reader("kh_dia_chi"))
+                                },
+                                .DonHang_NhanVien = New NhanVien() With {
+                                    .Ma = CInt(reader("nv_ma")),
+                                    .Ten = CStr(reader("nv_ten")),
+                                    .NV_ChiNhanh_Ma = chiNhanhMa,
+                                    .ChiNhanh = New ChiNhanh() With {
+                                        .Ma = chiNhanhMa
+                                    }
+                                },
+                                .ListChiTietDonhang = New List(Of ChiTietDonHang) From {
+                                    New ChiTietDonHang() With {
+                                        .Ma = CInt(reader("ctpbh_ma")),
+                                        .Pbh_Ma = CInt(reader("ctpbh_pbh_ma")),
+                                        .Sp_Ma = CInt(reader("ctpbh_ma_san_pham")),
+                                        .SoLuong = CInt(reader("ctpbh_so_luong")),
+                                        .Gia = CDbl(reader("ctpbh_gia")),
+                                        .TongTien = CDbl(reader("ctpbh_tong_tien")),
+                                        .KhuyenMai = CDbl(reader("ctpbh_khuyen_mai")),
+                                        .ThanhTien = CDbl(reader("ctpbh_thanh_tien")),
+                                        .SanPhamInfo = New SanPham() With {
+                                            .Ma = CInt(reader("sp_ma")),
+                                            .Ten = CStr(reader("sp_ten")),
+                                            .Code = CStr(reader("sp_code"))
+                                        }
+                                    }
+                                }
+                        }
+                        pbhList.Add(pbh)
+                    End While
+
+                Catch ex As Exception
+                    Console.WriteLine("Error loading data: " & ex.Message)
+                End Try
+            End Using
+        End Using
+
+        Return pbhList
+    End Function
 End Class
