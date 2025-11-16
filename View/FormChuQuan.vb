@@ -203,4 +203,18 @@ Public Class FormChuQuan
     Private Sub Form1_FormClosed(sender As Object, e As FormClosedEventArgs) Handles MyBase.FormClosed
         Application.Exit()
     End Sub
+
+    Private Sub HoaDonToolStripMenuItem_Click(sender As Object, e As EventArgs) Handles HoaDonToolStripMenuItem.Click
+        Dim frm As Form = TimForm(GetType(FormHoaDon))
+        If frm IsNot Nothing Then
+            frm.Activate()
+            Return
+        End If
+
+        Dim hoaDonForm As New FormHoaDon()
+        hoaDonForm.MdiParent = Me
+        hoaDonForm.WindowState = FormWindowState.Maximized
+        hoaDonForm.Show()
+        DsForm.Add(hoaDonForm)
+    End Sub
 End Class

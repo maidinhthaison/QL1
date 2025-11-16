@@ -3,23 +3,31 @@
 
     Private Shared _instance As IHoaDonControllerImpl
 
-    Private chiTietDonHangView As IChiTietDonHangView
+    Private hoaDonView As IHoaDonView
 
-    Private listChiTietDonHang As List(Of ChiTietDonHang)
+    Private listPhieuBanHang As List(Of DonHang)
 
-    Private hoaDonDAO As HoaDonDAO
+    Private donHangIndex As Integer
+
+    Private donHangDAO As DonHangDAO
     Private Sub New()
-        listChiTietDonHang = New List(Of ChiTietDonHang)
-        hoaDonDAO = New HoaDonDAO()
+        listPhieuBanHang = New List(Of DonHang)
+        donHangDAO = New DonHangDAO()
 
     End Sub
 
-    Public Sub Init(ByVal view As IChiTietDonHangView)
-        chiTietDonHangView = view
+    Public Sub Init(ByVal view As IHoaDonView)
+        hoaDonView = view
     End Sub
 
-    Public Sub XuLyXuatHoaDon(listCTDH As List(Of ChiTietDonHang)) Implements IHoaDonController.XuLyXuatHoaDon
-        Throw New NotImplementedException()
+    Public Sub XuLy_GetDanhSachHoaDon_By_NgayThangh_ChiNhanh(chiNhanhMa As Integer, ngayThang As Date) Implements IHoaDonController.XuLy_GetDanhSachHoaDon_By_NgayThangh_ChiNhanh
+        listPhieuBanHang = donHangDAO.Get_ChiTiet_DonHang_With_KH_NV_By_NgayThang_ChiNhanh(ngayThang, chiNhanhMa)
+        MessageBox.Show(listPhieuBanHang.Count)
+        If listPhieuBanHang IsNot Nothing Then
+
+            hoaDonView.BindingListHoaDonToGridView(listPhieuBanHang)
+        End If
+
     End Sub
 
     Public Shared ReadOnly Property Instance() As IHoaDonControllerImpl
@@ -31,12 +39,21 @@
         End Get
     End Property
 
-    Public Property GetChiTietHoaDon() As List(Of ChiTietDonHang)
+    Public Property GetDanhSachHoaDon() As List(Of DonHang)
         Get
-            Return listChiTietDonHang
+            Return listPhieuBanHang
         End Get
-        Set(ByVal value As List(Of ChiTietDonHang))
-            listChiTietDonHang = value
+        Set(ByVal value As List(Of DonHang))
+            listPhieuBanHang = value
+        End Set
+    End Property
+
+    Public Property GetSelectedDonHangIndex() As Integer
+        Get
+            Return donHangIndex
+        End Get
+        Set(ByVal value As Integer)
+            donHangIndex = value
         End Set
     End Property
 

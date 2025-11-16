@@ -43,7 +43,9 @@ Partial Class FormChuQuan
         KhachHangMenuItem = New ToolStripMenuItem()
         ToolStripSeparator8 = New ToolStripSeparator()
         NhanVienMenuItem = New ToolStripMenuItem()
+        HoaDonToolStripMenuItem = New ToolStripMenuItem()
         ThongKeMenuItem = New ToolStripMenuItem()
+        ToolStripSeparator4 = New ToolStripSeparator()
         MenuStrip1.SuspendLayout()
         SuspendLayout()
         ' 
@@ -66,7 +68,7 @@ Partial Class FormChuQuan
         ' 
         ' QuảnLýToolStripMenuItem
         ' 
-        QuảnLýToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {BanHangMenuItem, ToolStripSeparator1, NhapHangMenuItem, ToolStripSeparator2, ThuChiMenuItem, ToolStripSeparator3, SanPhamMenuItem, ToolStripSeparator7, KhachHangMenuItem, ToolStripSeparator8, NhanVienMenuItem})
+        QuảnLýToolStripMenuItem.DropDownItems.AddRange(New ToolStripItem() {BanHangMenuItem, ToolStripSeparator1, NhapHangMenuItem, ToolStripSeparator2, ThuChiMenuItem, ToolStripSeparator3, SanPhamMenuItem, ToolStripSeparator7, KhachHangMenuItem, ToolStripSeparator8, NhanVienMenuItem, ToolStripSeparator4, HoaDonToolStripMenuItem})
         QuảnLýToolStripMenuItem.Name = "QuảnLýToolStripMenuItem"
         QuảnLýToolStripMenuItem.Size = New Size(73, 24)
         QuảnLýToolStripMenuItem.Text = "Quản lý"
@@ -74,41 +76,41 @@ Partial Class FormChuQuan
         ' BanHangMenuItem
         ' 
         BanHangMenuItem.Name = "BanHangMenuItem"
-        BanHangMenuItem.Size = New Size(169, 26)
+        BanHangMenuItem.Size = New Size(224, 26)
         BanHangMenuItem.Text = "Bán hàng"
         ' 
         ' ToolStripSeparator1
         ' 
         ToolStripSeparator1.Name = "ToolStripSeparator1"
-        ToolStripSeparator1.Size = New Size(166, 6)
+        ToolStripSeparator1.Size = New Size(221, 6)
         ' 
         ' NhapHangMenuItem
         ' 
         NhapHangMenuItem.Name = "NhapHangMenuItem"
-        NhapHangMenuItem.Size = New Size(169, 26)
+        NhapHangMenuItem.Size = New Size(224, 26)
         NhapHangMenuItem.Text = "Nhập hàng"
         ' 
         ' ToolStripSeparator2
         ' 
         ToolStripSeparator2.Name = "ToolStripSeparator2"
-        ToolStripSeparator2.Size = New Size(166, 6)
+        ToolStripSeparator2.Size = New Size(221, 6)
         ' 
         ' ThuChiMenuItem
         ' 
         ThuChiMenuItem.Name = "ThuChiMenuItem"
-        ThuChiMenuItem.Size = New Size(169, 26)
+        ThuChiMenuItem.Size = New Size(224, 26)
         ThuChiMenuItem.Text = "Thu chi"
         ' 
         ' ToolStripSeparator3
         ' 
         ToolStripSeparator3.Name = "ToolStripSeparator3"
-        ToolStripSeparator3.Size = New Size(166, 6)
+        ToolStripSeparator3.Size = New Size(221, 6)
         ' 
         ' SanPhamMenuItem
         ' 
         SanPhamMenuItem.DropDownItems.AddRange(New ToolStripItem() {DSSanPhamMenuItem, ToolStripSeparator9, NhaCCMenuItem, ToolStripSeparator5, LoaiSpMenuItem, ToolStripSeparator6, KhuVucMenuItem})
         SanPhamMenuItem.Name = "SanPhamMenuItem"
-        SanPhamMenuItem.Size = New Size(169, 26)
+        SanPhamMenuItem.Size = New Size(224, 26)
         SanPhamMenuItem.Text = "Sản phẩm"
         ' 
         ' DSSanPhamMenuItem
@@ -153,24 +155,30 @@ Partial Class FormChuQuan
         ' ToolStripSeparator7
         ' 
         ToolStripSeparator7.Name = "ToolStripSeparator7"
-        ToolStripSeparator7.Size = New Size(166, 6)
+        ToolStripSeparator7.Size = New Size(221, 6)
         ' 
         ' KhachHangMenuItem
         ' 
         KhachHangMenuItem.Name = "KhachHangMenuItem"
-        KhachHangMenuItem.Size = New Size(169, 26)
+        KhachHangMenuItem.Size = New Size(224, 26)
         KhachHangMenuItem.Text = "Khách hàng"
         ' 
         ' ToolStripSeparator8
         ' 
         ToolStripSeparator8.Name = "ToolStripSeparator8"
-        ToolStripSeparator8.Size = New Size(166, 6)
+        ToolStripSeparator8.Size = New Size(221, 6)
         ' 
         ' NhanVienMenuItem
         ' 
         NhanVienMenuItem.Name = "NhanVienMenuItem"
-        NhanVienMenuItem.Size = New Size(169, 26)
+        NhanVienMenuItem.Size = New Size(224, 26)
         NhanVienMenuItem.Text = "Nhân viên"
+        ' 
+        ' HoaDonToolStripMenuItem
+        ' 
+        HoaDonToolStripMenuItem.Name = "HoaDonToolStripMenuItem"
+        HoaDonToolStripMenuItem.Size = New Size(224, 26)
+        HoaDonToolStripMenuItem.Text = "Hóa Đơn"
         ' 
         ' ThongKeMenuItem
         ' 
@@ -178,7 +186,12 @@ Partial Class FormChuQuan
         ThongKeMenuItem.Size = New Size(84, 24)
         ThongKeMenuItem.Text = "Thống kê"
         ' 
-        ' Form1
+        ' ToolStripSeparator4
+        ' 
+        ToolStripSeparator4.Name = "ToolStripSeparator4"
+        ToolStripSeparator4.Size = New Size(221, 6)
+        ' 
+        ' FormChuQuan
         ' 
         AutoScaleDimensions = New SizeF(8F, 20F)
         AutoScaleMode = AutoScaleMode.Font
@@ -187,8 +200,8 @@ Partial Class FormChuQuan
         IsMdiContainer = True
         MainMenuStrip = MenuStrip1
         Margin = New Padding(3, 4, 3, 4)
-        Name = "Form1"
-        Text = "20810229 Tạp Hoá"
+        Name = "FormChuQuan"
+        Text = "20810229 Bách Hóa Sạch - Chủ Quán"
         WindowState = FormWindowState.Maximized
         MenuStrip1.ResumeLayout(False)
         MenuStrip1.PerformLayout()
@@ -218,5 +231,7 @@ Partial Class FormChuQuan
     Friend WithEvents NhanVienMenuItem As ToolStripMenuItem
     Friend WithEvents DSSanPhamMenuItem As ToolStripMenuItem
     Friend WithEvents ToolStripSeparator9 As ToolStripSeparator
+    Friend WithEvents HoaDonToolStripMenuItem As ToolStripMenuItem
+    Friend WithEvents ToolStripSeparator4 As ToolStripSeparator
 
 End Class
