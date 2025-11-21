@@ -42,9 +42,11 @@ Partial Class FormDangNhap
         GroupBox1.Controls.Add(Label2)
         GroupBox1.Controls.Add(tbTenDangNhap)
         GroupBox1.Controls.Add(Label1)
-        GroupBox1.Location = New Point(12, 12)
+        GroupBox1.Location = New Point(10, 9)
+        GroupBox1.Margin = New Padding(3, 2, 3, 2)
         GroupBox1.Name = "GroupBox1"
-        GroupBox1.Size = New Size(395, 220)
+        GroupBox1.Padding = New Padding(3, 2, 3, 2)
+        GroupBox1.Size = New Size(346, 165)
         GroupBox1.TabIndex = 0
         GroupBox1.TabStop = False
         GroupBox1.Text = "Đăng nhập"
@@ -53,70 +55,73 @@ Partial Class FormDangNhap
         ' 
         lbThongBao.AutoSize = True
         lbThongBao.ForeColor = Color.Red
-        lbThongBao.Location = New Point(6, 131)
+        lbThongBao.Location = New Point(5, 98)
         lbThongBao.Name = "lbThongBao"
-        lbThongBao.Size = New Size(0, 20)
+        lbThongBao.Size = New Size(0, 15)
         lbThongBao.TabIndex = 6
         ' 
         ' btnXoa
         ' 
-        btnXoa.Location = New Point(132, 163)
+        btnXoa.Location = New Point(116, 122)
+        btnXoa.Margin = New Padding(3, 2, 3, 2)
         btnXoa.Name = "btnXoa"
-        btnXoa.Size = New Size(94, 29)
+        btnXoa.Size = New Size(82, 22)
         btnXoa.TabIndex = 5
         btnXoa.Text = "Xóa"
         btnXoa.UseVisualStyleBackColor = True
         ' 
         ' btnDangNhap
         ' 
-        btnDangNhap.Location = New Point(19, 163)
+        btnDangNhap.Location = New Point(17, 122)
+        btnDangNhap.Margin = New Padding(3, 2, 3, 2)
         btnDangNhap.Name = "btnDangNhap"
-        btnDangNhap.Size = New Size(94, 29)
+        btnDangNhap.Size = New Size(82, 22)
         btnDangNhap.TabIndex = 4
         btnDangNhap.Text = "Đăng nhập"
         btnDangNhap.UseVisualStyleBackColor = True
         ' 
         ' tbMatKhau
         ' 
-        tbMatKhau.Location = New Point(132, 90)
+        tbMatKhau.Location = New Point(116, 68)
+        tbMatKhau.Margin = New Padding(3, 2, 3, 2)
         tbMatKhau.Name = "tbMatKhau"
-        tbMatKhau.Size = New Size(204, 27)
+        tbMatKhau.Size = New Size(179, 23)
         tbMatKhau.TabIndex = 3
-        tbMatKhau.Text = "Qwe123"
         tbMatKhau.UseSystemPasswordChar = True
         ' 
         ' Label2
         ' 
         Label2.AutoSize = True
-        Label2.Location = New Point(6, 93)
+        Label2.Location = New Point(5, 70)
         Label2.Name = "Label2"
-        Label2.Size = New Size(70, 20)
+        Label2.Size = New Size(57, 15)
         Label2.TabIndex = 2
         Label2.Text = "Mật khẩu"
         ' 
         ' tbTenDangNhap
         ' 
-        tbTenDangNhap.Location = New Point(132, 44)
+        tbTenDangNhap.Location = New Point(116, 33)
+        tbTenDangNhap.Margin = New Padding(3, 2, 3, 2)
         tbTenDangNhap.Name = "tbTenDangNhap"
-        tbTenDangNhap.Size = New Size(204, 27)
+        tbTenDangNhap.Size = New Size(179, 23)
         tbTenDangNhap.TabIndex = 1
-        tbTenDangNhap.Text = "ADM1"
         ' 
         ' Label1
         ' 
         Label1.AutoSize = True
-        Label1.Location = New Point(6, 47)
+        Label1.Location = New Point(5, 35)
         Label1.Name = "Label1"
-        Label1.Size = New Size(107, 20)
+        Label1.Size = New Size(85, 15)
         Label1.TabIndex = 0
         Label1.Text = "Tên đăng nhập"
         ' 
         ' FormDangNhap
         ' 
-        AutoScaleDimensions = New SizeF(8F, 20F)
+        AutoScaleDimensions = New SizeF(7F, 15F)
         AutoScaleMode = AutoScaleMode.Font
-        ClientSize = New Size(416, 241)
+        ClientSize = New Size(364, 181)
         Controls.Add(GroupBox1)
+        Margin = New Padding(3, 2, 3, 2)
         Name = "FormDangNhap"
         Text = "Đăng nhập"
         GroupBox1.ResumeLayout(False)

@@ -44,7 +44,7 @@ Public Class FormNhanVienThongKe
         dgvSanPham.Columns("Pbh_Ma").Visible = False
         dgvSanPham.Columns("Sp_Ma").Visible = False
         dgvSanPham.Columns("IsXoa").Visible = False
-        dgvSanPham.Columns("GiaNhap").Visible = False
+        'dgvSanPham.Columns("GiaNhap").Visible = False
 
         ' Set custom header text for columns
         With dgvSanPham.Columns("SanPhamInfo")

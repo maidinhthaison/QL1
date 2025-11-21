@@ -12,13 +12,12 @@
     End Sub
 
     Public Sub LoadData() Implements IChuQuanThongKeView.LoadData
+        lbChiNhanh.Text = userSession.ChiNhanh.Ten
         cbBoLoc.DataSource = System.Enum.GetValues(GetType(EnumFilterThongKe))
         Dim selectedFilter As EnumFilterThongKe = CType(cbBoLoc.SelectedItem, EnumFilterThongKe)
 
         'Mặc định theo tháng
         thongKeController.XulyThongKeDoanhThu(EnumFilterThongKe.Thang)
-
-        lbChiNhanh.Text = userSession.ChiNhanh.Ten
 
     End Sub
 

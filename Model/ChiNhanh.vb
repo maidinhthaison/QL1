@@ -7,8 +7,6 @@ Public Class ChiNhanh
 
     Private _diachi As String
 
-
-
     Public Sub New()
         Me.Ma = 0
     End Sub
