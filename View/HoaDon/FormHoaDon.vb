@@ -15,7 +15,6 @@ Public Class FormHoaDon
         Dim formatDate As String = Date.Today.ToString(Constant.DATETIME_FORMAT)
         Dim parsedDate As Date
         If DateTime.TryParseExact(formatDate, Constant.DATETIME_FORMAT, CultureInfo.InvariantCulture, DateTimeStyles.None, parsedDate) Then
-            MessageBox.Show($"{userSession.ChiNhanh.Ma} - {parsedDate}")
             hoaDonController.XuLy_GetDanhSachHoaDon_By_NgayThangh_ChiNhanh(userSession.ChiNhanh.Ma, parsedDate)
         End If
 
